@@ -1,0 +1,127 @@
+{
+  "applications": "*",
+  "changelogDate": "20230425080307",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_stock_adjustment",
+  "fields": [
+    {
+      "fieldName": "stockAdjustmentId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "adjustmentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "adjustmentNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "locationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "locationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemUom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wheatherSerialized",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wheatherAssetTagged",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "avgPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "stockAdjustmentUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "StockAdjustment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

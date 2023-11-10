@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Claim835277Exception.
+    -->
+    <changeSet id="20221201073843-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="claimscob835master_claim_cob_835_master_id"
+                                 baseTableName="t_claim_835_277_exception"
+                                 constraintName="fk_t_claim_835_277_exception__claimscob835master_id"
+                                 referencedColumnNames="claim_cob_835_master_id"
+                                 referencedTableName="t_claims_cob_835_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="claims_status277master_claim_status_277_master_id"
+                                 baseTableName="t_claim_835_277_exception"
+                                 constraintName="fk_t_claim_835_277_exception__claims_status277master_id"
+                                 referencedColumnNames="claim_status_277_master_id"
+                                 referencedTableName="t_claims_status_277_master"/>
+    </changeSet>
+</databaseChangeLog>

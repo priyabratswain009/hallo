@@ -1,0 +1,136 @@
+{
+  "applications": "*",
+  "changelogDate": "20221221081737",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_invoice_master_details",
+  "fields": [
+    {
+      "fieldName": "invoiceId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "autoGenerate": "true",
+        "id": true
+      }
+    },
+    {
+      "fieldName": "invoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoiceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "invoiceToEntity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoiceToPayorId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "invoiceToPayorName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesOrderNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemQtyTotal",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "chargedAmountTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "allowAmountTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "paymentAmountTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "taxAmountTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjAmountTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "balanceAmountTotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoiceMasterDetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "invoiceStatus",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "InvoiceMasterDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

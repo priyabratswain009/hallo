@@ -1,0 +1,68 @@
+{
+  "applications": "*",
+  "changelogDate": "20230207083819",
+  "clientRootFolder": "availity",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_payer_master",
+  "fields": [
+    {
+      "fieldName": "payerMasterId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "autoGenerate": "true",
+        "id": true
+      }
+    },
+    {
+      "fieldName": "payerId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "payerMasterUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "availity",
+  "name": "PayerMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

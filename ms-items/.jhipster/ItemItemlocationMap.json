@@ -1,0 +1,83 @@
+{
+  "applications": "*",
+  "changelogDate": "20230309134125",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_item_itemlocation_map",
+  "fields": [
+    {
+      "fieldName": "itemItemlocationMapId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemLocationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemLocationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemUom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "itemItemlocationMapUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "ItemItemlocationMap",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

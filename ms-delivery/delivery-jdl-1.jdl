@@ -1,0 +1,25 @@
+entity DeliveryDocuments(t_delivery_documents){
+	@Id deliveryDocId Long required
+	deliveryTicketId Long
+	deliveryTicketNo String
+	soId Long
+	soNo String
+	hcpcsDoctypeId Long
+	docPatientName String
+	documentPatientFilePath String
+	isPatientSigned String
+	isCaregiverSigned String
+	signedDate LocalDate
+	isDeliveryAgentSigned String
+	isScannedUploaded String
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	deliveryDocumentsUuid UUID
+	responseJsonData String
+}
+use mapstruct, serviceImpl, pagination for all

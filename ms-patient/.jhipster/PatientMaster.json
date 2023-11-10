@@ -1,0 +1,203 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114654",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_patient_master",
+  "fields": [
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ssn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxZoneId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "discountPercent",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "posId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "priorSystemKey",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientMasterUUID",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "patientIdNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "country",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "efax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modeOfContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverRelatinshipPatient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxZoneName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxRate",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientDod",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "PatientMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

@@ -1,0 +1,83 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114651",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_patient_document",
+  "fields": [
+    {
+      "fieldName": "patientDocumentId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientDocumentNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "patientIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDocumentType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDocumentRepositoryName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDocumentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDocumentDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDocumentStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "uploadedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "uploadedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "uploadedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDocumentUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "PatientDocument",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

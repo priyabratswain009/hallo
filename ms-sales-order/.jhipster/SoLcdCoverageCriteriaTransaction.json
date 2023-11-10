@@ -1,0 +1,91 @@
+{
+  "applications": "*",
+  "changelogDate": "20230303131930",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_so_lcd_coverage_criteria_transaction",
+  "fields": [
+    {
+      "fieldName": "soLcdDocRefId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hcpcsCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "checklistId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "checklistName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageCriteriaId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "value",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soLcdCoverageCriteriaTransactionUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SoLcdCoverageCriteriaTransaction",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

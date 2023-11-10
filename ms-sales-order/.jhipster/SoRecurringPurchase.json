@@ -1,0 +1,91 @@
+{
+  "applications": "*",
+  "changelogDate": "20230602145209",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_so_recurring_purchase",
+  "fields": [
+    {
+      "fieldName": "rpId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "procCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "qty",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "billingInterval",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "initialDos",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "period",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soRecurringPurchaseUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SoRecurringPurchase",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

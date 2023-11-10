@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity ClaimsStatus277Details.
+    -->
+    <changeSet id="20221201073842-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="claims_status277master_claim_status_277_master_id"
+                                 baseTableName="t_claims_status_277_details"
+                                 constraintName="fk_t_claims_status_277_details__claims_status277master_id"
+                                 referencedColumnNames="claim_status_277_master_id"
+                                 referencedTableName="t_claims_status_277_master"/>
+    </changeSet>
+</databaseChangeLog>

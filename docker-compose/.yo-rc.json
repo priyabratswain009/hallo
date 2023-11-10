@@ -1,0 +1,16 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "api-gateway",
+      "ms-claims-submission",
+      "ms-documents",
+      "ms-sales-order"
+    ],
+    "clusteredDbApps": {},
+    "directoryPath": "../",
+    "gatewayType": "SpringCloudGateway",
+    "jwtSecretKey": "NDUxYjIwY2QxNjVjMzk3Y2U3ZjkyMTc4NGQ3OTJhNTA3ZjM1NDc0YzMzNWE1NmIxMjUxYmE0NmE3MjllY2NkYzJjYjNjYjg1NWUzMGFjMTZiNDAxZDI2ZjUyZmNjZDJhOTI2Mw==",
+    "monitoring": "prometheus",
+    "serviceDiscoveryType": "eureka"
+  }
+}

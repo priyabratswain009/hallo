@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114658",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_patient_clinical_information_audit_log",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patntCliicalInfoationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "oldRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "newRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlTimestamp",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dmlCreatedBy",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "PatientClinicalInformationAuditLog",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

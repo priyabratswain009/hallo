@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20221201073845",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_claims_report_file_process_status",
+  "fields": [
+    {
+      "fieldName": "fileStatusId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "fileName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "runDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "processDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "processStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimsReportFileProcessStatusUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "ClaimsReportFileProcessStatus",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

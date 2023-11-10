@@ -1,0 +1,419 @@
+{
+  "applications": "*",
+  "changelogDate": "20220823190358",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_sales_order_clinical_details",
+  "fields": [
+    {
+      "fieldName": "salesOrderClinicalDetailsId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientWeightInKg",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientWeightInLbs",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "heightInInches",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "heightInCm",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "salesRepId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesRepName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderFacilityId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "renderingProviderFacilityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "renderingProviderType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderDea",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderFacilityId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "referringProviderFacilityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "referringProviderType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderDea",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderFacilityId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "orderingProviderFacilityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "orderingProviderType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderDea",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "marketingReferralTypeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "marketingReferralTypeDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode5",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode6",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode7",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode8",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode9",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode10",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode11",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode12",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "epsdtCertificationConditionIndicator",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "epsdtCertificationCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "renderingProviderZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "marketingReferralId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "marketingReferralName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesOrderClinicalDetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "primaryDiagnosis",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderEfax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "relationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modeOfContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referringProviderEfax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renderingProviderEfax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "diagnosisCodeType",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SalesOrderClinicalDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

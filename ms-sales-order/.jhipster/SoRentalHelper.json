@@ -1,0 +1,179 @@
+{
+  "applications": "*",
+  "changelogDate": "20230602145210",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "t_so_rental_helper",
+  "fields": [
+    {
+      "fieldName": "soRentalHelperId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsurerId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsurerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chargedAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "allowedAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "sou",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "qty",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "dosStart",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dosEnd",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "periodNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rentalPeriod",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nextDos",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soRentalHelperUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "saleType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurancePriceTableId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsurancePriceTableName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icdPointer",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "procedureIdentifier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reference",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "procCode",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SoRentalHelper",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no",
+  "skipCheckLengthOfIdentifier": true
+}

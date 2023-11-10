@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114702",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_patient_ins_verif_stat_audit_log",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "insrnceVrifId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "oldRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "newRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlTimestamp",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dmlCreatedBy",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "PatientInsVerifStatAuditLog",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

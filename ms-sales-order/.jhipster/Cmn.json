@@ -1,0 +1,172 @@
+{
+  "applications": "*",
+  "changelogDate": "20230203122043",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_cmn",
+  "fields": [
+    {
+      "fieldName": "cmnId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "cmnNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnFormName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesOrderNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnCreateDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnInitialDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnRevisionDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnRecertificationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnExpirationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnLoggedBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "cmnLoggedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnApprovedBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "cmnApprovedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnPrintedBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "cmnPrintedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "lengthOfNeed",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "faxCmnOption",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnCoverLetterInclusionOption",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnFaxedBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "cmnFaxedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "faxStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "faxStatusReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "printCmnOption",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnIdUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "patientPrognosis",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "refillAuthorised",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "Cmn",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

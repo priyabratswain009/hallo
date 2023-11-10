@@ -1,0 +1,107 @@
+{
+  "applications": "*",
+  "changelogDate": "20230602145203",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_elligibility_response_status",
+  "fields": [
+    {
+      "fieldName": "elligibilityResponseStatusId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "elligibilityControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "traceid",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "subscriberIdentifier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberEntitytype",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberSsn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerIdentifier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerEntitytype",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerIdentification",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "planSsn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "planDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "planStatusCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "planStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "planDetails",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceTypeCodes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "elligibilityResponseStatusUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "ElligibilityResponseStatus",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

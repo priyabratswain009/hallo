@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Cmn.
+    -->
+    <changeSet id="20230407135112-1" author="jhipster">
+        <createTable tableName="t_cmn">
+            <column name="cmn_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cmn_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_form_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_create_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_initial_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_revision_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_recertification_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_expiration_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_logged_by" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_logged_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_approved_by" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_approved_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_printed_by" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_printed_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="length_of_need" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="fax_cmn_option" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_cover_letter_inclusion_option" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_faxed_by" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_faxed_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="fax_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="fax_status_reason" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="print_cmn_option" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_id_uuid" type="${uuidType}">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20230407135112-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/t_cmn.csv"
+                  separator=";"
+                  tableName="t_cmn"
+                  usePreparedStatements="true">
+            <column name="cmn_id" type="numeric"/>
+            <column name="cmn_number" type="string"/>
+            <column name="cmn_type" type="string"/>
+            <column name="cmn_form_name" type="string"/>
+            <column name="patient_id" type="numeric"/>
+            <column name="sales_order_id" type="numeric"/>
+            <column name="sales_order_no" type="string"/>
+            <column name="cmn_create_date" type="date"/>
+            <column name="cmn_initial_date" type="date"/>
+            <column name="cmn_revision_date" type="date"/>
+            <column name="cmn_recertification_date" type="date"/>
+            <column name="cmn_expiration_date" type="date"/>
+            <column name="cmn_logged_by" type="numeric"/>
+            <column name="cmn_logged_date" type="date"/>
+            <column name="cmn_approved_by" type="numeric"/>
+            <column name="cmn_approved_date" type="date"/>
+            <column name="cmn_printed_by" type="numeric"/>
+            <column name="cmn_printed_date" type="date"/>
+            <column name="length_of_need" type="string"/>
+            <column name="fax_cmn_option" type="string"/>
+            <column name="cmn_cover_letter_inclusion_option" type="string"/>
+            <column name="cmn_faxed_by" type="numeric"/>
+            <column name="cmn_faxed_date" type="date"/>
+            <column name="fax_status" type="string"/>
+            <column name="fax_status_reason" type="string"/>
+            <column name="print_cmn_option" type="string"/>
+            <column name="created_by_id" type="numeric"/>
+            <column name="created_date" type="date"/>
+            <column name="status" type="string"/>
+            <column name="updated_by_id" type="numeric"/>
+            <column name="updated_date" type="date"/>
+            <column name="created_by_name" type="string"/>
+            <column name="updated_by_name" type="string"/>
+            <column name="cmn_id_uuid" type="${uuidType}"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

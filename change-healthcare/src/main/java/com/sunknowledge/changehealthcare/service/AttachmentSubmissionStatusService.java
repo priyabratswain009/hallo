@@ -1,0 +1,16 @@
+package com.sunknowledge.changehealthcare.service;
+
+import com.sunknowledge.changehealthcare.core.ServiceOutcome;
+import com.sunknowledge.changehealthcare.pojo.attachmentSubmissionStatus.AttachmentSubmissionStatusInput;
+import com.sunknowledge.changehealthcare.pojo.attachmentSubmissionStatus.AttachmentstatTraceInput;
+import com.sunknowledge.changehealthcare.pojo.attachmentSubmissionStatus.ResultAttachmentSubmissionStatusOutcome;
+
+public interface AttachmentSubmissionStatusService {
+
+	ServiceOutcome<ResultAttachmentSubmissionStatusOutcome> accessattachmentSubmission(AttachmentSubmissionStatusInput attachmentSubmissionStatusInput);
+	ServiceOutcome<ResultAttachmentSubmissionStatusOutcome> attachmentSubmissionmetadata(String token, AttachmentSubmissionStatusInput attachmentSubmissionStatusInput);
+	ServiceOutcome<ResultAttachmentSubmissionStatusOutcome> attachmentSubmissionStatusHealthCheck(String token);
+
+	ServiceOutcome<ResultAttachmentSubmissionStatusOutcome> accessattachmentSubmissionwithTrace(AttachmentstatTraceInput attachmentstatTraceInput);
+	ServiceOutcome<ResultAttachmentSubmissionStatusOutcome> attachmentSubmissionwithTrace(String token, AttachmentstatTraceInput attachmentstatTraceInput);
+}

@@ -1,0 +1,205 @@
+entity DoctorMaster(t_doctor_master) {
+    @Id doctorId Long required
+    firstName String
+    middleName String
+    lastName String
+    title String
+    suffix String
+    doctorSpecialityId Long
+    addlIdentifier String
+    doctorMasterUuid UUID
+    addressLine1 String
+    addressLine2 String
+    city String
+    state String
+    countryName String
+    zip String
+    contactNo1 String
+    contactNo2 String
+    faxNumber String
+    efax String
+    email String
+    relationship String
+    modeOfContact String
+    npiNumber String
+    gender String
+    enumerationDate LocalDate
+    countryCode String
+    addressPurpose String
+    addressType String
+    postalCode String
+    taxonomyCode String
+    taxonomyGroup String
+    taxonomyDesc String
+    practiceState String
+    licenceNo String
+
+    status String
+    createdById Long
+    createdDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    updatedDate LocalDate
+}
+
+entity DoctorMedicalInfo(t_doctor_medical_info) {
+    @Id medicalInfoId Long required
+    doctorId Long
+    licenceNo String
+    licExperiationDate LocalDate
+    dea String
+    upin String
+    stateMedicaidId String
+    npi String
+    commericialNo String
+    locationId Long
+    taxonomyCode String
+    pecosCertifiedStatus String
+    user1 String
+    user2 String
+    notes String
+
+    taxonomyGroup String
+    taxonomyDesc String
+    practiceState String
+    primaryTaxonomy String
+
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    doctorMedicalInfoUuid UUID
+}
+
+entity AddressVerificationResponse(t_usps_address_verification_response){
+    @Id uspsAddressVerificationId Long required
+    patientId Long
+    reqAddressLine1 String
+    reqAddressLine2 String
+    reqCity String
+    reqState String
+    reqZip4 String
+    reqZip5 String
+    reqDate LocalDate
+
+    rspAddressLine1 String
+    rspAddressLine2 String
+    rspCity String
+    rspState String
+    rspZip4 String
+    rspZip5 String
+    rspDate LocalDate
+    dpvFootnotesCode String
+    dpvFootnotesDescription String
+    status String
+}
+
+entity IcdMaster(t_icd_master){
+    @Id icdMasterId Long required
+    icdCode String
+    icdCodeDesc String
+    icdCodeType String
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    icdMasterUuid UUID
+}
+
+entity SalesRep(t_sales_rep) {
+	@Id salesRepId Long
+    firstName String
+    middleName String
+    lastName String
+    suffix String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    salesRepUuid UUID
+    addressLine1 String
+    addressLine2 String
+    city String
+    state String
+    country String
+    zip String
+    contactNo1 String
+    contactNo2 String
+    fax String
+    efax String
+    email String
+    relationship String
+    modeOfContact String
+    salesRepNo String
+}
+
+entity FacilityMaster(t_facility_master) {
+	@Id facilityId Long
+    facilityName String
+    npi String
+    salesRepId Long
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedDate LocalDate
+    facilityTypeId Long
+    createdByName String
+    updatedByName String
+    updatedById Long
+    facilityMasterUuid UUID
+    addressLine1 String
+    addressLine2 String
+    city String
+    state String
+    country String
+    zip String
+    contactNo1 String
+    contactNo2 String
+    fax String
+    efax String
+    email String
+    relationship String
+    modeOfContact String
+    facilityNo String
+}
+
+entity UszipMaster(t_uszip_master){
+	@Id uszipMasterId Long
+	zipCode Long
+	cityName String
+	stateCode String
+	stateName String
+	status String
+	uszipMasterUuid UUID
+}
+
+entity MarketingReferalTypeMaster(t_marketing_referal_type_master){
+    @Id marketingReferralTypeId Long
+    marketingReferralTypeCode String
+    marketingReferalTypeDescription String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    marketingReferalTypeMasterUUID UUID
+}
+
+use mapstruct, serviceImpl, pagination for all
+
+
+
+
+

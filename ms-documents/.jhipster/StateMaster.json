@@ -1,0 +1,34 @@
+{
+  "applications": "*",
+  "changelogDate": "20220902104122",
+  "clientRootFolder": "documents",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "state_master",
+  "fields": [
+    {
+      "fieldName": "stateId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "stateCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "stateName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "documents",
+  "name": "StateMaster",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

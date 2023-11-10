@@ -1,0 +1,231 @@
+{
+  "applications": "*",
+  "changelogDate": "20220921091716",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_sales_order_financial_details",
+  "fields": [
+    {
+      "fieldName": "salesOrderFinancialId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemProcCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chargedAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "allowedAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "primaryInsurerId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsurerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerCoveragePercentage",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsurerCoverageAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "primaryInsurerDeductibleAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "primaryInsurerPayment",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "primaryInsurerBalanceAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "secondaryInsurerId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "secondaryInsurerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurerStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurerCoveragerPercentage",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "secondaryInsurerCoverageAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "secondaryInsurerPayment",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "secondaryInsurerBalanceAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tertiaryInsurerId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tertiaryInsurerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerCoveragePercentage",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tertiaryInsurerCoverageAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tertiaryInsurerPayment",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tertiaryInsurerBalanceAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientCoinsurancePercentage",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientCoinsuranceAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalPatientResponsibilityAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientPayAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "narration",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "primaryInvoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInvoiceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "primaryInvoiceStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dos",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInvoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInvoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInvoiceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "tertiaryInvoiceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "secondaryInvoiceStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInvoiceStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderFinancialDetailsUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SalesOrderFinancialDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

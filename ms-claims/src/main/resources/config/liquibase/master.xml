@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="floatType" value="float4" dbms="h2"/>
+    <property name="uuidType" value="uuid" dbms="h2"/>
+    <property name="datetimeType" value="datetime" dbms="h2"/>
+    <property name="clobType" value="longvarchar" dbms="h2"/>
+    <property name="blobType" value="blob" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="floatType" value="float4" dbms="postgresql"/>
+    <property name="clobType" value="longvarchar" dbms="postgresql"/>
+    <property name="blobType" value="bytea" dbms="postgresql"/>
+    <property name="uuidType" value="uuid" dbms="postgresql"/>
+    <property name="datetimeType" value="datetime" dbms="postgresql"/>
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073837_added_entity_ClaimsSubmissionMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073838_added_entity_ServiceLinesMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073839_added_entity_ClaimsCOB835Master.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073840_added_entity_ClaimsCOB835Details.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073841_added_entity_ClaimsStatus277Master.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073842_added_entity_ClaimsStatus277Details.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073843_added_entity_Claim835277Exception.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073844_added_entity_ClaimSubmissionStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073845_added_entity_ClaimsReportFileProcessStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073846_added_entity_DepositMasterDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073847_added_entity_ReceiptMasterDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073848_added_entity_Transaction835MasterDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081732_added_entity_PrimaryClaimsReSubmissionMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081733_added_entity_PrimaryResubmissionServiceLinesMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081734_added_entity_SecondaryClaimsSubmissionMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081735_added_entity_SecondaryServiceLinesMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081736_added_entity_InvoiceLineItemDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081737_added_entity_InvoiceMasterDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081738_added_entity_InvoicePostingDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231019112837_added_entity_Claims835CrossoverException.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231019112838_added_entity_Claims835CrossoverProcessed.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20221201073838_added_entity_constraints_ServiceLinesMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073840_added_entity_constraints_ClaimsCOB835Details.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073842_added_entity_constraints_ClaimsStatus277Details.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073843_added_entity_constraints_Claim835277Exception.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073844_added_entity_constraints_ClaimSubmissionStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073847_added_entity_constraints_ReceiptMasterDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221201073848_added_entity_constraints_Transaction835MasterDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081733_added_entity_constraints_PrimaryResubmissionServiceLinesMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221221081735_added_entity_constraints_SecondaryServiceLinesMaster.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
+</databaseChangeLog>

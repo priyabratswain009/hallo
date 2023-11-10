@@ -1,0 +1,131 @@
+{
+  "applications": "*",
+  "changelogDate": "20230602145157",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_benefit_coverage_request",
+  "fields": [
+    {
+      "fieldName": "benefitCoverageRequestId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "payerId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerZipcode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "asOfDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "serviceType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "memberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberRelationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "benefitCoverageRequestUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "BenefitCoverageRequest",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

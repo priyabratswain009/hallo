@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20221213083933",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_invoice_posting_details_audit_log",
+  "fields": [
+    {
+      "fieldName": "invLineItmPstingId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "oldRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "newRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlTimestamp",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dmlCreatedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "InvoicePostingDetailsAuditLog",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

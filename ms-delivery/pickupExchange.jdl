@@ -1,0 +1,87 @@
+entity PickupExchange(t_pickup_exchange){
+	@Id pickupExchangeId Long required
+	pickupExchangeNo String
+	pickupExchangeType String
+	soId Long
+	soNo String
+	branchId Long
+	branchName String
+	inventoryLocationId Long
+	inventoryLocationName String
+	patientId Long
+	patientIdNo String
+	patientFirstName String
+	patientMiddleName String
+	patientLastName String
+	patientContact1 String
+	patientContact2 String
+	patientBillingAddressLine1 String
+	patientBillingAddressLine2 String
+	patientBillingAddressState String
+	patientBillingAddressCity String
+	patientBillingAddressZip String
+	patientDeliveyAddressLine1 String
+	patientDeliveyAddressLine2 String
+	patientDeliveyAddressState String
+	patientDeliveyAddressCity String
+	patientDeliveyAddressZip String
+	pickupExchangeScheduleDateTime LocalDate
+	pickupExchangeActualDateTime LocalDate
+	pickupExchangeReason String
+	pickupExchangeRequest String
+	pickupExchangeNote String
+	pickupExchangeAgentIdNo String
+	pickupExchangeAgentName String
+	pickupExchangeDocumentId String
+	pickupExchangeDocumentNo String
+	pickupExchangeDocumentName String
+	pickupExchangeStatus String
+	pickupExchangeComments String
+	isPatientSigned String
+	relationshipWithPatient String
+	patientSignedDateTime LocalDate
+	isAgentSigned String
+	lastBillingDate LocalDate
+	dateOfDeath LocalDate
+	pickupExchangeSupportingDocument1 String
+	pickupExchangeSupportingDocument2 String
+	patientNotsignedReason String
+	pickupExchangeJsonData String
+	
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	pickupExchangeUuid UUID
+}
+entity PickupExchangeItems(t_pickup_exchange_items){
+	@Id pickupExchangeItemId Long required
+	pickupExchangeId Long
+	soId Long
+	itemId Long
+	itemNo String
+	itemName String
+	whetherSerialized String
+	pickupItemSerialNo String
+	pickupItemAssetNo String
+	replacementItemSerialNo String
+	replacementItemAssetNo String
+	quantity Long
+	itemPickupExchangeType String
+	itemPickupExchangeNote String
+	itemPickupExchangeComment String
+	itemPickupExchangeStatus String
+	
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	pickupExchangeItemUuid UUID
+}
+use mapstruct, serviceImpl, pagination for all

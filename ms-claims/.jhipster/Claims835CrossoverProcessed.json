@@ -1,0 +1,44 @@
+{
+  "applications": "*",
+  "changelogDate": "20231019112838",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_claims_835_crossover_processed",
+  "fields": [
+    {
+      "fieldName": "claims835CrossoverProcessedId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "autoGenerate": "true",
+        "id": true
+      }
+    },
+    {
+      "fieldName": "claimCob835MasterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "processedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "claims835CrossoverProcessed",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "Claims835CrossoverProcessed",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

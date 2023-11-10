@@ -1,0 +1,696 @@
+entity VendorMaster(t_vendor_master) {
+@Id vendorId Long
+vendorName String
+status String
+createdById Long
+createdDate LocalDate
+updatedDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+vendorDescription String
+vendorNo String
+vendorMasterUuid UUID
+vendorAccountNo String
+defaultPoType String
+defaultShopType String
+addressLine1 String
+addressLine2 String
+city String
+state String
+zip String
+email String
+fax String
+efax String
+contactPersonName String
+contactNo1 String
+contactNo2 String
+}
+
+entity Manufacturer(t_manufacturer){
+@Id manufacturerId Long
+manufacturerName String
+status String
+createdById Long
+createdDate LocalDate
+updatedDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+manufacturerUuid UUID
+contactPersonName String
+webUrl String
+addressLine1 String
+addressLine2 String
+city String
+state String
+zip String
+email String
+fax String
+contactNo1 String
+contactNo2 String
+efax String
+manufacturerNo String
+}
+
+entity PriceDetails(t_price_details) {
+@Id priceDetailsId Long
+priceTableId Long
+itemId Long
+hcpcs String
+billingCodeWhenSecondary String
+priceType String
+effectiveStartDate LocalDate
+effectiveEndDate LocalDate
+cmnReqdToBillStatus String
+cmnFormName String
+priorAuthReqStatus String
+functionalAbilityReqStatus String
+optionNumber String
+defaultOptionStatus String
+billingCyclePeriod String
+billingCycleInterval String
+billingInArrearsStatus String
+proRateBillingStatus String
+dailyBillingInvoiceFreq String
+dailyBillingInvoiceInterval String
+chargeAmt Double
+allowedAmt Double
+allowedModifier1 String
+allowedModifier2 String
+allowedModifier3 String
+allowedModifier4 String
+acceptAssignmentStatus String
+taxableStatus String
+nontaxTypeName String
+convertToPurchaseLastStatus String
+convertToPurchaseChargeAmt Double
+convertToPurchaseAllowAmt Double
+convertToPurchaseModifier1 String
+convertToPurchaseModifier2 String
+convertToPurchaseModifier3 String
+convertToPurchaseModifier4 String
+billingMultiplierUnit Long
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+priceDetailsUuid UUID
+priceTableName String
+itemNo String
+itemName String
+itemUom String
+updatedDate LocalDate
+priceOptionBillingPeriodStart Long
+priceOptionBillingPeriodEnd Long
+}
+
+entity ItemMaster(t_item_master){
+@Id itemId Long
+itemName String required
+itemDescription String required
+itemTypeId Long
+itemGroupId Long
+saleType String
+coverageType String
+weight String
+lotStatus String
+kitStatus String
+kitType String
+itemPricingDefaultRentalAmt Double
+itemPricingDefaultPurchaseAmt Double
+autoReorderStatus String
+excludePoStatus String
+excludeSoStatus String
+ndc String
+ndcUnitOfMeasurement String
+manufacturerName String
+manufacturerId Long
+manufacturerBarcode String
+defaultVendorId Long
+excludeStandardPriceingStat String
+userField1 String
+userField2 String
+userField3 String
+billingMultiplier String
+claimNote String
+itemUom String
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+updatedDate LocalDate
+itemMasterUuid UUID
+itemNumber String
+itemGroupName String
+itemTypeName String
+primaryProcedureCodeValue String
+defaultVendorName String
+resupplyTypeStatus String
+}
+
+entity ItemVendorMapping(t_item_vendor_mapping){
+@Id itemVendorId Long
+itemId Long
+itemName String required
+vendorId Long
+vendorName String
+status String
+createdById Long
+createdDate LocalDate
+updatedDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+itemVendorMappingUuid UUID
+}
+
+entity ItemProcedureCodeMap(t_item_procedure_code_map){
+@Id itemProcedureCodeMapId Long
+itemName String
+itemNo String
+itemDescription String
+itemUom String
+procedureCode String
+modifier1 String
+modifier2 String
+modifier3 String
+modifier4 String
+status String
+createdById Long
+createdByName String
+createdDate LocalDate
+updatedById Long
+updatedName String
+updatedDate LocalDate
+itemProcedureCodeMapUuid UUID
+}
+
+relationship OneToMany {
+ItemMaster {procedureDetails} to ItemProcedureCodeMap
+}
+
+entity ItemItemlocationMap(t_item_itemlocation_map){
+@Id itemItemlocationMapId Long
+itemId Long
+itemName String
+itemLocationId Long
+itemLocationName String
+itemNo String
+itemUom String
+status String
+createdById Long
+createdByName String
+createdDate LocalDate
+updatedById Long
+updatedByName String
+updatedDate LocalDate
+itemItemlocationMapUuid UUID
+}
+
+entity ItemInventoryStatus(t_item_inventory_status){
+@Id itemInventoryStatusId Long
+itemId Long
+itemLocationId Long
+onhandQty Long
+onrentQty Long
+comittedQty Long
+inorderQty Long
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+itemInventoryStatusUuid UUID
+itemNo String
+itemName String
+itemDescription String
+itemLocationName String
+binNo String
+whetherSerialised String
+whetherAssetTagged String
+updatedDate LocalDate
+onBackorder Integer
+}
+
+entity ItemInventoryStatusAuditLog(t_item_inventory_status_audit_log){
+itemInvtoryStausId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity ItemMasterAuditLog(t_item_master_audit_log){
+itmId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity ItemSerialNumber(t_item_serial_number){
+@Id itemSerialNumberId Long
+itemId Long
+locationId Long
+serialNumber String
+assetNumber String
+onHandStatus String
+purchaseDate LocalDate
+saleDate LocalDate
+depreciationStatus String
+usefulLifeInYears Long
+startDepreciationDate LocalDate
+originalCost Double
+bookValue Double
+userValue1 String
+userValue2 String
+userValue3 String
+userValue4 String
+lotBatchNo String
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+itemSerialNumberUuid UUID
+itemNo String
+itemName String
+locationName String
+onRentStatus String
+lotBatchDate LocalDate
+updatedDate LocalDate
+lotNo String
+mfgDate LocalDate
+poId Long
+poNo String
+adjustmentId Long
+adjustmentNo String
+isDropship String
+}
+
+entity ItemSerialNumberAuditLog(t_item_serial_number_audit_log){
+itmSrialNmberId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity ItemType(t_item_type){
+@Id itemTypeId Long
+itemTypeName String
+status String
+createdById Long
+createdDate LocalDate
+updatedDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+itemTypeUuid UUID
+}
+
+entity ItemTypeAuditLog(t_item_type_audit_log){
+itmTypId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity ManufacturerAuditLog(t_manufacturer_audit_log){
+mnufcturerId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity ItemVendorMappingAuditLog(t_item_vendor_mapping_audit_log){
+itmVndorId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity ItemGroup(t_item_group){
+@Id itemGroupId Long
+itemGroupName String
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedDate LocalDate
+updatedById Long
+itemGroupUuid UUID
+}
+
+entity ItemGroupAuditLog(t_item_group_audit_log){
+itemGrpId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity PriceMaster(t_price_master){
+@Id priceTableId Long
+priceTableName String
+description String
+type String
+status String
+createdById Long
+createdDate LocalDate
+updatedDate LocalDate
+priceCodeGroup String
+createdByName String
+updatedByName String
+updatedById Long
+priceMasterUuid UUID
+}
+
+entity PriceMasterAuditLog(t_price_master_audit_log){
+prceTbleId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity PriceDetailsAuditLog(t_price_details_audit_log){
+prceDetlId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity PurchaseOrder(t_purchase_order){
+	@Id poId Long
+	poNumber String
+	poDate LocalDate
+	itemLocationId Long
+	itemLocationName String
+	salesOrderId Long
+	salesOrderNo String
+	vendorId Long
+	vendorName String
+	billingAddressLine1 String
+	billingAddressLine2 String
+	billingAddressCity String
+	billingAddressState String
+	billingAddressZip String
+	billingContactNo String
+	billingContactName String
+	billingContactEmail String
+	deliveryAddressLine1 String
+	deliveryAddressLine2 String
+	deliveryAddressCity String
+	deliveryAddressState String
+	deliveryAddressZip String
+	deliveryContactNo String
+	deliveryContactName String
+	deliveryContactEmail String
+	priority String
+	shippingMethod String
+	freightCharges Double
+	status String
+	notes String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedDate LocalDate
+	purchaseOrderUuid UUID
+	poStatus String
+	vendorDelivery Boolean
+	updatedByName String
+	branchId Long
+	branchName String
+}
+
+entity PurchaseOrderAuditLog(t_purchase_order_audit_log){
+pId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity PurchaseOrderItems(t_purchase_order_items){
+@Id poItemsId Long
+poId Long
+poNumber String
+itemId Long
+itemName String
+itemNo String
+itemUom String
+orderedQty Long
+receivedQty Long
+cancelledQty Long
+unitPrice Double
+totalAmount Double
+status String
+notes String
+createdById Long
+createdByName String
+createdDate LocalDate
+updatedById Long
+updatedName String
+updatedDate LocalDate
+purchaseOrderItemsUuid UUID
+poStatus String
+wheatherSerialised String
+lotNo String
+mfgDate LocalDate
+receivedDate LocalDate
+}
+
+entity PurchaseOrderItemsAuditLog(t_purchase_order_items_audit_log){
+poItmsId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity PurchaseOrderItemsReceived(t_purchase_order_items_received){
+@Id poItemReceivedId Long
+poId Long
+poNumber String
+status String
+locationId Long
+locationNo String
+itemId Long
+itemNo String
+itemUom String
+itemName String
+receivedDate LocalDate
+itemQty Long
+createdById Long
+createdByName String
+createdDate LocalDate
+updatedById Long
+updatedByName String
+updatedDate LocalDate
+lotBatchNo String
+mfgDate LocalDate
+purchaseOrderItemsReceivedUuid UUID
+}
+
+entity PurchaseOrderItemsReceivedAuditLog(t_purchase_order_items_received_audit_log){
+poItmRecivedId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+
+entity StockAdjustment(t_stock_adjustment){
+	@Id stockAdjustmentId Long
+    adjustmentDate LocalDate
+    adjustmentNo String
+    adjustmentType String
+    notes String
+    locationId Long
+    locationName String
+    itemId Long
+    itemName String
+    itemNo String
+    itemUom String
+    itemQty Long
+    wheatherSerialized String
+    wheatherAssetTagged String
+    avgPrice Double
+    adjustmentStatus String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedDate LocalDate
+    stockAdjustmentUuid UUID
+    status String
+    updatedByName String
+    branchId Long
+    branchName String
+}
+
+
+entity StockAdjustmentAuditLog(t_stock_adjustment_audit_log){
+stckAdjstentId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity StockTransfer(t_stock_transfer){
+	@Id stockTransferId Long
+	sourceLoactionId Long
+	sourceLoactionName String
+	transferDate LocalDate
+	destinationLocationId Long
+	destinationLocationName String
+	itemId Long
+	itemName String
+	itemUom String
+	itemQty Long
+	itemNo String
+	wheatherSerialized String
+	transferStatus String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	stockTransferUuid UUID
+	transferNo String
+	serialNo String
+	receivedDate LocalDate
+	receivedStatus String
+	status String
+	branchId Long
+	branchName String
+}
+
+entity StockTransferAuditLog(t_stock_transfer_audit_log){
+stckTrasferId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity ItemProcedureCodeMapAuditLog(t_item_procedure_code_map_audit_log){
+itemProcdreCdeMapId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
+}
+
+entity ProcedureCodeMaster(t_procedure_code_master){
+@Id procedureCodeId Long
+itemProcedureCodeDesc String
+status String
+createdById Long
+createdDate LocalDate
+updatedDate LocalDate
+procedureCode String
+createdByName String
+updatedByName String
+updatedById Long
+itemProcedureCodeUuid UUID
+}
+
+entity DepreciationMethod(t_depreciation_method){
+@Id depreciationMethodId Long
+depreciationMethodName String
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+depreciationMethodUuid UUID
+updatedDate LocalDate
+}
+
+entity ItemAssetNumberMap(t_item_asset_number_map){
+@Id itemAssetNumberId Long
+itemId Long
+itemNo String
+itemName String
+locationId Long
+locationName String
+assetNumber String
+onHandStatus String
+onRentStatus String
+purchaseDate LocalDate
+saleDate LocalDate
+depreciationReadyStatus String
+depreciationStatus String
+usefulLifeInYears Long
+startDepreciationDate LocalDate
+originalCost Double
+bookValue Double
+accumulatedDepreciation Double
+residualValue Double
+userValue1 String
+userValue2 String
+userValue3 String
+userValue4 String
+lotBatchNo String
+lotBatchDate LocalDate
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+updatedDate LocalDate
+itemAssetNumberUuid UUID
+}
+
+
+use mapstruct, serviceImpl, pagination for all

@@ -1,0 +1,371 @@
+services:
+  keycloak:
+    image: jboss/keycloak:16.1.0
+    command:
+      [
+        "-b",
+        "0.0.0.0",
+        "-Dkeycloak.migration.action=import",
+        "-Dkeycloak.migration.provider=dir",
+        "-Dkeycloak.migration.dir=/opt/jboss/keycloak/realm-config",
+        "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING",
+        "-Djboss.socket.binding.port-offset=1000",
+        "-Dkeycloak.profile.feature.upload_scripts=enabled",
+      ]
+    volumes:
+      - ./realm-config:/opt/jboss/keycloak/realm-config
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - DB_VENDOR=h2
+    ports:
+      - 9080:9080
+      - 9443:9443
+      - 10990:10990
+
+  #  parent:
+#    build:
+#      context: ../
+#      dockerfile: Dockerfile_parent
+  jhipster-registry:
+    #    image: service-registry:1.0
+    build:
+      context: ../service-registry
+      dockerfile: Dockerfile_service_registry
+    volumes:
+      - ./central-server-config:/central-config
+    # By default the JHipster Registry runs with the "dev" and "native"
+    # Spring profiles.
+    # "native" profile means the filesystem is used to store data, see
+    # http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - JHIPSTER_SLEEP=20
+      - SPRING_PROFILES_ACTIVE=dev,oauth2
+      - SPRING_SECURITY_USER_PASSWORD=admin
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+      - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_TYPE=native
+      - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_SEARCH_LOCATIONS=file:./central-config
+      # - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_TYPE=git
+      # - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_URI=https://github.com/jhipster/jhipster-registry/
+      # - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_SEARCH_PATHS=central-config
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      # For Keycloak to work, you need to add '127.0.0.1 keycloak' to your hosts file
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=jhipster-registry
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=jhipster-registry
+    ports:
+      - 8761:8761
+    depends_on:
+      - keycloak
+    command: java -jar /project/service-registry/target/service-registry-1.0.jar
+  gateway:
+#    image: api-gateway:1.0
+    build:
+      context: ../api-gateway
+      dockerfile: Dockerfile_api_gateway
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=dev
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_R2DBC_URL=r2dbc:postgresql://gateway-postgresql:5432/gateway
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://gateway-postgresql:5432/gateway
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=web_app
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=web_app
+      - JHIPSTER_SLEEP=30
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - gateway-postgresql
+    command: java -jar /project/api-gateway/target/api-gateway-1.0.jar
+  gateway-postgresql:
+    image: postgres:14.1
+    environment:
+      - POSTGRES_USER=gateway
+      - POSTGRES_PASSWORD=
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  claimssubmission:
+#    image: claimssubmission:1.0
+    build:
+      context: ../ms-claims-submission
+      dockerfile: Dockerfile_claims_submission
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=dev
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_R2DBC_URL=r2dbc:postgresql://claimssubmission-postgresql:5432/claimssubmission
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://claimssubmission-postgresql:5432/claimssubmission
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+    command: java -jar /project/ms-claims-submission/target/claimssubmission-1.0.jar
+    depends_on:
+      - claimssubmission-postgresql
+  claimssubmission-postgresql:
+    image: postgres:14.1
+    environment:
+      - POSTGRES_USER=claimssubmission
+      - POSTGRES_PASSWORD=
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  documents:
+#    image: documents:1.0
+    build:
+      context: ../ms-documents
+      dockerfile: Dockerfile_documents
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=dev
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_R2DBC_URL=r2dbc:postgresql://documents-postgresql:5432/documents
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://documents-postgresql:5432/documents
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+    depends_on:
+      -   documents-postgresql
+    command: java -jar /project/documents/target/documents-1.0.jar
+  documents-postgresql:
+    image: postgres:14.1
+    environment:
+      - POSTGRES_USER=documents
+      - POSTGRES_PASSWORD=
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  claims:
+    image: claims:1.0
+    build:
+      context: ../ms-claims
+      dockerfile: Dockerfile_claims
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=claims
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=claims
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    command: java -jar /project/ms-claims/target/claims-1.0.jar
+#    depends_on:
+#      - 10.10.6.20
+#  claims-postgresql:
+#    image: postgres:14.1
+#    volumes:
+#      - ./claims-postgresql:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_USER=claims
+#      - POSTGRES_PASSWORD=
+#      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  availity:
+    image: availity:1.0
+    build:
+      context: ../ms-availity
+      dockerfile: Dockerfile_availity
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_R2DBC_URL=r2dbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=so
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=so
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+
+  items:
+    image: items:1.0
+    build:
+      context: ../ms-items
+      dockerfile: Dockerfile_items
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=item
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=item
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    command: java -jar /project/ms-items/target/items-1.0.jar
+
+  settings:
+    image: settings:1.0
+    build:
+      context: ../ms-settings
+      dockerfile: Dockerfile_settings
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=settings
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=settings
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    command: java -jar /project/ms-settings/target/settings-1.0.jar
+
+  salesorder:
+#    image: salesorder:1.0
+    build:
+      context: ../ms-sales-order
+      dockerfile: Dockerfile_sales_order
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_R2DBC_URL=r2dbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=so
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=so
+#      - SPRING_R2DBC_URL=r2dbc:postgresql://salesorder-postgresql:5432/salesorder?currentSchema=so
+#      - SPRING_LIQUIBASE_URL=jdbc:postgresql://salesorder-postgresql:5432/salesorder?currentSchema=so
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+#    depends_on:
+#      - salesorder-postgresql
+#    command: java -jar /project/salesorder/target/salesorder-1.0.jar
+#  salesorder-postgresql:
+#    image: mypostgres:1.0
+#    volumes:
+#      - ./postgresqldb:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_USER=salesorder
+#      - POSTGRES_PASSWORD=
+#      - POSTGRES_HOST_AUTH_METHOD=trust
+#    ports:
+#      - 127.0.0.1:5432:5432
+
+  patient:
+    #    image: patient:1.0
+    build:
+      context: ../ms-patient
+      dockerfile: Dockerfile_patient
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+      - SPRING_R2DBC_URL=r2dbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=patient
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://10.10.6.20:5432/devdmedb_staging?currentSchema=patient
+      #      - SPRING_R2DBC_URL=r2dbc:postgresql://salesorder-postgresql:5432/salesorder?currentSchema=so
+      #      - SPRING_LIQUIBASE_URL=jdbc:postgresql://salesorder-postgresql:5432/salesorder?currentSchema=so
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+      - JHIPSTER_SLEEP=30
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+  #    depends_on:
+  #      - patient-postgresql
+  #    command: java -jar /project/patient/target/patient-1.0.jar
+  #  patient-postgresql:
+  #    image: mypostgres:1.0
+  #    volumes:
+  #      - ./patientpostgresqldb:/var/lib/postgresql/data
+  #    environment:
+  #      - POSTGRES_USER=patient
+  #      - POSTGRES_PASSWORD=
+  #      - POSTGRES_HOST_AUTH_METHOD=trust
+  #    ports:
+  #      - 127.0.0.1:5432:5432
+
+  pgadmin:
+    container_name: pgadmin4_container
+#    depends_on:
+#      - salesorder
+#      - utilityapis-postgresql
+#       - claims
+    image: dpage/pgadmin4:5
+#    restart: always
+    ports:
+      - "5556:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=salesorder@sk.com
+      - PGADMIN_DEFAULT_PASSWORD=salesorder
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+#  utilityapis-app:
+#    image: utilityapis:1.0
+#    environment:
+#      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+#      - SPRING_PROFILES_ACTIVE=prod,api-docs
+#      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+#      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
+#      - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
+#      - SPRING_R2DBC_URL=r2dbc:postgresql://utilityapis-postgresql:5432/utilityapis
+#      - SPRING_LIQUIBASE_URL=jdbc:postgresql://utilityapis-postgresql:5432/utilityapis
+#      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/auth/realms/jhipster
+#      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
+#      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
+#      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+#  utilityapis-postgresql:
+#    image: postgres:14.4
+#    volumes:
+#      - ./utilityapis-postgresql:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_USER=utilityapis
+#      - POSTGRES_PASSWORD=mypostgresql
+#      - POSTGRES_DB=utilityapis
+#      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    volumes:
+      - ./prometheus-conf/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - 9090:9090
+  alertmanager:
+    image: prom/alertmanager:v0.23.0
+    ports:
+      - 9093:9093
+    volumes:
+      - ./alertmanager-conf/:/etc/alertmanager/
+    command:
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--storage.path=/alertmanager"
+
+  grafana:
+    image: grafana/grafana:8.4.1
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}

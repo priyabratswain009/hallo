@@ -1,0 +1,12 @@
+package com.sunknowledge.dme.rcm.repository;
+
+import com.sunknowledge.dme.rcm.domain.InvoicePostingDetails;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.stereotype.Repository;
+
+/**
+ * Spring Data JPA repository for the InvoicePostingDetails entity.
+ */
+@SuppressWarnings("unused")
+@Repository
+public interface InvoicePostingDetailsRepository extends JpaRepository<InvoicePostingDetails, Long> {}

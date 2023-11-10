@@ -1,0 +1,128 @@
+{
+  "applications": "*",
+  "changelogDate": "20230113120417",
+  "clientRootFolder": "utilityapis",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_doctor_medical_info",
+  "fields": [
+    {
+      "fieldName": "medicalInfoId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "doctorId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "licenceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "licExperiationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dea",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "upin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "stateMedicaidId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "npi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "commericialNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "locationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "taxonomyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pecosCertifiedStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "user1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "user2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxonomyGroup",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxonomyDesc",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "practiceState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryTaxonomy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "doctorMedicalInfoUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "utilityapis",
+  "name": "DoctorMedicalInfo",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

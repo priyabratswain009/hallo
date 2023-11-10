@@ -1,0 +1,204 @@
+{
+  "applications": "*",
+  "changelogDate": "20230405062252",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_par_master",
+  "fields": [
+    {
+      "fieldName": "parId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "parNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientIdNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "insuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerLevel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "policyNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "policyStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "policyEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "payerContactNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerContactName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateOfContact",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "initialDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "effectiveStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "expirationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "authorizedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addlInformation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "parStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "comments",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "logInStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "logInDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "renewalStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renewalDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "renewalAuthorizedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renewalReqSentStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "renewalReqReplyStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "originalParNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "extensionStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "extensionApprovalDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "parUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "parIdNo",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "ParMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

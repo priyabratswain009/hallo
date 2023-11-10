@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity SalesOrderMaster.
+    -->
+    <changeSet id="20220823190357-1" author="jhipster">
+        <createTable tableName="t_sales_order_master">
+            <column name="sales_order_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sales_order_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_first_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_middle_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_last_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_contact_no_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_contact_no_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_dob" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_height" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_weight" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_ssn" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_gender" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="hipaa_on_file_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_branch_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_schedule_datetime" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_actual_datetime" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_phone_no_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_phone_no_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="facility_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="facility_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="facility_npi" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tax_zone_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="tax_rate" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_note" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_note" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_technician" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="signature_required_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pod_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pod_status_datetime" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="pod_last_message" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pod_message_datetime" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="mutual_hold_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="hold_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="hold_reason_description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="stop_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="stop_reason_description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_branch_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="inventory_location_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="order_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="order_classification_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="pos_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="admission_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="discharge_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="discount_percentage" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="po_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_field_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_field_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_field_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_field_4" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="reference" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="wip_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="wip_days_in_state" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="wip_assigned_to_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="wip_date_needed" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="completed_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="city_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="state_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="zip_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_city_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_state_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_zip_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_dod" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="pos_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="confirmation_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="confirmation_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="confirmation_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_master_uuid" type="${uuidType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_contact_person_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_npi" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_ein" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_contact_no_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_contact_no_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_id_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pos_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="eclaim_carrier_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="plan_participation_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_member_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="contact_person_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="provider_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_zip_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivery_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivery_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivery_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivery_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivery_country" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivery_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_country" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_fax" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_fax" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_email" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="relationship" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="mode_of_contact" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_first_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_last_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_contact_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_gender" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_relationship_insured" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_condition_employment" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_condition_auto_accident" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_condition_other_accident" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_taxonomy" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_npi" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_organisation_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_country" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="billing_provider_zip_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insured_dob" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_country" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_taxonomy" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_price_table_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_price_table_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="inventory_location_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="so_control_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20220823190357-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/t_sales_order_master.csv"
+                  separator=";"
+                  tableName="t_sales_order_master"
+                  usePreparedStatements="true">
+            <column name="sales_order_id" type="numeric"/>
+            <column name="sales_order_no" type="string"/>
+            <column name="patient_id" type="numeric"/>
+            <column name="patient_first_name" type="string"/>
+            <column name="patient_middle_name" type="string"/>
+            <column name="patient_last_name" type="string"/>
+            <column name="patient_address_line_1" type="string"/>
+            <column name="patient_address_line_2" type="string"/>
+            <column name="patient_contact_no_1" type="string"/>
+            <column name="patient_contact_no_2" type="string"/>
+            <column name="patient_dob" type="date"/>
+            <column name="patient_height" type="numeric"/>
+            <column name="patient_weight" type="numeric"/>
+            <column name="patient_ssn" type="string"/>
+            <column name="patient_gender" type="string"/>
+            <column name="hipaa_on_file_status" type="string"/>
+            <column name="patient_branch_id" type="numeric"/>
+            <column name="branch_name" type="string"/>
+            <column name="delivery_schedule_datetime" type="date"/>
+            <column name="delivery_actual_datetime" type="date"/>
+            <column name="delivery_address_line_1" type="string"/>
+            <column name="delivery_address_line_2" type="string"/>
+            <column name="delivery_phone_no_1" type="string"/>
+            <column name="delivery_phone_no_2" type="string"/>
+            <column name="facility_id" type="numeric"/>
+            <column name="facility_name" type="string"/>
+            <column name="facility_npi" type="string"/>
+            <column name="tax_zone_id" type="numeric"/>
+            <column name="tax_rate" type="numeric"/>
+            <column name="sales_order_note" type="string"/>
+            <column name="delivery_note" type="string"/>
+            <column name="delivery_technician" type="string"/>
+            <column name="signature_required_status" type="string"/>
+            <column name="pod_status" type="string"/>
+            <column name="pod_status_datetime" type="date"/>
+            <column name="pod_last_message" type="string"/>
+            <column name="pod_message_datetime" type="date"/>
+            <column name="mutual_hold_status" type="string"/>
+            <column name="hold_status" type="string"/>
+            <column name="hold_reason_description" type="string"/>
+            <column name="stop_date" type="date"/>
+            <column name="stop_reason_description" type="string"/>
+            <column name="branch_id" type="numeric"/>
+            <column name="billing_branch_name" type="string"/>
+            <column name="inventory_location_id" type="numeric"/>
+            <column name="order_status" type="string"/>
+            <column name="order_classification_id" type="numeric"/>
+            <column name="pos_id" type="numeric"/>
+            <column name="admission_date" type="date"/>
+            <column name="discharge_date" type="date"/>
+            <column name="discount_percentage" type="numeric"/>
+            <column name="po_number" type="string"/>
+            <column name="user_field_1" type="string"/>
+            <column name="user_field_2" type="string"/>
+            <column name="user_field_3" type="string"/>
+            <column name="user_field_4" type="string"/>
+            <column name="reference" type="string"/>
+            <column name="wip_status" type="string"/>
+            <column name="wip_days_in_state" type="numeric"/>
+            <column name="wip_assigned_to_id" type="numeric"/>
+            <column name="wip_date_needed" type="date"/>
+            <column name="completed_status" type="string"/>
+            <column name="status" type="string"/>
+            <column name="created_by_id" type="numeric"/>
+            <column name="created_date" type="date"/>
+            <column name="city_name" type="string"/>
+            <column name="state_name" type="string"/>
+            <column name="zip_code" type="string"/>
+            <column name="delivery_city_name" type="string"/>
+            <column name="delivery_state_name" type="string"/>
+            <column name="delivery_zip_code" type="string"/>
+            <column name="patient_dod" type="date"/>
+            <column name="pos_name" type="string"/>
+            <column name="updated_by_id" type="numeric"/>
+            <column name="confirmation_by_id" type="numeric"/>
+            <column name="confirmation_by_name" type="string"/>
+            <column name="confirmation_date" type="date"/>
+            <column name="created_by_name" type="string"/>
+            <column name="updated_by_name" type="string"/>
+            <column name="updated_date" type="date"/>
+            <column name="sales_order_master_uuid" type="${uuidType}"/>
+            <column name="branch_contact_person_name" type="string"/>
+            <column name="branch_npi" type="string"/>
+            <column name="branch_ein" type="string"/>
+            <column name="branch_contact_no_1" type="string"/>
+            <column name="branch_contact_no_2" type="string"/>
+            <column name="patient_id_no" type="string"/>
+            <column name="pos_code" type="string"/>
+            <column name="eclaim_carrier_name" type="string"/>
+            <column name="plan_participation_code" type="string"/>
+            <column name="patient_member_id" type="string"/>
+            <column name="contact_person_name" type="string"/>
+            <column name="provider_type" type="string"/>
+            <column name="branch_address_line_1" type="string"/>
+            <column name="branch_address_line_2" type="string"/>
+            <column name="branch_city" type="string"/>
+            <column name="branch_state" type="string"/>
+            <column name="branch_zip_code" type="string"/>
+            <column name="patient_delivery_address_line_1" type="string"/>
+            <column name="patient_delivery_address_line_2" type="string"/>
+            <column name="patient_delivery_city" type="string"/>
+            <column name="patient_delivery_state" type="string"/>
+            <column name="patient_delivery_country" type="string"/>
+            <column name="patient_delivery_zip" type="string"/>
+            <column name="patient_billing_address_line_1" type="string"/>
+            <column name="patient_billing_address_line_2" type="string"/>
+            <column name="patient_billing_city" type="string"/>
+            <column name="patient_billing_state" type="string"/>
+            <column name="patient_billing_country" type="string"/>
+            <column name="patient_billing_zip" type="string"/>
+            <column name="patient_fax" type="string"/>
+            <column name="branch_fax" type="string"/>
+            <column name="patient_email" type="string"/>
+            <column name="relationship" type="string"/>
+            <column name="mode_of_contact" type="string"/>
+            <column name="insured_first_name" type="string"/>
+            <column name="insured_last_name" type="string"/>
+            <column name="insured_address_line_1" type="string"/>
+            <column name="insured_address_line_2" type="string"/>
+            <column name="insured_city" type="string"/>
+            <column name="insured_state" type="string"/>
+            <column name="insured_zip" type="string"/>
+            <column name="insured_contact_no" type="string"/>
+            <column name="insured_gender" type="string"/>
+            <column name="patient_relationship_insured" type="string"/>
+            <column name="patient_condition_employment" type="string"/>
+            <column name="patient_condition_auto_accident" type="string"/>
+            <column name="patient_condition_other_accident" type="string"/>
+            <column name="billing_provider_taxonomy" type="string"/>
+            <column name="billing_provider_npi" type="string"/>
+            <column name="billing_provider_organisation_name" type="string"/>
+            <column name="billing_provider_address_line_1" type="string"/>
+            <column name="billing_provider_address_line_2" type="string"/>
+            <column name="billing_provider_city" type="string"/>
+            <column name="billing_provider_state" type="string"/>
+            <column name="billing_provider_country" type="string"/>
+            <column name="billing_provider_zip_code" type="string"/>
+            <column name="insured_dob" type="date"/>
+            <column name="branch_country" type="string"/>
+            <column name="branch_taxonomy" type="string"/>
+            <column name="primary_insurer_price_table_id" type="numeric"/>
+            <column name="primary_insurer_price_table_name" type="string"/>
+            <column name="inventory_location_name" type="string"/>
+            <column name="so_control_number" type="string"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

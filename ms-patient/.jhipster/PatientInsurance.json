@@ -1,0 +1,207 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114653",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_patient_insurance",
+  "fields": [
+    {
+      "fieldName": "patientInsuranceId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "payerLevel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "coverageType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "policyNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "policyGroupNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "policyStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "policyEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "payPercentage",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "deductableAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "relationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredSuffix",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "insuredSsn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "alwaysCrossoverStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimCodes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addtnlClaimInfo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "insuredLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientInsuranceUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "memberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientRelationshipInsured",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionEmployment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionAutoAccident",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionOtherAccident",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurancePayerIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "expirationStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurerAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurerAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurerZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurerContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurerFax",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "PatientInsurance",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

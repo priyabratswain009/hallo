@@ -1,0 +1,87 @@
+{
+  "applications": "*",
+  "changelogDate": "20221201073842",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_claims_status_277_details",
+  "fields": [
+    {
+      "fieldName": "claimStatus277DetailId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "claimStatus277MasterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "procedureCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "procedureModifiers",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submittedUnits",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chargeAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "paidAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "serviceLineBeginDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "serviceLineEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "claimStatusCategoryCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimStatusCategoryCodeValue",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "statusCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "statusCodeValue",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "effectiveDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimsStatus277DetailsUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "ClaimsStatus277Details",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

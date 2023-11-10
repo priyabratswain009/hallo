@@ -1,0 +1,111 @@
+{
+  "applications": "*",
+  "changelogDate": "20221021112501",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_invoice_posting_details",
+  "fields": [
+    {
+      "fieldName": "invoiceLineItemPostingId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "postingDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "postedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "postedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postingComment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "depositId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "receiptId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "postStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoicePostingDetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "invoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoiceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "invoiceLineItemDetailsId",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "InvoicePostingDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

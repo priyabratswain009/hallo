@@ -1,0 +1,378 @@
+Updating CMN Details
+====================
+{
+  "cmnId": 1,
+  "cmnInitialDate": "13/07/2023",
+  "cmnLoggedBy": "1",
+  "cmnLoggedDate": "13/07/2023",
+  "approvedBy": "1",
+  "approvedDate": "13/07/2023",
+  "cmnRecertificationDate": "13/07/2023",
+  "cmnExpirationDate": "13/07/2023",
+  "lengthOfNeed": 5,
+  "cmnFaxedBy": "1",
+  "cmnFaxedDate": "13/07/2023",
+  "faxStatus": "Send",
+  "faxStatusReason": "No Reason",
+  "printCmnOption": "Yes",
+  "patientPrognosis": "99",
+  "refillAuthorized": "Yes",
+  "outBoundFaxStatus": "string",
+  "outBoundFaxNo": "string",
+  "outBoundFaxDateTime": "13/07/2023",
+  "frequency":[
+      {
+         "itemId": 1,
+         "frequency":"8XX"
+      },
+      {
+         "itemId": 2,
+         "frequency":"9XX"
+      }
+  ]
+}
+======================================================================================================================
+Written Order Form JSON
+=======================
+{
+    "cmnId": 64
+	"providerName": "HAPPY DOCTORS GROUPPRACTICE",
+	"providerAddress": "000 address1, apt 000, city2 tn 372030000",
+	"providerPhone": "0000000001",
+	"providerFax": "",
+	"providerDocId": "CM1000000007",
+	"providerAddress": "",
+	"patientName": "JOHNTWO DOEONE",
+	"patientAddress": "000 address1, apt 000, City1 wa 372030000",
+	"patientPhone": "0000000002",
+	"patientDob": "01/01/1980",
+	"patientPolicy": "00001",
+	"physicianName": "johntwo Doctor doeone",
+	"physicianAddress": "000 address1, apt 000, City2,tn 372030000",
+	"physicianLicense": "doeone",
+	"physicianPhone": "0000000001",
+	"physicianNpi": "1942788757",
+	"physicianFax": "",
+
+	"orderInitialDate": "",
+	"orderRevisedDate": "",
+	"orderRecertificationDate": "",
+	"orderLengthofNeed": "",
+	"orderPrognosis": "",
+	"refillAuthorized": "50",
+	"diagnosis":[
+		{
+			"icd10Code": "G45",
+			"description": "Episodic and paroxysmal disorders"
+		},
+		{
+			"icd10Code": "G72",
+			"description": "Diseases of myoneural junction and muscle"
+		},
+		{
+			"icd10Code": "G55",
+			"description": "Nerve, nerve root and plexus disorders"
+		}
+	],
+	"equipments": [
+		{
+			"itemId": "1",
+			"qty": "3.0",
+			"procCode": "E0110",
+			"itemName": "Crutches, forearm, includes crutches of various materials, adjustable or fixed, pair, complete with tips and handgrips",
+			"count": "3",
+			"interval": "3"
+		},
+		{
+			"itemId": "2",
+			"qty": "5.0",
+			"procCode": "E0105",
+			"itemName": "Cane, quad or three prong, includes canes of all materials, adjustable or fixed, with tips",
+			"count": "5",
+			"interval": "5"
+		}
+	],
+	"addnNote": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+	"date": "13/07/2023"
+}
+=============================================================================================================================================================================
+Search of Active CMN/ SWO For Sales Order / Search of Initiated CMN/ SWO For Sales Order
+========================================================================================
+{
+  "patientIdNo": "0000000006",
+  "itemNo": "ITM1000000007",
+  "dos": "2023-07-01",
+  "orderingProviderNpi": "1942788757",
+  "salesOrderNo": "1249"
+}
+
+=============================================================================================================================================================================
+Upload CMN Document Details
+===========================
+I/P's = cmnId, lengthOfNeed, refillAuthorized, frequencyCount, frequencyInterval, cmnDocumentType = "External/Uploaded or Generic/Uploaded"
+O/P =
+{
+  "data": {
+    "cmnDTO": {
+      "cmnId": 64,
+      "cmnNumber": "CMN1000000020",
+      "cmnType": "External/Uploaded",
+      "cmnFormName": "Generic/Initial",
+      "patientId": 12,
+      "salesOrderId": 18,
+      "salesOrderNo": "1249",
+      "cmnCreateDate": null,
+      "cmnInitialDate": null,
+      "cmnRevisionDate": null,
+      "cmnRecertificationDate": null,
+      "cmnExpirationDate": null,
+      "cmnLoggedBy": null,
+      "cmnLoggedDate": null,
+      "cmnApprovedBy": null,
+      "cmnApprovedDate": null,
+      "cmnPrintedBy": null,
+      "cmnPrintedDate": null,
+      "lengthOfNeed": "11",
+      "faxCmnOption": null,
+      "cmnCoverLetterInclusionOption": null,
+      "cmnFaxedBy": null,
+      "cmnFaxedDate": null,
+      "faxStatus": null,
+      "faxStatusReason": null,
+      "printCmnOption": null,
+      "createdById": 0,
+      "createdDate": "2023-07-11",
+      "status": "active",
+      "updatedById": null,
+      "updatedDate": null,
+      "createdByName": "System",
+      "updatedByName": null,
+      "cmnIdUuid": "48a04f2f-440f-404a-bae8-775db20291e6",
+      "patientPrognosis": null,
+      "cmnStatus": "initiated",
+      "refillAuthorised": "22"
+    },
+    "cmnDocumentMasterDTO": {
+      "cmnDocumentId": 56,
+      "cmnId": 64,
+      "cmnNo": "CMN1000000020",
+      "generationDate": "2023-07-11",
+      "initialDocumentName": null,
+      "faxStatus": null,
+      "outBoundFaxStatus": null,
+      "outBoundFaxNo": null,
+      "outBoundFaxDateTime": null,
+      "inBoundFaxStatus": null,
+      "inBoundFaxNo": null,
+      "inBoundFaxDateTime": null,
+      "cmnDocumentMasterUuid": "c89f9a46-0209-4f43-afaa-0de372e04686",
+      "createdById": 0,
+      "createdDate": "2023-07-11",
+      "createdByName": "System",
+      "updatedById": 1,
+      "updatedByName": "Bimal",
+      "updatedDate": "2023-07-11",
+      "returnDocumentName": "CMN1000000020_in.pdf",
+      "cmnComments": null,
+      "status": "active"
+    }
+  },
+  "outcome": true,
+  "message": "Success"
+}
+
+=============================================================================================================================================================================
+Fetch To Verify CMN Data
+========================
+I/P's = cmnId
+O/P =
+{
+  "data": {
+    "cmnId": 64,
+    "cmnNumber": "CMN1000000020",
+    "cmnType": "External/Uploaded",
+    "cmnFormName": "Generic/Initial",
+    "patientId": 12,
+    "salesOrderId": 18,
+    "salesOrderNo": "1249",
+    "cmnCreateDate": null,
+    "cmnInitialDate": null,
+    "cmnRevisionDate": null,
+    "cmnRecertificationDate": null,
+    "cmnExpirationDate": null,
+    "cmnLoggedBy": null,
+    "cmnLoggedDate": null,
+    "cmnApprovedBy": null,
+    "cmnApprovedDate": null,
+    "cmnPrintedBy": null,
+    "cmnPrintedDate": null,
+    "lengthOfNeed": "11",
+    "faxCmnOption": null,
+    "cmnCoverLetterInclusionOption": null,
+    "cmnFaxedBy": null,
+    "cmnFaxedDate": null,
+    "faxStatus": null,
+    "faxStatusReason": null,
+    "printCmnOption": null,
+    "status": null,
+    "cmnIdUuid": "48a04f2f-440f-404a-bae8-775db20291e6",
+    "patientPrognosis": null,
+    "cmnStatus": "initiated",
+    "refillAuthorised": "22",
+    "cmnDocumentId": 56,
+    "generationDate": "2023-07-11",
+    "initialDocumentName": null,
+    "outBoundFaxStatus": null,
+    "outBoundFaxNo": null,
+    "outBoundFaxDateTime": null,
+    "inBoundFaxStatus": null,
+    "inBoundFaxNo": null,
+    "inBoundFaxDateTime": null,
+    "cmnDocumentMasterUuid": "c89f9a46-0209-4f43-afaa-0de372e04686",
+    "returnDocumentName": "CMN1000000020_in.pdf",
+    "cmnComments": null,
+    "fileDownloadUri": null,
+    "cmnDocumentFilePath": ""
+  },
+  "outcome": true,
+  "message": "Cmn data fetched successfully!!!"
+}
+
+=============================================================================================================================================================================
+Logging to CMN
+==========
+I/P's = cmnId
+O/P =
+{
+  "data": {
+    "cmnId": 64,
+    "cmnNumber": "CMN1000000020",
+    "cmnType": "External/Uploaded",
+    "cmnFormName": "Generic/Initial",
+    "patientId": 12,
+    "salesOrderId": 18,
+    "salesOrderNo": "1249",
+    "cmnCreateDate": null,
+    "cmnInitialDate": null,
+    "cmnRevisionDate": null,
+    "cmnRecertificationDate": null,
+    "cmnExpirationDate": null,
+    "cmnLoggedBy": 0,
+    "cmnLoggedDate": "2023-07-11",
+    "cmnApprovedBy": null,
+    "cmnApprovedDate": null,
+    "cmnPrintedBy": null,
+    "cmnPrintedDate": null,
+    "lengthOfNeed": "11",
+    "faxCmnOption": null,
+    "cmnCoverLetterInclusionOption": null,
+    "cmnFaxedBy": null,
+    "cmnFaxedDate": null,
+    "faxStatus": null,
+    "faxStatusReason": null,
+    "printCmnOption": null,
+    "status": null,
+    "cmnIdUuid": "48a04f2f-440f-404a-bae8-775db20291e6",
+    "patientPrognosis": null,
+    "cmnStatus": "active",
+    "refillAuthorised": "22",
+    "cmnDocumentId": 56,
+    "generationDate": "2023-07-11",
+    "initialDocumentName": null,
+    "outBoundFaxStatus": null,
+    "outBoundFaxNo": null,
+    "outBoundFaxDateTime": null,
+    "inBoundFaxStatus": null,
+    "inBoundFaxNo": null,
+    "inBoundFaxDateTime": null,
+    "cmnDocumentMasterUuid": "c89f9a46-0209-4f43-afaa-0de372e04686",
+    "returnDocumentName": "CMN1000000020_in.pdf",
+    "cmnComments": null,
+    "fileDownloadUri": null,
+    "cmnDocumentFilePath": ""
+  },
+  "outcome": true,
+  "message": "Cmn is logged successfully!!!"
+}
+
+=============================================================================================================================================================================
+Send Or Fax CMN Report
+======================
+I/P's =
+{
+  "cmnId": 64,
+  "outBoundFaxStatus": "send",
+  "outBoundFaxNo": "786543548",
+  "outBoundFaxDateTime": "17/07/2023",
+  "inBoundFaxStatus": "string",
+  "inBoundFaxNo": "string",
+  "inBoundFaxDateTime": "string",
+  "returnDocumentName": "string",
+  "cmnComments": "string"
+}
+O/P =
+{
+  "data": {
+    "cmnId": 64,
+    "outBoundFaxStatus": "send",
+    "outBoundFaxNo": "786543548",
+    "outBoundFaxDateTime": "17/07/2023",
+    "inBoundFaxStatus": "string",
+    "inBoundFaxNo": "string",
+    "inBoundFaxDateTime": "string",
+    "returnDocumentName": "string",
+    "cmnComments": "string"
+  },
+  "outcome": true,
+  "message": "Cmn fax is send successfully!!!"
+}
+
+=============================================================================================================================================================================
+Receive Fax Cmn Response Report
+===============================
+I/P's =
+{
+  "cmnId": 64,
+  "outBoundFaxStatus": "string",
+  "outBoundFaxNo": "string",
+  "outBoundFaxDateTime": "string",
+  "inBoundFaxStatus": "Y",
+  "inBoundFaxNo": "67478686",
+  "inBoundFaxDateTime": "17/07/2023",
+  "returnDocumentName": "string",
+  "cmnComments": "CMN Received"
+}
+O/P =
+{
+  "data": {
+    "cmnId": 64,
+    "outBoundFaxStatus": "string",
+    "outBoundFaxNo": "string",
+    "outBoundFaxDateTime": "string",
+    "inBoundFaxStatus": "Y",
+    "inBoundFaxNo": "67478686",
+    "inBoundFaxDateTime": "17/07/2023",
+    "returnDocumentName": "string",
+    "cmnComments": "CMN Received"
+  },
+  "outcome": true,
+  "message": "Cmn fax is received successfully!!!"
+}
+
+Search of Active CMN/ SWO For Sales Order(searchActiveCMNForSalesOrder)/Search of Initiated CMN/ SWO For Sales Order(searchInitiatedCMNForSalesOrder)
+=====================================================================================================================================================
+{
+  "patientIdNo": "0000000006",
+  "itemNo": "ITM1000000007",
+  "dos": "2023-01-05",
+  "orderingProviderNpi": "1942788757",
+  "salesOrderNo": "1251"
+}
+OR
+{
+  "patientIdNo": "PAT0000011",
+  "itemNo": "ITM1000000003",
+  "dos": "2023-01-05",
+  "orderingProviderNpi": "1942788757",
+  "salesOrderNo": "1248"
+}

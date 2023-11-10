@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity SalesOrderItemDetails.
+    -->
+    <changeSet id="20220823190401-1" author="jhipster">
+        <createTable tableName="t_sales_order_item_details">
+            <column name="sales_order_item_details_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sales_order_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_location_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_stocking_uom" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_asset_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_default_vendor" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_original_dos" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_previous_billing_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_next_billing_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_dos_to" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_next_period" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_special_pricing" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_price_override" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_special_tax_rate" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_qty" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_bqty" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_line_qty" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_proc_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_price_option" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_modifier_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_modifier_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_modifier_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_modifier_4" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_charge_amt" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_allowed_amt" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_taxable" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn_upgrade" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn_print_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn_item" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn_proc_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn_allow" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn_charge" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn_modifier_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_abn_modifier_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_tax_rate" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_tax_zone" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_non_tax_reason" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_note" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_sale_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_group" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_user_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_user_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_user_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_user_4" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_converted_to_purchase" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_manual_convert_to_purchase_mctp" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_mctp_charge_amt" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_mctp_allowed_amt" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_mctp_modifier_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_mctp_modifier_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_mctp_modifier_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_mctp_modifier_4" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_mctp_period" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_addtl_modifier_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_addtl_modifier_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_addtl_modifier_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_addtl_modifier_4" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_next_date_of_service" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_price_table" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_price_option_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_extended_charge_amount" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_extended_allowance_amount" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_item_ndc_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_manufacturer" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cb_pricing" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cb_price_table_override" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cb_override" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_messages" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_location" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_calories_per_day" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_procudure_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_price_option" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_price_option_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_modifier_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_modifier_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_modifier_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_modifier_4" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_additional_modifier_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_additional_modifier_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_additional_modifier_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_additional_modifier_4" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_billing_ignore" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_secondary_special_billing" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_span_date_split_billing" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_form_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_key" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_create_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_expiration_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_initial_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_renewal_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_recertification_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_physician_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_par_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_par_descr" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_par_initial_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_par_expiration_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_log_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_length_of_need" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_printed_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_printed_by" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_faxed_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_placeholder" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_faxed_by" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_cmn_logged_by" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_cmnpar_number_of_refills" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_manufacturer_item_id_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cmn_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_item_details_uuid" type="${uuidType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_item_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="is_asset_tagged" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_serial_no" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_details_icd_pointer" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="procedure_identifier" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="par_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="whether_serialised" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_abn_user_response" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="is_dropship_allowed" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="po_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="purchase_order_uuid" type="${uuidType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="is_resupply_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="frequency_count" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="frequency_interval" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_group_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20220823190401-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/t_sales_order_item_details.csv"
+                  separator=";"
+                  tableName="t_sales_order_item_details"
+                  usePreparedStatements="true">
+            <column name="sales_order_item_details_id" type="numeric"/>
+            <column name="sales_order_id" type="numeric"/>
+            <column name="patient_id" type="numeric"/>
+            <column name="item_location_id" type="numeric"/>
+            <column name="sales_order_details_item_id" type="numeric"/>
+            <column name="sales_order_details_item_name" type="string"/>
+            <column name="sales_order_details_stocking_uom" type="string"/>
+            <column name="item_asset_no" type="string"/>
+            <column name="sales_order_details_item_description" type="string"/>
+            <column name="sales_order_details_default_vendor" type="string"/>
+            <column name="sales_order_details_original_dos" type="date"/>
+            <column name="sales_order_details_previous_billing_date" type="date"/>
+            <column name="sales_order_details_next_billing_date" type="date"/>
+            <column name="sales_order_details_dos_to" type="date"/>
+            <column name="sales_order_details_next_period" type="string"/>
+            <column name="sales_order_details_special_pricing" type="string"/>
+            <column name="sales_order_details_price_override" type="string"/>
+            <column name="sales_order_details_special_tax_rate" type="numeric"/>
+            <column name="sales_order_details_qty" type="numeric"/>
+            <column name="sales_order_details_bqty" type="numeric"/>
+            <column name="sales_order_details_line_qty" type="numeric"/>
+            <column name="sales_order_details_proc_code" type="string"/>
+            <column name="sales_order_details_price_option" type="string"/>
+            <column name="sales_order_details_modifier_1" type="string"/>
+            <column name="sales_order_details_modifier_2" type="string"/>
+            <column name="sales_order_details_modifier_3" type="string"/>
+            <column name="sales_order_details_modifier_4" type="string"/>
+            <column name="sales_order_details_charge_amt" type="numeric"/>
+            <column name="sales_order_details_allowed_amt" type="numeric"/>
+            <column name="sales_order_details_taxable" type="string"/>
+            <column name="sales_order_details_abn" type="string"/>
+            <column name="sales_order_details_abn_upgrade" type="string"/>
+            <column name="sales_order_details_abn_print_date" type="date"/>
+            <column name="sales_order_details_abn_item" type="string"/>
+            <column name="sales_order_details_abn_proc_code" type="string"/>
+            <column name="sales_order_details_abn_allow" type="string"/>
+            <column name="sales_order_details_abn_charge" type="numeric"/>
+            <column name="sales_order_details_abn_modifier_1" type="string"/>
+            <column name="sales_order_details_abn_modifier_2" type="string"/>
+            <column name="sales_order_details_tax_rate" type="numeric"/>
+            <column name="sales_order_details_tax_zone" type="string"/>
+            <column name="sales_order_details_non_tax_reason" type="string"/>
+            <column name="sales_order_details_note" type="string"/>
+            <column name="sales_order_details_sale_type" type="string"/>
+            <column name="sales_order_details_item_group" type="string"/>
+            <column name="sales_order_details_item_user_1" type="string"/>
+            <column name="sales_order_details_item_user_2" type="string"/>
+            <column name="sales_order_details_item_user_3" type="string"/>
+            <column name="sales_order_details_item_user_4" type="string"/>
+            <column name="sales_order_details_converted_to_purchase" type="string"/>
+            <column name="sales_order_details_manual_convert_to_purchase_mctp" type="string"/>
+            <column name="sales_order_details_mctp_charge_amt" type="numeric"/>
+            <column name="sales_order_details_mctp_allowed_amt" type="numeric"/>
+            <column name="sales_order_details_mctp_modifier_1" type="string"/>
+            <column name="sales_order_details_mctp_modifier_2" type="string"/>
+            <column name="sales_order_details_mctp_modifier_3" type="string"/>
+            <column name="sales_order_details_mctp_modifier_4" type="string"/>
+            <column name="sales_order_details_mctp_period" type="numeric"/>
+            <column name="sales_order_details_addtl_modifier_1" type="string"/>
+            <column name="sales_order_details_addtl_modifier_2" type="string"/>
+            <column name="sales_order_details_addtl_modifier_3" type="string"/>
+            <column name="sales_order_details_addtl_modifier_4" type="string"/>
+            <column name="sales_order_details_next_date_of_service" type="date"/>
+            <column name="sales_order_details_price_table" type="string"/>
+            <column name="sales_order_details_price_option_name" type="string"/>
+            <column name="sales_order_details_extended_charge_amount" type="numeric"/>
+            <column name="sales_order_details_extended_allowance_amount" type="numeric"/>
+            <column name="sales_order_details_item_ndc_code" type="string"/>
+            <column name="sales_order_details_manufacturer" type="string"/>
+            <column name="sales_order_details_cb_pricing" type="string"/>
+            <column name="sales_order_details_cb_price_table_override" type="string"/>
+            <column name="sales_order_details_cb_override" type="string"/>
+            <column name="sales_order_details_messages" type="string"/>
+            <column name="sales_order_details_location" type="numeric"/>
+            <column name="sales_order_details_calories_per_day" type="numeric"/>
+            <column name="sales_order_details_secondary_billing_procudure_code" type="string"/>
+            <column name="sales_order_details_secondary_billing_price_option" type="string"/>
+            <column name="sales_order_details_secondary_billing_price_option_name" type="string"/>
+            <column name="sales_order_details_secondary_billing_modifier_1" type="string"/>
+            <column name="sales_order_details_secondary_billing_modifier_2" type="string"/>
+            <column name="sales_order_details_secondary_billing_modifier_3" type="string"/>
+            <column name="sales_order_details_secondary_billing_modifier_4" type="string"/>
+            <column name="sales_order_details_secondary_billing_additional_modifier_1" type="string"/>
+            <column name="sales_order_details_secondary_billing_additional_modifier_2" type="string"/>
+            <column name="sales_order_details_secondary_billing_additional_modifier_3" type="string"/>
+            <column name="sales_order_details_secondary_billing_additional_modifier_4" type="string"/>
+            <column name="sales_order_details_secondary_billing_ignore" type="string"/>
+            <column name="sales_order_details_secondary_special_billing" type="string"/>
+            <column name="sales_order_details_span_date_split_billing" type="string"/>
+            <column name="sales_order_details_cmnpar_cmn_form_id" type="numeric"/>
+            <column name="sales_order_details_cmnpar_cmn_key" type="string"/>
+            <column name="sales_order_details_cmnpar_cmn_create_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_expiration_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_initial_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_renewal_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_recertification_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_physician_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_status" type="string"/>
+            <column name="sales_order_details_cmnpar_par_id" type="string"/>
+            <column name="sales_order_details_cmnpar_par_descr" type="string"/>
+            <column name="sales_order_details_cmnpar_par_initial_date" type="date"/>
+            <column name="sales_order_details_cmnpar_par_expiration_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_log_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_length_of_need" type="numeric"/>
+            <column name="sales_order_details_cmnpar_cmn_printed_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_printed_by" type="string"/>
+            <column name="sales_order_details_cmnpar_faxed_date" type="date"/>
+            <column name="sales_order_details_cmnpar_cmn_placeholder" type="string"/>
+            <column name="sales_order_details_cmnpar_cmn_faxed_by" type="string"/>
+            <column name="sales_order_details_cmnpar_cmn_logged_by" type="string"/>
+            <column name="sales_order_details_cmnpar_number_of_refills" type="numeric"/>
+            <column name="created_by_id" type="numeric"/>
+            <column name="created_date" type="date"/>
+            <column name="status" type="string"/>
+            <column name="updated_by_id" type="numeric"/>
+            <column name="updated_date" type="date"/>
+            <column name="sales_order_details_manufacturer_item_id_number" type="string"/>
+            <column name="cmn_id" type="numeric"/>
+            <column name="created_by_name" type="string"/>
+            <column name="updated_by_name" type="string"/>
+            <column name="sales_order_item_details_uuid" type="${uuidType}"/>
+            <column name="sales_order_item_number" type="string"/>
+            <column name="is_asset_tagged" type="string"/>
+            <column name="item_serial_no" type="numeric"/>
+            <column name="sales_order_details_icd_pointer" type="string"/>
+            <column name="procedure_identifier" type="string"/>
+            <column name="par_no" type="string"/>
+            <column name="whether_serialised" type="string"/>
+            <column name="pickup_exchange_no" type="string"/>
+            <column name="sales_order_abn_user_response" type="string"/>
+            <column name="is_dropship_allowed" type="string"/>
+            <column name="po_number" type="string"/>
+            <column name="purchase_order_uuid" type="${uuidType}"/>
+            <column name="is_resupply_type" type="string"/>
+            <column name="frequency_count" type="numeric"/>
+            <column name="frequency_interval" type="numeric"/>
+            <column name="item_group_id" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

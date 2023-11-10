@@ -1,0 +1,83 @@
+{
+  "applications": "*",
+  "changelogDate": "20230717153113",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_insurance_pricetable_map",
+  "fields": [
+    {
+      "fieldName": "insurancePricetableMapId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "insuranceIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurancePayerIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priceTableId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "priceTableName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "insurancePricetableMapUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "insuranceId",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "InsurancePricetableMap",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

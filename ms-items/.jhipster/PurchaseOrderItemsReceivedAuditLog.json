@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20230411102325",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_purchase_order_items_received_audit_log",
+  "fields": [
+    {
+      "fieldName": "poItmRecivedId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "oldRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "newRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlTimestamp",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dmlCreatedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "PurchaseOrderItemsReceivedAuditLog",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

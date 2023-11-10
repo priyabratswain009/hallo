@@ -1,0 +1,151 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114655",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_workers_compensation",
+  "fields": [
+    {
+      "fieldName": "workersCompensationId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "insuredEmployer",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationPayerIdNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationPlanName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationAdditionalDtls",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationClaimFillingCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationTplCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationTplName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wcPropertyCasualtyAgencyClaimNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wcCarrierId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "workersCompensationUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "employerAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerEfax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "relationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modeOfContact",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "WorkersCompensation",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

@@ -1,0 +1,135 @@
+{
+  "applications": "*",
+  "changelogDate": "20230403083637",
+  "clientRootFolder": "settings",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_insurance_document",
+  "fields": [
+    {
+      "fieldName": "insuranceDocumentId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "insuranceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "insuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentTypeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "documentTypeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "documentNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "documentTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "scanDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "scanBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "fileUploadPath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "uploadDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "uploadBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "reviewStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reviewReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reviewDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "reviewBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceDocumentUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "settings",
+  "name": "InsuranceDocument",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

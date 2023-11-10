@@ -1,0 +1,143 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114647",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_member_elligibility_master",
+  "fields": [
+    {
+      "fieldName": "claimElligibilityMasterId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "elligibilityControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerServiceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tradingPartnerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerOrganizationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberIdcard",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "subscriberGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberPlanIssueDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "insuredFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "insuredRelationshipwithSubscriber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateOfService",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "serviceTypeCodes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "memberElligibilityMasterUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "MemberElligibilityMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

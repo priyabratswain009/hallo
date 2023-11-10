@@ -1,0 +1,13 @@
+package com.sunknowledge.dme.rcm.dto.nppes;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class NPPESInputNPICriteria {
+	private String npiNumber;
+    private String operationType;
+}

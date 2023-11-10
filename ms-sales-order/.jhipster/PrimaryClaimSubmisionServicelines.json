@@ -1,0 +1,131 @@
+{
+  "applications": "*",
+  "changelogDate": "20221213083928",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_primary_claim_submision_servicelines",
+  "fields": [
+    {
+      "fieldName": "changeHealthPrimarySubmisionServicelinesId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "changeHealthPrimarySubmisionMasterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "originalDos",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dosTo",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "procCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chargeAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "itemUom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icdPointer",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "qty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "insertedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "insertedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "claimServicelineControlNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "procedureIdentifier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insertedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reference",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryClaimSubmisionServicelinesUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "PrimaryClaimSubmisionServicelines",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

@@ -1,0 +1,123 @@
+{
+  "applications": "*",
+  "changelogDate": "20230602145158",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_benefit_coverage_response",
+  "fields": [
+    {
+      "fieldName": "benefitCoverageResponseId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "benefitCoverageRequestId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "expirationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "requestedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "responseDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "serviceType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientRelationshipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "plansStatusCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "plansStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryResponse",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryResponse",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "benefitCoverageResponseUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "patientState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberRelationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "memberId",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "BenefitCoverageResponse",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

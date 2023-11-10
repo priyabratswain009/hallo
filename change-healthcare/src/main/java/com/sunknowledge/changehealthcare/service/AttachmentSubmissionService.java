@@ -1,0 +1,27 @@
+package com.sunknowledge.changehealthcare.service;
+import java.io.File;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sunknowledge.changehealthcare.core.ServiceOutcome;
+import com.sunknowledge.changehealthcare.pojo.attachmentsubmission.AttachmentSubmissionInput;
+import com.sunknowledge.changehealthcare.pojo.attachmentsubmission.ResultAttachmentSubmissionOutcome;
+
+public interface AttachmentSubmissionService {
+	ServiceOutcome<ResultAttachmentSubmissionOutcome> validateFileAndAttachmentSubmission(ServiceOutcome<ResultAttachmentSubmissionOutcome> routcome, List<MultipartFile> multipartFileList, AttachmentSubmissionInput attachmentSubmissionInputRequestInput);
+	ServiceOutcome<ResultAttachmentSubmissionOutcome> medicalNetworkAttachmentSubmission(AttachmentSubmissionInput attachmentSubmissionInput, List<MultipartFile> multipartFileList);
+	ServiceOutcome<ResultAttachmentSubmissionOutcome> attachmentSubmission(String token, AttachmentSubmissionInput attachmentSubmissionInput, List<MultipartFile> multipartFileList);
+	ServiceOutcome<ResultAttachmentSubmissionOutcome> attachmentSubmissionHealthCheck(String token);
+	boolean checkFileType(File file);
+import com.sunknowledge.changehealthcare.core.ServiceOutcome;
+import com.sunknowledge.changehealthcare.pojo.attachmentSubmission.AttachmentSubmissionInput;
+import com.sunknowledge.changehealthcare.pojo.attachmentSubmission.ResultAttachmentSubmissionOutcome;
+
+public interface AttachmentSubmissionService {
+	
+	ServiceOutcome<ResultAttachmentSubmissionOutcome> accessattachmentSubmission(AttachmentSubmissionInput attachmentSubmissionInput);
+	ServiceOutcome<ResultAttachmentSubmissionOutcome> attachmentSubmission(String token, AttachmentSubmissionInput attachmentSubmissionInput);
+	ServiceOutcome<ResultAttachmentSubmissionOutcome> attachmentSubmissionHealthCheck(String token);
+
+}

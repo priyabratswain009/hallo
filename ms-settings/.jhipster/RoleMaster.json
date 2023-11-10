@@ -1,0 +1,75 @@
+{
+  "applications": "*",
+  "changelogDate": "20230629115015",
+  "clientRootFolder": "settings",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_role_master",
+  "fields": [
+    {
+      "fieldName": "roleId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "roleCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "roleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "roleDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "roleNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "roleMasterUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "settings",
+  "name": "RoleMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

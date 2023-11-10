@@ -1,0 +1,4 @@
+# Created at 2022-10-14T20:03:08.735
+Boot Manifest-JAR contains absolute paths in classpath 'E:\SK Projects\sk-dme-rcm\ms-claims-submission\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity SalesOrderDocuments.
+    -->
+    <changeSet id="20220823190359-1" author="jhipster">
+        <createTable tableName="t_sales_order_documents">
+            <column name="patient_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_first_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_dob" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_dod" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_ssn" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="qmb_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_gender" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_height" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_weight" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_contact_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_contact_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="hipaa_on_file_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="document_type_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="document_type_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="document_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="document_note" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_document_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="fax" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="document_title" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="document_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="scan_by" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="file_upload_path" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="upload_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="upload_by" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="scan_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="review_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="review_reason" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="review_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="review_by" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_creation_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_documents_uuid" type="${uuidType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_middle_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_last_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20220823190359-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/t_sales_order_documents.csv"
+                  separator=";"
+                  tableName="t_sales_order_documents"
+                  usePreparedStatements="true">
+            <column name="patient_id" type="numeric"/>
+            <column name="patient_first_name" type="string"/>
+            <column name="patient_dob" type="date"/>
+            <column name="patient_dod" type="date"/>
+            <column name="patient_ssn" type="string"/>
+            <column name="qmb_status" type="string"/>
+            <column name="patient_gender" type="string"/>
+            <column name="patient_height" type="numeric"/>
+            <column name="patient_weight" type="numeric"/>
+            <column name="patient_contact_1" type="string"/>
+            <column name="patient_contact_2" type="string"/>
+            <column name="email" type="string"/>
+            <column name="hipaa_on_file_status" type="string"/>
+            <column name="branch_id" type="numeric"/>
+            <column name="branch_name" type="string"/>
+            <column name="document_type_id" type="numeric"/>
+            <column name="document_type_name" type="string"/>
+            <column name="document_date" type="date"/>
+            <column name="document_note" type="string"/>
+            <column name="created_date" type="date"/>
+            <column name="created_by_id" type="numeric"/>
+            <column name="status" type="string"/>
+            <column name="sales_order_document_id" type="numeric"/>
+            <column name="updated_by_id" type="numeric"/>
+            <column name="updated_date" type="date"/>
+            <column name="fax" type="string"/>
+            <column name="document_title" type="string"/>
+            <column name="document_name" type="string"/>
+            <column name="scan_by" type="numeric"/>
+            <column name="file_upload_path" type="string"/>
+            <column name="upload_date" type="date"/>
+            <column name="upload_by" type="numeric"/>
+            <column name="scan_date" type="date"/>
+            <column name="review_status" type="string"/>
+            <column name="review_reason" type="string"/>
+            <column name="review_date" type="date"/>
+            <column name="review_by" type="numeric"/>
+            <column name="created_by_name" type="string"/>
+            <column name="updated_by_name" type="string"/>
+            <column name="sales_order_id" type="numeric"/>
+            <column name="sales_order_no" type="string"/>
+            <column name="sales_order_creation_date" type="date"/>
+            <column name="sales_order_documents_uuid" type="${uuidType}"/>
+            <column name="patient_middle_name" type="string"/>
+            <column name="patient_last_name" type="string"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

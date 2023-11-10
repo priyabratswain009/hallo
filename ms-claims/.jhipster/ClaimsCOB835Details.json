@@ -1,0 +1,235 @@
+{
+  "applications": "*",
+  "changelogDate": "20221201073840",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_claims_cob_835_details",
+  "fields": [
+    {
+      "fieldName": "claimCob835DetailId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "serviceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "adjudicatedProcedureCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjudicatedProcedureModifierCodes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chargeAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "allowedAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentPrCode1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentPrCode1Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentPrCode2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentPrCode2Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentPrCode3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentPrCode3Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentPrCode4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentPrCode4Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentCoCode1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentCoCode1Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentCoCode2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentCoCode2Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentCoCode3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentCoCode3Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentCoCode4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentCoCode4Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentCrCode1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentCrCode1Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentCrCode2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentCrCode2Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentCrCode3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentCrCode3Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentCrCode4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentCrCode4Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentOaCode1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentOaCode1Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentOaCode2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentOaCode2Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentOaCode3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentOaCode3Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentOaCode4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentOaCode4Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentPiCode1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentPiCode1Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentPiCode2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentPiCode2Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentPiCode3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentPiCode3Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjustmentPiCode4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adjustmentPiCode4Amount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "providerPaymentAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "claimCob835MasterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "serviceDateTo",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "unitCount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "claimsCob835DetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postStatus",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "ClaimsCOB835Details",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

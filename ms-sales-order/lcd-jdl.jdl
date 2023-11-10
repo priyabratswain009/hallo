@@ -1,0 +1,157 @@
+entity HcpcsDmeGroupMaster(t_hcpcs_dme_group_master){
+	@Id hcpcsDmeId Long required
+	hcpcsCode String
+	dmeGroupName String
+	dmeGroupId Long
+	status String
+	createdDate LocalDate
+	createdById Long
+	createdByName String
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String
+	hcpcsDmeGroupMasterUuid UUID
+}
+
+entity DmeGroupChecklistMaster(t_dme_group_checklist_master){
+    @Id dmeGroupChecklistId Long required
+	dmeGroupId Long
+	dmeGroupName String
+	checklistId Long
+	checklistName String
+	status String
+	createdDate LocalDate
+	createdById Long
+	createdByName String
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String
+	dmeGroupChecklistMasterUuid UUID
+}
+
+entity ChecklistDocumentReferenceMap(t_checklist_document_reference_map){
+	@Id checklistDocumentReferenceId Long required
+	checklistId Long
+	checklistName String
+	documentReferenceId Long
+	documentReferenceName String
+	status String
+	createdDate LocalDate
+	createdById Long
+	createdByName String
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String
+	checklistDocumentReferenceMapUuid UUID
+	itemGroupId Long
+	itemGroupName String
+}
+
+entity ChecklistCoverageCriteriaMap(t_checklist_coverage_criteria_map){
+	@Id checklistCoverageCriteriaId Long required
+	checklistId Long
+	checklistName String
+	coverageCriteriaId Long
+	coverageCriteriaDetails String
+	status String
+	createdDate LocalDate
+	createdById Long
+	createdByName String
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String
+	checklistCoverageCriteriaMapUuid UUID
+	coverageCriteriaName String
+	itemGroupId Long
+	itemGroupName String
+}
+
+entity SoLcdDocRefTransaction(t_so_lcd_doc_ref_transaction){
+	@Id soLcdDocRefId Long required
+	soId Long
+	checklistId Long
+	checklistName String
+	docRefId Long
+	docRefName String
+	value String
+	status String
+	createdDate LocalDate
+	createdById Long
+	createdByName String
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String
+	soLcdDocRefTransactionUuid UUID
+	itemGroupId Long
+	itemGroupName String
+}
+
+entity SoLcdCoverageCriteriaTransaction(t_so_lcd_coverage_criteria_transaction){
+	@Id soLcdCoverageCriteriaTransactionId Long required
+	soId Long
+	checklistId Long
+	checklistName String
+	coverageCriteriaId Long
+	value String
+	status String
+	createdDate LocalDate
+	createdById Long
+	createdByName String
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String
+	soLcdCoverageCriteriaTransactionUuid UUID
+	itemGroupId Long
+	itemGroupName String
+	coverageCriteriaName String
+}
+
+entity CoverageCriteriaFileMap(t_coverage_criteria_file_map){
+	@Id coverageCriteriaFileMapId Long required
+	checklistId Long
+	checklistName String
+	documentReferenceId Long
+	documentReferenceName String
+	fileName String
+	status String
+	createdDate LocalDate
+	createdById Long
+	createdByName String
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String
+	coverageCriteriaFileMapUuid UUID
+	fileReference String
+	coverageCriteriaNotes String
+	soId Long
+	itemId Long
+	hcpcsCode String
+}
+
+entity DocumentReferenceFileMap(t_document_reference_file_map){
+	@Id documentReferenceFileMapId Long required
+	checklistId Long
+	checklistName String
+	coverageCriteriaId Long
+	fileName String
+	status String
+	createdDate LocalDate
+	createdById Long
+	createdByName String
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String
+	documentReferenceFileMapUuid UUID
+	fileReference String
+	documentReferenceNotes String
+	soId Long
+	itemId Long
+	hcpcsCode String
+}
+
+use mapstruct, serviceImpl, pagination for all
+
+
+
+
+

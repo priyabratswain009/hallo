@@ -1,0 +1,121 @@
+entity ParMaster(t_par_master) {
+    @Id parId Long required
+    parNo String
+    patientId Long
+    patientIdNumber String
+    patientFirstName String
+    patientLastName String
+    patientDob LocalDate
+    patientGender String
+    insuranceId Long
+    insuranceName String
+    payerIdNo String
+    payerLevel String
+    policyNumber String
+    policyStartDate LocalDate
+    policyEndDate LocalDate
+    payerContactNumber String
+    payerContactName String
+    dateOfContact LocalDate
+    description String
+    initialDate LocalDate
+    effectiveStartDate LocalDate
+    expirationDate LocalDate
+    authorizedBy String
+    addlInformation String
+    parStatus String
+    comments String
+    logInStatus String
+    logInDate LocalDate
+    renewalStatus String
+    renewalDate LocalDate
+    renewalAuthorizedBy String
+    renewalReqSentStatus String
+    renewalReqReplyStatus String
+    originalParNo String
+    extensionStatus String
+    extensionApprovalDate LocalDate
+    parStatus String
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    parUuid UUID
+    parIdNo String
+}
+
+entity ParDetails(t_par_details) {
+    @Id parDetailsId Long required
+    parId Long
+    itemId Long
+    itemNo String
+    itemUom String
+    itemQuantity Double
+    hcpcsCode String
+    description String
+    itemName String
+
+    status String
+  	createdById Long
+  	createdByName String
+  	createdDate LocalDate
+  	updatedById Long
+  	updatedByName String
+  	updatedDate LocalDate
+  	parDetailsUuid UUID
+}
+
+entity ParSoMap(t_par_so_map) {
+    @Id parSoId Long required
+    parId Long
+    parNo String
+    soId Long
+    soNo String
+
+    status String
+  	createdById Long
+  	createdByName String
+  	createdDate LocalDate
+  	updatedById Long
+  	updatedByName String
+  	updatedDate LocalDate
+  	parSoMapUuid UUID
+}
+
+entity ParRequestDetails(t_par_request_details) {
+    @Id parRequestDetailsId Long required
+    parRequestType String
+    parId Long
+    parNo String
+    parInitiationDate LocalDate
+    parNoEffetiveStartDate LocalDate
+    parNoEffetiveEndDate LocalDate
+    parAuthorisedBy String
+    parRequestDocName String
+    parRequestDocLocation String
+    parRequestFaxNumber String
+    parRequestFaxStatus String
+    parRequestFaxDatetime ZonedDateTime
+    faxResponseStatus String
+    parRequestResponseDocName String
+    docQrCode String
+    status String
+  	createdById Long
+  	createdByName String
+  	createdDate LocalDate
+  	updatedById Long
+  	updatedByName String
+  	updatedDate LocalDate
+  	parRequestDetailsUuid UUID
+}
+
+use mapstruct, serviceImpl, pagination for all
+
+
+
+
+

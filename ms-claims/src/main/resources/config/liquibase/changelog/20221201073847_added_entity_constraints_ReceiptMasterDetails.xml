@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity ReceiptMasterDetails.
+    -->
+    <changeSet id="20221201073847-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="deposit_master_details_deposit_id"
+                                 baseTableName="t_receipt_master_details"
+                                 constraintName="fk_t_receipt_master_details__deposit_master_details_id"
+                                 referencedColumnNames="deposit_id"
+                                 referencedTableName="t_deposit_master_details"/>
+    </changeSet>
+</databaseChangeLog>

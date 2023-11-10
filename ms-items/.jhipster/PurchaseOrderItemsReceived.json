@@ -1,0 +1,107 @@
+{
+  "applications": "*",
+  "changelogDate": "20230411102324",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_purchase_order_items_received",
+  "fields": [
+    {
+      "fieldName": "poItemReceivedId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "poId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "poNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "locationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "locationNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemUom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "receivedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "itemQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "lotBatchNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mfgDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "purchaseOrderItemsReceivedUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "PurchaseOrderItemsReceived",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

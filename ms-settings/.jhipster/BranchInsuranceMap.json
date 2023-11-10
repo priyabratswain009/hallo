@@ -1,0 +1,207 @@
+{
+  "applications": "*",
+  "changelogDate": "20230221101032",
+  "clientRootFolder": "settings",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_branch_insurance_map",
+  "fields": [
+    {
+      "fieldName": "branchInsuranceMapId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "insuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceStateName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priceTableId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "priceTableName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchPtan",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "esubmitterPayorId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchTaxonomyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideCompanyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideTaxIdEin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideContact2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOverrideEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderCompanyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderTaxIdEin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderContact2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payToProviderEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterContact2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "branchInsuranceMapUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "settings",
+  "name": "BranchInsuranceMap",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

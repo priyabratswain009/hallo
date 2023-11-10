@@ -1,0 +1,423 @@
+{
+  "applications": "*",
+  "changelogDate": "20230427131313",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_delivery_ticket",
+  "fields": [
+    {
+      "fieldName": "deliveryTicketId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "deliveryTicketNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ageAsOnDate",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "phone1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "phone2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddress1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddress2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryPriority",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryComment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAcceptedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "relationshipWithPatient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAcceptedByContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerPolicyNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerPatientIdNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchZipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchEin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderPhone1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderPhone2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBranchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryTicketUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "billingAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "inventoryLocationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "inventoryLocationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryTicketDocumentId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "deliveryTicketDocumentNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryTicketDocumentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "carrierName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "shippingDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "trackingNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referenceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "packageWeight",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "setupMethod",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "setupTechnicianNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "setupTechnicianContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "setupTechnicianFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "setupTechnicianMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "setupTechnicianLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "setupDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "scheduleSetupDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "setupComments",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "setupStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "courierPackageAcceptedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapistFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapistMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapistLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapistLicenseNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapistNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapistTaxonomyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "scheduleTherapyDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "actualTherapyDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "therapyMode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapyStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "therapyNotes",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "DeliveryTicket",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

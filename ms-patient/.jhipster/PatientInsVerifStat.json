@@ -1,0 +1,99 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114652",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_patient_ins_verif_stat",
+  "fields": [
+    {
+      "fieldName": "insuranceVerifId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientInsuranceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "elligibilityCheckDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "elligibilityStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "elligibilityCheckType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "periodYear",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageInfo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "networkInfo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deductableAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "remainingAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "coinsuranceOrCopay",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientInsVerifStatUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "PatientInsVerifStat",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

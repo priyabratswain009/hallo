@@ -1,0 +1,111 @@
+{
+  "applications": "*",
+  "changelogDate": "20230427131312",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_delivery_documents",
+  "fields": [
+    {
+      "fieldName": "deliveryDocId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "deliveryTicketId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "deliveryTicketNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hcpcsDoctypeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "docPatientName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentPatientFilePath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isPatientSigned",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isCaregiverSigned",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "signedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "isDeliveryAgentSigned",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isScannedUploaded",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryDocumentsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "responseJsonData",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "DeliveryDocuments",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

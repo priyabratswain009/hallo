@@ -1,0 +1,91 @@
+entity StockAdjustment(t_stock_adjustment) {
+      @Id stockAdjustmentId Long required
+      adjustmentDate LocalDate
+      adjustmentNo String
+      adjustmentType String
+      notes String
+      locationId Long
+      locationName String
+      itemId Long
+      itemName String
+      itemNo String
+      itemUom String
+      itemQty Double
+      wheatherSerialized String
+      wheatherAssetTagged String
+      avgPrice Double
+      adjustmentStatus String
+      status String
+      createdById Long
+      createdByName String
+      createdDate ZonedDateTime
+      updatedById Long
+      updatedByName String
+      updatedDate ZonedDateTime
+      stockAdjustmentUuid UUID
+}
+
+entity ItemInventoryStatus(t_item_inventory_status) {
+      @Id itemInventoryStatusId Long required
+      itemId Long
+      itemLocationId Long
+      onhandQty Long
+      onrentQty Long
+      comittedQty Long
+      inorderQty Long
+      status String
+      createdById Long
+      createdByName String
+      createdDate LocalDate
+      updatedById Long
+      updatedByName String
+      updatedDate LocalDate
+      itemInventoryStatusUuid UUID
+	  itemNo String
+	  itemName String
+	  itemDescription String
+	  itemLocationName String
+	  binNo String
+	  whetherSerialised String
+	  whetherAssetTagged String
+      onBackorder Integer
+}
+
+entity SoItemTransactionDetails(t_so_item_transaction_details) {
+      @Id soItemTransactionDetailsId Long required
+      salesOrderNo String
+      saleType String
+      itemId Long
+      itemNo String
+      itemName String
+      itemUom String
+      itemQty Long
+      wheatherSerialized String
+      serialNo String
+      wheatherAssetTagged String
+      assetNo String
+      originalDos LocalDate
+      branchId Long
+      locationId Long
+	  locationName String
+	  status String
+	  transactionDate LocalDate
+	  transactionNo String
+	  createdById Long
+	  createdByName String
+	  createdDate LocalDate
+	  updatedById Long
+	  updatedDate LocalDate
+	  soItemTransactionDetailsUuid UUID
+	  updatedByName String
+	  isDropship String
+	  poNo String
+	  itemTransactionStatus String
+}
+
+use mapstruct, serviceImpl, pagination for all
+
+
+
+
+

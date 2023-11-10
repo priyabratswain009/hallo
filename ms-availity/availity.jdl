@@ -1,0 +1,70 @@
+entity PayerMaster(t_payer_master) {
+	@AutoGenerate(true) @Id payerMasterId Long required
+	payerId String
+	payerName String
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	payerMasterUuid UUID
+}
+entity BenefitCoverageRequest(t_benefit_coverage_request) {
+	@AutoGenerate(true) @Id benefitCoverageRequestId Long
+	payerId String
+	providerFirstName String
+	providerLastName String
+	providerType String
+	providerNpi String
+	providerCity String
+	providerState String
+	providerZipcode String
+	submitterId String
+	asOfDate LocalDate
+	serviceType String
+	memberId String
+	patientLastName String
+	patientFirstName String
+	patientDob LocalDate
+	patientGender String
+	patientState String
+	subscriberRelationship String
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	benefitCoverageRequestUuid UUID
+}
+entity BenefitCoverageResponse(t_benefit_coverage_response) {
+	@AutoGenerate(true) @Id benefitCoverageResponseId Long
+	benefitCoverageRequestId String
+	createdDate LocalDate
+	updatedDate LocalDate
+	expirationDate LocalDate
+	requestedDate LocalDate
+	responseDate LocalDate
+	serviceType String
+	subscriberMemberId String
+	patientRelationshipCode String
+	payerId String
+	providerNpi String
+	plansStatusCode String
+	plansStatus String
+	primaryResponse String
+	secondaryResponse String
+	status String
+	patientState String
+	subscriberRelationship String
+	createdById Long
+	createdByName String
+	updatedById Long
+	updatedByName String
+	benefitCoverageResponseUuid UUID
+	memberId String
+}
+use mapstruct, serviceImpl, pagination for all

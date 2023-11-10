@@ -1,0 +1,120 @@
+{
+  "applications": "*",
+  "changelogDate": "20221221081736",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_invoice_line_item_details",
+  "fields": [
+    {
+      "fieldName": "invoiceLineItemDetailsId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "autoGenerate": "true",
+        "id": true
+      }
+    },
+    {
+      "fieldName": "primaryInvoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoiceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hcpcsCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chargedAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "allowAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoiceLineItemDetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "secondaryInvoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInvoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientInvoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInvoiceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "secondaryInvoiceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tertiaryInvoiceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientInvoiceId",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "InvoiceLineItemDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,203 @@
+{
+  "applications": "*",
+  "changelogDate": "20220823190359",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_sales_order_documents",
+  "fields": [
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientDod",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientSsn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "qmbStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientHeight",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientWeight",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientContact2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hipaaOnFileStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentTypeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "documentTypeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "documentNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDocumentId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "scanBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "fileUploadPath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "uploadDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "uploadBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "scanDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "reviewStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reviewReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reviewDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "reviewBy",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesOrderNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderCreationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "salesOrderDocumentsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "patientMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SalesOrderDocuments",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

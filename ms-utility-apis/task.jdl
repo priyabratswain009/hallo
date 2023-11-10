@@ -1,0 +1,53 @@
+entity TaskComments(t_task_comments){
+    @Id taskCommentId Long required
+	commentText String
+	commentById Long
+	commentDate LocalDate
+	commentByName String
+	taskDetailsUuid UUID
+	taskDetailsId Long
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    taskCommentsUuid UUID
+}
+
+entity TaskDetails(t_task_details){
+    @Id taskDetailsId Long required
+    taskNo String
+	taskId Long
+	taskName String
+	taskReason String
+	severity String
+	subjectText String
+	descriptionText String
+	assignedToId Long
+	assignmentDate LocalDate
+	dateNeeded LocalDate
+	dateCompleted LocalDate
+	taskState String
+	deactiveStatus String
+	objectId Long
+	objectName String
+	objectInstanceIdNo String
+	assignToName String
+	objectInstanceUuid UUID
+	wipStatusId Long
+	wipStatusName String
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    taskDetailsUuid UUID
+}
+
+use mapstruct, serviceImpl, pagination for all

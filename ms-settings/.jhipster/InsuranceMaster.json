@@ -1,0 +1,227 @@
+{
+  "applications": "*",
+  "changelogDate": "20230210125913",
+  "clientRootFolder": "settings",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_insurance_master",
+  "fields": [
+    {
+      "fieldName": "insuranceId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "insuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurancePlanType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxIncludedAllowableStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "priceTableId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "claimTypeDmeStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimTypeMajorMadicalStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimTypePharmacyStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payPercentage",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "enableSecondaryBillingStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "amtPrintOnDeliveryTicketStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "medigapStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "medigapNum",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "insuranceMasterUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "insurancePayerIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "country",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "efax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "relationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modeOfContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimProgramCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimProgramName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceGroupNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priceTableName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimProgramId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimFormName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuranceGroupName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactPersonFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactPersonMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactPersonLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxTncludedAllowableStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmsCrossoverInsuranceIdNo",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "settings",
+  "name": "InsuranceMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

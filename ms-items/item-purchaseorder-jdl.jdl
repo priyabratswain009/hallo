@@ -1,0 +1,73 @@
+entity PurchaseOrder(t_purchase_order) {
+	@Id poId Long required
+	poNumber String
+	poDate LocalDate
+	itemLocationId Long
+	itemLocationName String
+	salesOrderId Long
+	salesOrderNo String
+	vendorId Long
+	vendorName String
+	billingAddressLine1 String
+	billingAddressLine2 String
+	billingAddressCity String
+	billingAddressState String
+	billingAddressZip String
+	billingContactNo String
+	billingContactName String
+	billingContactEmail String
+	deliveryAddressLine1 String
+	deliveryAddressLine2 String
+	deliveryAddressCity String
+	deliveryAddressState String
+	deliveryAddressZip String
+	deliveryContactNo String
+	deliveryContactName String
+	deliveryContactEmail String
+	priority String
+	shippingMethod String
+	freightCharges Double
+	status String
+	notes String
+	createdDate LocalDate
+    createdById Long
+    createdByName String
+    updatedDate LocalDate
+    updatedById Long
+    updatedName String
+	purchaseOrderUuid UUID
+	poStatus String
+	vendorDelivery Boolean
+}
+
+entity PurchaseOrderItems(t_purchase_order_items){
+	@Id poItemsId Long required
+	poId Long
+	poNumber String
+	itemId Long
+	itemNo String
+	itemName String
+	itemUom String
+	orderedQty Double
+	receivedQty Double
+	cancelledQty Double
+	unitPrice Double
+	totalAmount Double
+	purchaseOrderItemsUuid UUID
+	poStatus String
+	receivedDate LocalDate
+	lotNo String
+	mfgDate LocalDate
+	wheatherSerialised String
+	notes String
+	status String
+	createdDate LocalDate
+    createdById Long
+    createdByName String
+    updatedDate LocalDate
+    updatedById Long
+    updatedName String
+}
+
+use mapstruct, serviceImpl, pagination for all
+

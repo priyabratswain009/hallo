@@ -1,0 +1,75 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114644",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_elligibility_response_benefitinformation",
+  "fields": [
+    {
+      "fieldName": "elligibilityResponseBenefitinformationId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "elligibilityResponseStatusId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "benefitsinformationCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "benefitsinformationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coveragelevelcode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coveragelevel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "servicetypecodes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "servicetypes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurancetypecode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insurancetype",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "plancoverage",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "benefitsLocalDateinformation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "elligibilityResponseBenefitinformationUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "ElligibilityResponseBenefitinformation",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

@@ -1,0 +1,112 @@
+{
+  "applications": "*",
+  "changelogDate": "20230207133021",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_cmn_document_master",
+  "fields": [
+    {
+      "fieldName": "cmnDocumentId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "cmnId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "cmnNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "generationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "initialDocumentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "faxStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "outBoundFaxStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "outBoundFaxNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "outBoundFaxDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "inBoundFaxStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "inBoundFaxNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "inBoundFaxDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnDocumentMasterUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "returnDocumentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnComments",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "CmnDocumentMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

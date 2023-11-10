@@ -1,0 +1,119 @@
+{
+  "applications": "*",
+  "changelogDate": "20230615172622",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_pickup_exchange_items",
+  "fields": [
+    {
+      "fieldName": "pickupExchangeItemId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "pickupExchangeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "whetherSerialized",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupItemSerialNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupItemAssetNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "replacementItemSerialNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "replacementItemAssetNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "quantity",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemPickupExchangeType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemPickupExchangeNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemPickupExchangeComment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemPickupExchangeStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "pickupExchangeItemUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "PickupExchangeItems",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

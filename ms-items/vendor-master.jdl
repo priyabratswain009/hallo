@@ -1,0 +1,28 @@
+entity VendorMaster(t_vendor_master) {
+	@Id vendorId Long 
+	vendorName String
+	status String
+	createdById Long
+	createdDate LocalDate
+	updatedDate LocalDate
+	createdByName String
+	updatedByName String
+	updatedById Long
+	vendorDescription String
+	vendorNo String
+	vendorMasterUuid UUID
+	vendorAccountNo String
+	defaultPoType String
+	defaultShopType String
+	addressLine1 String
+	addressLine2 String
+	city String
+	state String
+	zip String
+	email String
+	fax String
+	efax String
+	contactPersonName String
+	contactNo1 String
+	contactNo2 String
+}

@@ -1,0 +1,60 @@
+{
+  "applications": "*",
+  "changelogDate": "20231019112837",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_claims_835_crossover_exception",
+  "fields": [
+    {
+      "fieldName": "claims835CrossoverExceptionId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "autoGenerate": "true",
+        "id": true
+      }
+    },
+    {
+      "fieldName": "claimCob835MasterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerClaimControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "crossoverCarrierName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "crossoverCarrierPayerId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "crossoverCarrierPayerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "exceptionType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claims835CrossoverExceptionUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "Claims835CrossoverException",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

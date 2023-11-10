@@ -1,0 +1,91 @@
+{
+  "applications": "*",
+  "changelogDate": "20231012185546",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_delivery_patient_communications",
+  "fields": [
+    {
+      "fieldName": "deliveryPatientCommunicationsId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "deliveryTicketId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "deliveryTicketNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reasonForCommunication",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientPhoneNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "personSpokenToName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "personSpokenToRelationWithPatient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "communicationSummery",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "csrName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryPatientCommunicationsUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "DeliveryPatientCommunications",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,127 @@
+{
+  "applications": "*",
+  "changelogDate": "20230403083657",
+  "clientRootFolder": "settings",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_usps_address_verification_response",
+  "fields": [
+    {
+      "fieldName": "uspsAddressVerificationId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "reqAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reqAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reqCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reqState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reqZip4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reqZip5",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reqDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "rspAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rspAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rspCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rspState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rspZip4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rspZip5",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rspDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dpvFootnotesCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dpvFootnotesDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "uspsAddressVerificationResponseUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "settings",
+  "name": "UspsAddressVerificationResponse",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

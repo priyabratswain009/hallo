@@ -1,0 +1,31 @@
+entity EndpointMaster(t_endpoint_master){
+	@Id endpointId Long 
+	endpointName String 
+	endpointGroup String 
+	endpointDesc String 
+	endpointUrl String 
+	status String 
+	createdById Long
+	createdByName String 
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String 
+	updatedDate LocalDate
+	endpointMasterUuid UUID
+}
+
+entity FunctionalityEndpointMapping(t_functionality_endpoint_mapping){
+	@Id functionalityEndpointMappingId Long 
+    endpointId Long
+    functionalityId Long
+    mappingDesc String 
+    status String 
+    createdById Long
+    createdByName String 
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String 
+    updatedDate LocalDate
+    functionalityEndpointMappingUuid UUID
+}
+use mapstruct, serviceImpl, pagination for all

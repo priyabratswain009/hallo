@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity ClaimsCOB835Details.
+    -->
+    <changeSet id="20221201073840-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="claimscob835master_claim_cob_835_master_id"
+                                 baseTableName="t_claims_cob_835_details"
+                                 constraintName="fk_t_claims_cob_835_details__claimscob835master_id"
+                                 referencedColumnNames="claim_cob_835_master_id"
+                                 referencedTableName="t_claims_cob_835_master"/>
+    </changeSet>
+</databaseChangeLog>

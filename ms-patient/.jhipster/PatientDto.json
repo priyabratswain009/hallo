@@ -1,0 +1,695 @@
+{
+  "applications": "*",
+  "changelogDate": "20230516121037",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_patient_dto",
+  "fields": [
+    {
+      "fieldName": "patientDtoId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ssn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxZoneId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "taxZoneName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxRate",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientIdNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "country",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "efax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverRelatinshipPatient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsuranceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurancePayerIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurancePayerContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurancePolicyNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurancePolicyGroupNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurancePolicyGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsurancePolicyStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "primaryInsurancePolicyEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "primaryInsurancePayPercentage",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "primaryInsuranceDeductableAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "secondaryInsuranceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "secondaryInsuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurancePayerIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurancePayerContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurancePolicyNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurancePolicyGroupNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurancePolicyGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "secondaryInsurancePolicyStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "secondaryInsurancePolicyEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "secondaryInsurancePayPercentage",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "secondaryInsuranceDeductableAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tertiaryInsuranceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tertiaryInsuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurancePayerIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurancePayerContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurancePolicyNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurancePolicyGroupNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurancePolicyGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tertiaryInsurancePolicyStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "tertiaryInsurancePolicyEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "tertiaryInsurancePayPercentage",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tertiaryInsuranceDeductableAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "relationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredSuffix",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "insuredSsn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "alwaysCrossoverStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsuranceMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsuranceMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsuranceMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientRelationshipInsured",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionEmployment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionAutoAccident",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionOtherAccident",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredEmployer",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationPayerIdNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationPlanName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationAdditionalDtls",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationClaimFillingCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationTplCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompensationTplName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wcPropertyCasualtyAgencyClaimNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wcCarrierId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerEfax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employerEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employeeRelationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "height",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "weight",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "functionalAbilities",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "infectionConditionStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "diabetesStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "diagnosisCodeType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode5",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode6",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode7",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode8",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode9",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode10",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode11",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode12",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorNameSuffix",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorContact2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorNpiNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorTaxonomyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorTaxonomyDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorPracticeState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorLicenseNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDtoUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "secondaryInsurerAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurerAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurerZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurerContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryInsurerFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tertiaryInsurerFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDod",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "PatientDto",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

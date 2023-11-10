@@ -1,0 +1,613 @@
+entity ElligibilityResponseBenefitinformation(t_elligibility_response_benefitinformation)
+{
+@Id elligibilityResponseBenefitinformationId Long
+elligibilityResponseStatusId Long
+benefitsinformationCode String
+benefitsinformationName String
+coveragelevelcode String
+coveragelevel String
+servicetypecodes String
+servicetypes String
+insurancetypecode String
+insurancetype String
+plancoverage Long
+benefitsLocalDateinformation String
+elligibilityResponseBenefitinformationUuid UUID
+}
+
+entity ElligibilityResponseStatus(t_elligibility_response_status)
+{
+@Id elligibilityResponseStatusId Long
+elligibilityControlNumber String
+traceid String
+subscriberFirstName String
+subscriberLastName String
+subscriberGender String
+subscriberDob LocalDate
+subscriberIdentifier String
+subscriberEntitytype String
+subscriberSsn String
+payerIdentifier String
+payerEntitytype String
+payerName String
+payerIdentification String
+planSsn String
+planDate LocalDate
+planStatusCode String
+planStatus String
+planDetails String
+serviceTypeCodes String
+elligibilityResponseStatusUuid UUID
+}
+
+entity FunctionalAbility(t_functional_ability)
+{
+@Id functionalAbilityId Long
+functionalAbilityCode String
+functionalAbilityName String
+description String
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+updatedDate LocalDate
+functionalAbilityUuid UUID
+}
+
+entity MemberElligibilityMaster(t_member_elligibility_master)
+{
+@Id claimElligibilityMasterId Long
+salesOrderId Long
+elligibilityControlNumber String
+tradingPartnerServiceId Long
+tradingPartnerName String
+providerOrganizationName String
+providerNpi String
+providerType String
+subscriberFirstName String
+subscriberLastName String
+subscriberMemberId String
+subscriberIdcard String
+subscriberDob LocalDate
+subscriberGender String
+subscriberPlanIssueDate LocalDate
+insuredFirstName String
+insuredLastName String
+insuredGender String
+insuredDob LocalDate
+insuredRelationshipwithSubscriber String
+dateOfService LocalDate
+serviceTypeCodes String
+status String
+createdById Long
+createdByName String
+createdDate LocalDate
+updatedById Long
+updatedByName String
+updatedDate LocalDate
+memberElligibilityMasterUuid UUID
+}
+
+entity PatientClinicalInformation(t_patient_clinical_information)
+{
+@Id patientClinicalInformationId Long
+height Double
+weight Double
+functionalAbilities String
+captureDate LocalDate
+infectionConditionStatus String
+diabetesStatus String
+status String
+createdById Long
+createdDate LocalDate
+patientId Long
+createdByName String
+updatedByName String
+updatedById Long
+updatedDate LocalDate
+patientClinicalInformationUuid UUID
+}
+
+entity PatientDiagnosis(t_patient_diagnosis)
+{
+@Id patientDiagnosisId Long
+patientId Long
+diagnosisCodeType String
+diagnosisCode String
+diagnosisDescription String
+effectiveDate LocalDate
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+updatedDate LocalDate
+patientDiagnosisUuid UUID
+}
+
+entity PatientDoctorMap(t_patient_doctor_map)
+{
+@Id patientDoctorMapId Long
+patientId Long
+createdById Long
+createdDate LocalDate
+status String
+createdByName String
+updatedByName String
+updatedById Long
+updatedDate LocalDate
+doctorFirstName  String
+doctorMiddleName  String
+doctorLastName  String
+doctorNameSuffix  String
+doctorAddressLine1  String
+doctorAddressLine2  String
+doctorAddressCity  String
+doctorAddressState  String
+doctorAddressZip  String
+doctorContact1  String
+doctorContact2  String
+doctorFax  String
+doctorNpiNumber  String
+doctorGender  String
+doctorTaxonomyCode  String
+doctorTaxonomyDescription  String
+doctorPracticeState  String
+doctorLicenseNumber  String
+patientDoctorMapUuid UUID
+}
+
+
+entity PatientInsVerifStat(t_patient_ins_verif_stat)
+{
+@Id insuranceVerifId Long
+patientInsuranceId Long
+elligibilityCheckDate LocalDate
+elligibilityStatus String
+elligibilityCheckType String
+periodYear String
+coverageInfo String
+networkInfo String
+deductableAmt Double
+remainingAmt Double
+coinsuranceOrCopay String
+status String
+createdById Long
+createdDate LocalDate
+updatedDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+patientInsVerifStatUuid UUID
+}
+
+entity PatientInsurance(t_patient_insurance)
+{
+@Id patientInsuranceId Long
+patientId Long
+payerLevel String
+insuranceName String
+insuranceId Long
+coverageType String
+payerContact String
+policyNum String
+policyGroupNum String
+policyStartDate LocalDate
+policyEndDate LocalDate
+payPercentage Double
+deductableAmt Double
+relationship String
+insuredFirstName String
+insuredMiddleName String
+insuredSuffix String
+insuredDob LocalDate
+insuredSsn String
+insuredGender String
+alwaysCrossoverStatus String
+claimCodes String
+addtnlClaimInfo String
+status String
+createdById Long
+createdDate LocalDate
+insuredLastName String
+createdByName String
+updatedByName String
+updatedById Long
+updatedDate LocalDate
+patientInsuranceUuid UUID
+memberId String
+patientRelationshipInsured String
+patientConditionEmployment String
+patientConditionAutoAccident String
+patientConditionOtherAccident String
+insurancePayerIdNo String
+expirationStatus String
+insuranceId Long
+insurancePayerIdNo String
+insurerAddressLine1 String
+insurerAddressLine2 String
+insurerCity String
+insurerState String
+insurerZip String
+insurerContact1 String
+insurerFax String
+}
+
+entity PatientMaster(t_patient_master)
+{
+@Id patientId Long
+patientFirstName String
+patientMiddleName String
+patientLastName String
+dob LocalDate
+gender String
+ssn String
+taxZoneId Long
+discountPercent Double
+posId Long
+priorSystemKey String
+status String
+createdById Long
+createdDate LocalDate
+branchId Long
+createdByName String
+updatedByName String
+updatedById Long
+patientMasterUUID UUID
+patientIdNumber String
+addressLine1 String
+addressLine2 String
+city String
+state String
+country String
+zip String
+contactNo1 String
+contactNo2 String
+fax String
+efax String
+email String
+modeOfContact String
+updatedDate LocalDate
+branchName String
+billingAddressLine1 String
+billingAddressLine2 String
+billingAddressCity String
+billingAddressState String
+billingAddressZip String
+caregiverName String
+caregiverContact String
+caregiverRelatinshipPatient String
+taxZoneName String
+taxRate Double
+patientDod LocalDate
+}
+
+entity WorkersCompensation(t_workers_compensation)
+{
+@Id workersCompensationId Long
+patientId Long
+insuredEmployer String
+workersCompensationPayerIdNumber String
+workersCompensationPlanName String
+workersCompensationAdditionalDtls String
+workersCompensationClaimFillingCode String
+workersCompensationTplCode String
+workersCompensationTplName String
+wcPropertyCasualtyAgencyClaimNo String
+wcCarrierId Long
+status String
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedByName String
+updatedById Long
+updatedDate LocalDate
+workersCompensationUuid UUID
+employerAddressLine1 String
+employerAddressLine2 String
+employerCity String
+employerState String
+employerCountry String
+employerZip String
+employerContactNo1 String
+employerContactNo2 String
+employerFax String
+employerEfax String
+employerEmail String
+relationship String
+modeOfContact String
+}
+
+entity FunctionalAbilityAuditLog(t_functional_ability_audit_log)
+{
+@Id id Long
+funalAbityId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+
+entity WorkersCompensationAuditLog(t_workers_compensation_audit_log)
+{
+@Id id Long
+worersComenationId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+entity PatientClinicalInformationAuditLog(t_patient_clinical_information_audit_log)
+{
+@Id id Long
+patntCliicalInfoationId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+entity PatientDiagnosisAuditLog(t_patient_diagnosis_audit_log)
+{
+@Id id Long
+patintDiagoisId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+entity PatientDoctorMapAuditLog(t_patient_doctor_map_audit_log)
+{
+@Id id Long
+paentDctorMapId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+entity PatientDocumentAuditLog(t_patient_document_audit_log)
+{
+@Id id Long
+ptientDocmtId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+entity PatientInsVerifStatAuditLog(t_patient_ins_verif_stat_audit_log)
+{
+@Id id Long
+insrnceVrifId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+entity PatientInsuranceAuditLog(t_patient_insurance_audit_log)
+{
+@Id id Long
+patintInsnceId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+entity PatientMasterAuditLog(t_patient_master_audit_log)
+{
+@Id id Long
+patintId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+}
+
+entity PatientDto(t_patient_dto)
+{
+@Id patientDtoId Long
+patientId Long
+patientFirstName String
+patientMiddleName String
+patientLastName String
+dob LocalDate
+gender String
+ssn String
+taxZoneId Long
+taxZoneName String
+taxRate Double
+patientIdNumber String
+addressLine1 String
+addressLine2 String
+city String
+state String
+country String
+zip String
+contactNo1 String
+contactNo2 String
+fax String
+efax String
+email String
+branchName String
+billingAddressLine1 String
+billingAddressLine2 String
+billingAddressCity String
+billingAddressState String
+billingAddressZip String
+caregiverName String
+caregiverContact String
+caregiverRelatinshipPatient String
+primaryInsuranceId Long
+primaryInsuranceName String
+primaryInsurancePayerIdNo String
+primaryInsurancePayerContactNo String
+primaryInsurancePolicyNum String
+primaryInsurancePolicyGroupNum String
+primaryInsurancePolicyGroupId Long
+primaryInsurancePolicyStartDate LocalDate
+primaryInsurancePolicyEndDate LocalDate
+primaryInsurancePayPercentage Double
+primaryInsuranceDeductableAmt Double
+secondaryInsuranceId Long
+secondaryInsuranceName String
+secondaryInsurancePayerIdNo String
+secondaryInsurancePayerContactNo String
+secondaryInsurancePolicyNum String
+secondaryInsurancePolicyGroupNum String
+secondaryInsurancePolicyGroupId Long
+secondaryInsurancePolicyStartDate LocalDate
+secondaryInsurancePolicyEndDate LocalDate
+secondaryInsurancePayPercentage Double
+secondaryInsuranceDeductableAmt Double
+tertiaryInsuranceId Long
+tertiaryInsuranceName String
+tertiaryInsurancePayerIdNo String
+tertiaryInsurancePayerContactNo String
+tertiaryInsurancePolicyNum String
+tertiaryInsurancePolicyGroupNum String
+tertiaryInsurancePolicyGroupId Long
+tertiaryInsurancePolicyStartDate LocalDate
+tertiaryInsurancePolicyEndDate LocalDate
+tertiaryInsurancePayPercentage Double
+tertiaryInsuranceDeductableAmt Double
+relationship String
+insuredFirstName String
+insuredMiddleName String
+insuredLastName String
+insuredSuffix String
+insuredDob LocalDate
+insuredSsn String
+insuredGender String
+primaryInsurerAddressLine1 String
+primaryInsurerAddressLine2 String
+primaryInsurerCity String
+primaryInsurerState String
+primaryInsurerZip String
+primaryInsurerContact1 String
+primaryInsurerFax String
+alwaysCrossoverStatus String
+primaryInsuranceMemberId String
+secondaryInsuranceMemberId String
+tertiaryInsuranceMemberId String
+patientRelationshipInsured String
+patientConditionEmployment String
+patientConditionAutoAccident String
+patientConditionOtherAccident String
+insuredEmployer String
+workersCompensationPayerIdNumber String
+workersCompensationPlanName String
+workersCompensationAdditionalDtls String
+workersCompensationClaimFillingCode String
+workersCompensationTplCode String
+workersCompensationTplName String
+wcPropertyCasualtyAgencyClaimNo String
+wcCarrierId String
+employerAddressLine1 String
+employerAddressLine2 String
+employerCity String
+employerState String
+employerCountry String
+employerZip String
+employerContactNo1 String
+employerContactNo2 String
+employerFax String
+employerEfax String
+employerEmail String
+employeeRelationship String
+height Double
+weight Double
+functionalAbilities String
+infectionConditionStatus String
+diabetesStatus String
+diagnosisCodeType String
+icd10DiagnosisCode1 String
+icd10DiagnosisCode2 String
+icd10DiagnosisCode3 String
+icd10DiagnosisCode4 String
+icd10DiagnosisCode5 String
+icd10DiagnosisCode6 String
+icd10DiagnosisCode7 String
+icd10DiagnosisCode8 String
+icd10DiagnosisCode9 String
+icd10DiagnosisCode10 String
+icd10DiagnosisCode11 String
+icd10DiagnosisCode12 String
+doctorFirstName String
+doctorMiddleName String
+doctorLastName String
+doctorNameSuffix String
+doctorAddressLine1 String
+doctorAddressLine2 String
+doctorAddressCity String
+doctorAddressState String
+doctorAddressZip String
+doctorContact1 String
+doctorContact2 String
+doctorFax String
+doctorNpiNumber String
+doctorGender String
+doctorTaxonomyCode String
+doctorTaxonomyDescription String
+doctorPracticeState String
+doctorLicenseNumber String
+status String
+createdDate LocalDate
+createdById Long
+createdByName String
+updatedDate LocalDate
+updatedById Long
+updatedByName String
+patientDtoUuid UUID
+secondaryInsurerAddressLine1 String
+secondaryInsurerAddressLine2 String
+secondaryInsurerCity String
+secondaryInsurerState String
+secondaryInsurerZip String
+secondaryInsurerContact1 String
+secondaryInsurerFax String
+tertiaryInsurerAddressLine1 String
+tertiaryInsurerAddressLine2 String
+tertiaryInsurerCity String
+tertiaryInsurerState String
+tertiaryInsurerZip String
+tertiaryInsurerContact1 String
+tertiaryInsurerFax String
+patientDod LocalDate
+}
+
+entity PatientDocument(t_patient_document){
+	@Id patientDocumentId Long
+	patientDocumentNo String
+	patientId Long
+	patientUuid UUID
+	patientIdNo String
+	patientDocumentType String
+	patientDocumentRepositoryName String
+	patientDocumentName String
+	patientDocumentDescription String
+	patientDocumentStatus String
+	uploadedById Long
+	uploadedByName String
+	uploadedDate LocalDate
+	status String
+	patientDocumentUuid UUID
+}
+use mapstruct, serviceImpl, pagination for all

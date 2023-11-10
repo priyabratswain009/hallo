@@ -1,0 +1,75 @@
+{
+  "applications": "*",
+  "changelogDate": "20230511064817",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_delivery_documents_signature",
+  "fields": [
+    {
+      "fieldName": "deliveryDocumentSignatureId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "deliveryTicketId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "deliveryTicketNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverSignatureFile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientSignatureFile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "driverAgentSignatureFile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryDocumentsSignatureUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "signatureFileResponseJsonData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "caregiverRelationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientReasonnotsigned",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "DeliveryDocumentsSignature",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

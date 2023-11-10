@@ -1,0 +1,247 @@
+{
+  "applications": "*",
+  "changelogDate": "20230615172621",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_pickup_exchange",
+  "fields": [
+    {
+      "fieldName": "pickupExchangeId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "pickupExchangeNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "inventoryLocationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "inventoryLocationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientContact2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingAddressState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingAddressCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingAddressZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveyAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveyAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveyAddressState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveyAddressCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveyAddressZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeScheduleDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "pickupExchangeActualDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "pickupExchangeReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeRequest",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeAgentIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeAgentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeDocumentId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeDocumentNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeDocumentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeComments",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isPatientSigned",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "relationshipWithPatient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientSignedDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "isAgentSigned",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastBillingDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateOfDeath",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "pickupExchangeSupportingDocument1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeSupportingDocument2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientNotsignedReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pickupExchangeJsonData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "pickupExchangeUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "PickupExchange",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

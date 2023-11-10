@@ -1,0 +1,7 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  documents:
+    command: "java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005\
+      \ -jar /project/documents/target/documents-1.0.jar"
+    ports:
+    - "5005:8081"

@@ -1,0 +1,120 @@
+{
+  "applications": "*",
+  "changelogDate": "20221221081738",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_invoice_posting_details",
+  "fields": [
+    {
+      "fieldName": "invoiceLineItemPostingId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "autoGenerate": "true",
+        "id": true
+      }
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "postingDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "postedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "postedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postingComment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "depositId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "receiptId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "postAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "postStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoicePostingDetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "invoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoiceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "invoiceLineItemDetailsId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "hcpcsCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postingNo",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "InvoicePostingDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

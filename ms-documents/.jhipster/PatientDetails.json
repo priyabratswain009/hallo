@@ -1,0 +1,104 @@
+{
+  "applications": "*",
+  "changelogDate": "20220902104425",
+  "clientRootFolder": "documents",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "patient_details",
+  "fields": [
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientFname",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLname",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dob",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "phoneNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mrno",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateTime",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "isTagged",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "documentPath",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "qrCodeStatus",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "documents",
+  "name": "PatientDetails",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "stateMaster",
+      "ownerSide": true,
+      "relationshipName": "stateMaster",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "documentType",
+      "ownerSide": true,
+      "relationshipName": "documentType",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

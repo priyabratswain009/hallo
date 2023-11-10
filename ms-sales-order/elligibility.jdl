@@ -1,0 +1,32 @@
+entity MemberElligibilityMaster(t_member_elligibility_master){
+	@Id claimElligibilityMasterId Long
+	salesOrderId Long
+	elligibilityControlNumber String
+	tradingPartnerServiceId String
+	tradingPartnerName String
+	providerOrganizationName String
+	providerNpi String
+	providerType String
+	subscriberFirstName String
+	subscriberLastName String
+	subscriberMemberId String
+	subscriberIdcard String
+	subscriberDob LocalDate
+	subscriberGender String
+	subscriberPlanIssueDate LocalDate
+	insuredFirstName String
+	insuredLastName String
+	insuredGender String
+	insuredDob LocalDate
+	insuredRelationshipwithSubscriber String
+	dateOfService LocalDate
+	serviceTypeCodes String
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	memberElligibilityMasterUuid UUID
+}

@@ -1,0 +1,107 @@
+{
+  "applications": "*",
+  "changelogDate": "20221201073848",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_835_transaction_master_details",
+  "fields": [
+    {
+      "fieldName": "transactionId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientControlNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payorClaimControlNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceDateFrom",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "serviceDateTo",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "receiptId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "receiptNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemProcCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemModifiers",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "transactionType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "transactionNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "transactionAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "edi835TransactionMasterDetailsUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "Transaction835MasterDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,102 @@
+{
+  "applications": "*",
+  "changelogDate": "20230301122210",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_item_procedure_code_map",
+  "fields": [
+    {
+      "fieldName": "itemProcedureCodeMapId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemUom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "procedureCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifier4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "itemProcedureCodeMapUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "ItemProcedureCodeMap",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "itemMaster",
+      "otherEntityRelationshipName": "procedureDetails",
+      "relationshipName": "itemMaster",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

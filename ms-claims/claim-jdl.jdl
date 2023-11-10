@@ -1,0 +1,825 @@
+entity ClaimsSubmissionMaster(t_primary_claim_submision_master) {
+    @Id changeHealthPrimarySubmisionMasterId Long required
+    salesOrderId Long required
+    claimControlNo String required
+    tradingPartnerServiceId String required
+    tradingPartnerName String required
+    submitterOrganizationName String required
+    submitterContactPersonName String required
+    submitterContactNo String required
+    receiverOrganizationName String required
+    subscriberMemberIdNo String required
+    subscriberPaymentResponsibilityLevelCode String required
+    subscriberFirstName String required
+    subscriberLastName String required
+    subscriberGender String required
+    subscriberDob LocalDate required
+    primaryInsurerPolicyNo String
+    subscriberAddressLine1 String
+    subscriberCity String required
+    subscriberState String required
+    subscriberZipCode String required
+    billingProviderNpi String required
+    billingProviderEin String required
+    billingProviderOrganizationName String required
+    billingProviderAddressLine1 String required
+    billingProviderCity String required
+    billingProviderState String required
+    billingProviderZipCode String required
+    billingProviderContactPersonName String required
+    billingProviderContactNo String required
+    claimFilingCode String required
+    claimChargeAmount Double required
+    posCode String required
+    claimFrequencyCode String required
+    signatureIndicator String required
+    planParticipationCode String required
+    benefitsAssignmentCertificationIndicator String required
+    releaseInformationCode String required
+    primaryDiagnosis String
+    icd10diagnosisCode1 String
+    icd10diagnosisCode2 String
+    icd10diagnosisCode3 String
+    icd10diagnosisCode4 String
+    icd10diagnosisCode5 String
+    icd10diagnosisCode6 String
+    icd10diagnosisCode7 String
+    icd10diagnosisCode8 String
+    icd10diagnosisCode9 String
+    icd10diagnosisCode10 String
+    icd10diagnosisCode11 String
+    icd10diagnosisCode12 String
+    insertedById Long
+    insertedDate ZonedDateTime
+    updatedById Long
+    updatedDate ZonedDateTime
+    billingProviderType String required
+    insertedByName String
+    updatedByName String
+    status String
+    billingProviderAddressLine2 String
+    insuredFirstName String
+    insuredLastName String
+    insuredAddressLine1 String
+    insuredAddressLine2 String
+    insuredCity String
+    insuredState String
+    insuredZip String
+    insuredContactNo String
+    insuredDob LocalDate
+    insuredGender String
+    orderingProviderFirstName String
+    orderingProviderLastName String
+    orderingProviderNpi String
+    patientRelationshipInsured String
+    patientConditionEmployment String
+    patientConditionAutoAccident String
+    patientConditionOtherAccident String
+    isNextLevelInsurerPresentStatus String
+    originalDos LocalDate
+    parNo String
+    billingProviderTaxonomy String
+    serviceProviderNpi String
+    serviceProviderOrganisationName String
+    serviceProviderAddressLine1 String
+    serviceProviderAddressLine2 String
+    serviceProviderCity String
+    serviceProviderState String
+    serviceProviderCountry String
+    serviceProviderZipCode String
+    serviceProviderTaxonomy String
+    cms1500FormName String
+    tradingPartnerAddressLine1 String
+    tradingPartnerAddressLine2 String
+    tradingPartnerCity String
+    tradingPartnerState String
+    tradingPartnerZip String
+    diagnosisCodeType String
+}
+
+entity ServiceLinesMaster(t_primary_claim_submision_servicelines) {
+    @Id changeHealthPrimarySubmisionServicelinesId Long required
+    changeHealthPrimarySubmisionMasterId Long required
+    originalDos ZonedDateTime	required
+    dosTo ZonedDateTime	required
+    procCode String	required
+    chargeAmt Double	required
+    itemUom String	required
+    modifier1 String	required
+    modifier2 String	required
+    modifier3 String	required
+    modifier4 String	required
+    icdPointer String	required
+    qty Long required
+    insertedById Long
+    insertedDate ZonedDateTime
+    updatedById Long
+    updatedDate ZonedDateTime
+    claimServicelineControlNo String
+    procedureIdentifier String	required
+    insertedByName String
+    updatedByName String
+    status String
+    orderingProviderFirstName String	required
+    orderingProviderLastName String
+    orderingProviderNpi String
+    reference String
+}
+
+relationship OneToMany {
+    ClaimsSubmissionMaster{serviceLines} to ServiceLinesMaster
+}
+
+entity PrimaryClaimsReSubmissionMaster(t_primary_claim_resubmision_master) {
+    @Id changeHealthPrimaryResubmisionMasterId Long required
+    salesOrderId Long required
+    claimControlNo String required
+    tradingPartnerServiceId String required
+    tradingPartnerName String required
+    submitterOrganizationName String required
+    submitterContactPersonName String required
+    submitterContactNo String required
+    receiverOrganizationName String required
+    subscriberMemberIdNo String required
+    subscriberPaymentResponsibilityLevelCode String required
+    subscriberFirstName String required
+    subscriberLastName String required
+    subscriberGender String required
+    subscriberDob LocalDate required
+    primaryInsurerPolicyNo String
+    subscriberAddressLine1 String
+    subscriberCity String required
+    subscriberState String required
+    subscriberZipCode String required
+    billingProviderNpi String required
+    billingProviderEin String required
+    billingProviderOrganizationName String required
+    billingProviderAddressLine1 String required
+    billingProviderCity String required
+    billingProviderState String required
+    billingProviderZipCode String required
+    billingProviderContactPersonName String required
+    billingProviderContactNo String required
+    claimFilingCode String required
+    claimChargeAmount Double required
+    posCode String required
+    claimFrequencyCode String required
+    signatureIndicator String required
+    planParticipationCode String required
+    benefitsAssignmentCertificationIndicator String required
+    releaseInformationCode String required
+    primaryDiagnosis String
+    icd10diagnosisCode1 String
+    icd10diagnosisCode2 String
+    icd10diagnosisCode3 String
+    icd10diagnosisCode4 String
+    icd10diagnosisCode5 String
+    icd10diagnosisCode6 String
+    icd10diagnosisCode7 String
+    icd10diagnosisCode8 String
+    icd10diagnosisCode9 String
+    icd10diagnosisCode10 String
+    icd10diagnosisCode11 String
+    icd10diagnosisCode12 String
+    insertedById Long
+    insertedDate ZonedDateTime
+    updatedById Long
+    updatedDate ZonedDateTime
+    billingProviderType String required
+    insertedByName String
+    updatedByName String
+    status String
+    billingProviderAddressLine2 String
+    payerClaimControlNumber String  required
+    insuredFirstName String
+    insuredLastName String
+    insuredAddressLine1 String
+    insuredAddressLine2 String
+    insuredCity String
+    insuredState String
+    insuredZip String
+    insuredContactNo String
+    insuredDob LocalDate
+    insuredGender String
+    orderingProviderFirstName String
+    orderingProviderLastName String
+    orderingProviderNpi String
+    patientRelationshipInsured String
+    patientConditionEmployment String
+    patientConditionAutoAccident String
+    patientConditionOtherAccident String
+    isNextLevelInsurerPresentStatus String
+    originalDos LocalDate
+    parNo String
+    billingProviderTaxonomy String
+    serviceProviderNpi String
+    serviceProviderOrganisationName String
+    serviceProviderAddressLine1 String
+    serviceProviderAddressLine2 String
+    serviceProviderCity String
+    serviceProviderState String
+    serviceProviderCountry String
+    serviceProviderZipCode String
+    serviceProviderTaxonomy String
+    cms1500FormName String
+    tradingPartnerAddressLine1 String
+    tradingPartnerAddressLine2 String
+    tradingPartnerCity String
+    tradingPartnerState String
+    tradingPartnerZip String
+    diagnosisCodeType String
+}
+
+entity PrimaryResubmissionServiceLinesMaster(t_primary_claim_resubmision_servicelines) {
+    @Id changeHealthPrimaryResubmisionServicelinesId Long required
+    changeHealthPrimaryResubmisionMasterId Long required
+    originalDos ZonedDateTime	required
+    dosTo ZonedDateTime	required
+    procCode String	required
+    chargeAmt Double	required
+    itemUom String	required
+    modifier1 String	required
+    modifier2 String	required
+    modifier3 String	required
+    modifier4 String	required
+    icdPointer String	required
+    qty Long required
+    insertedById Long
+    insertedDate ZonedDateTime
+    updatedById Long
+    updatedDate ZonedDateTime
+    claimServicelineControlNo String
+    procedureIdentifier String	required
+    insertedByName String
+    updatedByName String
+    status String
+    orderingProviderFirstName String	required
+    orderingProviderLastName String
+    orderingProviderNpi String
+    reference String
+}
+
+relationship OneToMany {
+    PrimaryClaimsReSubmissionMaster{serviceLines} to PrimaryResubmissionServiceLinesMaster
+}
+
+entity SecondaryClaimsSubmissionMaster(t_secondary_claim_submision_master) {
+    @Id changeHealthSecondarySubmisionMasterId Long required
+    salesOrderId Long required
+    claimControlNo String required
+    tradingPartnerServiceId String required
+    tradingPartnerName String required
+    submitterOrganizationName String required
+    submitterContactPersonName String required
+    submitterContactNo String required
+    receiverOrganizationName String required
+    subscriberMemberIdNo String required
+    subscriberPaymentResponsibilityLevelCode String required
+    subscriberFirstName String required
+    subscriberLastName String required
+    subscriberGender String required
+    subscriberDob LocalDate required
+    primaryInsurerPolicyNo String
+    subscriberAddressLine1 String
+    subscriberCity String required
+    subscriberState String required
+    subscriberZipCode String required
+    providerType String required
+    billingProviderNpi String required
+    billingProviderEin String required
+    billingProviderOrganizationName String required
+    billingProviderAddressLine1 String required
+    billingProviderAddressLine2 String
+    billingProviderCity String required
+    billingProviderState String required
+    billingProviderZipCode String required
+    billingProviderContactPersonName String required
+    billingProviderContactNo String required
+    claimFilingCode String required
+    patientAccountNo String required
+    claimChargeAmount Double required
+    posCode String required
+    claimFrequencyCode String required
+    signatureIndicator String required
+    planParticipationCode String required
+    benefitsAssignmentCertificationIndicator String required
+    releaseInformationCode String required
+    primaryDiagnosis String
+    icd10diagnosisCode1 String
+    icd10diagnosisCode2 String
+    icd10diagnosisCode3 String
+    icd10diagnosisCode4 String
+    icd10diagnosisCode5 String
+    icd10diagnosisCode6 String
+    icd10diagnosisCode7 String
+    icd10diagnosisCode8 String
+    icd10diagnosisCode9 String
+    icd10diagnosisCode10 String
+    icd10diagnosisCode11 String
+    icd10diagnosisCode12 String
+    insertedById Long
+    insertedDate ZonedDateTime
+    billingProviderType String required
+    insertedByName String
+    status String
+    otherSubscriberAddress1 String
+    otherSubscriberAddress2 String
+    otherSubscriberCity String
+    otherSubscriberState String
+    otherSubscriberZip String
+    otherInsuredQualifier String
+    otherInsuredLastName String
+    otherInsuredFirstName String
+    otherInsuredIdentifierTypeCode String
+    otherInsuredIdentifier String
+    otherPayerOrganizationName String
+    otherPayerIdentifierTypeCode String
+    otherPayerIdentifier String
+    otherPayerAdjudicationOrPaymentDate LocalDate
+    otherPayerClaimAdjustmentIndicator String
+    otherPayerClaimControlNumber String
+    payerPaidAmount Double
+    paymentResponsibilityLevelCode String
+    individualRelationshipCode String
+    claimFilingIndicatorCode String
+    otherPayerBenefitsAssignmentCertificationIndicator String
+    releaseOfInformationCode String
+    remainingPatientLiability Double
+    patientSignatureGeneratedForPatient String
+    updatedById Long
+    updatedByName String
+    updatedDate ZonedDateTime
+    changeHealthPrimarySubmisionMasterId Long
+    insuredFirstName String
+    insuredLastName String
+    insuredAddressLine1 String
+    insuredAddressLine2 String
+    insuredCity String
+    insuredState String
+    insuredZip String
+    insuredContactNo String
+    insuredDob LocalDate
+    insuredGender String
+    orderingProviderFirstName String
+    orderingProviderLastName String
+    orderingProviderNpi String
+    patientRelationshipInsured String
+    patientConditionEmployment String
+    patientConditionAutoAccident String
+    patientConditionOtherAccident String
+    isNextLevelInsurerPresentStatus String
+    originalDos LocalDate
+    parNo String
+    billingProviderTaxonomy String
+    serviceProviderNpi String
+    serviceProviderOrganisationName String
+    serviceProviderAddressLine1 String
+    serviceProviderAddressLine2 String
+    serviceProviderCity String
+    serviceProviderState String
+    serviceProviderCountry String
+    serviceProviderZipCode String
+    serviceProviderTaxonomy String
+    cms1500FormName String
+    tradingPartnerAddressLine1 String
+    tradingPartnerAddressLine2 String
+    tradingPartnerCity String
+    tradingPartnerState String
+    tradingPartnerZip String
+    diagnosisCodeType String
+}
+
+entity SecondaryServiceLinesMaster(t_secondary_claim_submision_servicelines) {
+    @Id changeHealthSecondarySubmisionServicelinesId Long required
+    changeHealthSecondarySubmisionMasterId Long required
+    originalDos ZonedDateTime	required
+    dosTo ZonedDateTime	required
+    procCode String	required
+    chargeAmt Double	required
+    itemUom String	required
+    modifier1 String	required
+    modifier2 String	required
+    modifier3 String	required
+    modifier4 String	required
+    icdPointer String	required
+    qty Long required
+    insertedById String
+    insertedDate ZonedDateTime
+    claimServicelineControlNo String
+    procedureIdentifier String
+    insertedByName String
+    status String
+    orderingProviderFirstName String	required
+    orderingProviderLastName String
+    orderingProviderNpi String
+    reference String
+    payorClaimControlNo String
+    providerPaymentAmount Double	required
+    lineAdjustment String
+    updatedById Long
+    updatedDate ZonedDateTime
+    updatedByName String
+}
+
+relationship OneToMany {
+    SecondaryClaimsSubmissionMaster{secondaryserviceLines} to SecondaryServiceLinesMaster
+}
+
+entity ClaimsCOB835Master(t_claims_cob_835_master) {
+	@Id claimCob835MasterId Long required
+	patientControlNumber String
+	payerClaimControlNumber String
+	patientFirstName String
+	patientLastName String
+	patientMemberId String
+	checkOrEFTTraceNumber String
+	checkIssueOrEFTEffectiveDate LocalDate
+	creditOrDebitFlagCode String
+	paymentMethodCode String
+	totalClaimChargeAmount Double
+	totalClaimPaymentAmount Double
+	totalPatientResponsibilityAmount Double
+	crossoverCarrierName Boolean
+    crossoverCarrierPayerId String
+	crossoverCarrierPayerName String
+	payerName String
+	payeeName String
+	payeeNpi String
+	claimReceivedDate LocalDate
+	fileName String
+	receivedOn LocalDate
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+    claimsCob835MasterUuid UUID
+    chequeEftAmount Double
+    cobType String
+}
+
+entity ClaimsCOB835Details(t_claims_cob_835_details) {
+	@Id claimCob835DetailId Long required
+	serviceDate LocalDate
+	adjudicatedProcedureCode String
+	adjudicatedProcedureModifierCodes String
+	chargeAmount Double
+	allowedAmount Double
+	adjustmentPrCode1 String
+	adjustmentPrCode1Amount Double
+	adjustmentPrCode2 String
+	adjustmentPrCode2Amount Double
+	adjustmentPrCode3 String
+	adjustmentPrCode3Amount Double
+	adjustmentPrCode4 String
+	adjustmentPrCode4Amount Double
+	adjustmentCoCode1 String
+	adjustmentCoCode1Amount Double
+	adjustmentCoCode2 String
+	adjustmentCoCode2Amount Double
+	adjustmentCoCode3 String
+	adjustmentCoCode3Amount Double
+	adjustmentCoCode4 String
+	adjustmentCoCode4Amount Double
+	adjustmentCrCode1 String
+	adjustmentCrCode1Amount Double
+	adjustmentCrCode2 String
+	adjustmentCrCode2Amount Double
+	adjustmentCrCode3 String
+	adjustmentCrCode3Amount Double
+	adjustmentCrCode4 String
+	adjustmentCrCode4Amount Double
+	adjustmentOaCode1 String
+	adjustmentOaCode1Amount Double
+	adjustmentOaCode2 String
+	adjustmentOaCode2Amount Double
+	adjustmentOaCode3 String
+	adjustmentOaCode3Amount Double
+	adjustmentOaCode4 String
+	adjustmentOaCode4Amount Double
+	adjustmentPiCode1 String
+	adjustmentPiCode1Amount Double
+	adjustmentPiCode2 String
+	adjustmentPiCode2Amount Double
+	adjustmentPiCode3 String
+	adjustmentPiCode3Amount Double
+	adjustmentPiCode4 String
+	adjustmentPiCode4Amount Double
+	providerPaymentAmount Double
+    claimCob835MasterId Long
+    serviceDateTo LocalDate
+    unitCount Integer
+    claimsCob835DetailsUuid UUID
+	status String
+    postStatus String
+}
+
+entity ClaimsStatus277Master(t_claims_status_277_master) {
+	@Id claimStatus277MasterId Long required
+	controlNumber String
+	fileName String
+	tradingPartnerClaimNumber String
+	patientFirstName String
+	patientLastName String
+	patientMemberId String
+	serviceProviderName String
+	serviceProviderNpi String
+	totalClaimChargeAmount Double
+	totalClaimPaymentAmount Double
+	adjudicatedFinalizedDate LocalDate
+	remittanceDate LocalDate
+	claimStatusCategoryCode String
+	claimStatusCategoryCodeValue String
+	statusCode String
+	statusCodeValue String
+	clearinghouseTraceNumber String
+	remittanceTraceNumber String
+	patientAccountNumber String
+	claimServiceBeginDate LocalDate
+	claimServiceEndDate LocalDate
+	statusInformationEffectiveDate LocalDate
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+    claimsStatus277MasterUuid UUID
+}
+
+entity ClaimsStatus277Details(t_claims_status_277_details) {
+	@Id claimStatus277DetailId Long required
+    claimStatus277MasterId Long
+	procedureCode String
+	procedureModifiers String
+	submittedUnits String
+	chargeAmount Double
+	paidAmount Double
+	serviceLineBeginDate LocalDate
+	serviceLineEndDate LocalDate
+	claimStatusCategoryCode String
+	claimStatusCategoryCodeValue String
+	statusCode String
+	statusCodeValue String
+	effectiveDate LocalDate
+	status String
+    claimsStatus277DetailsUuid UUID
+}
+
+entity Claim835277Exception(t_claim_835_277_exception) {
+	@Id exceptionId Long required
+	fileName String
+	runDate LocalDate
+	is277 Boolean
+	is835 Boolean
+    claimStatus277MasterId Long
+    claimCob835MasterId Long
+	payerClaimControlNumber String
+	patientControlNumber String
+	patientMemberId String
+	patientAccountNumber String
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+    claim835277ExceptionUuid UUID
+}
+
+entity ClaimSubmissionStatus(t_claim_submission_status) {
+	@Id claimStatusId Long required
+	salesOrderId Long
+	salesOrderNo String
+	invoiceId Long
+	invoiceNo String
+	payorLevel String
+	payorIdNo String
+	claimSubmissionDataId Long
+	intClaimNo String
+	patientAccountNo String
+	payorClaimControlNo String
+	originalClaimControlNo String
+	patientIdNo String
+	payor String
+	claimSubmissionDate LocalDate
+	submissionStatus String
+	submissionNote String
+	responseStatus String
+	responseStatusNotes String
+	responseStatusDate LocalDate
+	eraStatus String
+	eraStatusNotes String
+	eraDate LocalDate
+	resubmissinStatus String
+	resubmissionDetailId Long
+	resubmissionNotes String
+	voidStatus String
+	voidNote String
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	claimSubmissionStatusUuid UUID
+    claimCob835MasterId Long
+    claimStatus277MasterId Long
+    payorId String
+    readyForSubmissionStatus String
+	periodNo String
+	branchId Long
+}
+
+entity ClaimsReportFileProcessStatus(t_claims_report_file_process_status) {
+	@Id fileStatusId Long required
+	fileName String
+	runDate LocalDate
+	processDate LocalDate
+	processStatus String
+    claimsReportFileProcessStatusUuid UUID
+}
+
+entity DepositMasterDetails(t_deposit_master_details) {
+    @Id depositId Long required
+    depositNo String
+    depositReference String
+    payorName String
+    depositDate LocalDate
+    depositNotes String
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    depositMasterDetailsUuid UUID
+    claimCob835MasterId Long
+    depositStatus String
+    depositAmount Double
+}
+
+entity ReceiptMasterDetails(t_receipt_master_details) {
+    @Id receiptId Long required
+    receiptNo String
+    depositId Long
+    depositNo String
+    receiptReference String
+    receiptAmount Double
+    paymentMode String
+    paymentDate LocalDate
+    receiptNotes String
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    receiptMasterDetailsUuid UUID
+    receiptStatus String
+}
+
+entity Transaction835MasterDetails(t_835_transaction_master_details) {
+    @Id transactionId Long required
+    patientControlNo String
+    payorClaimControlNo String
+    serviceDateFrom LocalDate
+    serviceDateTo LocalDate
+    receiptId Long
+    receiptNo String
+    itemProcCode String
+    itemModifiers String
+    itemQty Long
+    transactionType String
+    transactionNotes String
+    transactionAmount Double
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    edi835TransactionMasterDetailsUuid UUID
+}
+
+entity InvoiceLineItemDetails(t_invoice_line_item_details){
+    @AutoGenerate(true) @Id invoiceLineItemDetailsId Long required
+    primaryInvoiceNo String
+    invoiceDate LocalDate
+    itemId Long
+    itemQty Long
+    itemName String
+    hcpcsCode String
+    chargedAmount Double
+    allowAmount Double
+    status String
+    createdDate LocalDate
+    createdById Long
+    createdByName String
+    updatedDate LocalDate
+    updatedById Long
+    updatedByName String
+    invoiceLineItemDetailsUuid UUID
+    secondaryInvoiceNo String
+    tertiaryInvoiceNo String
+    patientInvoiceNo String
+    primaryInvoiceId Long
+    secondaryInvoiceId Long
+    tertiaryInvoiceId Long
+    patientInvoiceId Long
+}
+
+entity InvoiceMasterDetails (t_invoice_master_details){
+    @AutoGenerate(true) @Id invoiceId Long required
+    invoiceNo String
+    invoiceDate LocalDate
+    invoiceToEntity String
+    invoiceToPayorId Long
+    invoiceToPayorName String
+    salesOrderId Long
+    salesOrderNo String
+    patientId Long
+    patientFirstName String
+    patientMiddleName String
+    patientLastName String
+    itemQtyTotal Long
+    chargedAmountTotal Double
+    allowAmountTotal Double
+    paymentAmountTotal Double
+    taxAmountTotal Double
+    adjAmountTotal Double
+    balanceAmountTotal Double
+    status String
+    createdDate LocalDate
+    createdById Long
+    createdByName String
+    updatedDate LocalDate
+    updatedById Long
+    updatedByName String
+    invoiceMasterDetailsUuid UUID
+    invoiceStatus String
+}
+
+entity InvoicePostingDetails(t_invoice_posting_details){
+    @AutoGenerate(true) @Id invoiceLineItemPostingId Long required
+    itemId Long
+    postingDate LocalDate
+    postedById Long
+    postedByName String
+    postingComment String
+    postType String
+    depositId Long
+    receiptId Long
+    postAmount Double
+    postStatus String
+    status String
+    createdDate LocalDate
+    createdById Long
+    createdByName String
+    updatedDate LocalDate
+    updatedById Long
+    updatedByName String
+    invoicePostingDetailsUuid UUID
+    invoiceNo String
+    invoiceDate LocalDate
+    invoiceLineItemDetailsId Long
+    invoicePostingDetailsUuid UUID
+    hcpcsCode String
+    postingNo String
+}
+
+entity Claims835CrossoverException(t_claims_835_crossover_exception){
+    @AutoGenerate(true) @Id claims835CrossoverExceptionId Long required
+    claimCob835MasterId Long
+    patientControlNumber String
+    payerClaimControlNumber String
+    crossoverCarrierName String
+    crossoverCarrierPayerId String
+    crossoverCarrierPayerName String
+    exceptionType String
+    claims835CrossoverExceptionUuid UUID
+}
+
+entity Claims835CrossoverProcessed(t_claims_835_crossover_processed){
+    @AutoGenerate(true) @Id claims835CrossoverProcessedId Long required
+    claimCob835MasterId Long
+    patientControlNumber String
+    processedDate LocalDate
+    claims835CrossoverProcessed UUID
+}
+
+
+use mapstruct, serviceImpl, pagination for all
+
+
+
+
+

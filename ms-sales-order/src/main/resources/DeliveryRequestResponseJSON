@@ -1,0 +1,81 @@
+Create Delivery Ticket(createDeliveryTicket)
+============================================
+I/P -
+=====
+{
+    "salesOrderId": 20,
+    "deliveryType": "Courier",
+    "setupMethod": "Technician",
+    "userId": 4,
+    "userName": "Debabrata"
+}
+O/P -
+=====
+{
+  "data": {
+    "itemInventoryStatusInputParamsList": [
+      {
+        "deliveryTicketId": 1000000059,
+        "deliveryTicketNo": "DTN1000000059",
+        "soId": 20,
+        "soNumber": "1251",
+        "itemLocationId": 2,
+        "deliveryType": "Courier",
+        "serviceType": "SALESORDER",
+        "deliveryItemData": [
+          {
+            "deliveryItemId": 84,
+            "itemId": 14,
+            "itemNumber": "ITM1000000014",
+            "itemName": "Walker, rigid, wheeled, adjustable or fixed height",
+            "hcpcsCode": "E0204",
+            "itemQuantity": 1,
+            "itemSaleType": "Rental",
+            "isDropship": "",
+            "poNumber": "",
+            "deliveryItemsUuid": "f7b2a5a8-cad0-4db8-95bb-d58bd59080d2"
+          },
+          {
+            "deliveryItemId": 85,
+            "itemId": 14,
+            "itemNumber": "ITM1000000014",
+            "itemName": "Walker, rigid, wheeled, adjustable or fixed height",
+            "hcpcsCode": "E0100",
+            "itemQuantity": 1,
+            "itemSaleType": "Rental",
+            "isDropship": "",
+            "poNumber": "",
+            "deliveryItemsUuid": "68d23824-ca59-4b19-83da-b516ad2dee87"
+          }
+        ],
+        "deliveryTicketUuid": "62dff6b2-63f6-4eea-94a1-d7b1499217e8"
+      },
+      {
+        "deliveryTicketId": 1000000060,
+        "deliveryTicketNo": "DTN1000000060",
+        "soId": 20,
+        "soNumber": "1251",
+        "itemLocationId": 2,
+        "deliveryType": "Dropship",
+        "serviceType": "SALESORDER",
+        "deliveryItemData": [
+          {
+            "deliveryItemId": 86,
+            "itemId": 11,
+            "itemNumber": "ITM1000000011",
+            "itemName": "Walker, rigid (pickup), adjustable or fixed height",
+            "hcpcsCode": "E0201",
+            "itemQuantity": 1,
+            "itemSaleType": "Rental",
+            "isDropship": "yes",
+            "poNumber": "P000000061",
+            "deliveryItemsUuid": "7031c724-78f8-4a5a-84a6-f09c4e5dabed"
+          }
+        ],
+        "deliveryTicketUuid": "018c932a-4d6b-40bf-b987-53c795c31275"
+      }
+    ]
+  },
+  "outcome": true,
+  "message": "Successfully create the delivery ticket and updated item inventory status!!!"
+}

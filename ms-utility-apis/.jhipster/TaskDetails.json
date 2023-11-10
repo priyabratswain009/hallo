@@ -1,0 +1,140 @@
+{
+  "applications": "*",
+  "changelogDate": "20230529094928",
+  "clientRootFolder": "utilityapis",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_task_details",
+  "fields": [
+    {
+      "fieldName": "taskDetailsId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "taskNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taskId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "taskName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taskReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "severity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subjectText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "descriptionText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assignedToId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "assignmentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateNeeded",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateCompleted",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "taskState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deactiveStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "objectName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectInstanceIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assignToName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectInstanceUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "wipStatusId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wipStatusName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "taskDetailsUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "utilityapis",
+  "name": "TaskDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

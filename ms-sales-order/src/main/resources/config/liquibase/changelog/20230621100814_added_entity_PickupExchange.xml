@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity PickupExchange.
+    -->
+    <changeSet id="20230621100814-1" author="jhipster">
+        <createTable tableName="t_pickup_exchange">
+            <column name="pickup_exchange_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="pickup_exchange_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="so_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="so_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="branch_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="inventory_location_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="inventory_location_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_id_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_first_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_middle_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_last_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_contact_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_contact_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_address_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_address_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_billing_address_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivey_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivey_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivey_address_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivey_address_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_delivey_address_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_schedule_date_time" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_actual_date_time" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_reason" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_request" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_note" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_agent_id_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_agent_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_document_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_document_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_document_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_comments" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="is_patient_signed" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="relationship_with_patient" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_signed_date_time" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="is_agent_signed" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="last_billing_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_of_death" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_supporting_document_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_supporting_document_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_notsigned_reason" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_json_data" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="pickup_exchange_uuid" type="${uuidType}">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20230621100814-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/t_pickup_exchange.csv"
+                  separator=";"
+                  tableName="t_pickup_exchange"
+                  usePreparedStatements="true">
+            <column name="pickup_exchange_id" type="numeric"/>
+            <column name="pickup_exchange_no" type="string"/>
+            <column name="pickup_exchange_type" type="string"/>
+            <column name="so_id" type="numeric"/>
+            <column name="so_no" type="string"/>
+            <column name="branch_id" type="numeric"/>
+            <column name="branch_name" type="string"/>
+            <column name="inventory_location_id" type="numeric"/>
+            <column name="inventory_location_name" type="string"/>
+            <column name="patient_id" type="numeric"/>
+            <column name="patient_id_no" type="string"/>
+            <column name="patient_first_name" type="string"/>
+            <column name="patient_middle_name" type="string"/>
+            <column name="patient_last_name" type="string"/>
+            <column name="patient_contact_1" type="string"/>
+            <column name="patient_contact_2" type="string"/>
+            <column name="patient_billing_address_line_1" type="string"/>
+            <column name="patient_billing_address_line_2" type="string"/>
+            <column name="patient_billing_address_state" type="string"/>
+            <column name="patient_billing_address_city" type="string"/>
+            <column name="patient_billing_address_zip" type="string"/>
+            <column name="patient_delivey_address_line_1" type="string"/>
+            <column name="patient_delivey_address_line_2" type="string"/>
+            <column name="patient_delivey_address_state" type="string"/>
+            <column name="patient_delivey_address_city" type="string"/>
+            <column name="patient_delivey_address_zip" type="string"/>
+            <column name="pickup_exchange_schedule_date_time" type="date"/>
+            <column name="pickup_exchange_actual_date_time" type="date"/>
+            <column name="pickup_exchange_reason" type="string"/>
+            <column name="pickup_exchange_request" type="string"/>
+            <column name="pickup_exchange_note" type="string"/>
+            <column name="pickup_exchange_agent_id_no" type="string"/>
+            <column name="pickup_exchange_agent_name" type="string"/>
+            <column name="pickup_exchange_document_id" type="string"/>
+            <column name="pickup_exchange_document_no" type="string"/>
+            <column name="pickup_exchange_document_name" type="string"/>
+            <column name="pickup_exchange_status" type="string"/>
+            <column name="pickup_exchange_comments" type="string"/>
+            <column name="is_patient_signed" type="string"/>
+            <column name="relationship_with_patient" type="string"/>
+            <column name="patient_signed_date_time" type="date"/>
+            <column name="is_agent_signed" type="string"/>
+            <column name="last_billing_date" type="date"/>
+            <column name="date_of_death" type="date"/>
+            <column name="pickup_exchange_supporting_document_1" type="string"/>
+            <column name="pickup_exchange_supporting_document_2" type="string"/>
+            <column name="patient_notsigned_reason" type="string"/>
+            <column name="pickup_exchange_json_data" type="string"/>
+            <column name="status" type="string"/>
+            <column name="created_by_id" type="numeric"/>
+            <column name="created_by_name" type="string"/>
+            <column name="created_date" type="date"/>
+            <column name="updated_by_id" type="numeric"/>
+            <column name="updated_by_name" type="string"/>
+            <column name="updated_date" type="date"/>
+            <column name="pickup_exchange_uuid" type="${uuidType}"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

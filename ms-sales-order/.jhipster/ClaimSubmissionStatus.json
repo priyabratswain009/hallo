@@ -1,0 +1,175 @@
+{
+  "applications": "*",
+  "changelogDate": "20221021112502",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_claim_submission_status",
+  "fields": [
+    {
+      "fieldName": "claimStatusId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesOrderNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "invoiceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "invoiceNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payorLevel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payorIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimSubmissionDataId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "intClaimNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientAccountNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payorClaimControlNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "originalClaimControlNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimSubmissionDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "submissionStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submissionNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "responseStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "responseStatusNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "responseStatusDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "response277RecordId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "eraStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "eraStatusNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "eraDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "era835RecordId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "resubmissinStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "resubmissionDetailId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "resubmissionNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "voidStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "voidNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimSubmissionStatusUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "ClaimSubmissionStatus",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

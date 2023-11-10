@@ -1,0 +1,127 @@
+{
+  "applications": "*",
+  "changelogDate": "20230116101705",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_vendor_master",
+  "fields": [
+    {
+      "fieldName": "vendorId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "vendorName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "vendorDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorMasterUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "vendorAccountNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultPoType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultShopType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "efax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactPersonName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo2",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "VendorMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

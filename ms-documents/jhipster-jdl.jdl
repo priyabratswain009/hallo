@@ -1,0 +1,41 @@
+entity StateMaster {
+	@Id stateId Long
+	stateCode String
+	stateName String
+}
+
+entity DocumentType {
+	@Id documentTypeId Long
+	documentType String
+	description String
+}
+
+entity PatientDetails {
+	@Id patientId Long
+	patientFname String
+	patientLname String
+	dob Instant required
+	address String
+	city String
+	zip String
+	email String
+	phoneNo String
+	documentName String
+	description String
+	mrno String
+	dateTime String
+	status Integer
+	isTagged Boolean
+	documentPath String
+	qrCodeStatus Boolean
+}
+
+relationship OneToOne {
+  PatientDetails{stateMaster} to StateMaster
+  PatientDetails{documentType} to DocumentType
+}
+
+
+
+
+

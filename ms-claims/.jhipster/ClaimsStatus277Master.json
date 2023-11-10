@@ -1,0 +1,147 @@
+{
+  "applications": "*",
+  "changelogDate": "20221201073841",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_claims_status_277_master",
+  "fields": [
+    {
+      "fieldName": "claimStatus277MasterId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "controlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fileName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerClaimNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "totalClaimChargeAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalClaimPaymentAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "adjudicatedFinalizedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "remittanceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "claimStatusCategoryCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimStatusCategoryCodeValue",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "statusCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "statusCodeValue",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "clearinghouseTraceNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "remittanceTraceNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientAccountNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimServiceBeginDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "claimServiceEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "statusInformationEffectiveDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "claimsStatus277MasterUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "ClaimsStatus277Master",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

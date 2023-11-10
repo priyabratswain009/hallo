@@ -1,0 +1,143 @@
+{
+  "applications": "*",
+  "changelogDate": "20230213142147",
+  "clientRootFolder": "settings",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_item_location",
+  "fields": [
+    {
+      "fieldName": "itemLocationId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "itemLocationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemLocationUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "billingAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billlingAddressCompanyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryZip",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "settings",
+  "name": "ItemLocation",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

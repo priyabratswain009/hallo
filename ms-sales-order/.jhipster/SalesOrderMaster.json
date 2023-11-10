@@ -1,0 +1,599 @@
+{
+  "applications": "*",
+  "changelogDate": "20220823190357",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_sales_order_master",
+  "fields": [
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "salesOrderNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientHeight",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientWeight",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientSsn",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hipaaOnFileStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBranchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryScheduleDatetime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryActualDatetime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryPhoneNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryPhoneNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "facilityId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "facilityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "facilityNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxZoneId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "taxRate",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "salesOrderNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryTechnician",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "signatureRequiredStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "podStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "podStatusDatetime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "podLastMessage",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "podMessageDatetime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "mutualHoldStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "holdStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "holdReasonDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "stopDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "stopReasonDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "billingBranchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "inventoryLocationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "orderStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderClassificationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "posId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "admissionDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dischargeDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "discountPercentage",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "poNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userField1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userField2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userField3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userField4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reference",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wipStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wipDaysInState",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wipAssignedToId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wipDateNeeded",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "completedStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "stateName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryCityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryStateName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryZipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDod",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "posName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "confirmationById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "confirmationByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "confirmationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "salesOrderMasterUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "branchContactPersonName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchEin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "posCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "eclaimCarrierName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "planParticipationCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactPersonName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchZipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveryAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveryAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveryCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveryState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveryCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDeliveryZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientBillingZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "relationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modeOfContact",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientRelationshipInsured",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionEmployment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionAutoAccident",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionOtherAccident",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderTaxonomy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOrganisationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderZipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "branchCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchTaxonomy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurerPriceTableId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsurerPriceTableName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "inventoryLocationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soControlNumber",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SalesOrderMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

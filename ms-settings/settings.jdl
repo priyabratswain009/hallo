@@ -1,0 +1,843 @@
+entity BranchGroup(t_branch_group){
+	@Id branchGroupId Long
+    branchGroupName String
+    companyId Long
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedDate LocalDate
+    updatedById Long
+    createdByName String
+    updatedByName String
+    branchGroupUuid UUID
+}
+
+entity BranchGroupAuditLog(t_branch_group_audit_log){
+	brnchGrpId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+	@Id id Long
+}
+
+entity BranchInsuranceMap(t_branch_insurance_map){
+	@Id branchInsuranceMapId Long
+    branchId Long
+    branchName String
+    insuranceId Long
+    insuranceName String
+    insuranceIdNo String
+    insuranceStateName String
+    priceTableId Long
+    priceTableName String
+    branchNpi String
+    branchPtan String
+    esubmitterPayorId String
+    branchTaxonomyCode String
+    billingProviderOverrideCompanyName String
+    billingProviderOverrideTaxIdEin String
+    billingProviderOverrideAddressLine1 String
+    billingProviderOverrideAddressLine2 String
+    billingProviderOverrideCity String
+    billingProviderOverrideState String
+    billingProviderOverrideZip String
+    billingProviderOverrideContact1 String
+    billingProviderOverrideContact2 String
+    billingProviderOverrideFax String
+    billingProviderOverrideEmail String
+    payToProviderCompanyName String
+    payToProviderTaxIdEin String
+    payToProviderAddressLine1 String
+    payToProviderAddressLine2 String
+    payToProviderCity String
+    payToProviderState String
+    payToProviderZip String
+    payToProviderContact1 String
+    payToProviderContact2 String
+    payToProviderFax String
+    payToProviderEmail String
+    submitterName String
+    submitterContact1 String
+    submitterContact2 String
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    branchInsuranceMapUuid UUID
+}
+
+entity BranchInsuranceMapAuditLog(t_branch_insurance_map_audit_log){
+	brachInsanceMapId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity BranchItemLocationMap(t_branch_item_location_map){
+	@Id branchItemLocationMapId Long
+    branchId Long
+    itemLocationId Long
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    branchItemLocationMapUuid UUID
+}
+
+entity BranchItemLocationMapAuditLog(t_branch_item_location_map_audit_log){
+	brnchItmLoctinMapId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity BranchOffice(t_branch_office){
+	@Id branchId Long
+    branchName String
+    branchGroupId Long
+    npi String
+    ptan String
+    taxonomyCode String
+    taxonomyCodeDescription String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedDate LocalDate
+    taxIdType String
+    taxIdNo String
+    branchNo String
+    createdByName String
+    updatedByName String
+    updatedById Long
+    branchOfficeUuid UUID
+    billingAddressLine1 String
+    billingAddressLine2 String
+    billingCity String
+    billingState String
+    billingZipCode String
+    submitterContactPersonName String
+    submitterContactPhoneNo1 String
+    submitterContactPhoneNo2 String
+    billingFax String
+    contactEmail String
+    zip String
+    billingContactNo1 String
+    billingContactNo2 String
+    billingEmail String
+    branchCompany String
+    branchGroupName String
+    addressLine1 String
+    addressLine2 String
+    city String
+    state String
+    signatureName String
+    itemLocationId String
+    itemLocationName String
+    branchCompanyId Long
+    isDropshipAllowed String
+    billingTaxonomyCode String
+    billingNpi String
+    billingOrganisationName String
+    billingTaxIdNo String
+    billingBranchName String
+    fax String
+}
+
+entity BranchOfficeAuditLog(t_branch_office_audit_log){
+	brnchId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+	@Id id Long
+}
+
+entity ClaimFormMaster(t_claim_form_master){
+	@Id claimFormId Long
+    claimFormName String
+    status String
+    createdById Long
+    createdDate LocalDate
+	updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    claimFormMasterUuid UUID
+}
+
+entity ClaimFormMasterAuditLog(t_claim_form_master_audit_log){
+	clmFormId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+	@Id id Long
+}
+
+entity ClaimProgramMaster(t_claim_program_master){
+@Id claimProgramMasterId Long
+claimProgramMasterKey String
+claimProgramMasterUuid UUID
+claimProgramMasterValue String
+createdById Long
+createdByName String
+createdDate LocalDate
+status String
+updatedById Long
+updatedByName String
+updatedDate LocalDate
+}
+
+entity ClaimProgramMasterAuditLog(t_claim_program_master_audit_log){
+	insrnceIncatorId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity DocumentTypeMaster(t_document_type_master){
+	@Id documentTypeId Long
+    documentTypeName String
+    createdById String
+    createdDate LocalDate
+    status String
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    documentTypeMasterUuid UUID
+}
+
+entity DocumentTypeMasterAuditLog(t_document_type_master_audit_log){
+	dcumetTpeId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity HoldReasonMasterAuditLog(t_hold_reason_master_audit_log){
+	hldRasonId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity InsuranceDocument(t_insurance_document){
+	@Id insuranceDocumentId Long
+    insuranceId Long
+    insuranceName String
+    branchId Long
+    branchName String
+    documentTypeId Long
+    documentTypeName String
+    documentDate LocalDate
+    documentNote String
+    createdDate LocalDate
+    createdById String
+    status String
+    updatedById Long
+    updatedDate LocalDate
+    documentTitle String
+    documentName String
+    scanDate LocalDate
+    scanBy Long
+    fileUploadPath String
+    uploadDate LocalDate
+    uploadBy Long
+    reviewStatus String
+    reviewReason String
+    reviewDate LocalDate
+    reviewBy Long
+    createdByName String
+    updatedByName String
+    insuranceDocumentUuid UUID
+}
+
+entity InsuranceDocumentAuditLog(t_insurance_document_audit_log){
+	inranceDocmetId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity InsuranceGroupMaster(t_insurance_group_master){
+	@Id insuranceGroupMasterId Long
+    insuranceGroupMasterName String
+    status String
+    createdById Long
+    createdDate LocalDate
+	updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    insuranceGroupMasterUuid UUID
+    insuranceGroupMasterNo String
+    insuranceGroupMasterDescription String
+}
+
+entity InsuranceGroupMasterAuditLog(t_insurance_group_master_audit_log){
+	insrnceGrpId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity InsuranceMaster(t_insurance_master){
+	@Id insuranceId Long
+    insuranceName String
+    insurancePlanType String
+    taxType String
+    taxIncludedAllowableStatus String
+    insuranceGroupId Long
+    priceTableId Long
+    claimTypeDmeStatus String
+    claimTypeMajorMadicalStatus String
+    claimTypePharmacyStatus String
+    payPercentage Double
+    enableSecondaryBillingStatus String
+    amtPrintOnDeliveryTicketStatus String
+    medigapStatus String
+    medigapNum Long
+    notes String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    insuranceMasterUuid UUID
+    insurancePayerIdNo String
+    addressLine1 String
+    addressLine2 String
+    city String
+    state String
+    country String
+    zip String
+    contactNo1 String
+    contactNo2 String
+    fax String
+    efax String
+    email String
+    relationship String
+    modeOfContact String
+    claimProgramCode String
+    claimProgramName String
+    insuranceIdNo String
+    insuranceGroupNo String
+    priceTableName String
+    claimProgramId String
+    claimFormName String
+    insuranceGroupName String
+    contactPersonFirstName String
+    contactPersonMiddleName String
+    contactPersonLastName String
+    taxTncludedAllowableStatus String
+    cmsCrossoverInsuranceIdNo String
+}
+
+entity InsuranceMasterAuditLog(t_insurance_master_audit_log){
+	insrnceId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity ItemLocation(t_item_location){
+	@Id itemLocationId Long
+    itemLocationName String
+    description String
+    contactFirstName String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    itemLocationUuid UUID
+    billingAddressLine1 String
+    billingAddressLine2 String
+    billingCity String
+    billingState String
+    billingCountry String
+    billingZip String
+    contactMiddleName String
+    contactLastName String
+    contactNo1 String
+    contactNo2 String
+    fax String
+    email String
+    billlingAddressCompanyName String
+    deliveryAddressLine1 String
+    deliveryAddressLine2 String
+    deliveryCity String
+    deliveryState String
+    deliveryZip String
+}
+
+entity ItemLocationAuditLog(t_item_location_audit_log){
+	itmLctionId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity NoteReasonMaster(t_note_reason_master){
+	@Id noteReasonId Long
+    noteReasonName String
+    createdById Long
+    createdDate LocalDate
+    status String
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    noteReasonMasterUuid UUID
+}
+
+entity NoteReasonMasterAuditLog(t_note_reason_master_audit_log){
+	notRasonId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity NoteTypeMaster(t_note_type_master){
+	@Id noteTypeId Long
+    noteTypeName String
+    createdById Long
+    createdDate LocalDate
+    status String
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    noteTypeMasterUuid UUID
+}
+
+entity NoteTypeMasterAuditLog(t_note_type_master_audit_log){
+	notTpeId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity PosMaster(t_pos_master){
+	@Id posId Long
+    posCode String
+    posName String
+    status String
+    createdById Long
+    createdDate LocalDate
+	updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    posMasterUuid UUID
+}
+
+entity PosMasterAuditLog(t_pos_master_audit_log){
+	psId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity SalesOrderClassification(t_sales_order_classification){
+	@Id orderClassificationId Long
+    orderClassificationDescription String
+    createdById Long
+    createdDate LocalDate
+    status String
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    salesOrderClassificationUuid UUID
+}
+
+entity SalesOrderClassificationAuditLog(t_sales_order_classification_audit_log){
+	orderClaficationId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity StopReasonMasterAuditLog(t_stop_reason_master_audit_log){
+	stpRasonId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity TaskReasonMaster(t_task_reason_master){
+	@Id taskReasonId Long
+    taskReasonName String
+    status String
+    createdById Long
+    updatedById Long
+    updatedDate LocalDate
+    createdDate LocalDate
+    createdByName String
+    updatedByName String
+    taskReasonMasterUuid UUID
+}
+
+entity TaskReasonMasterAuditLog(t_task_reason_master_audit_log){
+	tskRasonId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity TaxZone(t_tax_zone){
+	@Id taxZoneId Long
+    stateCodeId Long
+    stateName String
+    stateCode String
+    taxRate Double
+    status String
+    createdById Long
+    createdDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    updatedDate LocalDate
+    taxZoneUuid UUID
+}
+
+entity TaxZoneAuditLog(t_tax_zone_audit_log){
+	txZneId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity UspsAddressVerificationResponse(t_usps_address_verification_response){
+	@Id uspsAddressVerificationId Long
+    patientId Long
+    reqAddressLine1 String
+    reqAddressLine2 String
+    reqCity String
+    reqState String
+    reqZip4 String
+    reqZip5 String
+    reqDate LocalDate
+    rspAddressLine1 String
+    rspAddressLine2 String
+    rspCity String
+    rspState String
+    rspZip4 String
+    rspZip5 String
+    rspDate LocalDate
+    dpvFootnotesCode String
+    dpvFootnotesDescription String
+    status String
+	createdById Long
+    createdDate LocalDate
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    uspsAddressVerificationResponseUuid UUID
+}
+
+entity UspsAddressVerificationResponseAuditLog(t_usps_address_verification_response_audit_log){
+	uspsAdessVeifiationId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity WipStatusMaster(t_wip_status_master){
+	@Id wipStatusId Long
+    wipStatusName String
+    status String
+	createdById Long
+    createdDate LocalDate
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    wipStatusMasterUuid UUID
+}
+
+entity WipStatusMasterAuditLog(t_wip_status_master_audit_log){
+	wpSttusId Long
+    oldRowData String
+    newRowData String
+    dmlType String
+    dmlTimestamp LocalDate
+    dmlCreatedBy String
+    @Id id Long
+}
+
+entity BranchUserMap(t_branch_user_map){
+	@Id mapId Long
+    branchId Long
+    userId Long
+    description String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedDate LocalDate
+    updatedById Long
+    updatedByName String
+    createdByName String
+    branchUserMapUuid UUID
+}
+entity UserMaster(t_user_master){
+	@Id userId Long
+    firstName String
+    middleName String
+    lastName String
+    dob LocalDate
+    age Long
+    gender String
+    status String
+    createdById Long
+    createdDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    updatedDate LocalDate
+    userMasterUuid UUID
+    addressLine1 String
+    addressLine2 String
+    city String
+    state String
+    country String
+    zip String
+    contactNo1 String
+    contactNo2 String
+    fax String
+    efax String
+    email String
+    jobTitle String
+    modeOfContact String
+}
+
+entity Company(t_company){
+    @Id companyId Long
+    companyName String
+    primaryContactName String
+    primaryContactCredential String
+    contractFileUploadPath String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    companyUuid UUID
+    addressLine1 String
+    addressLine2 String
+    city String
+    state String
+    country String
+    zip String
+    contactNo1 String
+    contactNo2 String
+    fax String
+    efax String
+    email String
+    relationship String
+    modeOfContact String
+    companyBranchLogo String
+}
+
+entity RoleMaster(t_role_master) {
+	@Id roleId Long
+    roleCode String
+    roleName String
+    roleDescription String
+    roleNo String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedById Long
+    createdByName String
+    updatedByName String
+    roleMasterUuid UUID
+    updatedDate LocalDate
+}
+
+entity FunctionalityMaster(t_functionality_master) {
+	@Id functionalityId Long
+    functionalityNo String
+    functionalityName String
+    functionalityDescription String
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    functionalityMasterUuid UUID
+}
+
+entity RoleUserMap(t_role_user_map) {
+	@Id roleUserMapId Long
+    userId Long
+    roleId Long
+    description String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    roleUserMapUuid UUID
+}
+
+entity RoleFunctionalityMap(t_role_functionality_map) {
+	@Id roleFunctionalityMapId Long
+    functionalityId Long
+    roleId Long
+    description String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    roleFunctionalityMapUuid UUID
+}
+entity TaxonomyDetails(t_taxonomy_details){
+	@Id taxonomyDetailsId Long
+	taxonomyCode String
+	taxonomyName String
+	taxonomyDetails String
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	taxonomyDetailsUuid UUID
+}
+entity EndpointMaster(t_endpoint_master){
+	@Id endpointId Long
+	endpointName String
+	endpointGroup String
+	endpointDesc String
+	endpointUrl String
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	endpointMasterUuid UUID
+}
+
+entity FunctionalityEndpointMapping(t_functionality_endpoint_mapping){
+	@Id functionalityEndpointMappingId Long
+    endpointId Long
+    functionalityId Long
+    mappingDesc String
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    functionalityEndpointMappingUuid UUID
+}
+
+entity HoldReasonMaster(t_hold_reason_master){
+@Id holdReasonId Long
+holdReasonName String
+createdById Long
+createdDate LocalDate
+status String
+updatedById Long
+updatedDate LocalDate
+createdByName String
+updatedByName String
+holdReasonMasterUuid UUID
+}
+
+entity StopReasonMaster(t_stop_reason_master){
+@Id stopReasonId Long
+stopReasonName String
+createdById Long
+createdDate LocalDate
+status String
+updatedById Long
+updatedDate LocalDate
+createdByName String
+updatedByName String
+stopReasonMasterUuid UUID
+}
+
+use mapstruct, serviceImpl, pagination for all

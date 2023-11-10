@@ -1,0 +1,146 @@
+{
+  "applications": "*",
+  "changelogDate": "20230119134558",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_member_elligibility_master",
+  "fields": [
+    {
+      "fieldName": "claimElligibilityMasterId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "autoGenerate": "true",
+        "id": true
+      }
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "elligibilityControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerServiceId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerOrganizationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberIdcard",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "subscriberGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberPlanIssueDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "insuredFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "insuredRelationshipwithSubscriber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateOfService",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "serviceTypeCodes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "memberElligibilityMasterUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "MemberElligibility",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

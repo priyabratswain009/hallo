@@ -1,0 +1,143 @@
+{
+  "applications": "*",
+  "changelogDate": "20230427131315",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_delivery_items",
+  "fields": [
+    {
+      "fieldName": "deliveryItemId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "deliveryTicketId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "deliveryTicketNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hcpcsCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemQuantity",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "itemUnit",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "whetherItemSerialized",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemSerial",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemBatchLotNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemMfgDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryItemsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "chargedAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "allowedAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "itemManufacturerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isDropship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "poNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soSaleType",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "DeliveryItems",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

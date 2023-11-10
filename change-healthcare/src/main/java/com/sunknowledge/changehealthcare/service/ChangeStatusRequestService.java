@@ -1,0 +1,15 @@
+package com.sunknowledge.changehealthcare.service;
+
+import com.sunknowledge.changehealthcare.core.ServiceOutcome;
+import com.sunknowledge.changehealthcare.pojo.professionalclaims.ProfessionalClaimSubmission;
+import com.sunknowledge.changehealthcare.pojo.professionalclaims.ProfessionalClaimValidation;
+import com.sunknowledge.changehealthcare.pojo.professionalclaims.ResultProfessionalClaimOutcome;
+
+public interface ChangeStatusRequestService {
+	ServiceOutcome<ResultProfessionalClaimOutcome> accessProfessionalClaimsSubmission(ProfessionalClaimSubmission professionalClaims);
+	ServiceOutcome<ResultProfessionalClaimOutcome> professionalClaimSubmission(String token, ProfessionalClaimSubmission professionalClaimSubmission);
+	
+	ServiceOutcome<ResultProfessionalClaimOutcome> accessProfessionalClaimsValidation(ProfessionalClaimValidation professionalClaims);
+	ServiceOutcome<ResultProfessionalClaimOutcome> professionalClaimValidation(String token, ProfessionalClaimValidation professionalClaimValidation);
+	ServiceOutcome<ResultProfessionalClaimOutcome> professionalClaimHealthCheck(String token);
+}

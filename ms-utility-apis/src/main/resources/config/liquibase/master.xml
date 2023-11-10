@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="floatType" value="float4" dbms="h2"/>
+    <property name="uuidType" value="uuid" dbms="h2"/>
+    <property name="datetimeType" value="datetime" dbms="h2"/>
+    <property name="clobType" value="longvarchar" dbms="h2"/>
+    <property name="blobType" value="blob" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="floatType" value="float4" dbms="postgresql"/>
+    <property name="clobType" value="longvarchar" dbms="postgresql"/>
+    <property name="blobType" value="bytea" dbms="postgresql"/>
+    <property name="uuidType" value="uuid" dbms="postgresql"/>
+    <property name="datetimeType" value="datetime" dbms="postgresql"/>
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230113120332_added_entity_DoctorMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230113120417_added_entity_DoctorMedicalInfo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230120134238_added_entity_AddressVerificationResponse.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230316110544_added_entity_Product.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230419074343_added_entity_IcdMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230510110404_added_entity_ObjectTypeMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230510110405_added_entity_TaskTypeMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230510110406_added_entity_WipStatusMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230510110407_added_entity_WipQueueOwner.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230510110408_added_entity_WipQueueDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230529094927_added_entity_TaskComments.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230529094928_added_entity_TaskDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230629113217_added_entity_SalesRep.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230629113218_added_entity_FacilityMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230710100336_added_entity_UszipMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230731101431_added_entity_MarketingReferalTypeMaster.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20230113120417_added_entity_constraints_DoctorMedicalInfo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230113120332_added_entity_constraints_DoctorMaster.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
+</databaseChangeLog>

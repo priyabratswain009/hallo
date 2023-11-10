@@ -1,0 +1,227 @@
+{
+  "applications": "*",
+  "changelogDate": "20230213102247",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_price_details",
+  "fields": [
+    {
+      "fieldName": "priceDetailsId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "priceTableId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "hcpcs",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingCodeWhenSecondary",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priceType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "effectiveStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "effectiveEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cmnReqdToBillStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cmnFormName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priorAuthReqStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "functionalAbilityReqStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "optionNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultOptionStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingCyclePeriod",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingCycleInterval",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingInArrearsStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "proRateBillingStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dailyBillingInvoiceFreq",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dailyBillingInvoiceInterval",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "chargeAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "allowedAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "allowedModifier1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "allowedModifier2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "allowedModifier3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "allowedModifier4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "acceptAssignmentStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxableStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nontaxTypeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "convertToPurchaseLastStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "convertToPurchaseChargeAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "convertToPurchaseAllowAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "convertToPurchaseModifier1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "convertToPurchaseModifier2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "convertToPurchaseModifier3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "convertToPurchaseModifier4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingMultiplierUnit",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "priceDetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "priceTableName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemUom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "priceOptionBillingPeriodStart",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "priceOptionBillingPeriodEnd",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "PriceDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

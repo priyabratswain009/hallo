@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity DoctorMaster.
+    -->
+    <changeSet id="20230113120332-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="doctor_medical_info_medical_info_id"
+                                 baseTableName="t_doctor_master"
+                                 constraintName="fk_t_doctor_master__doctor_medical_info_id"
+                                 referencedColumnNames="medical_info_id"
+                                 referencedTableName="t_doctor_medical_info"/>
+    </changeSet>
+</databaseChangeLog>

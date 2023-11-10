@@ -1,0 +1,115 @@
+{
+  "applications": "*",
+  "changelogDate": "20230411102306",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_item_inventory_status",
+  "fields": [
+    {
+      "fieldName": "itemInventoryStatusId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemLocationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "onhandQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "onrentQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "comittedQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "inorderQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemInventoryStatusUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemLocationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "binNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "whetherSerialised",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "whetherAssetTagged",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "onBackorder",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "ItemInventoryStatus",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

@@ -1,0 +1,91 @@
+{
+  "applications": "*",
+  "changelogDate": "20221201073846",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_deposit_master_details",
+  "fields": [
+    {
+      "fieldName": "depositId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "depositNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "depositReference",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payorName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "depositDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "depositNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "depositMasterDetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "claimCob835MasterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "depositStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "depositAmount",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "DepositMasterDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

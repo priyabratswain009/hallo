@@ -1,0 +1,71 @@
+entity Cmn(t_cmn) {
+        @Id cmnId Long required
+cmnNumber String
+cmnType String
+cmnFormName String
+patientId Long
+salesOrderId Long
+salesOrderNo String
+cmnCreateDate LocalDate
+cmnInitialDate LocalDate
+cmnRevisionDate LocalDate
+cmnRecertificationDate LocalDate
+cmnExpirationDate LocalDate
+cmnLoggedBy Long
+cmnLoggedDate LocalDate
+cmnApprovedBy Long
+cmnApprovedDate LocalDate
+cmnPrintedBy Long
+cmnPrintedDate LocalDate
+lengthOfNeed String
+faxCmnOption String
+cmnCoverLetterInclusionOption String
+cmnFaxedBy Long
+cmnFaxedDate LocalDate
+faxStatus String
+faxStatusReason String
+printCmnOption String
+createdById Long
+createdDate LocalDate
+status String
+updatedById Long
+updatedDate LocalDate
+createdByName String
+updatedByName String
+cmnIdUuid UUID
+patientPrognosis String
+cmnStatus String
+refillAuthorised String
+}
+
+entity CmnDocumentMaster(t_cmn_document_master) {
+@Id cmnDocumentId Long required
+cmnId Long
+cmnNo String
+generationDate LocalDate
+initialDocumentName String
+faxStatus String
+outBoundFaxStatus String
+outBoundFaxNo String
+outBoundFaxDateTime LocalDate
+inBoundFaxStatus String
+inBoundFaxNo String
+inBoundFaxDateTime LocalDate
+cmnDocumentMasterUuid UUID
+createdById Long
+createdDate LocalDate
+createdByName String
+updatedById Long
+updatedByName String
+updatedDate LocalDate
+returnDocumentName String
+cmnComments String
+status String
+}
+
+use mapstruct, serviceImpl, pagination for all
+
+
+
+
+

@@ -1,0 +1,59 @@
+entity DeliveryAbnData(t_delivery_abn_data){
+	@Id deliveryAbnDataId Long
+	salesOrderId Long
+	patientId Long
+	primaryInsuranceName String
+	primaryInsurancePolicyNumber String
+	patientFirstName String
+	patientMiddleName String
+	patientLastName String
+	salesOrderDetailsAbnPrintDate LocalDate
+	salesOrderDetailsAbnItemName String
+	salesOrderDetailsAbnItemProcCode String
+	salesOrderDetailsAbnItemChargeAmount String
+	salesOrderDetailsPatientAbnResponse String
+	salesOrderDetailsAbnDeliveryStatus String
+	salesOrderDetailsAbnPatientSignatureStatus String
+	salesOrderDetailsAbnStatus String
+	salesOrderDetailsAbnReason String
+	salesOrderDetailsAbnModifier1 String
+	salesOrderDetailsAbnModifier2 String
+	branchName String
+	branchId String
+	qrCode String
+	patientIdNo String
+	abnNumber String
+	
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	deliveryAbnDataUuid UUID
+}
+entity AbnDelivery(t_abn_delivery){
+	@Id abnDeliveryId Long required
+	abnDeliveryDataId Long
+	abnDocumentName String
+	scheduleDeliveryDateTime LocalDate
+	actualDeliveryDateTime LocalDate
+	deliveryAgentId Long
+	deliveryAgentName String
+	abnDeliveryStatus String
+	abnDeliveryDocumentAckStatus String
+	abnDeliveryDocPatientReplyStatus String
+	abnDeliveryDocPatientReplyDateTime LocalDate
+	abnResponseJsonData String
+	
+	status String
+	createdById Long
+	createdByName String
+	createdDate LocalDate
+	updatedById Long
+	updatedByName String
+	updatedDate LocalDate
+	abnDeliveryUuid UUID
+}
+use mapstruct, serviceImpl, pagination for all

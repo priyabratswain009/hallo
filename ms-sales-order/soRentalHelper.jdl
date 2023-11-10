@@ -1,0 +1,41 @@
+entity SoRentalHelper(t_so_rental_helper){
+	@Id soRentalHelperId Long
+    soId Long
+    primaryInsurerId Long
+    primaryInsurerName String
+    itemId Long
+    itemNo String
+    itemName String
+    chargedAmount Double
+    allowedAmount Double
+    sou String
+    qty Double
+    dosStart LocalDate
+    dosEnd LocalDate
+    periodNo String
+    rentalPeriod String
+    nextDos LocalDate
+    status String
+    createdById Long
+    createdDate LocalDate
+    createdByName String
+    updatedById Long
+    updatedDate LocalDate
+	updatedByName String
+    soRentalHelperUuid UUID
+    patientId Long
+    saleType String
+    primaryInsurancePriceTableId Long
+    primaryInsurancePriceTableName String
+    modifier1 String
+    modifier2 String
+    modifier3 String
+    modifier4 String
+    icdPointer String
+    procedureIdentifier String
+    orderingProviderFirstName String
+    orderingProviderLastName String
+    orderingProviderNpi String
+    reference String
+    procCode String
+}

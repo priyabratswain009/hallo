@@ -1,0 +1,152 @@
+{
+  "applications": "*",
+  "changelogDate": "20230510110408",
+  "clientRootFolder": "utilityapis",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_wip_queue_details",
+  "fields": [
+    {
+      "fieldName": "wipQueueDetailsId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "wipStatusId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wipStatusName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taskId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "taskName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "objectName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectInstanceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wipSetById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "wipSetByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wipSetDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "assignedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "assignedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assignedToId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "assignedToName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assignedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "assignedStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wipNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assignmentNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assignmentStatusNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectInstanceIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectInstanceIdUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "targetedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "wipQueueDetailsUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "utilityapis",
+  "name": "WipQueueDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity SoRentalHelper.
+    -->
+    <changeSet id="20230602145210-1" author="jhipster">
+        <createTable tableName="t_so_rental_helper">
+            <column name="so_rental_helper_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="so_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="charged_amount" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="allowed_amount" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="sou" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="qty" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="dos_start" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="dos_end" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="period_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="rental_period" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="next_dos" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="so_rental_helper_uuid" type="${uuidType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="sale_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurance_price_table_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurance_price_table_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="modifier_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="modifier_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="modifier_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="modifier_4" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="icd_pointer" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="procedure_identifier" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="ordering_provider_first_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="ordering_provider_last_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="ordering_provider_npi" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="reference" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="proc_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20230602145210-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/t_so_rental_helper.csv"
+                  separator=";"
+                  tableName="t_so_rental_helper"
+                  usePreparedStatements="true">
+            <column name="so_rental_helper_id" type="numeric"/>
+            <column name="so_id" type="numeric"/>
+            <column name="primary_insurer_id" type="numeric"/>
+            <column name="primary_insurer_name" type="string"/>
+            <column name="item_id" type="numeric"/>
+            <column name="item_no" type="string"/>
+            <column name="item_name" type="string"/>
+            <column name="charged_amount" type="numeric"/>
+            <column name="allowed_amount" type="numeric"/>
+            <column name="sou" type="string"/>
+            <column name="qty" type="numeric"/>
+            <column name="dos_start" type="date"/>
+            <column name="dos_end" type="date"/>
+            <column name="period_no" type="string"/>
+            <column name="rental_period" type="string"/>
+            <column name="next_dos" type="date"/>
+            <column name="status" type="string"/>
+            <column name="created_by_id" type="numeric"/>
+            <column name="created_date" type="date"/>
+            <column name="created_by_name" type="string"/>
+            <column name="updated_by_id" type="numeric"/>
+            <column name="updated_date" type="date"/>
+            <column name="updated_by_name" type="string"/>
+            <column name="so_rental_helper_uuid" type="${uuidType}"/>
+            <column name="patient_id" type="numeric"/>
+            <column name="sale_type" type="string"/>
+            <column name="primary_insurance_price_table_id" type="numeric"/>
+            <column name="primary_insurance_price_table_name" type="string"/>
+            <column name="modifier_1" type="string"/>
+            <column name="modifier_2" type="string"/>
+            <column name="modifier_3" type="string"/>
+            <column name="modifier_4" type="string"/>
+            <column name="icd_pointer" type="string"/>
+            <column name="procedure_identifier" type="string"/>
+            <column name="ordering_provider_first_name" type="string"/>
+            <column name="ordering_provider_last_name" type="string"/>
+            <column name="ordering_provider_npi" type="string"/>
+            <column name="reference" type="string"/>
+            <column name="proc_code" type="string"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,105 @@
+entity ObjectTypeMaster(t_object_type_master){
+    @Id objectId Long required
+    objectName String
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    objectTypeMasterUuid UUID
+}
+
+entity TaskTypeMaster(t_task_type_master){
+    @Id taskId Long required
+    taskName String
+	objectId Long
+	objectName String
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    taskTypeMasterUuid UUID
+}
+
+entity WipStatusMaster(t_wip_status_master){
+    @Id wipStatusId Long required
+    wipStatusName String
+	taskId Long
+	taskName String
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    wipStatusMasterUuid UUID
+}
+
+entity WipQueueOwner(t_wip_queue_owner){
+    @Id wipQueueOwnerId Long required
+    wipStatusId String
+	wipStatusName String
+	taskId Long
+	taskName String
+	assignedById Long
+	assignedByName String
+	assignedToId Long
+	assignedToName String
+	assignedDate LocalDate
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    wipQueueOwnerUuid UUID
+}
+
+entity WipQueueDetails(t_wip_queue_details){
+    @Id wipQueueDetailsId Long required
+    wipStatusId String
+	wipStatusName String
+	taskId Long
+	taskName String
+	objectId Long
+	objectName String
+	objectInstanceId Long
+	wipSetById Long
+	wipSetByName String
+	wipSetDateTime LocalDate
+	assignedById Long
+	assignedByName String
+	assignedToId Long
+	assignedToName String
+	assignedDate LocalDate
+	assignedStatus String
+	wipNotes String
+	assignmentNotes String
+	assignmentStatusNotes String
+	objectInstanceIdNo String
+	state String
+	objectInstanceIdUuid UUID
+	targetedDate LocalDate
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    wipQueueDetailsUuid UUID
+}
+
+use mapstruct, serviceImpl, pagination for all

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="longvarchar" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
+    <property name="datetimeType" value="datetime(6)" dbms="mysql, mariadb"/>
+    <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114644_added_entity_ElligibilityResponseBenefitinformation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114645_added_entity_ElligibilityResponseStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114646_added_entity_FunctionalAbility.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114647_added_entity_MemberElligibilityMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114648_added_entity_PatientClinicalInformation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114649_added_entity_PatientDiagnosis.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114650_added_entity_PatientDoctorMap.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114651_added_entity_PatientDocument.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114652_added_entity_PatientInsVerifStat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114653_added_entity_PatientInsurance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114654_added_entity_PatientMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114655_added_entity_WorkersCompensation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114656_added_entity_FunctionalAbilityAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114657_added_entity_WorkersCompensationAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114658_added_entity_PatientClinicalInformationAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114659_added_entity_PatientDiagnosisAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114700_added_entity_PatientDoctorMapAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114701_added_entity_PatientDocumentAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114702_added_entity_PatientInsVerifStatAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114703_added_entity_PatientInsuranceAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230123114704_added_entity_PatientMasterAuditLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230516121037_added_entity_PatientDto.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
+</databaseChangeLog>

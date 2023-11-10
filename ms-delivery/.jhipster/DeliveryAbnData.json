@@ -1,0 +1,150 @@
+{
+  "applications": "*",
+  "changelogDate": "20230601110806",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_delivery_abn_data",
+  "fields": [
+    {
+      "fieldName": "deliveryAbnDataId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "primaryInsuranceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryInsurancePolicyNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnPrintDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnItemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnItemProcCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnItemChargeAmount",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsPatientAbnResponse",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnDeliveryStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnPatientSignatureStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnReason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnModifier1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderDetailsAbnModifier2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "qrCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "abnNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryAbnDataUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "DeliveryAbnData",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

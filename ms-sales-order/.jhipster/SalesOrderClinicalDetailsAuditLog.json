@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20221213083934",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_sales_order_clinical_details_audit_log",
+  "fields": [
+    {
+      "fieldName": "salsOdrClincalDetilsId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "oldRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "newRowData",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dmlTimestamp",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dmlCreatedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SalesOrderClinicalDetailsAuditLog",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

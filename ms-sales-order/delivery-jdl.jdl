@@ -1,0 +1,141 @@
+entity DeliveryTicket(t_delivery_ticket){
+    @Id deliveryTicketId Long required
+    DeliveryTicketNo String
+    soId Long
+    soNo String
+    patientFirstName String
+    patientMiddleName String
+    patientLastName String
+    gender String
+    ageAsOnDate Integer
+    phone1 String
+    phone2 String
+    email String
+    deliveryAddress1 String
+    deliveryAddress2 String
+    deliveryCity String
+    deliveryState String
+    deliveryZip String
+    deliveryStatus String
+    deliveryDate LocalDate
+    deliveryPriority String
+    deliveryNote String
+    deliveryComment String
+    deliveryAcceptedBy String
+    relationshipWithPatient String
+    deliveryAcceptedByContactNo String
+
+    primaryInsurerName String
+    primaryInsurerPolicyNo String
+    primaryInsurerPatientIdNumber String
+    patientIdNo String
+    branchAddressLine1 String
+    branchAddressLine2 String
+    branchCity String
+    branchState String
+    branchZipCode String
+    branchContactNo1 String
+    branchContactNo2 String
+    branchNpi String
+    branchEin String
+    branchFax String
+    orderingProviderFirstName String
+    orderingProviderMiddleName String
+    orderingProviderLastName String
+    orderingProviderNpi String
+    orderingProviderAddressLine1 String
+    orderingProviderAddressLine2 String
+    orderingProviderCity String
+    orderingProviderState String
+    orderingProviderZip String
+    orderingProviderPhone1 String
+    orderingProviderPhone2 String
+    orderingProviderFax String
+    orderingProviderEmail String
+    branchName String
+    patientBranchId Long
+
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedBy Long
+    updatedByName String
+    updatedDate LocalDate
+    deliveryTicketUuid UUID
+
+    billingAddressLine1 String
+    billingAddressLine2 String
+    billingCity String
+    billingState String
+    billingZip String
+    inventoryLocationId Long
+    inventoryLocationName String
+    deliveryTicketDocumentId Long
+    deliveryTicketDocumentNo String
+    deliveryTicketDocumentName String
+
+    deliveryType String
+    carrierName String
+    shippingDate LocalDate
+    trackingNo String
+    referenceNo String
+    packageWeight String
+    setupMethod String
+    setupTechnicianNo String
+    setupTechnicianContactNo String
+    setupTechnicianFirstName String
+    setupTechnicianMiddleName String
+    setupTechnicianLastName String
+    setupDateTime LocalDate
+
+    scheduleSetupDateTime LocalDate
+    setupComments String
+    setupStatus String
+    courierPackageAcceptedBy String
+    therapistFirstName String
+    therapistMiddleName String
+    therapistLastName String
+    therapistLicenseNo String
+    therapistNpi String
+    therapistTaxonomyCode String
+    scheduleTherapyDate LocalDate
+    actualTherapyDate LocalDate
+    therapyMode String
+    therapyStatus String
+    therapyNotes String
+}
+
+entity DeliveryItems(t_delivery_items){
+    @Id DeliveryItemId Long required
+    deliveryTicketId Long
+    deliveryTicketNo String
+    soId Long
+    soNo String
+    itemId Long
+    itemNo String
+    itemName String
+    itemDescription String
+    hcpcsCode String
+    itemQuantity Integer
+    itemUnit String
+    whetherItemSerialized String
+    itemSerial String
+    itemBatchLotNo String
+    itemMfgDate LocalDate
+    status String
+    createdById Long
+    createdByName String
+    createdDate LocalDate
+    updatedById Long
+    updatedByName String
+    updatedDate LocalDate
+    deliveryItemsUuid UUID
+    chargedAmount Double
+    allowedAmount Double
+    itemManufacturerName String
+    isDropship String
+    poNumber String
+    soSaleType String
+}
+use mapstruct, serviceImpl, pagination for all

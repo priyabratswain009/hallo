@@ -1,0 +1,187 @@
+{
+  "applications": "*",
+  "changelogDate": "20230317094139",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_purchase_order",
+  "fields": [
+    {
+      "fieldName": "poId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "poNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "poDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "itemLocationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemLocationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesOrderNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "vendorName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingContactName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingContactEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddressCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddressState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryAddressZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryContactName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deliveryContactEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priority",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "shippingMethod",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "freightCharges",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "purchaseOrderUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "poStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorDelivery",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "PurchaseOrder",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

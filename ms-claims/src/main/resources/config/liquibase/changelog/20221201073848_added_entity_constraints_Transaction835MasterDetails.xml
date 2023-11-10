@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Transaction835MasterDetails.
+    -->
+    <changeSet id="20221201073848-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="receipt_master_details_receipt_id"
+                                 baseTableName="t_835_transaction_master_details"
+                                 constraintName="fk_t_835_transaction_master_details__receipt_master_details_id"
+                                 referencedColumnNames="receipt_id"
+                                 referencedTableName="t_receipt_master_details"/>
+    </changeSet>
+</databaseChangeLog>

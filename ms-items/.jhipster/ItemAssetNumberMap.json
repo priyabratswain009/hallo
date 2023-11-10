@@ -1,0 +1,155 @@
+{
+  "applications": "*",
+  "changelogDate": "20230727071938",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_item_asset_number_map",
+  "fields": [
+    {
+      "fieldName": "itemAssetNumberId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "locationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "locationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assetNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "onHandStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "onRentStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "purchaseDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "saleDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "depreciationReadyStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "depreciationStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "usefulLifeInYears",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "startDepreciationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "originalCost",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "bookValue",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "accumulatedDepreciation",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "residualValue",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "userValue1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userValue2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userValue3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userValue4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lotBatchNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lotBatchDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "itemAssetNumberUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "ItemAssetNumberMap",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

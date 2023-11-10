@@ -1,0 +1,6 @@
+package com.sunknowledge.dme.rcm.repository.audittrail;
+
+import com.sunknowledge.dme.rcm.repository.PurchaseOrderItemsReceivedAuditLogRepository;
+
+public interface PurchaseOrderItemsReceivedAuditLogRepositoryExtended extends PurchaseOrderItemsReceivedAuditLogRepository {
+}

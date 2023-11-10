@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity SalesOrderInsuranceDetails.
+    -->
+    <changeSet id="20220823190400-1" author="jhipster">
+        <createTable tableName="t_sales_order_insurance_details">
+            <column name="sales_order_insurance_details_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sales_order_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_policy_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_patient_id_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_effective_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_verification_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_verification_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_pay_percentage" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_box_10_d" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_box_19" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_box_24_ia" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_box_24_ja" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_box_24_jb" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_include_box_24_jbstatus" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_include_payer_sales_order_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_wait_for_previous_payer_before_billing_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_pay_percentage_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_policy_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_patient_id_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_effective_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_verification_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_verification_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_pay_percentage" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_box_10_d" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_box_19" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_box_24_ia" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_box_24_ja" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_box_24_jb" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_include_box_24_jb_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_include_payer_sales_order_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_wait_previous_payer_befr_billing_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_pay_percentage_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_policyno" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_patient_id_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_effective_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_verification_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_verification_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_pay_percentage" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_box_10_d" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_box_19" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_box_24_ia" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_box_24_ja" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_box_24_jb" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_include_box_24_jb_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_include_payer_in_sales_order_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_wait_previous_payer_before_billing_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_pay_percentage_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="insurance_verification_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="coverage_verification_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="exclude_from_eligibility_check_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_pay_percentage" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_include_this_payor_in_sales_order_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patient_wait_for_previous_payer_before_billing_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_date_of_onset" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_injury_related_employment_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_injury_related_auto_accident_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_auto_accident_state_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_injury_related_to_other_accident_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="eclaims_attachment_status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="attachment_number" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="type_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="transaction_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="claims_note_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="claims_note" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="updated_by_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurance_group_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurance_group_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurance_group_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurance_group_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurance_group_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurance_group_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurance_plan_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurance_plan_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurance_plan_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurance_plan_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurance_plan_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurance_plan_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="sales_order_insurance_details_uuid" type="${uuidType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurance_payer_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurance_payer_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurance_payer_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurance_indicator_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurance_indicator_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurance_indicator_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="price_table_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="price_table_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_contact_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_fax" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_contact_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_insurer_fax" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_contact_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_insurer_fax" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_policy_end_date" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_insurer_contact_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="primary_claim_program" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="secondary_claim_program" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tertiary_claim_program" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20220823190400-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/t_sales_order_insurance_details.csv"
+                  separator=";"
+                  tableName="t_sales_order_insurance_details"
+                  usePreparedStatements="true">
+            <column name="sales_order_insurance_details_id" type="numeric"/>
+            <column name="sales_order_id" type="numeric"/>
+            <column name="patient_id" type="numeric"/>
+            <column name="primary_insurer_id" type="numeric"/>
+            <column name="primary_insurer_name" type="string"/>
+            <column name="primary_insurer_policy_no" type="string"/>
+            <column name="primary_insurer_patient_id_number" type="string"/>
+            <column name="primary_insurer_effective_date" type="date"/>
+            <column name="primary_insurer_verification_status" type="string"/>
+            <column name="primary_insurer_verification_date" type="date"/>
+            <column name="primary_insurer_pay_percentage" type="numeric"/>
+            <column name="primary_box_10_d" type="string"/>
+            <column name="primary_box_19" type="string"/>
+            <column name="primary_box_24_ia" type="string"/>
+            <column name="primary_box_24_ja" type="string"/>
+            <column name="primary_box_24_jb" type="string"/>
+            <column name="primary_include_box_24_jbstatus" type="string"/>
+            <column name="primary_include_payer_sales_order_status" type="string"/>
+            <column name="primary_wait_for_previous_payer_before_billing_status" type="string"/>
+            <column name="primary_pay_percentage_status" type="string"/>
+            <column name="secondary_insurer_id" type="numeric"/>
+            <column name="secondary_insurer_name" type="string"/>
+            <column name="secondary_insurer_policy_no" type="string"/>
+            <column name="secondary_insurer_patient_id_number" type="string"/>
+            <column name="secondary_insurer_effective_date" type="date"/>
+            <column name="secondary_insurer_verification_status" type="string"/>
+            <column name="secondary_insurer_verification_date" type="date"/>
+            <column name="secondary_insurer_pay_percentage" type="numeric"/>
+            <column name="secondary_box_10_d" type="string"/>
+            <column name="secondary_box_19" type="string"/>
+            <column name="secondary_box_24_ia" type="string"/>
+            <column name="secondary_box_24_ja" type="string"/>
+            <column name="secondary_box_24_jb" type="string"/>
+            <column name="secondary_include_box_24_jb_status" type="string"/>
+            <column name="secondary_include_payer_sales_order_status" type="string"/>
+            <column name="secondary_wait_previous_payer_befr_billing_status" type="string"/>
+            <column name="secondary_pay_percentage_status" type="string"/>
+            <column name="tertiary_insurer_id" type="numeric"/>
+            <column name="tertiary_insurer_name" type="string"/>
+            <column name="tertiary_insurer_policyno" type="string"/>
+            <column name="tertiary_insurer_patient_id_number" type="string"/>
+            <column name="tertiary_insurer_effective_date" type="date"/>
+            <column name="tertiary_insurer_verification_status" type="string"/>
+            <column name="tertiary_insurer_verification_date" type="date"/>
+            <column name="tertiary_insurer_pay_percentage" type="numeric"/>
+            <column name="tertiary_box_10_d" type="string"/>
+            <column name="tertiary_box_19" type="string"/>
+            <column name="tertiary_box_24_ia" type="string"/>
+            <column name="tertiary_box_24_ja" type="string"/>
+            <column name="tertiary_box_24_jb" type="string"/>
+            <column name="tertiary_include_box_24_jb_status" type="string"/>
+            <column name="tertiary_include_payer_in_sales_order_status" type="string"/>
+            <column name="tertiary_wait_previous_payer_before_billing_status" type="string"/>
+            <column name="tertiary_pay_percentage_status" type="string"/>
+            <column name="insurance_verification_status" type="string"/>
+            <column name="coverage_verification_status" type="string"/>
+            <column name="exclude_from_eligibility_check_status" type="string"/>
+            <column name="patient_pay_percentage" type="numeric"/>
+            <column name="patient_include_this_payor_in_sales_order_status" type="string"/>
+            <column name="patient_wait_for_previous_payer_before_billing_status" type="string"/>
+            <column name="workers_comp_date_of_onset" type="date"/>
+            <column name="workers_comp_injury_related_employment_status" type="string"/>
+            <column name="workers_comp_injury_related_auto_accident_status" type="string"/>
+            <column name="workers_comp_auto_accident_state_id" type="numeric"/>
+            <column name="workers_comp_injury_related_to_other_accident_status" type="string"/>
+            <column name="eclaims_attachment_status" type="string"/>
+            <column name="attachment_number" type="numeric"/>
+            <column name="type_code" type="string"/>
+            <column name="transaction_code" type="string"/>
+            <column name="claims_note_type" type="string"/>
+            <column name="claims_note" type="string"/>
+            <column name="created_by_id" type="numeric"/>
+            <column name="created_date" type="date"/>
+            <column name="status" type="string"/>
+            <column name="updated_by_id" type="numeric"/>
+            <column name="updated_date" type="date"/>
+            <column name="sales_order_no" type="string"/>
+            <column name="created_by_name" type="string"/>
+            <column name="updated_by_name" type="string"/>
+            <column name="primary_insurance_group_id" type="numeric"/>
+            <column name="primary_insurance_group_name" type="string"/>
+            <column name="secondary_insurance_group_id" type="numeric"/>
+            <column name="secondary_insurance_group_name" type="string"/>
+            <column name="tertiary_insurance_group_id" type="numeric"/>
+            <column name="tertiary_insurance_group_name" type="string"/>
+            <column name="primary_insurance_plan_id" type="numeric"/>
+            <column name="primary_insurance_plan_type" type="string"/>
+            <column name="secondary_insurance_plan_id" type="numeric"/>
+            <column name="secondary_insurance_plan_type" type="string"/>
+            <column name="tertiary_insurance_plan_id" type="numeric"/>
+            <column name="tertiary_insurance_plan_type" type="string"/>
+            <column name="sales_order_insurance_details_uuid" type="${uuidType}"/>
+            <column name="primary_insurance_payer_id" type="string"/>
+            <column name="secondary_insurance_payer_id" type="string"/>
+            <column name="tertiary_insurance_payer_id" type="string"/>
+            <column name="primary_insurance_indicator_code" type="string"/>
+            <column name="secondary_insurance_indicator_code" type="string"/>
+            <column name="tertiary_insurance_indicator_code" type="string"/>
+            <column name="price_table_id" type="numeric"/>
+            <column name="price_table_name" type="string"/>
+            <column name="primary_insurer_address_line_1" type="string"/>
+            <column name="primary_insurer_address_line_2" type="string"/>
+            <column name="primary_insurer_city" type="string"/>
+            <column name="primary_insurer_state" type="string"/>
+            <column name="primary_insurer_zip" type="string"/>
+            <column name="primary_insurer_contact_1" type="string"/>
+            <column name="primary_insurer_fax" type="string"/>
+            <column name="secondary_insurer_address_line_1" type="string"/>
+            <column name="secondary_insurer_address_line_2" type="string"/>
+            <column name="secondary_insurer_city" type="string"/>
+            <column name="secondary_insurer_state" type="string"/>
+            <column name="secondary_insurer_zip" type="string"/>
+            <column name="secondary_insurer_contact_1" type="string"/>
+            <column name="secondary_insurer_fax" type="string"/>
+            <column name="tertiary_insurer_address_line_1" type="string"/>
+            <column name="tertiary_insurer_address_line_2" type="string"/>
+            <column name="tertiary_insurer_city" type="string"/>
+            <column name="tertiary_insurer_state" type="string"/>
+            <column name="tertiary_insurer_zip" type="string"/>
+            <column name="tertiary_insurer_contact_1" type="string"/>
+            <column name="tertiary_insurer_fax" type="string"/>
+            <column name="primary_insurer_policy_end_date" type="date"/>
+            <column name="primary_insurer_contact_name" type="string"/>
+            <column name="primary_claim_program" type="string"/>
+            <column name="secondary_claim_program" type="string"/>
+            <column name="tertiary_claim_program" type="string"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

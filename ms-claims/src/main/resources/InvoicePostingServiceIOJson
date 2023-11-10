@@ -1,0 +1,169 @@
+Service Name: (GET) Search List of Sales-order on search criteria(searchSalesOrderListOnSearchCriteria)
+I/P =
+{
+  "branchID": "",
+  "branchName": "",
+  "salesOrderUUID": "",
+  "patientIDNo": "",
+  "patientFirstName": "johnone",
+  "patientMiddleName": "",
+  "patientLastName": "doeOne",
+  "salesOrderNo": "",
+  "scheduleDeliveryFromDate": "",
+  "scheduleDeliveryToDate": "",
+  "deliveryActualDateStart": "",
+  "deliveryActualDateEnd": "",
+  "createdByID": "",
+  "createdByName": "",
+  "createdDateFromDate": "",
+  "createdDateToDate": "",
+  "itemNo": "",
+  "itemName": "",
+  "primaryPayerId": "",
+  "primaryPayerName": "",
+  "dropshipStatus": "",
+  "deliveryAddressLine1": "",
+  "deliveryAddressLine2": "",
+  "deliveryCity": "",
+  "deliveryState": "",
+  "deliveryZip": "",
+  "salesOrderStatus": "",
+  "hcpcscode": ""
+}
+
+O/P =
+[
+  {
+    "salesOrderNo": "1245",
+    "salesOrderUuid": "90cce10d-593c-4665-9413-3d842aadb961",
+    "patientIdNo": "123456789",
+    "patientName": "johnone  doeOne",
+    "createdByName": "Ritam",
+    "createdDate": "2022-09-14",
+    "scheduleDeliveryDate": "2021-09-29",
+    "deliveryAddressLine1": "2330 NW FLANDERS ST STE 101\n",
+    "deliveryAddressLine2": "PORTLAND, OR 97210-3400 ",
+    "deliveryCity": "city2",
+    "deliveryState": "tn",
+    "deliveryZip": "97210-3400",
+    "salesOrderStatus": "confirmed"
+  },
+  {
+    "salesOrderNo": "1246",
+    "salesOrderUuid": "90cce10d-593c-4665-9413-3d842aadb961",
+    "patientIdNo": "123456789",
+    "patientName": "johnone middleone doeOne",
+    "createdByName": "Ritam",
+    "createdDate": "2022-09-14",
+    "scheduleDeliveryDate": "2022-09-15",
+    "deliveryAddressLine1": "2330 NW FLANDERS ST STE 101\n",
+    "deliveryAddressLine2": "PORTLAND, OR 97210-3400 ",
+    "deliveryCity": "city1",
+    "deliveryState": "wa",
+    "deliveryZip": "97210-3400",
+    "salesOrderStatus": "confirmed"
+  },
+  {
+    "salesOrderNo": "1247",
+    "salesOrderUuid": "1d21bbcf-3ae2-4973-8d99-2f4a40a2447e",
+    "patientIdNo": "0000000004",
+    "patientName": "johnone  doeone",
+    "createdByName": "Ritam",
+    "createdDate": "2022-11-23",
+    "scheduleDeliveryDate": "2022-12-25",
+    "deliveryAddressLine1": "123 address1",
+    "deliveryAddressLine2": "apt 123",
+    "deliveryCity": "city2",
+    "deliveryState": "tn",
+    "deliveryZip": "981010000",
+    "salesOrderStatus": "confirmed"
+  },
+  {
+    "salesOrderNo": "SLO1000000024",
+    "salesOrderUuid": "59b4d047-45ec-4c91-bff7-aab58d50bf5b",
+    "patientIdNo": "PAT0000016",
+    "patientName": "johnone middleone doeone",
+    "createdByName": "Debabrata",
+    "createdDate": "2023-08-16",
+    "scheduleDeliveryDate": "2023-08-17",
+    "deliveryAddressLine1": "123 address1",
+    "deliveryAddressLine2": "apt 000",
+    "deliveryCity": "city2",
+    "deliveryState": "wa",
+    "deliveryZip": "981010000",
+    "salesOrderStatus": "confirmed"
+  },
+  {
+    "salesOrderNo": "SLO1000000036",
+    "salesOrderUuid": "01ba140a-cea5-4fb6-81ca-17baa4d5c573",
+    "patientIdNo": "PAT0000016",
+    "patientName": "johnone middleone doeone",
+    "createdByName": "ANDROKTASIAI",
+    "createdDate": "2023-09-12",
+    "scheduleDeliveryDate": "2023-05-05",
+    "deliveryAddressLine1": "123 address1",
+    "deliveryAddressLine2": "apt 000",
+    "deliveryCity": "city2",
+    "deliveryState": "wa",
+    "deliveryZip": "981010000",
+    "salesOrderStatus": "confirmed"
+  },
+  {
+    "salesOrderNo": "SLO1000000036",
+    "salesOrderUuid": "3400a77a-0549-42df-8ab4-e6b6bf43cfb4",
+    "patientIdNo": "PAT0000016",
+    "patientName": "johnone middleone doeone",
+    "createdByName": "Debabrata",
+    "createdDate": "2023-05-04",
+    "scheduleDeliveryDate": "2023-05-05",
+    "deliveryAddressLine1": "123 address1",
+    "deliveryAddressLine2": "apt 000",
+    "deliveryCity": "city2",
+    "deliveryState": "wa",
+    "deliveryZip": "981010000",
+    "salesOrderStatus": "confirmed"
+  }
+]
+
+Service Name: (POST) Manual Invoice Entry(manualInvoiceEntry)
+I/P =
+{
+    "invoiceNo": "IVP1000000334",
+    "hcpcsCode": "E1390",
+    "entryAmount": 100,
+    "postType": "Balance Transfer",
+    "entryDate": "2023-09-19"
+}
+O/P =
+{
+  "data": {
+    "invoiceLineItemPostingId": 30701,
+    "itemId": 93,
+    "postingDate": "20/09/2023",
+    "postedById": 0,
+    "postedByName": "Bimal",
+    "postingComment": "Payment",
+    "postType": "Payment",
+    "depositId": 23903,
+    "receiptId": 23953,
+    "postAmount": null,
+    "postStatus": "POSTED",
+    "invoicePostingDetailsUuid": "03d518f0-2571-436b-a9c6-b28f8bfd3bc7",
+    "invoiceNo": "IVP1000000334",
+    "invoiceDate": "06/09/2023",
+    "hcpcsCode": "E1390",
+    "postingNo": "PST1000000156"
+  },
+  "outcome": true,
+  "message": "Manual invoice entry is done successfully!"
+}
+
+
+Service Name: (POST) COB - 835 Deposit Amount Adjustment(cob835DepositAmountAdjustment)
+I/P =
+{
+    "checkOrEFTTraceNumber": "895322888",
+    "checkIssueOrEFTEffectiveDate": "22/08/2023",
+    "receiptAmount": 60,
+    "adjustmentAmount": 40
+}

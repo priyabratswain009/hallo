@@ -1,0 +1,204 @@
+{
+  "applications": "*",
+  "changelogDate": "20230217101448",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_item_master",
+  "fields": [
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "itemDescription",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "itemTypeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "saleType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "weight",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lotStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "kitStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "kitType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemPricingDefaultRentalAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "itemPricingDefaultPurchaseAmt",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "autoReorderStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "excludePoStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "excludeSoStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ndc",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ndcUnitOfMeasurement",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "manufacturerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "manufacturerId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "manufacturerBarcode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultVendorId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "excludeStandardPriceingStat",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userField1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userField2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "userField3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingMultiplier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimNote",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemUom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "itemMasterUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "itemNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemGroupName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemTypeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryProcedureCodeValue",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultVendorName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "resupplyTypeStatus",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "ItemMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "itemProcedureCodeMap",
+      "otherEntityRelationshipName": "itemMaster",
+      "relationshipName": "procedureDetails",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

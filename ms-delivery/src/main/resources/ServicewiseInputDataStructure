@@ -1,0 +1,611 @@
+Input JSON File for DMECertificate(receiveDMECertificationFileUserData)
+=============================================
+{
+  "formName":"DMECertificateForm",
+  "deliveryTicketId":"1",
+  "companyName":"HAPPY DOCTORS GROUPPRACTICE",
+  "name":"Ritam",
+  "patientId":"123456789",
+  "streetAddress":"2330 NW FLANDERS ST STE 101",
+  "city":"PORTLAND",
+  "telephoneNo":"503-816-1443 ",
+  "pan":"123456789",
+  "tpi":"",
+  "currentdate":"Mon May 15 15:37:11 IST 2023",
+  "currentdate_1":"Mon May 15 15:37:11 IST 2023",
+  "patientSignature":"",
+  "patientRepresentativeName":"",
+  "patientRelationship":"",
+  "reasonNotToSign":"",
+  "date":"Mon May 15 15:37:11 IST 2023",
+  "signatureCompRepresentative":"",
+  "nameCompRepresentative":"",
+  "dateOfService":null,
+  "deliveryItemDetailsList":[
+	 {
+		"proccode":"E0202",
+		"description":"Walker, rigid, wheeled, adjustable or fixed height",
+		"serial":"11111"
+	 },
+	 {
+		"proccode":"E0203",
+		"description":"Walker, rigid, wheeled, adjustable or fixed height",
+		"serial":"22222"
+	 },
+	 {
+		"proccode":"E0204",
+		"description":"Walker, rigid, wheeled, adjustable or fixed height",
+		"serial":"33333"
+	 }
+  ],
+  "providerName":"doeone",
+  "npiapi":"1760854442"
+}
+
+Receive Home Assessment File User Data(receiveHomeAssessmentFileUserData)
+=============================================
+{
+  "formName": "PatientHomeAssessmentForm",
+  "deliveryTicketId": "1",
+  "companyName": "HAPPY DOCTORS GROUPPRACTICE",
+  "streetAddress": "123 address1, apt 000",
+  "cityStateZip": "city1, wa, 981010000",
+  "phoneNo": "(555) 555-1234",
+  "fax": "+1-907-555-1234",
+  "patientName": "johnone doeOne",
+  "address": "2330 NW FLANDERS ST STE 101",
+  "p_cityStateZip": "PORTLAND, OR 97210-3400",
+  "phone": "503-816-1443",
+  "patientId": "123456789",
+  "account": "",
+  "typeOfMobilityCane": true,
+  "typeOfMobilityCrutches": true,
+  "typeOfMobilityWalker": false,
+  "typeOfMobilityManualwheelchair": false,
+  "typeOfMobilityPovscooter": false,
+  "typeOfMobilityPowerwheelchair": false,
+  "typeOfMobilityOtherchk": true,
+  "typeOfMobilityOther": "Car",
+  "othermedicalequipment": true,
+  "othermedicalequipmentValue": "othermedicalequipment",
+  "providerby": "ME",
+  "typeOfHome": "singlestoryhouse",
+  "handicapAccessible": true,
+  "handicapAccessibleValue": "Yes",
+  "rampsElevators": true,
+  "rampsElevatorsValue": "No",
+  "others2": true,
+  "other2value": "It is a long",
+  "equipmentTrials": "Equipment Trials",
+  "carpetThrowRugs": "Yes",
+  "looseUnevenFloors": "No",
+  "stairsSteps": "Na",
+  "wcRampsInsideOrOutsideTheHome": "Yes",
+  "explainAccessOptions": "No",
+  "explainAccessOptionsValue": "Test Data",
+  "othersSection": "Yes",
+  "othersSectionValue": "Some Data",
+  "caneCrutchesWalkerManualWheelchair": "Yes",
+  "povScooter": "No",
+  "powerWheelchair": "Na",
+  "bathroomFacilities": "Yes",
+  "roomAccess": "Na",
+  "roomAccessValue": "Some Test Data",
+  "entryDoors": "No",
+  "entryDoorsSl": "#4.5",
+  "entryDoorsValue": "Some Value",
+  "bedRoom": "Yes",
+  "bedRoomSl": "#2.3 ",
+  "bedRoomValue": "Value of Bed Room",
+  "kitchen": "No",
+  "kitchenSl": "#1.2",
+  "kitchenValue": "Its Kitchen",
+  "bathroom": "Yes",
+  "bathroomSl": "#6",
+  "bathroomValue": "This is bathroom",
+  "hallways": "No",
+  "hallwaysSl": "#3.3",
+  "hallwaysValue": "Value of hallways",
+  "otherRooms": "Yes",
+  "otherRoomsSl": "#9.3",
+  "otherRoomsValue": "Others Room",
+  "assessmentPerformedVerballyCheck": true,
+  "completedPreliminaryAssessmentCheck": true,
+  "applyCane": true,
+  "applyCrutches": false,
+  "applyWalker": true,
+  "applyManualWheelchair": false,
+  "applyPovScooter": false,
+  "applyPowerWheelchair": false,
+  "dateOfHomeAssessment": "12/06/2023",
+  "signaturePatientRepresentative": "",
+  "patientRepresentativeName": "",
+  "patientRelationship": "",
+  "reasonNotToSign": "",
+  "date": "",
+  "companyRepresentativeSign": "",
+  "companyRepresentativeName": ""
+}
+
+
+Receive Patient Assessment File User Data(receivePatientAssessmentFileUserData)
+=============================================
+{
+  "formName": "PatientAssessmentForm",
+  "deliveryTicketId": "1",
+  "companyName": "HAPPY DOCTORS GROUPPRACTICE",
+  "streetAddress": "123 address1, apt 000",
+  "cityStateZip": "city1, wa, 981010000",
+  "phoneNo": "407-551-1920",
+  "fax": "324234",
+  "patientName": "johnone doeOne",
+  "address": "2330 NW FLANDERS ST STE 101",
+  "p_cityStateZip": "PORTLAND, OR 97210-3400",
+  "phone": "503-816-1443",
+  "patientId": "123456789",
+  "account": "",
+  "alternateContacts": {
+    "name1": "",
+    "phone1": "",
+    "relationship1": "",
+    "name2": "",
+    "phone2": "",
+    "relationship2": ""
+  },
+  "patientVision": "Yes",
+  "patientHearing": "No",
+  "patientSpeech": "Na",
+  "patientAmbulatory": "Yes",
+  "alertUnderstand": "No",
+  "confused": "Na",
+  "dementia": "Yes",
+  "patientMobile": "No",
+  "patientBedRidden": "Na",
+  "patientFallRisk": "Yes",
+  "patientNutritional": "Na",
+  "caregiverWilling": "No",
+  "caregiverAble": "Na",
+  "caregiverUnderstands": "No",
+  "caregiverMaintain": "No",
+  "comments": "Lorem ipsum dolor sit amet, cu reque affert nam, eum labitur eligendi voluptatum at. Doctus verear omnesque ne mea. In feugiat offendit senserit sea. Primis consetetur per ea, cum in vero tempor detraxit.",
+  "signaturePatientRepresentative": "",
+  "patientRepresentativeName": "",
+  "patientRelationship": "",
+  "reasonNotToSign": "",
+  "date": "",
+  "signatureCompRepresentative": "",
+  "companyRepresentativeName": ""
+}
+
+
+DeliveryReceipt
+===============
+{
+	"formName": "DeliveryReceipt",
+	"branch": "",
+	"invLocation": "",
+	"date": "",
+	"csr": "",
+	"order": "",
+	"patientId": "",
+	"customer": "",
+	"account": "",
+	"dob": "",
+	"gender": "",
+	"billToAddress":{
+		"streetAddress1": "a",
+		"streetAddress2": "a",
+		"cityStateZip": "a",
+		"phoneNo": "a"
+	},
+	"deliveredToAddress":{
+		"streetAddress1": "a",
+		"streetAddress2": "a",
+		"cityStateZip": "a",
+		"phoneNo": "a"
+	},
+	"insurance": "",
+	"hippaSignatureOnFile": "",
+	"itemOrderedDetailedList":[
+	 {
+		"orderQty":"3",
+		"deleteQty":"3",
+		"type":"Purchase",
+		"itemName": "Walker, rigid, wheeled, adjustable or fixed height-1",
+		"chargedAmount": 0,
+		"allowedAmount": 0,
+		"tax": 0,
+		"coPay": 0
+	 },
+	 {
+		"orderQty":"3",
+		"deleteQty":"3",
+		"type":"Purchase",
+		"itemName": "Walker, rigid, wheeled, adjustable or fixed height-2",
+		"chargedAmount": 0,
+		"allowedAmount": 0,
+		"tax": 0,
+		"coPay": 0
+	 },
+	 {
+		"orderQty":"3",
+		"deleteQty":"3",
+		"type":"Purchase",
+		"itemName": "Walker, rigid, wheeled, adjustable or fixed height-3",
+		"chargedAmount": 0,
+		"allowedAmount": 0,
+		"tax": 0,
+		"coPay": 0
+	 }
+  ],
+}
+
+
+
+Assign Delivery Agent(assignDeliveryAgent)
+==========================================
+{
+  "deliveryTicketId": 6,
+  "agentFirstName": "Nabarun",
+  "agentLastName": "Roy",
+  "agentIdNo": "11",
+  "agentAgency": "ZUDIO",
+  "agentContact1": "7278333385",
+  "agentContact2": "8777592541",
+  "agentVehicleNo": "WB04-CE2548",
+  "assgnmentDate": "2023-06-13",
+  "priority": "high",
+  "agentComment": "Nothing"
+}
+
+Prepare Setup Method For Delivery(prepareSetupMethodForDelivery)
+=====================================
+{
+  "deliveryTicketId": 1,
+  "setupMethod": "Technician",
+  "setupTechnicianNo": "7867543",
+  "setupTechnicianContactNo": "09876543365",
+  "setupTechnicianFirstName": "Virat",
+  "setupTechnicianMiddleName": "",
+  "setupTechnicianLastName": "Kohli",
+  "setupDateTime": "13/06/2023",
+  "scheduleSetupDateTime": "13/06/2023",
+  "setupComments": "Setup is on process",
+  "setupStatus": "Active",
+  "courierPackageAcceptedBy": "Bimal",
+  "therapistFirstName": "Bimal K",
+  "therapistMiddleName": "K",
+  "therapistLastName": "Sahoo",
+  "therapistLicenseNo": "6789456",
+  "therapistNpi": "7548675485",
+  "therapistTaxonomyCode": "VBGTR",
+  "scheduleTherapyDate": "13/06/2023",
+  "actualTherapyDate": "13/06/2023",
+  "therapyMode": "Nothing",
+  "therapyStatus": "Active",
+  "therapyNotes": "Success"
+}
+
+
+Get HCPCS Document List for Delivery Ticket(getHCPCSDocumentListOnDeliveryTicket)
+=================================================================================
+I/P -
+=====
+deliveryTicketId = 1000000054
+O/P -
+=====
+{
+  "data": {
+    "deliveryTicketId": 1000000054,
+    "documentData": [
+      {
+        "hcpcsDoctypeId": 38,
+        "hcpcsCode": "0",
+        "documentId": 4,
+        "documentName": "Standard_Home_Assessment_2_v2_(9-25-15)",
+        "fileType": "Form",
+        "formName": "PatientHomeAssessmentForm",
+        "hcpcsDocTypeUuid": "a08669c4-28f8-4dd1-8ef1-416c55c54e3a"
+      },
+      {
+        "hcpcsDoctypeId": 39,
+        "hcpcsCode": "0",
+        "documentId": 5,
+        "documentName": "Standard_Patient_Assessment_v1_(9-24-15)",
+        "fileType": "Form",
+        "formName": "PatientAssessmentForm",
+        "hcpcsDocTypeUuid": "2b65c0c5-9104-44af-94d9-4ba18a07285d"
+      },
+      {
+        "hcpcsDoctypeId": 35,
+        "hcpcsCode": "0",
+        "documentId": 1,
+        "documentName": "Standard_DME_Certification_MS_v1_(12-07-16)",
+        "fileType": "Form",
+        "formName": "DMECertificateForm",
+        "hcpcsDocTypeUuid": "521f1b51-2bdd-4547-bfd3-3f0056de435a"
+      },
+      {
+        "hcpcsDoctypeId": 36,
+        "hcpcsCode": "0",
+        "documentId": 2,
+        "documentName": "Standard_Form_Patient_Rights_Responsibility_v1_(02-03-16)",
+        "fileType": "Doc",
+        "formName": "PatientRightsResponsibility",
+        "hcpcsDocTypeUuid": "a0bd785e-2144-4eb5-96c9-2a90fea9611f"
+      },
+      {
+        "hcpcsDoctypeId": 37,
+        "hcpcsCode": "0",
+        "documentId": 3,
+        "documentName": "Standard_HIPAA_Notice_v1_(01-30-17)",
+        "fileType": "Doc",
+        "formName": "HIPAANotice",
+        "hcpcsDocTypeUuid": "14ceee81-42ee-4eaf-a7bd-abc1ef563131"
+      },
+      {
+        "hcpcsDoctypeId": 40,
+        "hcpcsCode": "0",
+        "documentId": 6,
+        "documentName": "Delivery_Ticket_Receipt",
+        "fileType": "Doc",
+        "formName": "DeliveryReceipt",
+        "hcpcsDocTypeUuid": "2b65c0c5-9104-44af-94d9-4ba18a07285d"
+      },
+      {
+        "hcpcsDoctypeId": 42,
+        "hcpcsCode": "0",
+        "documentId": 8,
+        "documentName": "Proof_Of_Delivery",
+        "fileType": "Doc",
+        "formName": "ProofOfDelivery",
+        "hcpcsDocTypeUuid": "2b65c0c5-9104-44af-94d9-4ba18a07285d"
+      }
+    ]
+  },
+  "outcome": true,
+  "message": "Hcpcs code documents gets fetched successfully!!!"
+}
+===============================================================================END==============================================================================================
+
+Selected HCPCS Document List for Delivery Ticket(selectedHCPCSDocumentListOnDeliveryTicket)
+===========================================================================================
+I/P -
+=====
+{
+    "deliveryTicketId": 1000000064,
+    "patientName": "johnone doetwo",
+    "documentData": [
+      {
+        "hcpcsDoctypeId": 38,
+        "hcpcsCode": "0",
+        "documentId": 4,
+        "documentName": "Standard_Home_Assessment_2_v2_(9-25-15)",
+        "fileType": "Form",
+        "formName": "PatientHomeAssessmentForm",
+        "hcpcsDocTypeUuid": "a08669c4-28f8-4dd1-8ef1-416c55c54e3a"
+      },
+      {
+        "hcpcsDoctypeId": 39,
+        "hcpcsCode": "0",
+        "documentId": 5,
+        "documentName": "Standard_Patient_Assessment_v1_(9-24-15)",
+        "fileType": "Form",
+        "formName": "PatientAssessmentForm",
+        "hcpcsDocTypeUuid": "2b65c0c5-9104-44af-94d9-4ba18a07285d"
+      },
+      {
+        "hcpcsDoctypeId": 35,
+        "hcpcsCode": "0",
+        "documentId": 1,
+        "documentName": "Standard_DME_Certification_MS_v1_(12-07-16)",
+        "fileType": "Form",
+        "formName": "DMECertificateForm",
+        "hcpcsDocTypeUuid": "521f1b51-2bdd-4547-bfd3-3f0056de435a"
+      },
+      {
+        "hcpcsDoctypeId": 36,
+        "hcpcsCode": "0",
+        "documentId": 2,
+        "documentName": "Standard_Form_Patient_Rights_Responsibility_v1_(02-03-16)",
+        "fileType": "Doc",
+        "formName": "PatientRightsResponsibility",
+        "hcpcsDocTypeUuid": "a0bd785e-2144-4eb5-96c9-2a90fea9611f"
+      },
+      {
+        "hcpcsDoctypeId": 37,
+        "hcpcsCode": "0",
+        "documentId": 3,
+        "documentName": "Standard_HIPAA_Notice_v1_(01-30-17)",
+        "fileType": "Doc",
+        "formName": "HIPAANotice",
+        "hcpcsDocTypeUuid": "14ceee81-42ee-4eaf-a7bd-abc1ef563131"
+      },
+      {
+        "hcpcsDoctypeId": 40,
+        "hcpcsCode": "0",
+        "documentId": 6,
+        "documentName": "Delivery_Ticket_Receipt",
+        "fileType": "Doc",
+        "formName": "DeliveryReceipt",
+        "hcpcsDocTypeUuid": "2b65c0c5-9104-44af-94d9-4ba18a07285d"
+      },
+      {
+        "hcpcsDoctypeId": 42,
+        "hcpcsCode": "0",
+        "documentId": 8,
+        "documentName": "Proof_Of_Delivery",
+        "fileType": "Doc",
+        "formName": "ProofOfDelivery",
+        "hcpcsDocTypeUuid": "2b65c0c5-9104-44af-94d9-4ba18a07285d"
+      }
+    ]
+  }
+
+O/P -
+=====
+{
+  "data": {
+    "deliveryTicketId": 1000000064,
+    "patientName": "johnone doetwo",
+    "deliveryDocumentResponse": [
+      {
+        "deliveryDocId": 3101,
+        "deliveryTicketId": 1000000064,
+        "deliveryTicketNo": "DTN1000000064",
+        "soId": 20,
+        "soNo": "1251",
+        "hcpcsDoctypeId": 38,
+        "docPatientName": "johnone doetwo",
+        "documentPatientFile": "Standard_Home_Assessment_2_v2_(9-25-15)",
+        "isPatientSigned": null,
+        "isCaregiverSigned": null,
+        "signedDate": null,
+        "isDeliveryAgentSigned": null,
+        "isScannedUploaded": null,
+        "deliveryDocumentsUuid": "eb167680-382d-42ec-9546-661cf6be81bb",
+        "documentPatientFilePath": null,
+        "uploadFileResponseList": null
+      },
+      {
+        "deliveryDocId": 3102,
+        "deliveryTicketId": 1000000064,
+        "deliveryTicketNo": "DTN1000000064",
+        "soId": 20,
+        "soNo": "1251",
+        "hcpcsDoctypeId": 39,
+        "docPatientName": "johnone doetwo",
+        "documentPatientFile": "Standard_Patient_Assessment_v1_(9-24-15)",
+        "isPatientSigned": null,
+        "isCaregiverSigned": null,
+        "signedDate": null,
+        "isDeliveryAgentSigned": null,
+        "isScannedUploaded": null,
+        "deliveryDocumentsUuid": "06558396-9651-443a-a2f6-c6f8a7df7d1e",
+        "documentPatientFilePath": null,
+        "uploadFileResponseList": null
+      },
+      {
+        "deliveryDocId": 3103,
+        "deliveryTicketId": 1000000064,
+        "deliveryTicketNo": "DTN1000000064",
+        "soId": 20,
+        "soNo": "1251",
+        "hcpcsDoctypeId": 35,
+        "docPatientName": "johnone doetwo",
+        "documentPatientFile": "Standard_DME_Certification_MS_v1_(12-07-16)",
+        "isPatientSigned": null,
+        "isCaregiverSigned": null,
+        "signedDate": null,
+        "isDeliveryAgentSigned": null,
+        "isScannedUploaded": null,
+        "deliveryDocumentsUuid": "b81e2e34-9965-49e8-a5fe-72260e5bb70a",
+        "documentPatientFilePath": null,
+        "uploadFileResponseList": null
+      },
+      {
+        "deliveryDocId": 3104,
+        "deliveryTicketId": 1000000064,
+        "deliveryTicketNo": "DTN1000000064",
+        "soId": 20,
+        "soNo": "1251",
+        "hcpcsDoctypeId": 36,
+        "docPatientName": "johnone doetwo",
+        "documentPatientFile": "Standard_Form_Patient_Rights_Responsibility_v1_(02-03-16)",
+        "isPatientSigned": null,
+        "isCaregiverSigned": null,
+        "signedDate": null,
+        "isDeliveryAgentSigned": null,
+        "isScannedUploaded": null,
+        "deliveryDocumentsUuid": "547d03e3-2be3-422b-927c-938f9ae62a98",
+        "documentPatientFilePath": null,
+        "uploadFileResponseList": null
+      },
+      {
+        "deliveryDocId": 3105,
+        "deliveryTicketId": 1000000064,
+        "deliveryTicketNo": "DTN1000000064",
+        "soId": 20,
+        "soNo": "1251",
+        "hcpcsDoctypeId": 37,
+        "docPatientName": "johnone doetwo",
+        "documentPatientFile": "Standard_HIPAA_Notice_v1_(01-30-17)",
+        "isPatientSigned": null,
+        "isCaregiverSigned": null,
+        "signedDate": null,
+        "isDeliveryAgentSigned": null,
+        "isScannedUploaded": null,
+        "deliveryDocumentsUuid": "46ee4b44-c1c8-4930-87ba-a434804e03cc",
+        "documentPatientFilePath": null,
+        "uploadFileResponseList": null
+      },
+      {
+        "deliveryDocId": 3106,
+        "deliveryTicketId": 1000000064,
+        "deliveryTicketNo": "DTN1000000064",
+        "soId": 20,
+        "soNo": "1251",
+        "hcpcsDoctypeId": 40,
+        "docPatientName": "johnone doetwo",
+        "documentPatientFile": "Delivery_Ticket_Receipt",
+        "isPatientSigned": null,
+        "isCaregiverSigned": null,
+        "signedDate": null,
+        "isDeliveryAgentSigned": null,
+        "isScannedUploaded": null,
+        "deliveryDocumentsUuid": "5ce74217-a727-40f2-a820-71673ef0e8ee",
+        "documentPatientFilePath": null,
+        "uploadFileResponseList": null
+      },
+      {
+        "deliveryDocId": 3107,
+        "deliveryTicketId": 1000000064,
+        "deliveryTicketNo": "DTN1000000064",
+        "soId": 20,
+        "soNo": "1251",
+        "hcpcsDoctypeId": 42,
+        "docPatientName": "johnone doetwo",
+        "documentPatientFile": "Proof_Of_Delivery",
+        "isPatientSigned": null,
+        "isCaregiverSigned": null,
+        "signedDate": null,
+        "isDeliveryAgentSigned": null,
+        "isScannedUploaded": null,
+        "deliveryDocumentsUuid": "f7b5d2dd-c9e6-4920-92bf-55338739c3fa",
+        "documentPatientFilePath": null,
+        "uploadFileResponseList": null
+      }
+    ]
+  },
+  "outcome": true,
+  "message": "Hcpcs selected documents saved successfully!!!"
+}
+===============================================================================END==============================================================================================
+
+Uploading Signature File(uploadSignatureFiles)
+==============================================
+i/P -
+=====
+{
+  "deliveryTicketId" : 1,
+  "signatureType" : "patient",
+  "companyRepresentativeName" : "Richardson",
+  "date" : "03/07/2023",
+  "patientRepresentativeName": "Alex Smith",
+  "patientRelationship": "Father",
+  "reasonNotToSign": "NA",
+  "caregiverSignature": "",
+  "patientSignature":"data:image/png;base64,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",
+  "driverAgentSignature":"data:image/png;base64,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"
+}
+
+O/P -
+=====
+
+
+
+
+
+===============================================================================END==============================================================================================
+
+

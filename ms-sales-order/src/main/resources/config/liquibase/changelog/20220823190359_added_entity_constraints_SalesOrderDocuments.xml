@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity SalesOrderDocuments.
+    -->
+    <changeSet id="20220823190359-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="sales_order_master_sales_order_id"
+                                 baseTableName="t_sales_order_documents"
+                                 constraintName="fk_t_sales_order_documents__sales_order_master_id"
+                                 referencedColumnNames="sales_order_id"
+                                 referencedTableName="t_sales_order_master"/>
+    </changeSet>
+</databaseChangeLog>

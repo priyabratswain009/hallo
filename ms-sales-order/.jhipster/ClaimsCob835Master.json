@@ -1,0 +1,143 @@
+{
+  "applications": "*",
+  "changelogDate": "20230602145200",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_claims_cob_835_master",
+  "fields": [
+    {
+      "fieldName": "claimCob835MasterId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fileName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "totalClaimChargeAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalClaimPaymentAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalPatientResponsibilityAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "claimReceivedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "receivedOn",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerClaimControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "checkOrEftTraceNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "checkIssueOrEftEffectiveDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "creditOrDebitFlagCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentMethodCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "crossoverCarrierName",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "entityIdentifierCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "entityTypeQualifier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payeeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payeeNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimsCob835MasterUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "ClaimsCob835Master",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

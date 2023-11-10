@@ -1,0 +1,519 @@
+{
+  "applications": "*",
+  "changelogDate": "20221213083929",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_secondary_claim_submision_master",
+  "fields": [
+    {
+      "fieldName": "changeHealthSecondarySubmisionMasterId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "salesOrderId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "claimControlNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerServiceId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterOrganizationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterContactPersonName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "receiverOrganizationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberMemberIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberPaymentResponsibilityLevelCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "secondaryInsurerPolicyNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subscriberZipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "providerType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderEin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderOrganizationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderZipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderContactPersonName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimFilingCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientAccountNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimChargeAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "posCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimFrequencyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "signatureIndicator",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "planParticipationCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "benefitsAssignmentCertificationIndicator",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "releaseInformationCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primaryDiagnosis",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode5",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode6",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode7",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode8",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode9",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode10",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode11",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icd10DiagnosisCode12",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insertedById",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insertedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "billingProviderType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insertedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherSubscriberAddress1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherSubscriberAddress2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherSubscriberCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherSubscriberState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherSubscriberZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherInsuredQualifier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherInsuredLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherInsuredFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherInsuredIdentifierTypeCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherInsuredIdentifier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherPayerOrganizationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherPayerIdentifierTypeCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherPayerIdentifier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherPayerAdjudicationOrPaymentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "otherPayerClaimAdjustmentIndicator",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherPayerClaimControlNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerPaidAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "paymentResponsibilityLevelCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "individualRelationshipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "claimFilingIndicatorCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "otherPayerBenefitsAssignmentCertificationIndicator",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "releaseOfInformationCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "remainingPatientLiability",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "patientSignatureGeneratedForPatient",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "changeHealthPrimarySubmisionMasterId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "insuredFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredContactNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "insuredDob",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "insuredGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderingProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientRelationshipInsured",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionEmployment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionAutoAccident",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientConditionOtherAccident",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isNextLevelInsurerPresentStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "originalDos",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "parNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingProviderTaxonomy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderOrganisationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderZipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "serviceProviderTaxonomy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cms1500FormName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tradingPartnerZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "diagnosisCodeType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "secondaryClaimSubmisionMasterUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "SecondaryClaimSubmisionMaster",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

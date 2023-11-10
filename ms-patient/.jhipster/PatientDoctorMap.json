@@ -1,0 +1,135 @@
+{
+  "applications": "*",
+  "changelogDate": "20230123114650",
+  "clientRootFolder": "patient",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_patient_doctor_map",
+  "fields": [
+    {
+      "fieldName": "patientDoctorMapId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "patientId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "doctorFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorNameSuffix",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorAddressZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorContact2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorNpiNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorTaxonomyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorTaxonomyDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorPracticeState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "doctorLicenseNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientDoctorMapUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "patient",
+  "name": "PatientDoctorMap",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

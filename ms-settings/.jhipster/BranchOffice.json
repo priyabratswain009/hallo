@@ -1,0 +1,219 @@
+{
+  "applications": "*",
+  "changelogDate": "20230209103658",
+  "clientRootFolder": "settings",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_branch_office",
+  "fields": [
+    {
+      "fieldName": "branchId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "branchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "npi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ptan",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxonomyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxonomyCodeDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "taxIdType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taxIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "branchOfficeUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "billingAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingZipCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterContactPersonName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterContactPhoneNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "submitterContactPhoneNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "zip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchCompany",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchGroupName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "signatureName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemLocationId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemLocationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "branchCompanyId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "isDropshipAllowed",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingTaxonomyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingNpi",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingOrganisationName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingTaxIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billingBranchName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fax",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "settings",
+  "name": "BranchOffice",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

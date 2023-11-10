@@ -1,0 +1,390 @@
+/movePatientDocumentsPddAndPidAndPmrToSpecializedDirectory
+
+{
+  "docType": "PDD",
+  "documentNames": "Test-PDD-1,Test-PDD-2",
+  "patientUUID": "8f2d2137-daf7-44d0-bc4b-0323ff7dbd3b",
+  "soNo": "SLO1000000106",
+  "soUUID": "df921fbb-f891-474e-8f4e-6248216d0b60",
+  "isCloudStorage": true,
+  "operationType": "move"
+}
+
+------------------------------------------attachPatientWithSoBySearchParameters-----------------------------------------------
+
+I/P:
+{
+  "soUUID": "df921fbb-f891-474e-8f4e-6248216d0b60",
+  "soNo": "SLO1000000106",
+  "parameterType": "patientUuid",
+  "parameterValue": "8f2d2137-daf7-44d0-bc4b-0323ff7dbd3b"
+}
+
+O/P:
+
+{
+  "status": true,
+  "message": "Data Saved Sucessfully",
+  "data": [
+    {
+      "patientDocumentSoMapId": 289,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 271,
+      "patientDocumentNo": "PDD1000000200",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 290,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 288,
+      "patientDocumentNo": "PDD1000000223",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 291,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 289,
+      "patientDocumentNo": "PDD1000000224",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 292,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 290,
+      "patientDocumentNo": "PDD1000000225",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 293,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 291,
+      "patientDocumentNo": "PDD1000000226",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 294,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 292,
+      "patientDocumentNo": "PDD1000000227",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 295,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 293,
+      "patientDocumentNo": "PDD1000000228",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    }
+  ]
+}
+========================================================================
+I/P:
+{
+  "soUUID": "df921fbb-f891-474e-8f4e-6248216d0b60",
+  "soNo": "SLO1000000106",
+  "parameterType": "patientIdNo",
+  "parameterValue": "PTN1000000005"
+}
+
+O/P:
+
+{
+  "status": true,
+  "message": "Data Saved Sucessfully",
+  "data": [
+    {
+      "patientDocumentSoMapId": 282,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 271,
+      "patientDocumentNo": "PDD1000000200",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 283,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 288,
+      "patientDocumentNo": "PDD1000000223",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 284,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 289,
+      "patientDocumentNo": "PDD1000000224",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 285,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 290,
+      "patientDocumentNo": "PDD1000000225",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 286,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 291,
+      "patientDocumentNo": "PDD1000000226",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 287,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 292,
+      "patientDocumentNo": "PDD1000000227",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 288,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 293,
+      "patientDocumentNo": "PDD1000000228",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    }
+  ]
+}
+-----------------------------------------------------------------------------------------------
+I/P:
+{
+  "soUUID": "df921fbb-f891-474e-8f4e-6248216d0b60",
+  "soNo": "SLO1000000106",
+  "parameterType": "soNo",
+  "parameterValue": "SLO1000000106"
+}
+
+O/P:
+
+{
+  "status": true,
+  "message": "Data Saved Sucessfully",
+  "data": [
+    {
+      "patientDocumentSoMapId": 274,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 271,
+      "patientDocumentNo": "PDD1000000200",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 275,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 288,
+      "patientDocumentNo": "PDD1000000223",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 276,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 289,
+      "patientDocumentNo": "PDD1000000224",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 277,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 290,
+      "patientDocumentNo": "PDD1000000225",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 278,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 291,
+      "patientDocumentNo": "PDD1000000226",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 279,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 292,
+      "patientDocumentNo": "PDD1000000227",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    },
+    {
+      "patientDocumentSoMapId": 280,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 293,
+      "patientDocumentNo": "PDD1000000228",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    }
+  ]
+}
+---------------------------------------------------------------------------------------------
+I/P:
+{
+  "soUUID": "df921fbb-f891-474e-8f4e-6248216d0b60",
+  "soNo": "SLO1000000106",
+  "parameterType": "patientDocumentNo",
+  "parameterValue": "PDD1000000227"
+}
+
+O/P:
+
+{
+  "status": true,
+  "message": "Data Saved Sucessfully",
+  "data": [
+    {
+      "patientDocumentSoMapId": 281,
+      "patientId": 51,
+      "patientIdNo": "PTN1000000005",
+      "patientDocumentId": 292,
+      "patientDocumentNo": "PDD1000000227",
+      "soId": 97,
+      "soNo": "SLO1000000106",
+      "uploadedById": 31,
+      "uploadedByName": "Falguni Api Test",
+      "uploadedDate": "2023-10-30",
+      "status": "Active",
+      "patientDocumentSoMapUuid": null
+    }
+  ]
+}
+------------------------------------------------------------------------------------------

@@ -1,0 +1,131 @@
+{
+  "applications": "*",
+  "changelogDate": "20230427131311",
+  "clientRootFolder": "delivery",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_delivery_assignment",
+  "fields": [
+    {
+      "fieldName": "deliveryAssignmentId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "deliveryTicketId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "deliveryNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentIdNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentAgency",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentContact1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentContact2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentVehicleNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assignmentStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "assgnmentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "priority",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "agentComment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryAssignmentUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "deliveryStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "actualDeliveryDateTime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deliveryScheduleDateTime",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "delivery",
+  "name": "DeliveryAssignment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

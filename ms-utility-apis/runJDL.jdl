@@ -1,0 +1,15 @@
+entity MarketingReferalTypeMaster(t_marketing_referal_type_master){
+    @Id marketingReferralTypeId Long
+    marketingReferralTypeCode String
+    marketingReferalTypeDescription String
+    status String
+    createdById Long
+    createdDate LocalDate
+    updatedById Long
+    updatedDate LocalDate
+    createdByName String
+    updatedByName String
+    marketingReferalTypeMasterUUID UUID
+}
+
+use mapstruct, serviceImpl, pagination for all

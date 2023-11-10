@@ -1,0 +1,127 @@
+{
+  "applications": "*",
+  "changelogDate": "20230317094140",
+  "clientRootFolder": "items",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_purchase_order_items",
+  "fields": [
+    {
+      "fieldName": "poItemsId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "poId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "poNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemUom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderedQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "receivedQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "cancelledQty",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "unitPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "purchaseOrderItemsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "poStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "wheatherSerialised",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lotNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mfgDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "receivedDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "items",
+  "name": "PurchaseOrderItems",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

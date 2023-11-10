@@ -1,0 +1,95 @@
+{
+  "applications": "*",
+  "changelogDate": "20221201073847",
+  "clientRootFolder": "claims",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_receipt_master_details",
+  "fields": [
+    {
+      "fieldName": "receiptId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "receiptNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "depositId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "depositNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "receiptReference",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "receiptAmount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "paymentMode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "receiptNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "receiptMasterDetailsUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "receiptStatus",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "claims",
+  "name": "ReceiptMasterDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}
