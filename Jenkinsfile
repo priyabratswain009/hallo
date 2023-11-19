@@ -6,6 +6,9 @@ pipeline {
 
     stages {
         stage('service-registry') {
+            when {
+                changeset "service-registry/**"
+            }
             steps {
                  dir('service-registry') {
                     //bat 'npm uninstall -g node-gyp'
