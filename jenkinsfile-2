@@ -1,0 +1,36 @@
+pipeline{
+    agent any
+    tools{
+        maven 'maven-3'
+    }
+    stages{
+        stage("checkout"){
+            steps{
+                git branch: 'main', url: 'https://github.com/priyabratswain009/hallo.git'
+            }
+        }
+        stage('package'){
+            steps{
+                dir('common'){
+                  sh "mvn clean install -Dmaven.test.skip=true"
+                }
+            }
+        }
+        stage("scan"){
+              environment {
+                 scannerHome = tool 'sonarscanner4'
+                }
+            steps{
+               dir('ms-patient') {
+                   sh "mvn clean install -Dmaven.test.skip=true "
+
+             withSonarQubeEnv('sonar') {
+                 sh "${scannerHome}/bin/sonar-scanner"
+                
+            }
+
+                }
+            }
+        }
+    }
+}
