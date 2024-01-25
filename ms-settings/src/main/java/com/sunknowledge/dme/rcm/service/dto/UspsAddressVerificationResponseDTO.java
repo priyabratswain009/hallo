@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.UspsAddressVerificationResponse} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class UspsAddressVerificationResponseDTO implements Serializable {
 
     private Long uspsAddressVerificationId;

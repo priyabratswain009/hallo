@@ -14,5 +14,5 @@ public class ClaimFormMasterExtendedDTO {
 
     private String claimFormName;
 
-    private String status;
+    //private String status;
 }

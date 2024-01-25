@@ -260,7 +260,7 @@ class RoleMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewRoleMaster() throws Exception {
+    void putExistingRoleMaster() throws Exception {
         // Initialize the database
         roleMasterRepository.saveAndFlush(roleMaster);
 

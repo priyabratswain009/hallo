@@ -548,7 +548,7 @@ class BranchOfficeResourceIT {
 
     @Test
     @Transactional
-    void putNewBranchOffice() throws Exception {
+    void putExistingBranchOffice() throws Exception {
         // Initialize the database
         branchOfficeRepository.saveAndFlush(branchOffice);
 

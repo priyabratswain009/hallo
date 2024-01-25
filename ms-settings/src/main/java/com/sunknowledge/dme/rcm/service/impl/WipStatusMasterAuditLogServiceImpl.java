@@ -44,7 +44,7 @@ public class WipStatusMasterAuditLogServiceImpl implements WipStatusMasterAuditL
 
     @Override
     public WipStatusMasterAuditLogDTO update(WipStatusMasterAuditLogDTO wipStatusMasterAuditLogDTO) {
-        log.debug("Request to save WipStatusMasterAuditLog : {}", wipStatusMasterAuditLogDTO);
+        log.debug("Request to update WipStatusMasterAuditLog : {}", wipStatusMasterAuditLogDTO);
         WipStatusMasterAuditLog wipStatusMasterAuditLog = wipStatusMasterAuditLogMapper.toEntity(wipStatusMasterAuditLogDTO);
         wipStatusMasterAuditLog = wipStatusMasterAuditLogRepository.save(wipStatusMasterAuditLog);
         return wipStatusMasterAuditLogMapper.toDto(wipStatusMasterAuditLog);

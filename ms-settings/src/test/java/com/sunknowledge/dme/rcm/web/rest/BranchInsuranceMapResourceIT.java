@@ -531,7 +531,7 @@ class BranchInsuranceMapResourceIT {
 
     @Test
     @Transactional
-    void putNewBranchInsuranceMap() throws Exception {
+    void putExistingBranchInsuranceMap() throws Exception {
         // Initialize the database
         branchInsuranceMapRepository.saveAndFlush(branchInsuranceMap);
 

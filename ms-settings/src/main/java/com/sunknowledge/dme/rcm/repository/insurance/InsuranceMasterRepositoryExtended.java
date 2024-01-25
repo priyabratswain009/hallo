@@ -5,6 +5,8 @@ import com.sunknowledge.dme.rcm.repository.InsuranceMasterRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface InsuranceMasterRepositoryExtended extends InsuranceMasterRepository {
     InsuranceMaster findByInsuranceIdAndStatusIgnoreCase(Long insuranceId, String active);
@@ -26,4 +28,6 @@ public interface InsuranceMasterRepositoryExtended extends InsuranceMasterReposi
     List<InsuranceMaster> findByInsuranceIdIn(List<Long> listIns);
 
     List<InsuranceMaster> findByCmsCrossoverInsuranceIdNoAndStatusIgnoreCase(String cmsCrossoverInsuranceIdNo, String active);
+
+    Optional<InsuranceMaster> findByInsuranceMasterUuid(UUID uuid);
 }

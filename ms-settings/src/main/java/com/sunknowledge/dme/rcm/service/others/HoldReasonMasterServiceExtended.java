@@ -15,5 +15,7 @@ public interface HoldReasonMasterServiceExtended extends HoldReasonMasterService
 
     List<HoldReasonMasterDTO> getAllHoldReasonDetails();
 
-    List<HoldReasonMasterDTO> getHoldReasonDetailsByUUID(UUID holdReasonMasterUuid);
+    HoldReasonMasterDTO getHoldReasonDetailsByUUID(UUID holdReasonMasterUuid);
+
+    ResponseDTO setHoldReasonDetailsStatusByUuid(UUID uuid, String status);
 }

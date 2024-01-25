@@ -41,7 +41,7 @@ public class TaxZoneAuditLogServiceImpl implements TaxZoneAuditLogService {
 
     @Override
     public TaxZoneAuditLogDTO update(TaxZoneAuditLogDTO taxZoneAuditLogDTO) {
-        log.debug("Request to save TaxZoneAuditLog : {}", taxZoneAuditLogDTO);
+        log.debug("Request to update TaxZoneAuditLog : {}", taxZoneAuditLogDTO);
         TaxZoneAuditLog taxZoneAuditLog = taxZoneAuditLogMapper.toEntity(taxZoneAuditLogDTO);
         taxZoneAuditLog = taxZoneAuditLogRepository.save(taxZoneAuditLog);
         return taxZoneAuditLogMapper.toDto(taxZoneAuditLog);

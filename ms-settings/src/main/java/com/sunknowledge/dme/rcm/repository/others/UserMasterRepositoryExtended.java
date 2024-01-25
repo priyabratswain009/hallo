@@ -1,6 +1,5 @@
 package com.sunknowledge.dme.rcm.repository.others;
 
-import com.sunknowledge.dme.rcm.domain.BranchOffice;
 import com.sunknowledge.dme.rcm.domain.UserMaster;
 import com.sunknowledge.dme.rcm.repository.UserMasterRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +15,12 @@ public interface UserMasterRepositoryExtended extends UserMasterRepository {
     Long getIDByUUID(@Param("userUUID") UUID userUUID);
 
     UserMaster findByUserIdAndStatusIgnoreCase(Long userId, String active);
+
+    List<UserMaster> findByStatusIgnoreCase(String active);
+
+    UserMaster findByUsernameAndEmailAndStatusIgnoreCase(String username, String email, String status);
+
+    UserMaster findByUsernameAndStatusIgnoreCase(String username, String status);
+
+    UserMaster findByUserMasterUuidAndStatusIgnoreCase(UUID userUasterUuid, String status);
 }

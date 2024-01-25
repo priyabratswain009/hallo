@@ -211,7 +211,7 @@ class ItemLocationAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewItemLocationAuditLog() throws Exception {
+    void putExistingItemLocationAuditLog() throws Exception {
         // Initialize the database
         itemLocationAuditLogRepository.saveAndFlush(itemLocationAuditLog);
 

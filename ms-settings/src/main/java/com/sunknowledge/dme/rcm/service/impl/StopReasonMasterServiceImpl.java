@@ -44,7 +44,7 @@ public class StopReasonMasterServiceImpl implements StopReasonMasterService {
 
     @Override
     public StopReasonMasterDTO update(StopReasonMasterDTO stopReasonMasterDTO) {
-        log.debug("Request to save StopReasonMaster : {}", stopReasonMasterDTO);
+        log.debug("Request to update StopReasonMaster : {}", stopReasonMasterDTO);
         StopReasonMaster stopReasonMaster = stopReasonMasterMapper.toEntity(stopReasonMasterDTO);
         stopReasonMaster = stopReasonMasterRepository.save(stopReasonMaster);
         return stopReasonMasterMapper.toDto(stopReasonMaster);

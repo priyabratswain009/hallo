@@ -1,10 +1,7 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
-import com.sunknowledge.dme.rcm.domain.BranchUserMap;
 import com.sunknowledge.dme.rcm.domain.RoleUserMap;
-import com.sunknowledge.dme.rcm.repository.RoleUserMapRepository;
 import com.sunknowledge.dme.rcm.repository.others.RoleUserMapRepositoryExtended;
-import com.sunknowledge.dme.rcm.service.dto.BranchUserMapDTO;
 import com.sunknowledge.dme.rcm.service.dto.RoleMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.RoleUserMapDTO;
 import com.sunknowledge.dme.rcm.service.dto.UserMasterDTO;
@@ -14,6 +11,7 @@ import com.sunknowledge.dme.rcm.service.mapper.RoleUserMapMapper;
 import com.sunknowledge.dme.rcm.service.others.RoleMasterServiceExtended;
 import com.sunknowledge.dme.rcm.service.others.RoleUserMapServiceExtended;
 import com.sunknowledge.dme.rcm.service.others.UserMasterServiceExtended;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
@@ -21,10 +19,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @Primary
 @Service
+@Slf4j
 public class RoleUserMapServiceExtendedImpl implements RoleUserMapServiceExtended {
 
     @Autowired
@@ -87,15 +90,15 @@ public class RoleUserMapServiceExtendedImpl implements RoleUserMapServiceExtende
                 roleUserMapDTO.setCreatedDate(LocalDate.now());
 
                 RoleUserMap roleUserMapSaved = roleUserMapRepositoryExtended.save(roleUserMapMapper.toEntity(roleUserMapDTO));
-                return new ResponseDTO(true, "Data Saved Successfully.", List.of(roleUserMapSaved));
+                return new ResponseDTO(true, "Data Saved Successfully.", (roleUserMapSaved),200);
             }else{
-                return new ResponseDTO(false, "User already mapped with another role.", null);
+                return new ResponseDTO(false, "User already mapped with another role.", null,200);
             }
         }else {
             if (roleMasterDTO == null) {
-                return new ResponseDTO(false, "Role UUID not found.", new ArrayList<>());
+                return new ResponseDTO(false, "Role UUID not found.", new ArrayList<>(),200);
             } else {
-                return new ResponseDTO(false, "User UUID not found.", new ArrayList<>());
+                return new ResponseDTO(false, "User UUID not found.", new ArrayList<>(),200);
             }
         }
     }
@@ -112,9 +115,9 @@ public class RoleUserMapServiceExtendedImpl implements RoleUserMapServiceExtende
             updateDTO.setUpdatedByName("Abhijit Update");
             updateDTO.setUpdatedDate(LocalDate.now());
             RoleUserMapDTO roleUserMap = roleUserMapMapper.toDto(roleUserMapRepositoryExtended.save(updateDTO));
-            return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(roleUserMap)));
+            return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", (roleUserMap),200));
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Data Not Found.", null));
+            return (new ResponseDTO(Boolean.FALSE, "Data Not Found.", null,200));
         }
     }
 
@@ -147,10 +150,34 @@ public class RoleUserMapServiceExtendedImpl implements RoleUserMapServiceExtende
                 break;
             }
             default:{
-                return new ResponseDTO(false,"Please Give Correct OperationType",null);
+                return new ResponseDTO(false,"Please Give Correct OperationType",null,200);
             }
         }
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
+    }
+
+    @Override
+    public ResponseDTO setRoleUserMapStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<RoleUserMap> obj = roleUserMapRepositoryExtended.findByRoleUserMapUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    roleUserMapRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
     }
 
 }

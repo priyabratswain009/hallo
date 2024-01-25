@@ -246,7 +246,7 @@ class BranchItemLocationMapResourceIT {
 
     @Test
     @Transactional
-    void putNewBranchItemLocationMap() throws Exception {
+    void putExistingBranchItemLocationMap() throws Exception {
         // Initialize the database
         branchItemLocationMapRepository.saveAndFlush(branchItemLocationMap);
 

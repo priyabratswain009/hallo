@@ -6,6 +6,7 @@ import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.others.TaxZoneParameterDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface TaxZoneServiceExtended extends TaxZoneService {
     ResponseDTO getTaxZoneWiseRateByParam(String parameterValue, String opType);
@@ -17,4 +18,6 @@ public interface TaxZoneServiceExtended extends TaxZoneService {
     TaxZoneDTO getTaxZoneInfoByID(Long taxZoneId);
 
     ResponseDTO getTaxZoneForDropdown();
+
+    ResponseDTO setTaxZoneStatusByUuid(UUID uuid, String status);
 }

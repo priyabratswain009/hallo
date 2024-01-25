@@ -44,7 +44,7 @@ public class RoleFunctionalityMapServiceImpl implements RoleFunctionalityMapServ
 
     @Override
     public RoleFunctionalityMapDTO update(RoleFunctionalityMapDTO roleFunctionalityMapDTO) {
-        log.debug("Request to save RoleFunctionalityMap : {}", roleFunctionalityMapDTO);
+        log.debug("Request to update RoleFunctionalityMap : {}", roleFunctionalityMapDTO);
         RoleFunctionalityMap roleFunctionalityMap = roleFunctionalityMapMapper.toEntity(roleFunctionalityMapDTO);
         roleFunctionalityMap = roleFunctionalityMapRepository.save(roleFunctionalityMap);
         return roleFunctionalityMapMapper.toDto(roleFunctionalityMap);

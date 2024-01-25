@@ -252,7 +252,7 @@ class RoleUserMapResourceIT {
 
     @Test
     @Transactional
-    void putNewRoleUserMap() throws Exception {
+    void putExistingRoleUserMap() throws Exception {
         // Initialize the database
         roleUserMapRepository.saveAndFlush(roleUserMap);
 

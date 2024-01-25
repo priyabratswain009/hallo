@@ -380,7 +380,7 @@ class InsuranceDocumentResourceIT {
 
     @Test
     @Transactional
-    void putNewInsuranceDocument() throws Exception {
+    void putExistingInsuranceDocument() throws Exception {
         // Initialize the database
         insuranceDocumentRepository.saveAndFlush(insuranceDocument);
 

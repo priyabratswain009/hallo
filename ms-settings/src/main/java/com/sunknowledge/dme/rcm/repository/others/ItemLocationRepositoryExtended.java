@@ -4,6 +4,7 @@ import com.sunknowledge.dme.rcm.domain.ItemLocation;
 import com.sunknowledge.dme.rcm.repository.ItemLocationRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ItemLocationRepositoryExtended extends ItemLocationRepository {
     List<ItemLocation> findByStatusIgnoreCase(String active);
@@ -19,4 +20,6 @@ public interface ItemLocationRepositoryExtended extends ItemLocationRepository {
     List<ItemLocation> findByDescriptionLikeIgnoreCaseAndStatusIgnoreCase(String s, String active);
 
     ItemLocation findByItemLocationNameLikeIgnoreCaseAndStatusIgnoreCase(String s, String active);
+
+    ItemLocation findByItemLocationUuid(UUID itemLocationUuid);
 }

@@ -31,7 +31,7 @@ public class ClaimFormMasterResourceExtended {
     @GetMapping("/getAllClaimFormMasterInfo")
     public ResponseDTO getAllClaimFormMasterInfo(){
         List<ClaimFormMasterDTO> obj = claimFormMasterServiceExtended.getAllClaimFormMasterInfo();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getClaimFormMasterInfoByUUID")
@@ -39,7 +39,13 @@ public class ClaimFormMasterResourceExtended {
         @NotBlank(message = "Claim Form Master UUID must be provided")
         @RequestParam("uuid") UUID uuid){
 
-        List<ClaimFormMasterDTO> obj = claimFormMasterServiceExtended.getClaimFormMasterInfoByUUID(uuid);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        ClaimFormMasterDTO obj = claimFormMasterServiceExtended.getClaimFormMasterInfoByUUID(uuid);
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "": "Data Not Found.", obj,200));
+    }
+
+    @PutMapping(value = "/setClaimFormMasterStatusByUuid")
+    public ResponseDTO setClaimFormMasterStatusByUuid(@RequestParam("uuid") UUID uuid,
+                                            @RequestParam("status") String status){
+        return claimFormMasterServiceExtended.setClaimFormMasterStatusByUuid(uuid,status);
     }
 }

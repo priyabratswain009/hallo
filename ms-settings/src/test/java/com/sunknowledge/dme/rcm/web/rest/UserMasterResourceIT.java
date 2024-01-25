@@ -116,6 +116,15 @@ class UserMasterResourceIT {
     private static final String DEFAULT_MODE_OF_CONTACT = "AAAAAAAAAA";
     private static final String UPDATED_MODE_OF_CONTACT = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_IS_DEACTIVATE = false;
+    private static final Boolean UPDATED_IS_DEACTIVATE = true;
+
+    private static final String DEFAULT_USERNAME = "AAAAAAAAAA";
+    private static final String UPDATED_USERNAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
+    private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/user-masters";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{userId}";
 
@@ -170,7 +179,10 @@ class UserMasterResourceIT {
             .efax(DEFAULT_EFAX)
             .email(DEFAULT_EMAIL)
             .jobTitle(DEFAULT_JOB_TITLE)
-            .modeOfContact(DEFAULT_MODE_OF_CONTACT);
+            .modeOfContact(DEFAULT_MODE_OF_CONTACT)
+            .isDeactivate(DEFAULT_IS_DEACTIVATE)
+            .username(DEFAULT_USERNAME)
+            .password(DEFAULT_PASSWORD);
         return userMaster;
     }
 
@@ -208,7 +220,10 @@ class UserMasterResourceIT {
             .efax(UPDATED_EFAX)
             .email(UPDATED_EMAIL)
             .jobTitle(UPDATED_JOB_TITLE)
-            .modeOfContact(UPDATED_MODE_OF_CONTACT);
+            .modeOfContact(UPDATED_MODE_OF_CONTACT)
+            .isDeactivate(UPDATED_IS_DEACTIVATE)
+            .username(UPDATED_USERNAME)
+            .password(UPDATED_PASSWORD);
         return userMaster;
     }
 
@@ -263,6 +278,9 @@ class UserMasterResourceIT {
         assertThat(testUserMaster.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testUserMaster.getJobTitle()).isEqualTo(DEFAULT_JOB_TITLE);
         assertThat(testUserMaster.getModeOfContact()).isEqualTo(DEFAULT_MODE_OF_CONTACT);
+        assertThat(testUserMaster.getIsDeactivate()).isEqualTo(DEFAULT_IS_DEACTIVATE);
+        assertThat(testUserMaster.getUsername()).isEqualTo(DEFAULT_USERNAME);
+        assertThat(testUserMaster.getPassword()).isEqualTo(DEFAULT_PASSWORD);
     }
 
     @Test
@@ -327,7 +345,10 @@ class UserMasterResourceIT {
             .andExpect(jsonPath("$.[*].efax").value(hasItem(DEFAULT_EFAX)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].jobTitle").value(hasItem(DEFAULT_JOB_TITLE)))
-            .andExpect(jsonPath("$.[*].modeOfContact").value(hasItem(DEFAULT_MODE_OF_CONTACT)));
+            .andExpect(jsonPath("$.[*].modeOfContact").value(hasItem(DEFAULT_MODE_OF_CONTACT)))
+            .andExpect(jsonPath("$.[*].isDeactivate").value(hasItem(DEFAULT_IS_DEACTIVATE.booleanValue())))
+            .andExpect(jsonPath("$.[*].username").value(hasItem(DEFAULT_USERNAME)))
+            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)));
     }
 
     @Test
@@ -368,7 +389,10 @@ class UserMasterResourceIT {
             .andExpect(jsonPath("$.efax").value(DEFAULT_EFAX))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
             .andExpect(jsonPath("$.jobTitle").value(DEFAULT_JOB_TITLE))
-            .andExpect(jsonPath("$.modeOfContact").value(DEFAULT_MODE_OF_CONTACT));
+            .andExpect(jsonPath("$.modeOfContact").value(DEFAULT_MODE_OF_CONTACT))
+            .andExpect(jsonPath("$.isDeactivate").value(DEFAULT_IS_DEACTIVATE.booleanValue()))
+            .andExpect(jsonPath("$.username").value(DEFAULT_USERNAME))
+            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD));
     }
 
     @Test
@@ -380,7 +404,7 @@ class UserMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewUserMaster() throws Exception {
+    void putExistingUserMaster() throws Exception {
         // Initialize the database
         userMasterRepository.saveAndFlush(userMaster);
 
@@ -417,7 +441,10 @@ class UserMasterResourceIT {
             .efax(UPDATED_EFAX)
             .email(UPDATED_EMAIL)
             .jobTitle(UPDATED_JOB_TITLE)
-            .modeOfContact(UPDATED_MODE_OF_CONTACT);
+            .modeOfContact(UPDATED_MODE_OF_CONTACT)
+            .isDeactivate(UPDATED_IS_DEACTIVATE)
+            .username(UPDATED_USERNAME)
+            .password(UPDATED_PASSWORD);
         UserMasterDTO userMasterDTO = userMasterMapper.toDto(updatedUserMaster);
 
         restUserMasterMockMvc
@@ -460,6 +487,9 @@ class UserMasterResourceIT {
         assertThat(testUserMaster.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testUserMaster.getJobTitle()).isEqualTo(UPDATED_JOB_TITLE);
         assertThat(testUserMaster.getModeOfContact()).isEqualTo(UPDATED_MODE_OF_CONTACT);
+        assertThat(testUserMaster.getIsDeactivate()).isEqualTo(UPDATED_IS_DEACTIVATE);
+        assertThat(testUserMaster.getUsername()).isEqualTo(UPDATED_USERNAME);
+        assertThat(testUserMaster.getPassword()).isEqualTo(UPDATED_PASSWORD);
     }
 
     @Test
@@ -559,7 +589,8 @@ class UserMasterResourceIT {
             .efax(UPDATED_EFAX)
             .email(UPDATED_EMAIL)
             .jobTitle(UPDATED_JOB_TITLE)
-            .modeOfContact(UPDATED_MODE_OF_CONTACT);
+            .modeOfContact(UPDATED_MODE_OF_CONTACT)
+            .isDeactivate(UPDATED_IS_DEACTIVATE);
 
         restUserMasterMockMvc
             .perform(
@@ -601,6 +632,9 @@ class UserMasterResourceIT {
         assertThat(testUserMaster.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testUserMaster.getJobTitle()).isEqualTo(UPDATED_JOB_TITLE);
         assertThat(testUserMaster.getModeOfContact()).isEqualTo(UPDATED_MODE_OF_CONTACT);
+        assertThat(testUserMaster.getIsDeactivate()).isEqualTo(UPDATED_IS_DEACTIVATE);
+        assertThat(testUserMaster.getUsername()).isEqualTo(DEFAULT_USERNAME);
+        assertThat(testUserMaster.getPassword()).isEqualTo(DEFAULT_PASSWORD);
     }
 
     @Test
@@ -642,7 +676,10 @@ class UserMasterResourceIT {
             .efax(UPDATED_EFAX)
             .email(UPDATED_EMAIL)
             .jobTitle(UPDATED_JOB_TITLE)
-            .modeOfContact(UPDATED_MODE_OF_CONTACT);
+            .modeOfContact(UPDATED_MODE_OF_CONTACT)
+            .isDeactivate(UPDATED_IS_DEACTIVATE)
+            .username(UPDATED_USERNAME)
+            .password(UPDATED_PASSWORD);
 
         restUserMasterMockMvc
             .perform(
@@ -684,6 +721,9 @@ class UserMasterResourceIT {
         assertThat(testUserMaster.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testUserMaster.getJobTitle()).isEqualTo(UPDATED_JOB_TITLE);
         assertThat(testUserMaster.getModeOfContact()).isEqualTo(UPDATED_MODE_OF_CONTACT);
+        assertThat(testUserMaster.getIsDeactivate()).isEqualTo(UPDATED_IS_DEACTIVATE);
+        assertThat(testUserMaster.getUsername()).isEqualTo(UPDATED_USERNAME);
+        assertThat(testUserMaster.getPassword()).isEqualTo(UPDATED_PASSWORD);
     }
 
     @Test

@@ -44,7 +44,7 @@ public class TaskReasonMasterServiceImpl implements TaskReasonMasterService {
 
     @Override
     public TaskReasonMasterDTO update(TaskReasonMasterDTO taskReasonMasterDTO) {
-        log.debug("Request to save TaskReasonMaster : {}", taskReasonMasterDTO);
+        log.debug("Request to update TaskReasonMaster : {}", taskReasonMasterDTO);
         TaskReasonMaster taskReasonMaster = taskReasonMasterMapper.toEntity(taskReasonMasterDTO);
         taskReasonMaster = taskReasonMasterRepository.save(taskReasonMaster);
         return taskReasonMasterMapper.toDto(taskReasonMaster);

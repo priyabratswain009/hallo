@@ -211,7 +211,7 @@ class StopReasonMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewStopReasonMasterAuditLog() throws Exception {
+    void putExistingStopReasonMasterAuditLog() throws Exception {
         // Initialize the database
         stopReasonMasterAuditLogRepository.saveAndFlush(stopReasonMasterAuditLog);
 

@@ -21,6 +21,6 @@ public class EndpointMasterParameterDTO {
     @NotBlank(message = "EndpointUrl must not be Blank.")
     @NotNull(message = "EndpointUrl must not be Null.")
     private String endpointUrl;
-    private String status;
+    //private String status;
     private UUID endpointMasterUuid;
 }

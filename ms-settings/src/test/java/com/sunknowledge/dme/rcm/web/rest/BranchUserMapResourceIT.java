@@ -252,7 +252,7 @@ class BranchUserMapResourceIT {
 
     @Test
     @Transactional
-    void putNewBranchUserMap() throws Exception {
+    void putExistingBranchUserMap() throws Exception {
         // Initialize the database
         branchUserMapRepository.saveAndFlush(branchUserMap);
 

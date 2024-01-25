@@ -44,7 +44,7 @@ public class BranchOfficeAuditLogServiceImpl implements BranchOfficeAuditLogServ
 
     @Override
     public BranchOfficeAuditLogDTO update(BranchOfficeAuditLogDTO branchOfficeAuditLogDTO) {
-        log.debug("Request to save BranchOfficeAuditLog : {}", branchOfficeAuditLogDTO);
+        log.debug("Request to update BranchOfficeAuditLog : {}", branchOfficeAuditLogDTO);
         BranchOfficeAuditLog branchOfficeAuditLog = branchOfficeAuditLogMapper.toEntity(branchOfficeAuditLogDTO);
         branchOfficeAuditLog = branchOfficeAuditLogRepository.save(branchOfficeAuditLog);
         return branchOfficeAuditLogMapper.toDto(branchOfficeAuditLog);

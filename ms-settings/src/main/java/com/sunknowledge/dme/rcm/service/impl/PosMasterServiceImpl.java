@@ -41,7 +41,7 @@ public class PosMasterServiceImpl implements PosMasterService {
 
     @Override
     public PosMasterDTO update(PosMasterDTO posMasterDTO) {
-        log.debug("Request to save PosMaster : {}", posMasterDTO);
+        log.debug("Request to update PosMaster : {}", posMasterDTO);
         PosMaster posMaster = posMasterMapper.toEntity(posMasterDTO);
         posMaster = posMasterRepository.save(posMaster);
         return posMasterMapper.toDto(posMaster);

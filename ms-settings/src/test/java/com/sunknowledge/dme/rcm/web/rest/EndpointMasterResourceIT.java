@@ -260,7 +260,7 @@ class EndpointMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewEndpointMaster() throws Exception {
+    void putExistingEndpointMaster() throws Exception {
         // Initialize the database
         endpointMasterRepository.saveAndFlush(endpointMaster);
 

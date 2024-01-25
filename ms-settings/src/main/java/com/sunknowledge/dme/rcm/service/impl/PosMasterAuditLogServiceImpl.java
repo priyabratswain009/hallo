@@ -44,7 +44,7 @@ public class PosMasterAuditLogServiceImpl implements PosMasterAuditLogService {
 
     @Override
     public PosMasterAuditLogDTO update(PosMasterAuditLogDTO posMasterAuditLogDTO) {
-        log.debug("Request to save PosMasterAuditLog : {}", posMasterAuditLogDTO);
+        log.debug("Request to update PosMasterAuditLog : {}", posMasterAuditLogDTO);
         PosMasterAuditLog posMasterAuditLog = posMasterAuditLogMapper.toEntity(posMasterAuditLogDTO);
         posMasterAuditLog = posMasterAuditLogRepository.save(posMasterAuditLog);
         return posMasterAuditLogMapper.toDto(posMasterAuditLog);

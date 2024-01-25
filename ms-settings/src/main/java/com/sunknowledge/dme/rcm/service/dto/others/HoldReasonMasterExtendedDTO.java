@@ -16,7 +16,7 @@ public class HoldReasonMasterExtendedDTO {
 
     private String holdReasonName;
 
-    private String status;
+    //private String status;
 
     //private Long createdById;
 

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data SQL repository for the ItemLocationAuditLog entity.
+ * Spring Data JPA repository for the ItemLocationAuditLog entity.
  */
 @SuppressWarnings("unused")
 @Repository

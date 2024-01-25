@@ -8,6 +8,7 @@ import com.sunknowledge.dme.rcm.service.dto.others.RoleMasterParameterDTO;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface RoleMasterServiceExtended extends RoleMasterService {
@@ -20,4 +21,12 @@ public interface RoleMasterServiceExtended extends RoleMasterService {
     RoleMasterDTO getActiveDataById(Long id);
 
     List<Long> getActiveIDByUUID(List<UUID> roleUUID);
+
+    ResponseDTO setRoleMasterStatusByUuid(UUID uuid, String status);
+
+    List<Map<String, Object>> getAllRoleMasterDataForDropdown();
+
+    List<RoleMasterDTO> getAllRoleMasterData();
+
+    ResponseDTO setInactiveRoleRelatedInfo(long id, String status);
 }

@@ -1,8 +1,10 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
+import com.sunknowledge.dme.rcm.domain.FunctionalityMaster;
 import com.sunknowledge.dme.rcm.domain.ItemLocation;
 import com.sunknowledge.dme.rcm.repository.others.ItemLocationRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
+import com.sunknowledge.dme.rcm.service.dto.others.ItemLocationExtendedDTO;
 import com.sunknowledge.dme.rcm.service.dto.others.ItemLocationParameterDTO;
 import com.sunknowledge.dme.rcm.service.others.ItemLocationServiceExtended;
 import com.sunknowledge.dme.rcm.service.dto.ItemLocationDTO;
@@ -84,7 +86,7 @@ public class ItemLocationServiceExtendedImpl implements ItemLocationServiceExten
             if(skipped > 0){
                 message += " and Skipped " + skipped + " Rows";
             }
-            return (new ResponseDTO(Boolean.TRUE,message,List.of(itemLocationBothData.get("SkippedItemLocationDTO"))));
+            return (new ResponseDTO(Boolean.TRUE,message,(itemLocationBothData.get("SkippedItemLocationDTO")),200));
         } catch (IOException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException("Fail to store csv data: " + e.getMessage());
@@ -124,7 +126,7 @@ public class ItemLocationServiceExtendedImpl implements ItemLocationServiceExten
             ItemLocationDTO savedItemLocationDTO = itemLocationMapper.toDto(
                 itemLocationRepositoryExtended.save(itemLocationMapper.toEntity(itemLocationDTO))
             );
-            return new ResponseDTO(true, "Successfully Saved.", List.of(savedItemLocationDTO));
+            return new ResponseDTO(true, "Successfully Saved.", (savedItemLocationDTO),200);
         }catch (InvalidAttributeValueException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException(e);
@@ -158,9 +160,17 @@ public class ItemLocationServiceExtendedImpl implements ItemLocationServiceExten
     }
 
     @Override
-    public List<ItemLocationDTO> getAllItemLocationData() {
+    public List<ItemLocationExtendedDTO> getAllItemLocationData() {
         List<ItemLocation> data = itemLocationRepositoryExtended.findByStatusIgnoreCase("active");
-        return itemLocationMapper.toDto(data);
+        List<ItemLocationExtendedDTO> itemLocationExtendedDTOS = new ArrayList<>();
+        for(ItemLocation itemLocation:data){
+            ItemLocationExtendedDTO itemLocationExtendedDTO = new ItemLocationExtendedDTO();
+            BeanUtils.copyProperties(itemLocation,itemLocationExtendedDTO);
+            itemLocationExtendedDTO.setId(itemLocation.getItemLocationId());
+            itemLocationExtendedDTO.setTitle(itemLocation.getItemLocationName());
+            itemLocationExtendedDTOS.add(itemLocationExtendedDTO);
+        }
+        return itemLocationExtendedDTOS;
     }
 
     @Override
@@ -170,19 +180,26 @@ public class ItemLocationServiceExtendedImpl implements ItemLocationServiceExten
     }
 
     @Override
-    public ResponseDTO setItemLocationStatusById(Long itemLocationId, String status) {
+    public ResponseDTO setItemLocationStatusByUuid(UUID uuid, String status) {
         if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
             try{
-                ItemLocation itemLocation = itemLocationRepositoryExtended.findByItemLocationId(itemLocationId);
-                itemLocation.setStatus(status);
-                itemLocationRepositoryExtended.save(itemLocation);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemLocation)));
+                Optional<ItemLocation> obj = Optional.ofNullable(itemLocationRepositoryExtended.findByItemLocationUuid(uuid));
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    itemLocationRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
         }
     }
 
@@ -190,5 +207,14 @@ public class ItemLocationServiceExtendedImpl implements ItemLocationServiceExten
     public List<ItemLocationDTO> getItemLocationByStatus(String status) {
         List<ItemLocation> data = itemLocationRepositoryExtended.findByStatusIgnoreCase(status);
         return itemLocationMapper.toDto(data);
+    }
+
+    @Override
+    public ItemLocationDTO getItemLocationByUUID(UUID itemLocationUuid) {
+        ItemLocation data = itemLocationRepositoryExtended.findByItemLocationUuid(itemLocationUuid);
+        if(data != null){
+            return (itemLocationMapper.toDto(data));
+        }
+        return null;
     }
 }

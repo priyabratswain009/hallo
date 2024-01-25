@@ -236,7 +236,7 @@ class NoteReasonMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewNoteReasonMaster() throws Exception {
+    void putExistingNoteReasonMaster() throws Exception {
         // Initialize the database
         noteReasonMasterRepository.saveAndFlush(noteReasonMaster);
 

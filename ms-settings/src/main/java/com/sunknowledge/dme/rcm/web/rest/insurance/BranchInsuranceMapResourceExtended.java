@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Validated
 @RestController
@@ -36,7 +37,7 @@ public class BranchInsuranceMapResourceExtended {
     public ResponseDTO saveBranchInsuranceMap(@RequestBody BranchInsuranceMapExtendedDTO branchInsuranceMapExtendedDTO) {
         if (branchInsuranceMapExtendedDTO.getBranchIdList().contains(0L) || branchInsuranceMapExtendedDTO.getBranchIdList().contains(null) ||
             branchInsuranceMapExtendedDTO.getInsuranceId() == 0L || branchInsuranceMapExtendedDTO.getInsuranceId() == null) {
-            return new ResponseDTO(Boolean.FALSE, "Ids Not Valid.", new ArrayList<>());
+            return new ResponseDTO(Boolean.FALSE, "Ids Not Valid.", new ArrayList<>(),200);
         }
         return branchInsuranceMapServiceExtended.saveBranchInsuranceMap(branchInsuranceMapExtendedDTO);
     }
@@ -45,7 +46,7 @@ public class BranchInsuranceMapResourceExtended {
     public ResponseDTO updateBranchInsuranceMap(@RequestBody BranchInsuranceMapExtendedForUpdateDTO branchInsuranceMapExtendedForUpdateDTO) {
         if (branchInsuranceMapExtendedForUpdateDTO.getBranchId() == null || branchInsuranceMapExtendedForUpdateDTO.getBranchId() == 0L
             || branchInsuranceMapExtendedForUpdateDTO.getInsuranceId() == null || branchInsuranceMapExtendedForUpdateDTO.getInsuranceId() == 0L) {
-            return new ResponseDTO(Boolean.FALSE, "Ids Not Valid.", new ArrayList<>());
+            return new ResponseDTO(Boolean.FALSE, "Ids Not Valid.", new ArrayList<>(),200);
         }
         return branchInsuranceMapServiceExtended.updateBranchInsuranceMap(branchInsuranceMapExtendedForUpdateDTO);
     }
@@ -56,8 +57,8 @@ public class BranchInsuranceMapResourceExtended {
         @RequestParam("branchInsuranceMapId") Long branchInsuranceMapId) {
         BranchInsuranceMapDTO obj = branchInsuranceMapServiceExtended.getBranchInsuranceMapByBranchInsuranceMapId(branchInsuranceMapId);
         return (obj != null ?
-            (new ResponseDTO(true, "Successfully Data Fetched.", List.of(obj))) :
-            (new ResponseDTO(false, "Data Not Found.", new ArrayList<>()))
+            (new ResponseDTO(true, "", List.of(obj),200)) :
+            (new ResponseDTO(false, "Data Not Found.", new ArrayList<>(),200))
         );
     }
 
@@ -66,7 +67,7 @@ public class BranchInsuranceMapResourceExtended {
         @Min(value = 1, message = "Insurance_Id must be greater than or equal to 1")
         @RequestParam("insuranceId") Long insuranceId) {
         List<BranchInsuranceMapDTO> obj = branchInsuranceMapServiceExtended.getBranchInsuranceMapByInsuranceId(insuranceId);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchInsuranceMapByBranchId")
@@ -74,7 +75,7 @@ public class BranchInsuranceMapResourceExtended {
         @Min(value = 1, message = "Branch_Id must be greater than or equal to 1")
         @RequestParam("branchId") Long branchId) {
         List<BranchInsuranceMapDTO> obj = branchInsuranceMapServiceExtended.getBranchInsuranceMapByBranchId(branchId);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchInsuranceMapByBranchIdAndInsuranceId")
@@ -86,7 +87,7 @@ public class BranchInsuranceMapResourceExtended {
         @Min(value = 1, message = "Insurance_Id must be greater than or equal to 1")
         @RequestParam("insuranceId") Long insuranceId) {
         List<BranchInsuranceMapDTO> obj = branchInsuranceMapServiceExtended.getBranchInsuranceMapByBranchIdAndInsuranceId(branchId, insuranceId);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchInsuranceMapByInsuranceIdNo")
@@ -94,13 +95,13 @@ public class BranchInsuranceMapResourceExtended {
         @NotBlank(message = "Insurance_Id_No must be provided")
         @RequestParam("insuranceIdNo") String insuranceIdNo) {
         List<BranchInsuranceMapDTO> obj = branchInsuranceMapServiceExtended.getBranchInsuranceMapByInsuranceIdNo(insuranceIdNo);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getAllBranchInsuranceMapData")
     public ResponseDTO getAllBranchInsuranceMapData() {
         List<BranchInsuranceMapDTO> obj = branchInsuranceMapServiceExtended.getAllBranchInsuranceMapData();
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchInsuranceMapByStatus")
@@ -109,15 +110,15 @@ public class BranchInsuranceMapResourceExtended {
         @RequestParam("status") String status) {
 
         List<BranchInsuranceMapDTO> obj = branchInsuranceMapServiceExtended.getBranchInsuranceMapByStatus(status);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
-    @PutMapping("/setBranchInsurancemapStatusById/{branchInsuranceMapId}/{status}")
-    public ResponseDTO setBranchInsurancemapStatusById(
-        @PathVariable("branchInsuranceMapId") Long branchInsuranceMapId,
+    @PutMapping("/setBranchInsurancemapStatusByUuid")
+    public ResponseDTO setBranchInsurancemapStatusByUuid(
+        @RequestParam("uuid") UUID uuid,
         @NotBlank(message = "Status must be provided")
-        @PathVariable("status") String status) {
+        @RequestParam("status") String status) {
 
-        return branchInsuranceMapServiceExtended.setBranchInsurancemapStatusById(branchInsuranceMapId, status);
+        return branchInsuranceMapServiceExtended.setBranchInsurancemapStatusByUuid(uuid, status);
     }
 }

@@ -217,7 +217,7 @@ class BranchItemLocationMapAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewBranchItemLocationMapAuditLog() throws Exception {
+    void putExistingBranchItemLocationMapAuditLog() throws Exception {
         // Initialize the database
         branchItemLocationMapAuditLogRepository.saveAndFlush(branchItemLocationMapAuditLog);
 

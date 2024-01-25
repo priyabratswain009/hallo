@@ -19,4 +19,5 @@ public class ServiceOutcome<T> implements Serializable {
 	private T data;
 	private Boolean outcome;
 	private String message;
+    private int statusCode;
 }

@@ -252,7 +252,7 @@ class TaxonomyDetailsResourceIT {
 
     @Test
     @Transactional
-    void putNewTaxonomyDetails() throws Exception {
+    void putExistingTaxonomyDetails() throws Exception {
         // Initialize the database
         taxonomyDetailsRepository.saveAndFlush(taxonomyDetails);
 

@@ -236,7 +236,7 @@ class HoldReasonMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewHoldReasonMaster() throws Exception {
+    void putExistingHoldReasonMaster() throws Exception {
         // Initialize the database
         holdReasonMasterRepository.saveAndFlush(holdReasonMaster);
 

@@ -16,6 +16,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Validated
 @RestController
@@ -35,7 +36,7 @@ public class BranchItemLocationMapResourceExtended {
     public ResponseDTO saveBranchItemLocationMap(@RequestBody BranchItemLocationMapExtendedDTO branchItemLocationMapExtendedDTO){
         if(branchItemLocationMapExtendedDTO.getBranchIdList().contains(null) || branchItemLocationMapExtendedDTO.getBranchIdList().contains(0L)
             || branchItemLocationMapExtendedDTO.getItemLocationId() == null || branchItemLocationMapExtendedDTO.getItemLocationId() == 0L){
-            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>());
+            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>(),200);
         }
         return branchItemLocationMapServiceExtended.saveBranchItemLocationMap(branchItemLocationMapExtendedDTO);
     }
@@ -44,7 +45,7 @@ public class BranchItemLocationMapResourceExtended {
     public ResponseDTO updateBranchItemLocationMap(@RequestBody BranchItemLocationMapExtendedUpdateDTO branchItemLocationMapExtendedUpdateDTO){
         if(branchItemLocationMapExtendedUpdateDTO.getBranchId() == null || branchItemLocationMapExtendedUpdateDTO.getBranchId() == 0L
             || branchItemLocationMapExtendedUpdateDTO.getItemLocationId() == null || branchItemLocationMapExtendedUpdateDTO.getItemLocationId() == 0L){
-            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>());
+            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>(),200);
         }
         return branchItemLocationMapServiceExtended.updateBranchItemLocationMap(branchItemLocationMapExtendedUpdateDTO);
     }
@@ -54,21 +55,34 @@ public class BranchItemLocationMapResourceExtended {
         @Min(value=1, message="ItemLocation_Id must be greater than or equal to 1")
         @RequestParam("itemLocationId") Long itemLocationId){
         List<BranchItemLocationMapDTO> obj = branchItemLocationMapServiceExtended.getBranchItemLocationMapByItemLocationId(itemLocationId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
-    @GetMapping("/getBranchItemLocationMapByBranchId")
-    public ResponseDTO getBranchItemLocationMapByBranchId(
-        @Min(value=1, message="Branch_Id must be greater than or equal to 1")
-        @RequestParam("branchId") Long branchId){
-        List<BranchItemLocationMapDTO> obj = branchItemLocationMapServiceExtended.getBranchItemLocationMapByBranchId(branchId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+    @GetMapping("/getBranchItemLocationMapByBranchIdORItemLocationIdORBoth/{branchId}/{itemLocationId}")
+    public ResponseDTO getBranchItemLocationMapByBranchIdORItemLocationIdORBoth(
+        @PathVariable("branchId") Long branchId,
+        @PathVariable("itemLocationId") Long itemLocationId){
+        List<BranchItemLocationMapDTO> obj = new ArrayList<>();
+        BranchItemLocationMapDTO branchItemLocationMapDTO = new BranchItemLocationMapDTO();
+        if(branchId!=null && branchId>0 && itemLocationId!=null && itemLocationId>0){
+            branchItemLocationMapDTO = branchItemLocationMapServiceExtended.getBranchItemLocationMapByItemLocationIdAndBranchId(itemLocationId,branchId);
+            return (new ResponseDTO(branchItemLocationMapDTO!=null?true:false,
+                branchItemLocationMapDTO!=null? "": "Data Not Found.", branchItemLocationMapDTO,200));
+        }
+        else if(branchId!=null && branchId>0){
+            obj = branchItemLocationMapServiceExtended.getBranchItemLocationMapByBranchId(branchId);
+        }else if(itemLocationId!=null && itemLocationId>0){
+            obj = branchItemLocationMapServiceExtended.getBranchItemLocationMapByItemLocationId(itemLocationId);
+        }else{
+            obj = branchItemLocationMapServiceExtended.getAllBranchItemLocationMapData();
+        }
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getAllBranchItemLocationMapData")
     public ResponseDTO getAllBranchItemLocationMapData(){
         List<BranchItemLocationMapDTO> obj = branchItemLocationMapServiceExtended.getAllBranchItemLocationMapData();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchItemLocationMapByStatus")
@@ -77,7 +91,7 @@ public class BranchItemLocationMapResourceExtended {
         @RequestParam("status") String status){
 
         List<BranchItemLocationMapDTO> obj = branchItemLocationMapServiceExtended.getBranchItemLocationMapByStatus(status);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @PostMapping("/deactiveBranchItemLocationMapByItemLocationIdAndBranchId")
@@ -85,12 +99,12 @@ public class BranchItemLocationMapResourceExtended {
         return branchItemLocationMapServiceExtended.deactiveBranchItemLocationMapByItemLocationIdAndBranchId(itemLocationId, branchId);
     }
 
-    @PutMapping("/setBranchItemLocationMapById/{id}/{status}")
-    public ResponseDTO setBranchItemLocationMapById(
-        @PathVariable("id") Long id,
+    @PutMapping("/setBranchItemLocationMapByUuid")
+    public ResponseDTO setBranchItemLocationMapByUuid(
+        @RequestParam("uuid") UUID uuid,
         @NotBlank(message = "Status must be provided")
-        @PathVariable("status") String status){
+        @RequestParam("status") String status){
 
-        return branchItemLocationMapServiceExtended.setBranchItemLocationMapById(id,status);
+        return branchItemLocationMapServiceExtended.setBranchItemLocationMapByUuid(uuid,status);
     }
 }

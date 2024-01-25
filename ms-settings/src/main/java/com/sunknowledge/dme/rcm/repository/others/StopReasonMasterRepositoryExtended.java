@@ -12,4 +12,6 @@ public interface StopReasonMasterRepositoryExtended extends StopReasonMasterRepo
     StopReasonMaster findByStopReasonMasterUuid(UUID stopReasonMasterUuid);
 
     List<StopReasonMaster> findByStopReasonMasterUuidNot(UUID stopReasonMasterUuid);
+
+    StopReasonMaster findByStopReasonMasterUuidAndStatusIgnoreCase(UUID stopReasonMasterUuid, String active);
 }

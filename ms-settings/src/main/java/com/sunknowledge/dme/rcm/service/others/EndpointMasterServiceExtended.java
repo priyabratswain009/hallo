@@ -5,6 +5,7 @@ import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.others.EndpointMasterParameterDTO;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface EndpointMasterServiceExtended extends EndpointMasterService {
@@ -15,4 +16,10 @@ public interface EndpointMasterServiceExtended extends EndpointMasterService {
     ResponseDTO getEndpointMasterByNameOrGroupOrUUID(String data, String operationType);
 
     List<Long> getActiveIDsByUUIDs(List<UUID> endpointUUIDs);
+
+    ResponseDTO setEndpointMasterStatusByUuid(UUID uuid, String status);
+
+    ResponseDTO getAllEndpointMasterData();
+
+    List<Map<String, Object>> getEndpointMasterForDropdown();
 }

@@ -211,7 +211,7 @@ class NoteTypeMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewNoteTypeMasterAuditLog() throws Exception {
+    void putExistingNoteTypeMasterAuditLog() throws Exception {
         // Initialize the database
         noteTypeMasterAuditLogRepository.saveAndFlush(noteTypeMasterAuditLog);
 

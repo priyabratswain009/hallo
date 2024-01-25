@@ -121,6 +121,18 @@
     {
       "fieldName": "modeOfContact",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "isDeactivate",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "username",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "password",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

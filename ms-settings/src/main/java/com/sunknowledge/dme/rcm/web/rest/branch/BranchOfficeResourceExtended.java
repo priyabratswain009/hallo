@@ -3,10 +3,12 @@ package com.sunknowledge.dme.rcm.web.rest.branch;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import com.sunknowledge.dme.rcm.service.dto.branch.BranchOfficeExtendedDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +76,7 @@ public class BranchOfficeResourceExtended {
         @Min(value=1, message="Branch_Id must be greater than or equal to 1")
         @RequestParam("branchId") Long branchId){
         BranchOfficeDTO obj = branchOfficeServiceExtended.getBranchOfficeById(branchId);
-        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getActiveBranchOfficeById")
@@ -82,7 +84,7 @@ public class BranchOfficeResourceExtended {
         @Min(value=1, message="Branch_Id must be greater than or equal to 1")
         @RequestParam("branchId") Long branchId){
         BranchOfficeDTO obj = branchOfficeServiceExtended.getActiveBranchOfficeById(branchId);
-        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchOfficeByBranchName")
@@ -91,7 +93,7 @@ public class BranchOfficeResourceExtended {
         @RequestParam("branchName") String branchName){
         List<BranchOfficeDTO> obj = branchName.trim()!=""?
             branchOfficeServiceExtended.getBranchOfficeByBranchName(branchName.trim()):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchOfficeByBranchNo")
@@ -100,7 +102,7 @@ public class BranchOfficeResourceExtended {
         @RequestParam("branchNo") String branchNo){
 
         List<BranchOfficeDTO> obj = branchOfficeServiceExtended.getBranchOfficeByBranchNo(branchNo);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchOfficeByNpi")
@@ -109,13 +111,13 @@ public class BranchOfficeResourceExtended {
         @RequestParam("npi") String npi){
 
         List<BranchOfficeDTO> obj = branchOfficeServiceExtended.getBranchOfficeByNpi(npi);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getAllBranchOfficeData")
     public ResponseDTO getAllBranchOfficeData(){
-        List<BranchOfficeDTO> obj = branchOfficeServiceExtended.getAllBranchOfficeData();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        List<BranchOfficeExtendedDTO> obj = branchOfficeServiceExtended.getAllBranchOfficeData();
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchOfficeByStatus")
@@ -123,16 +125,16 @@ public class BranchOfficeResourceExtended {
         @NotBlank(message = "Status must be provided")
         @RequestParam("status") String status){
         List<BranchOfficeDTO> obj = branchOfficeServiceExtended.getBranchOfficeByStatus(status);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
-    @PutMapping("/setBranchOfficeStatusById/{id}/{status}")
-    public ResponseDTO setBranchOfficeStatusById(
-        @PathVariable("id") Long id,
+    @PutMapping("/setBranchOfficeStatusByUuid")
+    public ResponseDTO setBranchOfficeStatusByUuid(
+        @RequestParam("uuid") UUID uuid,
         @NotBlank(message = "Status must be provided")
-        @PathVariable("status") String status){
+        @RequestParam("status") String status){
 
-        return branchOfficeServiceExtended.setBranchOfficeStatusById(id,status);
+        return branchOfficeServiceExtended.setBranchOfficeStatusByUuid(uuid,status);
     }
 
     @GetMapping("/getBranchOfficeForABNById")

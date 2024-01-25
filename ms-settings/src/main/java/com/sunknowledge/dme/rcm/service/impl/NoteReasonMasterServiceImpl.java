@@ -44,7 +44,7 @@ public class NoteReasonMasterServiceImpl implements NoteReasonMasterService {
 
     @Override
     public NoteReasonMasterDTO update(NoteReasonMasterDTO noteReasonMasterDTO) {
-        log.debug("Request to save NoteReasonMaster : {}", noteReasonMasterDTO);
+        log.debug("Request to update NoteReasonMaster : {}", noteReasonMasterDTO);
         NoteReasonMaster noteReasonMaster = noteReasonMasterMapper.toEntity(noteReasonMasterDTO);
         noteReasonMaster = noteReasonMasterRepository.save(noteReasonMaster);
         return noteReasonMasterMapper.toDto(noteReasonMaster);

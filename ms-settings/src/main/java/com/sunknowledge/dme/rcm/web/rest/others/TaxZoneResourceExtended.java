@@ -9,17 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Validated
 @RestController
@@ -40,23 +36,23 @@ public class TaxZoneResourceExtended {
     //===== String opType = "StateName";
     //===== String opType = "StateCodeId";
     //===== String opType = "StateCode";
-    @GetMapping("/getTaxZoneWiseRateByParam")
-    public ResponseDTO getTaxZoneWiseRateByParam(
-        /*@NotNull(message = "Parameter_Value must be provided.")
-        @NotBlank(message = "Parameter_Value must be provided.")*/
-        @RequestParam("parameterValue") String parameterValue,
-       /* @NotNull(message = "Operation_Type must be provided.")
-        @NotBlank(message = "Operation_Type must be provided.")*/
-        @RequestParam("opType") String opType) {
-        return taxZoneServiceExtended.getTaxZoneWiseRateByParam(
-            parameterValue, opType);
-
-    }
+//    @GetMapping("/getTaxZoneWiseRateByParam")
+//    public ResponseDTO getTaxZoneWiseRateByParam(
+//        /*@NotNull(message = "Parameter_Value must be provided.")
+//        @NotBlank(message = "Parameter_Value must be provided.")*/
+//        @RequestParam("parameterValue") String parameterValue,
+//       /* @NotNull(message = "Operation_Type must be provided.")
+//        @NotBlank(message = "Operation_Type must be provided.")*/
+//        @RequestParam("opType") String opType) {
+//        return taxZoneServiceExtended.getTaxZoneWiseRateByParam(
+//            parameterValue, opType);
+//
+//    }
 
     @GetMapping("/getAllTaxZoneInfo")
     public ResponseDTO getAllTaxZoneInfo() {
-        List<TaxZoneDTO> obj = taxZoneServiceExtended.getAllTaxZoneInfo();
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        List<TaxZoneDTO> objList = taxZoneServiceExtended.getAllTaxZoneInfo();
+        return (new ResponseDTO(objList.size() > 0 ? true : false, objList.size() > 0 ? "" : "Data Not Found.", objList,200));
     }
 
     /**
@@ -70,7 +66,7 @@ public class TaxZoneResourceExtended {
         @NotNull(message = "Tax Zone ID must be provided")
         @RequestParam("id") Long id) {
         TaxZoneDTO obj = taxZoneServiceExtended.getTaxZoneInfoByID(id);
-        return (new ResponseDTO(Objects.nonNull(obj.getTaxZoneId()) ? true : false, Objects.nonNull(obj.getTaxZoneId()) ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(Objects.nonNull(obj.getTaxZoneId()) ? true : false, Objects.nonNull(obj.getTaxZoneId()) ? "" : "Data Not Found.", obj,200));
     }
 
     /**
@@ -81,5 +77,11 @@ public class TaxZoneResourceExtended {
     @GetMapping("/getTaxZoneForDropdown")
     public ResponseDTO getTaxZoneForDropdown() {
         return taxZoneServiceExtended.getTaxZoneForDropdown();
+    }
+
+    @PutMapping(value = "/setTaxZoneStatusByUuid")
+    public ResponseDTO setTaxZoneStatusByUuid(@RequestParam("uuid") UUID uuid,
+                                               @RequestParam("status") String status){
+        return taxZoneServiceExtended.setTaxZoneStatusByUuid(uuid,status);
     }
 }

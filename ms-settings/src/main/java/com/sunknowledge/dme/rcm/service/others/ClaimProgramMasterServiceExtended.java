@@ -7,6 +7,7 @@ import com.sunknowledge.dme.rcm.service.dto.others.ClaimProgramMasterExtendedDTO
 
 import javax.management.InvalidAttributeValueException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface ClaimProgramMasterServiceExtended extends ClaimProgramMasterService {
@@ -15,5 +16,9 @@ public interface ClaimProgramMasterServiceExtended extends ClaimProgramMasterSer
 
     List<ClaimProgramMasterDTO> getAllClaimProgramMasterInfo();
 
-    List<ClaimProgramMasterDTO> getClaimProgramMasterInfoByUUID(UUID claimProgramMasterUuid);
+    ClaimProgramMasterDTO getClaimProgramMasterInfoByUUID(UUID claimProgramMasterUuid);
+
+    List<Map<String, Object>> getClaimProgramMasterForDropdown();
+
+    ResponseDTO setClaimProgramMasterByUuid(UUID uuid, String status);
 }

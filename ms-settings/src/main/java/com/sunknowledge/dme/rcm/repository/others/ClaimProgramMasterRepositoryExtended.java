@@ -5,6 +5,7 @@ import com.sunknowledge.dme.rcm.domain.HoldReasonMaster;
 import com.sunknowledge.dme.rcm.repository.ClaimProgramMasterRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ClaimProgramMasterRepositoryExtended extends ClaimProgramMasterRepository {
@@ -13,4 +14,6 @@ public interface ClaimProgramMasterRepositoryExtended extends ClaimProgramMaster
     ClaimProgramMaster findByClaimProgramMasterUuid(UUID claimProgramMasterUuid);
 
     List<ClaimProgramMaster> findByClaimProgramMasterUuidNot(UUID claimProgramMasterUuid);
+
+    Optional<ClaimProgramMaster> findByClaimProgramMasterIdAndStatusIgnoreCase(long id, String active);
 }

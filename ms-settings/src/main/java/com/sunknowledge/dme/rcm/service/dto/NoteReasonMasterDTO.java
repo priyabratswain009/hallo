@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.NoteReasonMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class NoteReasonMasterDTO implements Serializable {
 
     private Long noteReasonId;

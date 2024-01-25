@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.UspsAddressVerificationResponseAuditLog} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class UspsAddressVerificationResponseAuditLogDTO implements Serializable {
 
     private Long uspsAdessVeifiationId;

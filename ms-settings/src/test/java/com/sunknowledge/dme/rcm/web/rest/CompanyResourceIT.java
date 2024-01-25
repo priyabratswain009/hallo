@@ -372,7 +372,7 @@ class CompanyResourceIT {
 
     @Test
     @Transactional
-    void putNewCompany() throws Exception {
+    void putExistingCompany() throws Exception {
         // Initialize the database
         companyRepository.saveAndFlush(company);
 

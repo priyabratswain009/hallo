@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -32,12 +33,12 @@ public class FunctionalityEndpointMappingResourceExtended {
         return functionalityEndpointMappingServiceExtended.updateFunctionalityEndpointMap(functionalityEndpointMapUpdateParameterDTO);
     }
 
-    //        operationType should be
-    //        -functionalityUUID
-    //        -functionalityName
-    //        -functionalityNo
-    //        -endpointName
-    //        -endpointUUID
+//            operationType should be
+//            -functionalityUUID
+//            -functionalityName
+//            -functionalityNo
+//            -endpointName
+//            -endpointUUID
     @GetMapping("/getFunctionalityEndpointDetailsByNameOrNoOrUUID")
     public ResponseDTO getFunctionalityEndpointDetailsByNameOrNoOrUUID(
         @NotBlank(message = "Data should not be blank")
@@ -45,5 +46,16 @@ public class FunctionalityEndpointMappingResourceExtended {
         @NotBlank(message = "Operation_Type should not be blank")
         @RequestParam("operationType") String operationType){
         return functionalityEndpointMappingServiceExtended.getFunctionalityEndpointDetailsByNameOrNoOrUUID(data,operationType);
+    }
+
+    @PutMapping(value = "/setFunctionalityEndpointStatusByUuid")
+    public ResponseDTO setFunctionalityEndpointStatusByUuid(@RequestParam("uuid") UUID uuid,
+                                                   @RequestParam("status") String status){
+        return functionalityEndpointMappingServiceExtended.setFunctionalityEndpointStatusByUuid(uuid,status);
+    }
+
+    @GetMapping(value = "/getAllFunctionalityEndpointMappingData")
+    public ResponseDTO getAllFunctionalityEndpointMappingData(){
+        return functionalityEndpointMappingServiceExtended.getAllFunctionalityEndpointMappingData();
     }
 }

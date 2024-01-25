@@ -236,7 +236,7 @@ class WipStatusMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewWipStatusMaster() throws Exception {
+    void putExistingWipStatusMaster() throws Exception {
         // Initialize the database
         wipStatusMasterRepository.saveAndFlush(wipStatusMaster);
 

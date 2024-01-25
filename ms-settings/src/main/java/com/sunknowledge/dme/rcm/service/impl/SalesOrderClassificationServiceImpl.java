@@ -44,7 +44,7 @@ public class SalesOrderClassificationServiceImpl implements SalesOrderClassifica
 
     @Override
     public SalesOrderClassificationDTO update(SalesOrderClassificationDTO salesOrderClassificationDTO) {
-        log.debug("Request to save SalesOrderClassification : {}", salesOrderClassificationDTO);
+        log.debug("Request to update SalesOrderClassification : {}", salesOrderClassificationDTO);
         SalesOrderClassification salesOrderClassification = salesOrderClassificationMapper.toEntity(salesOrderClassificationDTO);
         salesOrderClassification = salesOrderClassificationRepository.save(salesOrderClassification);
         return salesOrderClassificationMapper.toDto(salesOrderClassification);

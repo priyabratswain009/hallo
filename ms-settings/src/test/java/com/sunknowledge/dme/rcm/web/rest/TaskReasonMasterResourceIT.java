@@ -236,7 +236,7 @@ class TaskReasonMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewTaskReasonMaster() throws Exception {
+    void putExistingTaskReasonMaster() throws Exception {
         // Initialize the database
         taskReasonMasterRepository.saveAndFlush(taskReasonMaster);
 

@@ -93,7 +93,7 @@ public class InsuranceMasterServiceExtendedImpl implements InsuranceMasterServic
             if (skipped > 0) {
                 message += " and Skipped " + skipped + " Rows";
             }
-            return (new ResponseDTO(Boolean.TRUE, message, List.of(insuranceMasterBothData.get("SkippedInsuranceMasterDTO"))));
+            return (new ResponseDTO(Boolean.TRUE, message, List.of(insuranceMasterBothData.get("SkippedInsuranceMasterDTO")),200));
         } catch (IOException e) {
             log.error("=====>> Error : " + e);
             throw new RuntimeException("Fail to store csv data: " + e.getMessage());
@@ -105,9 +105,25 @@ public class InsuranceMasterServiceExtendedImpl implements InsuranceMasterServic
     public ResponseDTO saveInsuranceMaster(InsuranceMasterParameterDTO insuranceMasterParameterDTO) {
         Set uniqueInsuranceIdNoSet = insuranceMasterRepositoryExtended.findAll().stream().map(x -> x.getInsuranceIdNo()).collect(Collectors.toSet());
         Set uniqueInsuranceIdSet = insuranceMasterRepositoryExtended.findAll().stream().map(x -> x.getInsuranceId()).collect(Collectors.toSet());
+        String message = "";
 
         if (insuranceMasterParameterDTO.getInsuranceName().trim() == "") {
-            throw new InputMismatchException("Insurance_Name must be provided");
+            message = ("Insurance_Name_must be provided");
+        }
+        if(insuranceMasterParameterDTO.getInsurancePlanType() == null || insuranceMasterParameterDTO.getInsurancePlanType().trim() == ""){
+            message = ("Insurance_Plan_Type must be provided");
+        }
+        if(insuranceMasterParameterDTO.getInsuranceGroupId() == null || insuranceMasterParameterDTO.getInsuranceGroupId() == 0){
+            message = ("Insurance_Group_Id must be provided");
+        }
+        if(insuranceMasterParameterDTO.getInsuranceGroupName() == null || insuranceMasterParameterDTO.getInsuranceGroupName().trim() == ""){
+            message = ("Insurance_Group_Name must be provided");
+        }
+        if(insuranceMasterParameterDTO.getInsurancePayerIdNo() == null || insuranceMasterParameterDTO.getInsurancePayerIdNo().trim() == ""){
+            message = ("Insurance_Payer_Id_No must be provided");
+        }
+        if(!message.equalsIgnoreCase("")){
+            return new ResponseDTO(false, message, null,200);
         }
         InsuranceMasterDTO insuranceMasterDTO = (insuranceMasterParameterDTO.getInsuranceId() == null ||
             insuranceMasterParameterDTO.getInsuranceId() == 0) ? new InsuranceMasterDTO() :
@@ -117,6 +133,7 @@ public class InsuranceMasterServiceExtendedImpl implements InsuranceMasterServic
 
 
         BeanUtils.copyProperties(insuranceMasterParameterDTO, insuranceMasterDTO);
+        insuranceMasterDTO.setStatus("Active");
         if (insuranceMasterDTO.getInsuranceId() == null || insuranceMasterDTO.getInsuranceId() == 0) {
             insuranceMasterDTO.setInsuranceId(null);  //procedureCodeRepositoryExtended.findNextId()
             insuranceMasterDTO.setCreatedDate(LocalDate.now());
@@ -133,17 +150,17 @@ public class InsuranceMasterServiceExtendedImpl implements InsuranceMasterServic
             insuranceMasterRepositoryExtended.save(insuranceMasterMapper.toEntity(insuranceMasterDTO))
         );
 
-        return new ResponseDTO(true, "Successfully Saved.", List.of(savedInsuranceMasterDTO));
+        return new ResponseDTO(true, "Successfully Saved.", savedInsuranceMasterDTO,200);
     }
 
     @Override
-    public List<InsuranceMasterDTO> getInsuranceMasterById(Long insuranceId) {
+    public InsuranceMasterDTO getInsuranceMasterById(Long insuranceId) {
         List<InsuranceMasterDTO> dtoDataList = new ArrayList<InsuranceMasterDTO>();
         InsuranceMaster data = insuranceMasterRepositoryExtended.findByInsuranceId(insuranceId);
         if (data != null) {
-            dtoDataList.add(insuranceMasterMapper.toDto(data));
+            return insuranceMasterMapper.toDto(data);
         }
-        return dtoDataList;
+        return null;
     }
 
     @Override
@@ -171,19 +188,26 @@ public class InsuranceMasterServiceExtendedImpl implements InsuranceMasterServic
     }
 
     @Override
-    public ResponseDTO setInsuranceMasterStatus(Long insuranceId, String status) {
+    public ResponseDTO setInsuranceMasterStatus(UUID uuid, String status) {
         if (status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
             try {
-                InsuranceMaster obj = insuranceMasterRepositoryExtended.findByInsuranceId(insuranceId);
-                obj.setStatus(status);
-                insuranceMasterRepositoryExtended.save(obj);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(obj)));
+                Optional<InsuranceMaster> obj = insuranceMasterRepositoryExtended.findByInsuranceMasterUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    insuranceMasterRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
             } catch (Exception e) {
                 log.error("=====>> Error : " + e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error", new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error", null,200));
             }
         } else {
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
         }
     }
 
@@ -214,7 +238,7 @@ public class InsuranceMasterServiceExtendedImpl implements InsuranceMasterServic
                 return map;
             }).collect(Collectors.toList());
         } else list = new ArrayList<>();
-        return (new ServiceOutcome(list, list.size() > 0 ? true : false, list.size() > 0 ? "Successfully Data Fetched." : "Data Not Found."));
+        return (new ServiceOutcome(list, list.size() > 0 ? true : false, list.size() > 0 ? "" : "Data Not Found.",200));
 
     }
 

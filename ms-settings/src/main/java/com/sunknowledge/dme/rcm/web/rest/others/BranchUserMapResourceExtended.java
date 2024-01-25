@@ -17,6 +17,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Validated
 @RestController
@@ -34,7 +35,7 @@ public class BranchUserMapResourceExtended {
     public ResponseDTO saveBranchUserMap(@RequestBody BranchUserMapParameterDTO branchUserMapParameterDTO){
         if(branchUserMapParameterDTO.getUserIdList().contains(null) || branchUserMapParameterDTO.getUserIdList().contains(0L)
             || branchUserMapParameterDTO.getBranchId() == null || branchUserMapParameterDTO.getBranchId() == 0L){
-            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>());
+            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>(),200);
         }
         return branchUserMapServiceExtended.saveBranchUserMap(branchUserMapParameterDTO);
     }
@@ -43,7 +44,7 @@ public class BranchUserMapResourceExtended {
     public ResponseDTO updateBranchUserMap(@RequestBody BranchUserMapUpdateDTO branchUserMapUpdateDTO){
         if(branchUserMapUpdateDTO.getUserId() == null || branchUserMapUpdateDTO.getUserId() == 0L
             || branchUserMapUpdateDTO.getBranchId() == null || branchUserMapUpdateDTO.getBranchId() == 0L){
-            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>());
+            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>(),200);
         }
         return branchUserMapServiceExtended.updateBranchUserMap(branchUserMapUpdateDTO);
     }
@@ -52,5 +53,27 @@ public class BranchUserMapResourceExtended {
     public ResponseDTO getBranchByUser(){
         Long userId = 1L;  //--------- [Taken from User Login Service] ----------
         return branchUserMapServiceExtended.getBranchByUser(userId);
+    }
+
+    @GetMapping(value = "/getUserByBranch")
+    public ResponseDTO getUserByBranch(@RequestParam("branchId") Long branchId){
+        return branchUserMapServiceExtended.getUserByBranch(branchId);
+    }
+
+    @PutMapping(value = "/setBranchUserMapStatusByUuid")
+    public ResponseDTO setBranchUserMapStatusByUuid(@RequestParam("uuid") UUID uuid,
+                                                  @RequestParam("status") String status){
+
+        return branchUserMapServiceExtended.setBranchUserMapStatusByUuid(uuid,status);
+    }
+
+    @GetMapping(value = "/getAllBranchUserMapData")
+    public ResponseDTO getAllBranchUserMapData(){
+        return branchUserMapServiceExtended.getAllBranchUserMapData();
+    }
+
+    @GetMapping(value = "/getBranchUserMapById")
+    public ResponseDTO getBranchUserMapById(@RequestParam("id") Long id){
+        return branchUserMapServiceExtended.getBranchUserMapById(id);
     }
 }

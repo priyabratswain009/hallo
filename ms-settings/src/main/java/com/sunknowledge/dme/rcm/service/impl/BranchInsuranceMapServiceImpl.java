@@ -44,7 +44,7 @@ public class BranchInsuranceMapServiceImpl implements BranchInsuranceMapService 
 
     @Override
     public BranchInsuranceMapDTO update(BranchInsuranceMapDTO branchInsuranceMapDTO) {
-        log.debug("Request to save BranchInsuranceMap : {}", branchInsuranceMapDTO);
+        log.debug("Request to update BranchInsuranceMap : {}", branchInsuranceMapDTO);
         BranchInsuranceMap branchInsuranceMap = branchInsuranceMapMapper.toEntity(branchInsuranceMapDTO);
         branchInsuranceMap = branchInsuranceMapRepository.save(branchInsuranceMap);
         return branchInsuranceMapMapper.toDto(branchInsuranceMap);

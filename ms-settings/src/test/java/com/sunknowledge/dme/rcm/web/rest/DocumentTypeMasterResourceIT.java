@@ -236,7 +236,7 @@ class DocumentTypeMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewDocumentTypeMaster() throws Exception {
+    void putExistingDocumentTypeMaster() throws Exception {
         // Initialize the database
         documentTypeMasterRepository.saveAndFlush(documentTypeMaster);
 

@@ -236,7 +236,7 @@ class StopReasonMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewStopReasonMaster() throws Exception {
+    void putExistingStopReasonMaster() throws Exception {
         // Initialize the database
         stopReasonMasterRepository.saveAndFlush(stopReasonMaster);
 

@@ -1,6 +1,7 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
 import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
+import com.sunknowledge.dme.rcm.domain.Company;
 import com.sunknowledge.dme.rcm.domain.EndpointMaster;
 import com.sunknowledge.dme.rcm.domain.FunctionalityMaster;
 import com.sunknowledge.dme.rcm.repository.others.EndpointMasterRepositoryExtended;
@@ -10,6 +11,7 @@ import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.others.EndpointMasterParameterDTO;
 import com.sunknowledge.dme.rcm.service.mapper.EndpointMasterMapper;
 import com.sunknowledge.dme.rcm.service.others.EndpointMasterServiceExtended;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -18,14 +20,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Primary
 @Service
+@Slf4j
 public class EndpointMasterServiceExtendedImpl implements EndpointMasterServiceExtended {
 
     @Autowired
@@ -77,7 +77,7 @@ public class EndpointMasterServiceExtendedImpl implements EndpointMasterServiceE
                         new EndpointMasterDTO() : endpointMasterMapper.toDto(
                         endpointMasterRepositoryExtended.findByEndpointIdAndStatusIgnoreCase(getIDByUUID(endpointMasterParameterDTO.getEndpointMasterUuid()), "active"))));
                 BeanUtils.copyProperties(endpointMasterParameterDTO, endpointMasterDTOData);
-
+                endpointMasterDTOData.setStatus("active");
                 if (endpointMasterDTOData.getEndpointMasterUuid() == null) {
                     endpointMasterDTOData.setEndpointId(null);
                     endpointMasterDTOData.setEndpointMasterUuid(UUID.randomUUID());
@@ -92,18 +92,18 @@ public class EndpointMasterServiceExtendedImpl implements EndpointMasterServiceE
                 }
                 EndpointMaster savedEndpointMaster = endpointMasterRepositoryExtended.save(endpointMasterMapper.toEntity(endpointMasterDTOData));
 
-                outcome.setData(List.of(savedEndpointMaster));
-                outcome.setStatus(true);
+                outcome.setData(savedEndpointMaster);
+                outcome.setOutcome(true);
                 outcome.setMessage("Data Successfully Saved.");
                 return outcome;
             }else{
 
-                outcome.setStatus(false);
+                outcome.setOutcome(false);
                 outcome.setMessage("Data Already Exist.");
                 return outcome;
             }
         }else{
-            outcome.setStatus(false);
+            outcome.setOutcome(false);
             outcome.setMessage("Data Not Saved.");
             return outcome;
         }
@@ -123,8 +123,8 @@ public class EndpointMasterServiceExtendedImpl implements EndpointMasterServiceE
                     findByEndpointNameLikeIgnoreCaseAndStatusIgnoreCase("%"+data+"%","active"));
                 return new ResponseDTO(
                     endpointMasterDTOList.size()>0?true:false,
-                    endpointMasterDTOList.size()>0?"Data Successfully fetched.":"Data Not Found.",
-                    endpointMasterDTOList.size()>0?endpointMasterDTOList:null
+                    endpointMasterDTOList.size()>0?"":"Data Not Found.",
+                    endpointMasterDTOList.size()>0?endpointMasterDTOList:null,200
                 );
             }
             case "endpointGroup" : {
@@ -133,8 +133,8 @@ public class EndpointMasterServiceExtendedImpl implements EndpointMasterServiceE
                     findByEndpointGroupLikeIgnoreCaseAndStatusIgnoreCase("%"+data+"%","active"));
                 return new ResponseDTO(
                     endpointMasterDTOList.size()>0?true:false,
-                    endpointMasterDTOList.size()>0?"Data Successfully fetched.":"Data Not Found.",
-                    endpointMasterDTOList.size()>0?endpointMasterDTOList:null
+                    endpointMasterDTOList.size()>0?"":"Data Not Found.",
+                    endpointMasterDTOList.size()>0?endpointMasterDTOList:null,200
                 );
             }
             case "endpointUUID" : {
@@ -146,12 +146,12 @@ public class EndpointMasterServiceExtendedImpl implements EndpointMasterServiceE
                 }
                 EndpointMaster endpointMasterData = endpointMasterRepositoryExtended.findByEndpointIdAndStatusIgnoreCase(id,"active");
                 return new ResponseDTO(endpointMasterData==null?false:true,
-                    endpointMasterData==null?"Data Not Found.":"Data Successfully fetched.",
-                    endpointMasterData==null?null:List.of(endpointMasterMapper.toDto(endpointMasterData))
+                    endpointMasterData==null?"Data Not Found.":"",
+                    endpointMasterData==null?null:(endpointMasterMapper.toDto(endpointMasterData)),200
                 );
             }
             default:{
-                return new ResponseDTO(false, "Please give correct operationType.",null);
+                return new ResponseDTO(false, "Please give correct operationType.",null,200);
             }
         }
     }
@@ -160,5 +160,50 @@ public class EndpointMasterServiceExtendedImpl implements EndpointMasterServiceE
     public List<Long> getActiveIDsByUUIDs(List<UUID> endpointUUIDs) {
         return endpointMasterRepositoryExtended.findByEndpointMasterUuidInAndStatusIgnoreCase(endpointUUIDs,"active")
             .stream().map(x -> x.getEndpointId()).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseDTO setEndpointMasterStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<EndpointMaster> obj = endpointMasterRepositoryExtended.findByEndpointMasterUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    endpointMasterRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
+    }
+
+    @Override
+    public ResponseDTO getAllEndpointMasterData() {
+        List<EndpointMaster> endpointMasters = endpointMasterRepositoryExtended.findByStatusIgnoreCase("active");
+        return (new ResponseDTO(endpointMasters.size()>0?true:false, endpointMasters.size()>0?"":"Data Not Found", endpointMasters,200));
+    }
+
+    @Override
+    public List<Map<String, Object>> getEndpointMasterForDropdown() {
+        List<EndpointMaster> posMasterList = endpointMasterRepositoryExtended.findByStatusIgnoreCase("active");
+        if (posMasterList.size() > 0) {
+            return posMasterList.stream().map(p -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", p.getEndpointMasterUuid());
+                map.put("title", p.getEndpointName());
+                return map;
+            }).collect(Collectors.toList());
+        } else {
+            return new ArrayList<>();
+        }
     }
 }

@@ -211,7 +211,7 @@ class PosMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewPosMasterAuditLog() throws Exception {
+    void putExistingPosMasterAuditLog() throws Exception {
         // Initialize the database
         posMasterAuditLogRepository.saveAndFlush(posMasterAuditLog);
 

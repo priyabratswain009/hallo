@@ -44,7 +44,7 @@ public class ClaimProgramMasterAuditLogServiceImpl implements ClaimProgramMaster
 
     @Override
     public ClaimProgramMasterAuditLogDTO update(ClaimProgramMasterAuditLogDTO claimProgramMasterAuditLogDTO) {
-        log.debug("Request to save ClaimProgramMasterAuditLog : {}", claimProgramMasterAuditLogDTO);
+        log.debug("Request to update ClaimProgramMasterAuditLog : {}", claimProgramMasterAuditLogDTO);
         ClaimProgramMasterAuditLog claimProgramMasterAuditLog = claimProgramMasterAuditLogMapper.toEntity(claimProgramMasterAuditLogDTO);
         claimProgramMasterAuditLog = claimProgramMasterAuditLogRepository.save(claimProgramMasterAuditLog);
         return claimProgramMasterAuditLogMapper.toDto(claimProgramMasterAuditLog);

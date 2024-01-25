@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.BranchGroup} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BranchGroupDTO implements Serializable {
 
     private Long branchGroupId;

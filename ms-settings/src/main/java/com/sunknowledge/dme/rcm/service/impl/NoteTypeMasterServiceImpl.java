@@ -41,7 +41,7 @@ public class NoteTypeMasterServiceImpl implements NoteTypeMasterService {
 
     @Override
     public NoteTypeMasterDTO update(NoteTypeMasterDTO noteTypeMasterDTO) {
-        log.debug("Request to save NoteTypeMaster : {}", noteTypeMasterDTO);
+        log.debug("Request to update NoteTypeMaster : {}", noteTypeMasterDTO);
         NoteTypeMaster noteTypeMaster = noteTypeMasterMapper.toEntity(noteTypeMasterDTO);
         noteTypeMaster = noteTypeMasterRepository.save(noteTypeMaster);
         return noteTypeMasterMapper.toDto(noteTypeMaster);

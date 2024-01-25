@@ -41,7 +41,7 @@ public class RoleMasterServiceImpl implements RoleMasterService {
 
     @Override
     public RoleMasterDTO update(RoleMasterDTO roleMasterDTO) {
-        log.debug("Request to save RoleMaster : {}", roleMasterDTO);
+        log.debug("Request to update RoleMaster : {}", roleMasterDTO);
         RoleMaster roleMaster = roleMasterMapper.toEntity(roleMasterDTO);
         roleMaster = roleMasterRepository.save(roleMaster);
         return roleMasterMapper.toDto(roleMaster);

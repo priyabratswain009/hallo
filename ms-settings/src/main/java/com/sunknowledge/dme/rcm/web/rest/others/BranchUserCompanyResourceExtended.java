@@ -41,7 +41,7 @@ public class BranchUserCompanyResourceExtended {
         @NotBlank(message = "Operation_Type must be provided.")
         @RequestParam("opType") String opType){
         List<Map> obj = branchOfficeServiceExtended.getBranchDetailsByUserUUIDorUserName(parameterValue.trim(),opType);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
 
     }
 
@@ -56,7 +56,7 @@ public class BranchUserCompanyResourceExtended {
         @NotBlank(message = "Operation_Type must be provided.")
         @RequestParam("opType") String opType){
         List<Map> obj = branchOfficeServiceExtended.getUserDetailsByBranchUUIDorBranchName(parameterValue.trim(),opType);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
 
     }
 
@@ -71,7 +71,7 @@ public class BranchUserCompanyResourceExtended {
         @NotBlank(message = "Operation_Type must be provided.")
         @RequestParam("opType") String opType){
         List<Map> obj = branchOfficeServiceExtended.getLocationDetailsByBranchUUIDorBranchName(parameterValue.trim(),opType);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
 
     }
 
@@ -86,7 +86,7 @@ public class BranchUserCompanyResourceExtended {
         @NotBlank(message = "Operation_Type must be provided.")
         @RequestParam("opType") String opType){
         List<Map> obj = branchOfficeServiceExtended.getInsuranceDetailsByBranchUUIDorBranchName(parameterValue.trim(),opType);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
 
     }
 
@@ -101,7 +101,7 @@ public class BranchUserCompanyResourceExtended {
         @NotBlank(message = "Operation_Type must be provided.")
         @RequestParam("opType") String opType){
         List<Map> obj = branchOfficeServiceExtended.getCompanyDetailsByBranchUUIDorBranchName(parameterValue.trim(),opType);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
 
     }
 }

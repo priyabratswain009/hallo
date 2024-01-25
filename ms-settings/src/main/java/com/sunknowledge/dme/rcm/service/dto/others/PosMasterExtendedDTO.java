@@ -23,8 +23,8 @@ public class PosMasterExtendedDTO {
     @NotBlank(message = "posName should not be blank.")
     private String posName;
 
-    @NotNull(message = "status should not be null.")
+    /*@NotNull(message = "status should not be null.")
     @NotBlank(message = "status should not be blank.")
-    private String status;
+    private String status;*/
 
 }

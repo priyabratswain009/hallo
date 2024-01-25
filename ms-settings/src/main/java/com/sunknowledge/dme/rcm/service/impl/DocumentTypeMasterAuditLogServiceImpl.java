@@ -44,7 +44,7 @@ public class DocumentTypeMasterAuditLogServiceImpl implements DocumentTypeMaster
 
     @Override
     public DocumentTypeMasterAuditLogDTO update(DocumentTypeMasterAuditLogDTO documentTypeMasterAuditLogDTO) {
-        log.debug("Request to save DocumentTypeMasterAuditLog : {}", documentTypeMasterAuditLogDTO);
+        log.debug("Request to update DocumentTypeMasterAuditLog : {}", documentTypeMasterAuditLogDTO);
         DocumentTypeMasterAuditLog documentTypeMasterAuditLog = documentTypeMasterAuditLogMapper.toEntity(documentTypeMasterAuditLogDTO);
         documentTypeMasterAuditLog = documentTypeMasterAuditLogRepository.save(documentTypeMasterAuditLog);
         return documentTypeMasterAuditLogMapper.toDto(documentTypeMasterAuditLog);

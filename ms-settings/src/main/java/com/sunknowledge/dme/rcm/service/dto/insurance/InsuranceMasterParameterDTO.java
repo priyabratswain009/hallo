@@ -42,7 +42,7 @@ public class InsuranceMasterParameterDTO {
 
     private String notes;
 
-    private String status;
+    //private String status;
 
     private String insurancePayerIdNo;
 

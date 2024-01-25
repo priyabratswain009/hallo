@@ -211,7 +211,7 @@ class ClaimFormMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewClaimFormMasterAuditLog() throws Exception {
+    void putExistingClaimFormMasterAuditLog() throws Exception {
         // Initialize the database
         claimFormMasterAuditLogRepository.saveAndFlush(claimFormMasterAuditLog);
 

@@ -1,8 +1,6 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
-import com.sunknowledge.dme.rcm.domain.FunctionalityEndpointMapping;
-import com.sunknowledge.dme.rcm.domain.RoleFunctionalityMap;
-import com.sunknowledge.dme.rcm.domain.RoleUserMap;
+import com.sunknowledge.dme.rcm.domain.*;
 import com.sunknowledge.dme.rcm.repository.others.FunctionalityEndpointMappingRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.dto.FunctionalityEndpointMappingDTO;
 import com.sunknowledge.dme.rcm.service.dto.RoleFunctionalityMapDTO;
@@ -14,6 +12,7 @@ import com.sunknowledge.dme.rcm.service.mapper.FunctionalityEndpointMappingMappe
 import com.sunknowledge.dme.rcm.service.others.EndpointMasterServiceExtended;
 import com.sunknowledge.dme.rcm.service.others.FunctionalityEndpointMappingServiceExtended;
 import com.sunknowledge.dme.rcm.service.others.FunctionalityMasterServiceExtended;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
@@ -26,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Primary
 @Service
+@Slf4j
 public class FunctionalityEndpointMappingServiceExtendedImpl implements FunctionalityEndpointMappingServiceExtended {
 
     @Autowired
@@ -93,12 +93,12 @@ public class FunctionalityEndpointMappingServiceExtendedImpl implements Function
             }
             if(functionalityEndpointMappingDTOS.size()>0){
                 List<FunctionalityEndpointMapping> savedFunctionalityEndpointMapping = functionalityEndpointMappingRepositoryExtended.saveAll(functionalityEndpointMappingMapper.toEntity(functionalityEndpointMappingDTOS));
-                return new ResponseDTO(true,"Data Saved Successfully.",functionalityEndpointMappingMapper.toDto(savedFunctionalityEndpointMapping));
+                return new ResponseDTO(true,"Data Saved Successfully.",functionalityEndpointMappingMapper.toDto(savedFunctionalityEndpointMapping),200);
             }else{
-                return new ResponseDTO(false,"Data Not Found/Mapping Already Exist.",null);
+                return new ResponseDTO(false,"Data Not Found/Mapping Already Exist.",null,200);
             }
         }else{
-            return new ResponseDTO(false,"Data Not Found.",null);
+            return new ResponseDTO(false,"Data Not Found.",null,200);
         }
     }
 
@@ -115,9 +115,9 @@ public class FunctionalityEndpointMappingServiceExtendedImpl implements Function
             updateDTO.setUpdatedByName("Abhay Api Update");
             updateDTO.setUpdatedDate(LocalDate.now());
             FunctionalityEndpointMappingDTO functionalityEndpointMappingDTO = functionalityEndpointMappingMapper.toDto(functionalityEndpointMappingRepositoryExtended.save(updateDTO));
-            return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(functionalityEndpointMappingDTO)));
+            return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", (functionalityEndpointMappingDTO),200));
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Data Not Found.", null));
+            return (new ResponseDTO(Boolean.FALSE, "Data Not Found.", null,200));
         }
     }
 
@@ -164,9 +164,40 @@ public class FunctionalityEndpointMappingServiceExtendedImpl implements Function
                 break;
             }
             default:{
-                return new ResponseDTO(false,"Please Give Correct OperationType",null);
+                return new ResponseDTO(false,"Please Give Correct OperationType",null,200);
             }
         }
-        return new ResponseDTO<>(obj.size()>0?true:false,obj.size()>0?"Data Fetched Successfully.":"Data Not Found.",obj);
+        return new ResponseDTO<>(obj.size()>0?true:false,obj.size()>0?"":"Data Not Found.",obj,200);
+    }
+
+    @Override
+    public ResponseDTO setFunctionalityEndpointStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<FunctionalityEndpointMapping> obj = functionalityEndpointMappingRepositoryExtended.findByFunctionalityEndpointMappingUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    functionalityEndpointMappingRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
+    }
+
+    @Override
+    public ResponseDTO getAllFunctionalityEndpointMappingData() {
+        List<FunctionalityEndpointMapping> dataList = functionalityEndpointMappingRepositoryExtended.findByStatusIgnoreCase("active");
+        return new ResponseDTO<>(dataList.size()>0?true:false,
+            dataList.size()>0?"":"Data Not Found.",dataList,200);
     }
 }

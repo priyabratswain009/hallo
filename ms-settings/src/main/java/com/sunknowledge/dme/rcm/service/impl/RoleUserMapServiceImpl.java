@@ -41,7 +41,7 @@ public class RoleUserMapServiceImpl implements RoleUserMapService {
 
     @Override
     public RoleUserMapDTO update(RoleUserMapDTO roleUserMapDTO) {
-        log.debug("Request to save RoleUserMap : {}", roleUserMapDTO);
+        log.debug("Request to update RoleUserMap : {}", roleUserMapDTO);
         RoleUserMap roleUserMap = roleUserMapMapper.toEntity(roleUserMapDTO);
         roleUserMap = roleUserMapRepository.save(roleUserMap);
         return roleUserMapMapper.toDto(roleUserMap);

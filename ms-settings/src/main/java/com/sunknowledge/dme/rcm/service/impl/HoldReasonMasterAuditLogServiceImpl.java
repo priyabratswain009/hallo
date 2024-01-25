@@ -44,7 +44,7 @@ public class HoldReasonMasterAuditLogServiceImpl implements HoldReasonMasterAudi
 
     @Override
     public HoldReasonMasterAuditLogDTO update(HoldReasonMasterAuditLogDTO holdReasonMasterAuditLogDTO) {
-        log.debug("Request to save HoldReasonMasterAuditLog : {}", holdReasonMasterAuditLogDTO);
+        log.debug("Request to update HoldReasonMasterAuditLog : {}", holdReasonMasterAuditLogDTO);
         HoldReasonMasterAuditLog holdReasonMasterAuditLog = holdReasonMasterAuditLogMapper.toEntity(holdReasonMasterAuditLogDTO);
         holdReasonMasterAuditLog = holdReasonMasterAuditLogRepository.save(holdReasonMasterAuditLog);
         return holdReasonMasterAuditLogMapper.toDto(holdReasonMasterAuditLog);

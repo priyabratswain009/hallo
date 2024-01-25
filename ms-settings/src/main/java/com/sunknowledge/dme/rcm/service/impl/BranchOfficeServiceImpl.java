@@ -41,7 +41,7 @@ public class BranchOfficeServiceImpl implements BranchOfficeService {
 
     @Override
     public BranchOfficeDTO update(BranchOfficeDTO branchOfficeDTO) {
-        log.debug("Request to save BranchOffice : {}", branchOfficeDTO);
+        log.debug("Request to update BranchOffice : {}", branchOfficeDTO);
         BranchOffice branchOffice = branchOfficeMapper.toEntity(branchOfficeDTO);
         branchOffice = branchOfficeRepository.save(branchOffice);
         return branchOfficeMapper.toDto(branchOffice);

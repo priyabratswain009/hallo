@@ -32,7 +32,7 @@ public class StopReasonMasterResourceExtended {
     @GetMapping("/getAllStopReasonDetails")
     public ResponseDTO getAllStopReasonDetails(){
         List<StopReasonMasterDTO> obj = stopReasonMasterServiceExtended.getAllStopReasonDetails();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getStopReasonDetailsByUUID")
@@ -40,7 +40,13 @@ public class StopReasonMasterResourceExtended {
         @NotBlank(message = "Stop Reason UUID must be provided")
         @RequestParam("uuid") UUID uuid){
 
-        List<StopReasonMasterDTO> obj = stopReasonMasterServiceExtended.getStopReasonDetailsByUUID(uuid);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        StopReasonMasterDTO obj = stopReasonMasterServiceExtended.getStopReasonDetailsByUUID(uuid);
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "": "Data Not Found.", obj,200));
+    }
+
+    @PutMapping(value = "/setStopReasonDetailsStatusByUuid")
+    public ResponseDTO setStopReasonDetailsStatusByUuid(@RequestParam("uuid") UUID uuid,
+                                                   @RequestParam("status") String status){
+        return stopReasonMasterServiceExtended.setStopReasonDetailsStatusByUuid(uuid,status);
     }
 }

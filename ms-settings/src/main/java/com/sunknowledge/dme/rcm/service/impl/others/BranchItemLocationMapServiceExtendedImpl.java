@@ -104,7 +104,7 @@ public class BranchItemLocationMapServiceExtendedImpl implements BranchItemLocat
                 }
             }
             branchItemLocationMapRepositoryExtended.saveAll(branchItemLocationMapMapper.toEntity(branchItemLocationMapDTOS));
-            return (new ResponseDTO(isDataSaved,isDataSaved?"Successfully Saved":"Data already exist.", Arrays.asList(branchItemLocationMapDTOS.toArray())));
+            return (new ResponseDTO(isDataSaved,isDataSaved?"Successfully Saved":"Data already exist.", Arrays.asList(branchItemLocationMapDTOS.toArray()),200));
         }catch (InvalidAttributeValueException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException(e);
@@ -147,9 +147,9 @@ public class BranchItemLocationMapServiceExtendedImpl implements BranchItemLocat
                 BranchItemLocationMapDTO savedBranchItemLocationMapDTO = branchItemLocationMapMapper.toDto(
                     branchItemLocationMapRepositoryExtended.save(branchItemLocationMapMapper.toEntity(branchItemLocationMapDTO))
                 );
-                return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",List.of(savedBranchItemLocationMapDTO)));
+                return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",List.of(savedBranchItemLocationMapDTO),200));
             }else {
-                return (new ResponseDTO(Boolean.FALSE,"Failed to Save data",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE,"Failed to Save data",new ArrayList<>(),200));
             }
         }catch (InvalidAttributeValueException e) {
             log.error("=====>> Error : "+e);
@@ -187,26 +187,43 @@ public class BranchItemLocationMapServiceExtendedImpl implements BranchItemLocat
         if(updateDTO != null) {
             updateDTO.setStatus("inactive");
             BranchItemLocationMapDTO updatedObj = branchItemLocationMapMapper.toDto(branchItemLocationMapRepositoryExtended.save(updateDTO));
-            return (new ResponseDTO(true,"Successfully Updated",List.of(updatedObj)));
+            return (new ResponseDTO(true,"Successfully Updated",(updatedObj),200));
         }else{
-            return (new ResponseDTO(false,"Data Not Found",new ArrayList<>()));
+            return (new ResponseDTO(false,"Data Not Found",new ArrayList<>(),200));
         }
     }
 
     @Override
-    public ResponseDTO setBranchItemLocationMapById(Long id, String status) {
+    public ResponseDTO setBranchItemLocationMapByUuid(UUID uuid, String status) {
         if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
             try{
-                BranchItemLocationMap branchItemLocationMap = branchItemLocationMapRepositoryExtended.findByBranchItemLocationMapId(id);
-                branchItemLocationMap.setStatus(status);
-                branchItemLocationMapRepositoryExtended.save(branchItemLocationMap);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(branchItemLocationMap)));
+                Optional<BranchItemLocationMap> obj = branchItemLocationMapRepositoryExtended.findByBranchItemLocationMapUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    branchItemLocationMapRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(),200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(),200));
+        }
+    }
+
+    @Override
+    public BranchItemLocationMapDTO getBranchItemLocationMapByItemLocationIdAndBranchId(Long itemLocationId, Long branchId) {
+        BranchItemLocationMap updateDTO = branchItemLocationMapRepositoryExtended.findByItemLocationIdAndBranchIdAndStatusIgnoreCase(itemLocationId,branchId,"active");
+        if(updateDTO != null) {
+            return branchItemLocationMapMapper.toDto(updateDTO);
+        }else{
+            return null;
         }
     }
 }

@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -53,4 +52,10 @@ public class UserMasterParameterDTO {
     private String jobTitle;
 
     private String modeOfContact;
+
+    private Boolean isDeactivate;
+
+    private String username;
+
+    private String password;
 }

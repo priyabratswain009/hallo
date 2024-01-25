@@ -7,6 +7,7 @@ import com.sunknowledge.dme.rcm.service.dto.others.BranchItemLocationMapExtended
 import com.sunknowledge.dme.rcm.service.dto.others.BranchItemLocationMapExtendedUpdateDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface BranchItemLocationMapServiceExtended extends BranchItemLocationMapService {
     ResponseDTO saveBranchItemLocationMap(BranchItemLocationMapExtendedDTO branchItemLocationMapExtendedDTO);
@@ -23,5 +24,7 @@ public interface BranchItemLocationMapServiceExtended extends BranchItemLocation
 
     ResponseDTO deactiveBranchItemLocationMapByItemLocationIdAndBranchId(Long itemLocationId, Long branchId);
 
-    ResponseDTO setBranchItemLocationMapById(Long id, String status);
+    ResponseDTO setBranchItemLocationMapByUuid(UUID uuid, String status);
+
+    BranchItemLocationMapDTO getBranchItemLocationMapByItemLocationIdAndBranchId(Long itemLocationId, Long branchId);
 }

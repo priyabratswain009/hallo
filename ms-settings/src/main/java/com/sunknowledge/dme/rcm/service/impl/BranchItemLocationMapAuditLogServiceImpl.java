@@ -46,7 +46,7 @@ public class BranchItemLocationMapAuditLogServiceImpl implements BranchItemLocat
 
     @Override
     public BranchItemLocationMapAuditLogDTO update(BranchItemLocationMapAuditLogDTO branchItemLocationMapAuditLogDTO) {
-        log.debug("Request to save BranchItemLocationMapAuditLog : {}", branchItemLocationMapAuditLogDTO);
+        log.debug("Request to update BranchItemLocationMapAuditLog : {}", branchItemLocationMapAuditLogDTO);
         BranchItemLocationMapAuditLog branchItemLocationMapAuditLog = branchItemLocationMapAuditLogMapper.toEntity(
             branchItemLocationMapAuditLogDTO
         );

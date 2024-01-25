@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.BranchItemLocationMapAuditLog} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BranchItemLocationMapAuditLogDTO implements Serializable {
 
     private Long brnchItmLoctinMapId;

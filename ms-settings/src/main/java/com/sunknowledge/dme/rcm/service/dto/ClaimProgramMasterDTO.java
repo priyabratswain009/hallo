@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ClaimProgramMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ClaimProgramMasterDTO implements Serializable {
 
     private Long claimProgramMasterId;

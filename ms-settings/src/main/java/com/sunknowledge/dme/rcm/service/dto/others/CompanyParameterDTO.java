@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.mail.Multipart;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -21,9 +22,9 @@ public class CompanyParameterDTO {
 
     private String primaryContactCredential;
 
-    private String contractFileUploadPath;
+    private Multipart contractFileUploadPath;
 
-    private String status;
+    //private String status;
 
     private String addressLine1;
 
@@ -51,5 +52,5 @@ public class CompanyParameterDTO {
 
     private String modeOfContact;
 
-    private String companyBranchLogo;
+    private Multipart companyBranchLogo;
 }

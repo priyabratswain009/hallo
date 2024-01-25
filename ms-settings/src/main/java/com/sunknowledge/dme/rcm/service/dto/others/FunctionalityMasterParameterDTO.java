@@ -13,5 +13,5 @@ public class FunctionalityMasterParameterDTO {
     private UUID functionalityMasterUUID;
     private String functionalityName;
     private String functionalityDescription;
-    private String status;
+    //private String status;
 }

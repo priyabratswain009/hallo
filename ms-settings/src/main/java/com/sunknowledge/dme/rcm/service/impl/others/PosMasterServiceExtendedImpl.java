@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
+import com.sunknowledge.dme.rcm.domain.Company;
 import com.sunknowledge.dme.rcm.domain.PosMaster;
 import com.sunknowledge.dme.rcm.repository.others.PosMasterRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.dto.PosMasterDTO;
@@ -69,12 +70,6 @@ public class PosMasterServiceExtendedImpl implements PosMasterServiceExtended {
     }
 
     @Override
-    public List<PosMasterDTO> getAllPOSInfo() {
-        List<PosMaster> data = posMasterRepositoryExtended.findByStatusIgnoreCase("active");
-        return posMasterMapper.toDto(data);
-    }
-
-    @Override
     public ResponseDTO savePOSInfo(PosMasterExtendedDTO posMasterExtendedDTO) throws InvalidAttributeValueException {
         if (posMasterExtendedDTO.getPosName() == null) {
             throw new InvalidAttributeValueException("Invalid Attribute (posName)");
@@ -83,45 +78,42 @@ public class PosMasterServiceExtendedImpl implements PosMasterServiceExtended {
         }
 
         ResponseDTO outcome = new ResponseDTO();
-        if (posMasterExtendedDTO.getStatus().equalsIgnoreCase("active") || posMasterExtendedDTO.getStatus().equalsIgnoreCase("inActive")) {
-            if (posMasterExtendedDTO.getPosName() != null && !posMasterExtendedDTO.getPosName().equals("")) {
-                PosMasterDTO posMasterDTO = (posMasterExtendedDTO.getPosMasterUuid() == null) ? new PosMasterDTO() :
-                    (posMasterRepositoryExtended.findByPosMasterUuid(posMasterExtendedDTO.getPosMasterUuid()) != null ?
-                        posMasterMapper.toDto(posMasterRepositoryExtended.findByPosMasterUuid(posMasterExtendedDTO.getPosMasterUuid())) :
-                        new PosMasterDTO());
+        if (posMasterExtendedDTO.getPosName() != null && !posMasterExtendedDTO.getPosName().equals("")) {
+            PosMasterDTO posMasterDTO = (posMasterExtendedDTO.getPosMasterUuid() == null) ? new PosMasterDTO() :
+                (posMasterRepositoryExtended.findByPosMasterUuid(posMasterExtendedDTO.getPosMasterUuid()) != null ?
+                    posMasterMapper.toDto(posMasterRepositoryExtended.findByPosMasterUuid(posMasterExtendedDTO.getPosMasterUuid())) :
+                    new PosMasterDTO());
 
-                BeanUtils.copyProperties(posMasterExtendedDTO, posMasterDTO);
-                if (posMasterDTO.getPosMasterUuid() == null) {
-                    posMasterDTO.setPosId(null);
-                    posMasterDTO.setCreatedById(31L);
-                    posMasterDTO.setCreatedDate(LocalDate.now());
-                    posMasterDTO.setCreatedByName("Falguni");
-                    posMasterDTO.setPosMasterUuid(UUID.randomUUID());
-                } else {
-                    posMasterDTO.setUpdatedDate(LocalDate.now());
-                    posMasterDTO.setUpdatedById(31L);
-                    posMasterDTO.setUpdatedByName("Falguni");
-                }
-                PosMasterDTO savedPosMasterDTO = posMasterMapper.toDto(
-                    posMasterRepositoryExtended.save(posMasterMapper.toEntity(posMasterDTO))
-                );
-
-                log.info("=======savedPosMasterDTO=======" + savedPosMasterDTO);
-
-                return new ResponseDTO(true, "Successfully Saved.", List.of(savedPosMasterDTO));
+            BeanUtils.copyProperties(posMasterExtendedDTO, posMasterDTO);
+            posMasterDTO.setStatus("active");
+            if (posMasterDTO.getPosMasterUuid() == null) {
+                posMasterDTO.setPosId(null);
+                posMasterDTO.setCreatedById(31L);
+                posMasterDTO.setCreatedDate(LocalDate.now());
+                posMasterDTO.setCreatedByName("Falguni");
+                posMasterDTO.setPosMasterUuid(UUID.randomUUID());
             } else {
-                outcome.setStatus(false);
-                outcome.setMessage("Data Not Saved.");
-                return outcome;
+                posMasterDTO.setUpdatedDate(LocalDate.now());
+                posMasterDTO.setUpdatedById(31L);
+                posMasterDTO.setUpdatedByName("Falguni");
             }
+            PosMasterDTO savedPosMasterDTO = posMasterMapper.toDto(
+                posMasterRepositoryExtended.save(posMasterMapper.toEntity(posMasterDTO))
+            );
+
+            log.info("=======savedPosMasterDTO=======" + savedPosMasterDTO);
+
+            return new ResponseDTO(true, "Successfully Saved.", (savedPosMasterDTO),200);
         } else {
-            throw new InputMismatchException("Status Should be active/inactive");
+            outcome.setOutcome(false);
+            outcome.setMessage("Data Not Saved.");
+            return outcome;
         }
     }
 
     @Override
     public List<Map<String, Object>> getPlaceOfServiceForDropdown() {
-        List<PosMasterDTO> posMasterList = getAllPOSInfo();
+        List<PosMasterDTO> posMasterList = getAllPlaceOfServiceData();
         if (posMasterList.size() > 0) {
             return posMasterList.stream().map(p -> {
                 Map<String, Object> map = new HashMap<>();
@@ -133,5 +125,44 @@ public class PosMasterServiceExtendedImpl implements PosMasterServiceExtended {
             return new ArrayList<>();
         }
 
+    }
+
+    @Override
+    public List<PosMasterDTO> getAllPlaceOfServiceData() {
+        return posMasterMapper.toDto(posMasterRepositoryExtended.findByStatusIgnoreCase("active"));
+    }
+
+    @Override
+    public PosMasterDTO getPlaceOfServiceDataById(Long posId) {
+        PosMaster posMaster = posMasterRepositoryExtended.findByPosIdAndStatusIgnoreCase(posId,"active");
+        if(posMaster!=null) {
+            return posMasterMapper.toDto(posMaster);
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public ResponseDTO setPlaceOfServiceStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<PosMaster> obj = Optional.ofNullable(posMasterRepositoryExtended.findByPosMasterUuid(uuid));
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    posMasterRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
     }
 }

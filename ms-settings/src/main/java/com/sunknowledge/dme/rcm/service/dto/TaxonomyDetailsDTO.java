@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.TaxonomyDetails} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class TaxonomyDetailsDTO implements Serializable {
 
     private Long taxonomyDetailsId;

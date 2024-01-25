@@ -29,4 +29,8 @@ public interface FunctionalityMasterRepositoryExtended extends FunctionalityMast
     List<FunctionalityMaster> findByFunctionalityMasterUuidInAndStatusIgnoreCase(List<UUID> functionalityUUIDs,String status);
 
     Optional<FunctionalityMaster> findByFunctionalityIdAndStatusIgnoreCase(Long idByUUID, String active);
+
+    List<FunctionalityMaster> findByStatusIgnoreCase(String active);
+
+    Optional<FunctionalityMaster> findByFunctionalityMasterUuid(UUID uuid);
 }

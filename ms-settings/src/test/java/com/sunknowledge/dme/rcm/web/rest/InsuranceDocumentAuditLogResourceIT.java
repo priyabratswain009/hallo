@@ -213,7 +213,7 @@ class InsuranceDocumentAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewInsuranceDocumentAuditLog() throws Exception {
+    void putExistingInsuranceDocumentAuditLog() throws Exception {
         // Initialize the database
         insuranceDocumentAuditLogRepository.saveAndFlush(insuranceDocumentAuditLog);
 

@@ -44,7 +44,7 @@ public class ClaimProgramMasterServiceImpl implements ClaimProgramMasterService 
 
     @Override
     public ClaimProgramMasterDTO update(ClaimProgramMasterDTO claimProgramMasterDTO) {
-        log.debug("Request to save ClaimProgramMaster : {}", claimProgramMasterDTO);
+        log.debug("Request to update ClaimProgramMaster : {}", claimProgramMasterDTO);
         ClaimProgramMaster claimProgramMaster = claimProgramMasterMapper.toEntity(claimProgramMasterDTO);
         claimProgramMaster = claimProgramMasterRepository.save(claimProgramMaster);
         return claimProgramMasterMapper.toDto(claimProgramMaster);

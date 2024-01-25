@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.BranchInsuranceMap} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BranchInsuranceMapDTO implements Serializable {
 
     private Long branchInsuranceMapId;

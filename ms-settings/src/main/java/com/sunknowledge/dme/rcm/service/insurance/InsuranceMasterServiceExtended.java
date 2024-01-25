@@ -9,13 +9,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface InsuranceMasterServiceExtended extends InsuranceMasterService {
     ResponseDTO bulkUploadForInsuranceMaster(MultipartFile documentFile);
 
     ResponseDTO saveInsuranceMaster(InsuranceMasterParameterDTO insuranceMasterDTO);
 
-    List<InsuranceMasterDTO> getInsuranceMasterById(Long insuranceId);
+    InsuranceMasterDTO getInsuranceMasterById(Long insuranceId);
 
     List<InsuranceMasterDTO> getInsuranceMasterByInsuranceName(String insuranceName);
 
@@ -25,7 +26,7 @@ public interface InsuranceMasterServiceExtended extends InsuranceMasterService {
 
     Optional<InsuranceMasterDTO> findByInsuranceId(Long insuranceId);
 
-    ResponseDTO setInsuranceMasterStatus(Long insuranceId, String status);
+    ResponseDTO setInsuranceMasterStatus(UUID uuid, String status);
 
     List<InsuranceMasterDTO> getInsuranceMasterByStatus(String status);
 

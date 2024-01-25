@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.PosMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PosMasterDTO implements Serializable {
 
     private Long posId;

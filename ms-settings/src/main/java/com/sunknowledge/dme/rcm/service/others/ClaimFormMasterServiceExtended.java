@@ -14,5 +14,7 @@ public interface ClaimFormMasterServiceExtended extends ClaimFormMasterService {
 
     List<ClaimFormMasterDTO> getAllClaimFormMasterInfo();
 
-    List<ClaimFormMasterDTO> getClaimFormMasterInfoByUUID(UUID claimFormMasterUuid);
+    ClaimFormMasterDTO getClaimFormMasterInfoByUUID(UUID claimFormMasterUuid);
+
+    ResponseDTO setClaimFormMasterStatusByUuid(UUID uuid, String status);
 }

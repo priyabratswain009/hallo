@@ -431,6 +431,12 @@
             <artifactId>modernizer-maven-annotations</artifactId>
             <version>2.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.dropbox.core</groupId>
+            <artifactId>dropbox-core-sdk</artifactId>
+            <version>3.0.5</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
@@ -647,7 +653,7 @@
                         </includeOnlyProperties>
                     </configuration>
                 </plugin>
-                <plugin>
+                <!--<plugin>
                     <groupId>org.gaul</groupId>
                     <artifactId>modernizer-maven-plugin</artifactId>
                     <version>${modernizer-maven-plugin.version}</version>
@@ -663,7 +669,7 @@
                     <configuration>
                       <javaVersion>${java.version}</javaVersion>
                     </configuration>
-                </plugin>
+                </plugin>-->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>

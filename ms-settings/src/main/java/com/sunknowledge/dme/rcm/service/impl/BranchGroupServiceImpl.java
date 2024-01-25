@@ -41,7 +41,7 @@ public class BranchGroupServiceImpl implements BranchGroupService {
 
     @Override
     public BranchGroupDTO update(BranchGroupDTO branchGroupDTO) {
-        log.debug("Request to save BranchGroup : {}", branchGroupDTO);
+        log.debug("Request to update BranchGroup : {}", branchGroupDTO);
         BranchGroup branchGroup = branchGroupMapper.toEntity(branchGroupDTO);
         branchGroup = branchGroupRepository.save(branchGroup);
         return branchGroupMapper.toDto(branchGroup);

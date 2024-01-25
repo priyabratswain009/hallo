@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
+import com.sunknowledge.dme.rcm.domain.Company;
 import com.sunknowledge.dme.rcm.domain.StopReasonMaster;
 import com.sunknowledge.dme.rcm.repository.others.StopReasonMasterRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.dto.StopReasonMasterDTO;
@@ -66,7 +67,7 @@ public class StopReasonMasterServiceExtendedImpl implements StopReasonMasterServ
 
     @Override
     public ResponseDTO saveStopReasonMaster(StopReasonMasterExtendedDTO stopReasonMasterExtendedDTO) throws InvalidAttributeValueException {
-        Set uniqueHoldReasonNameSet = stopReasonMasterRepositoryExtended.findAll().stream().map(x -> x.getStopReasonName()).collect(Collectors.toSet());
+        Set uniqueHoldReasonNameSet = stopReasonMasterRepositoryExtended.findByStatusIgnoreCase("active").stream().map(x -> x.getStopReasonName()).collect(Collectors.toSet());
         log.info("=======uniqueHoldReasonNameSet======="+uniqueHoldReasonNameSet);
 
         if (stopReasonMasterExtendedDTO.getStopReasonName() == null) {
@@ -85,43 +86,40 @@ public class StopReasonMasterServiceExtendedImpl implements StopReasonMasterServ
         }
 
         ResponseDTO outcome = new ResponseDTO();
-        if(stopReasonMasterExtendedDTO.getStatus().equalsIgnoreCase("active") || stopReasonMasterExtendedDTO.getStatus().equalsIgnoreCase("inActive")){
-            if(stopReasonMasterExtendedDTO.getStopReasonName() != null && !stopReasonMasterExtendedDTO.getStopReasonName().equals("")) {
-                StopReasonMasterDTO stopReasonMasterDTO = (stopReasonMasterExtendedDTO.getStopReasonMasterUuid() == null) ? new StopReasonMasterDTO() :
-                    (stopReasonMasterRepositoryExtended.findByStopReasonMasterUuid(stopReasonMasterExtendedDTO.getStopReasonMasterUuid()) != null?
-                        stopReasonMasterMapper.toDto(stopReasonMasterRepositoryExtended.findByStopReasonMasterUuid(stopReasonMasterExtendedDTO.getStopReasonMasterUuid())) :
-                        new StopReasonMasterDTO());
 
-                BeanUtils.copyProperties(stopReasonMasterExtendedDTO, stopReasonMasterDTO);
+        if(stopReasonMasterExtendedDTO.getStopReasonName() != null && !stopReasonMasterExtendedDTO.getStopReasonName().equals("")) {
+            StopReasonMasterDTO stopReasonMasterDTO = (stopReasonMasterExtendedDTO.getStopReasonMasterUuid() == null) ? new StopReasonMasterDTO() :
+                (stopReasonMasterRepositoryExtended.findByStopReasonMasterUuid(stopReasonMasterExtendedDTO.getStopReasonMasterUuid()) != null?
+                    stopReasonMasterMapper.toDto(stopReasonMasterRepositoryExtended.findByStopReasonMasterUuid(stopReasonMasterExtendedDTO.getStopReasonMasterUuid())) :
+                    new StopReasonMasterDTO());
 
-                if (stopReasonMasterDTO.getStopReasonMasterUuid() == null) {
-                    stopReasonMasterDTO.setStopReasonId(null);
-                    //holdReasonMasterDTO.setHoldReasonName();
-                    stopReasonMasterDTO.setCreatedById(31L);
-                    stopReasonMasterDTO.setCreatedDate(LocalDate.now());
-                    stopReasonMasterDTO.setCreatedByName("Falguni");
-                    stopReasonMasterDTO.setStopReasonMasterUuid(UUID.randomUUID());
-                } else {
-                    stopReasonMasterDTO.setUpdatedDate(LocalDate.now());
-                    stopReasonMasterDTO.setUpdatedById(31L);
-                    stopReasonMasterDTO.setUpdatedByName("Falguni");
-                }
-                StopReasonMasterDTO savedStopReasonMasterDTO = stopReasonMasterMapper.toDto(
-                    stopReasonMasterRepositoryExtended.save(stopReasonMasterMapper.toEntity(stopReasonMasterDTO))
-                );
-
-                log.info("=======savedStopReasonMasterDTO======="+savedStopReasonMasterDTO);
-
-                return new ResponseDTO(true, "Successfully Saved.", List.of(savedStopReasonMasterDTO));
-            }else{
-                outcome.setStatus(false);
-                outcome.setMessage("Data Not Saved.");
-                return outcome;
+            BeanUtils.copyProperties(stopReasonMasterExtendedDTO, stopReasonMasterDTO);
+            stopReasonMasterDTO.setStatus("active");
+            if (stopReasonMasterDTO.getStopReasonMasterUuid() == null) {
+                stopReasonMasterDTO.setStopReasonId(null);
+                //holdReasonMasterDTO.setHoldReasonName();
+                stopReasonMasterDTO.setCreatedById(31L);
+                stopReasonMasterDTO.setCreatedDate(LocalDate.now());
+                stopReasonMasterDTO.setCreatedByName("Falguni");
+                stopReasonMasterDTO.setStopReasonMasterUuid(UUID.randomUUID());
+            } else {
+                stopReasonMasterDTO.setUpdatedDate(LocalDate.now());
+                stopReasonMasterDTO.setUpdatedById(31L);
+                stopReasonMasterDTO.setUpdatedByName("Falguni");
             }
+            StopReasonMasterDTO savedStopReasonMasterDTO = stopReasonMasterMapper.toDto(
+                stopReasonMasterRepositoryExtended.save(stopReasonMasterMapper.toEntity(stopReasonMasterDTO))
+            );
+
+            log.info("=======savedStopReasonMasterDTO======="+savedStopReasonMasterDTO);
+
+            return new ResponseDTO(true, "Successfully Saved.", (savedStopReasonMasterDTO),200);
+        }else{
+            outcome.setOutcome(false);
+            outcome.setMessage("Data Not Saved.");
+            return outcome;
         }
-        else{
-            throw new InputMismatchException("Status Should be active/inactive");
-        }
+
     }
 
     @Override
@@ -131,12 +129,35 @@ public class StopReasonMasterServiceExtendedImpl implements StopReasonMasterServ
     }
 
     @Override
-    public List<StopReasonMasterDTO> getStopReasonDetailsByUUID(UUID stopReasonMasterUuid) {
-        List<StopReasonMasterDTO> dtoDataList = new ArrayList<StopReasonMasterDTO>();
-        StopReasonMaster data = stopReasonMasterRepositoryExtended.findByStopReasonMasterUuid(stopReasonMasterUuid);
+    public StopReasonMasterDTO getStopReasonDetailsByUUID(UUID stopReasonMasterUuid) {
+        StopReasonMaster data = stopReasonMasterRepositoryExtended.findByStopReasonMasterUuidAndStatusIgnoreCase(stopReasonMasterUuid,"active");
         if(data != null){
-            dtoDataList.add(stopReasonMasterMapper.toDto(data));
+            return stopReasonMasterMapper.toDto(data);
         }
-        return dtoDataList;
+        return null;
+    }
+
+    @Override
+    public ResponseDTO setStopReasonDetailsStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<StopReasonMaster> obj = Optional.ofNullable(stopReasonMasterRepositoryExtended.findByStopReasonMasterUuid(uuid));
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    stopReasonMasterRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
     }
 }

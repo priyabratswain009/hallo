@@ -211,7 +211,7 @@ class TaskReasonMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewTaskReasonMasterAuditLog() throws Exception {
+    void putExistingTaskReasonMasterAuditLog() throws Exception {
         // Initialize the database
         taskReasonMasterAuditLogRepository.saveAndFlush(taskReasonMasterAuditLog);
 

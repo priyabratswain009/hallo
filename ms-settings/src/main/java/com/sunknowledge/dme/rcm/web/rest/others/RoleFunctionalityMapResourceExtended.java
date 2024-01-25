@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -46,5 +47,11 @@ public class RoleFunctionalityMapResourceExtended {
         @NotBlank(message = "Operation_Type should not be blank")
         @RequestParam("operationType") String operationType){
         return roleFunctionalityMapServiceExtended.getRoleFunctionalityMapByNameOrNoOrUUID(data,operationType);
+    }
+
+    @PutMapping(value = "/setRoleFunctionalityMapStatusByUuid")
+    public ResponseDTO setRoleFunctionalityMapStatusByUuid(@RequestParam("uuid") UUID uuid,
+                                            @RequestParam("status") String status){
+        return roleFunctionalityMapServiceExtended.setRoleFunctionalityMapStatusByUuid(uuid,status);
     }
 }
