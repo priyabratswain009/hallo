@@ -55,10 +55,10 @@ public class ItemGroupServiceExtendedImpl implements ItemGroupServiceExtended {
                 itemGroupRepositoryExtended.save(itemGroupMapper.toEntity(itemGroupDTO))
             );
             responseList.add(savedItemGroupDTO);
-            return new ResponseDTO(true, "Successfully Saved.", responseList);
+            return new ResponseDTO(true, "Successfully Saved.", responseList, 200);
         } catch (Exception e) {
             log.error("Error=" + e);
-            return new ResponseDTO(Boolean.FALSE, "Failed to Save! Data Error.", new ArrayList());
+            return new ResponseDTO(Boolean.FALSE, "Failed to Save! Data Error.", new ArrayList(), 200);
         }
     }
 
@@ -100,13 +100,13 @@ public class ItemGroupServiceExtendedImpl implements ItemGroupServiceExtended {
                 Optional<ItemGroup> itemGroup = itemGroupRepositoryExtended.findById(id);
                 itemGroup.get().setStatus(status);
                 itemGroupRepositoryExtended.save(itemGroup.get());
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemGroup.get())));
+                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemGroup.get()), 200));
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(), 200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(), 200));
         }
     }
 

@@ -7,16 +7,19 @@ import com.sunknowledge.dme.rcm.service.items.ItemAssetNumberMapServiceExtended;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.management.InvalidAttributeValueException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -37,7 +40,7 @@ public class ItemAssetNumberMapResourceExtended {
     @GetMapping("/getAllItemAssetNumberMapInfo")
     public ResponseDTO getAllItemAssetNumberMapInfo(){
         List<ItemAssetNumberMapDTO> obj = itemAssetNumberMapServiceExtended.getAllItemAssetNumberMapInfo();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemAssetNumberMapByUUID")
@@ -46,7 +49,7 @@ public class ItemAssetNumberMapResourceExtended {
         @RequestParam("uuid") UUID uuid){
 
         List<ItemAssetNumberMapDTO> obj = itemAssetNumberMapServiceExtended.getItemAssetNumberMapByUUID(uuid);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemAssetNumberMapByItemIdAndAssetNo")
@@ -57,7 +60,7 @@ public class ItemAssetNumberMapResourceExtended {
         @RequestParam("assetNo") String assetNo){
 
         List<ItemAssetNumberMapDTO> obj = itemAssetNumberMapServiceExtended.getItemAssetNumberMapByItemIdAndAssetNo(itemId, assetNo);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getAssetNumberByItemId")
@@ -66,6 +69,6 @@ public class ItemAssetNumberMapResourceExtended {
         @RequestParam("itemId") Long itemId){
 
         List<ItemAssetNumberMapDTO> assetNumberList = itemAssetNumberMapServiceExtended.getAssetNumberByItemId(itemId);
-        return (new ResponseDTO(assetNumberList.size()>0?true:false, assetNumberList.size()>0? "Successfully Data Fetched.": "Data Not Found.", assetNumberList));
+        return (new ResponseDTO(assetNumberList.size()>0?true:false, assetNumberList.size()>0? "Successfully Data Fetched.": "Data Not Found.", assetNumberList, 200));
     }
 }

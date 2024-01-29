@@ -217,7 +217,7 @@ class ItemInventoryStatusAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemInventoryStatusAuditLog() throws Exception {
+    void putNewItemInventoryStatusAuditLog() throws Exception {
         // Initialize the database
         itemInventoryStatusAuditLogRepository.saveAndFlush(itemInventoryStatusAuditLog);
 

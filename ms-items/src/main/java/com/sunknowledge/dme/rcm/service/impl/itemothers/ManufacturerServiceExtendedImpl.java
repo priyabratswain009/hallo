@@ -106,7 +106,7 @@ public class ManufacturerServiceExtendedImpl implements ManufacturerServiceExten
             ManufacturerDTO savedManufacturerDTO = manufacturerMapper.toDto(
                 manufacturerRepositoryExtended.save(manufacturerMapper.toEntity(manufacturerDTO))
             );
-            return new ResponseDTO(true, "Successfully Saved.", List.of(savedManufacturerDTO));
+            return new ResponseDTO(true, "Successfully Saved.", List.of(savedManufacturerDTO), 200);
         }catch (InvalidAttributeValueException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException(e);
@@ -127,7 +127,7 @@ public class ManufacturerServiceExtendedImpl implements ManufacturerServiceExten
             if(skipped > 0){
                 message += " and Skipped " + skipped + " Rows";
             }
-            return new ResponseDTO(true, message, List.of(manufacturerBothData.get("SkippedManufacturerDTO")));
+            return new ResponseDTO(true, message, List.of(manufacturerBothData.get("SkippedManufacturerDTO")), 200);
         } catch (IOException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException("Fail to store csv data: " + e.getMessage());
@@ -183,13 +183,13 @@ public class ManufacturerServiceExtendedImpl implements ManufacturerServiceExten
                 Manufacturer manufacturer = manufacturerRepositoryExtended.findByManufacturerId(manufactureById);
                 manufacturer.setStatus(status);
                 manufacturerRepositoryExtended.save(manufacturer);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(manufacturer)));
+                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(manufacturer), 200));
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(), 200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(), 200));
         }
     }
 }

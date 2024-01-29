@@ -1,6 +1,6 @@
 package com.sunknowledge.dme.rcm.service.items;
 
-import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
 import com.sunknowledge.dme.rcm.service.ItemInventoryStatusService;
 import com.sunknowledge.dme.rcm.service.dto.ItemInventoryStatusDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;

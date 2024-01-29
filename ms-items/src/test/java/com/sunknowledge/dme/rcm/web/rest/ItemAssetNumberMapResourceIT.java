@@ -420,7 +420,7 @@ class ItemAssetNumberMapResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemAssetNumberMap() throws Exception {
+    void putNewItemAssetNumberMap() throws Exception {
         // Initialize the database
         itemAssetNumberMapRepository.saveAndFlush(itemAssetNumberMap);
 

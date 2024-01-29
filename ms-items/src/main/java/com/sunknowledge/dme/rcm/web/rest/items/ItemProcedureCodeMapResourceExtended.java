@@ -35,7 +35,7 @@ public class ItemProcedureCodeMapResourceExtended {
         @RequestParam("itemMasterItemId") Long itemMasterItemId){
 
         List<ItemProcedureCodeMapDTO> obj = itemProcedureCodeMapServiceExtended.getItemProcedureCodeMapById(itemMasterItemId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemProcedureCodeMapByItemName")
@@ -44,7 +44,7 @@ public class ItemProcedureCodeMapResourceExtended {
         @RequestParam("itemName") String itemName){
 
         List<ItemProcedureCodeMapDTO> obj = itemName.trim()!=""?itemProcedureCodeMapServiceExtended.getItemProcedureCodeMapByItemName(itemName.trim()):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemProcedureCodeMapByItemNo")
@@ -53,7 +53,7 @@ public class ItemProcedureCodeMapResourceExtended {
         @RequestParam("itemNumber") String itemNumber){
 
         List<ItemProcedureCodeMapDTO> obj = itemProcedureCodeMapServiceExtended.getItemProcedureCodeMapByItemNo(itemNumber);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemProcedureCodeMapByProcedureCode")
@@ -62,7 +62,7 @@ public class ItemProcedureCodeMapResourceExtended {
         @RequestParam("procedureCode") String procedureCode){
 
         List<ItemProcedureCodeMapDTO> obj = itemProcedureCodeMapServiceExtended.getItemProcedureCodeMapByProcedureCode(procedureCode);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemProcedureCodeMapByItemDescription")
@@ -71,13 +71,13 @@ public class ItemProcedureCodeMapResourceExtended {
         @RequestParam("itemDescription") String itemDescription){
 
         List<ItemProcedureCodeMapDTO> obj = itemDescription.trim()!=""?itemProcedureCodeMapServiceExtended.getItemProcedureCodeMapByItemDescription(itemDescription.trim()):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getAllItemProcedureCodeMapData")
     public ResponseDTO getAllItemProcedureCodeMapData(){
         List<ItemProcedureCodeMapDTO> obj = itemProcedureCodeMapServiceExtended.getAllItemProcedureCodeMapData();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemProcedureCodeMapByStatus")
@@ -86,7 +86,7 @@ public class ItemProcedureCodeMapResourceExtended {
         @RequestParam("status") String status){
 
         List<ItemProcedureCodeMapDTO> obj = itemProcedureCodeMapServiceExtended.getItemProcedureCodeMapByStatus(status);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @PutMapping("/setItemProcedureCodeMapStatusById/{itemProcedureCodeMapId}/{status}")

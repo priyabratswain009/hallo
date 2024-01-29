@@ -8,7 +8,6 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ItemInventoryStatus} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemInventoryStatusDTO implements Serializable {
 
     private Long itemInventoryStatusId;

@@ -8,7 +8,6 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.VendorMaster} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class VendorMasterDTO implements Serializable {
 
     private Long vendorId;

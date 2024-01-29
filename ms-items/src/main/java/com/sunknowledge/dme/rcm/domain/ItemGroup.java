@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_item_group")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemGroup implements Serializable {
 
     private static final long serialVersionUID = 1L;

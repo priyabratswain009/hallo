@@ -46,7 +46,7 @@ public class ItemProcedureCodeMapAuditLogServiceImpl implements ItemProcedureCod
 
     @Override
     public ItemProcedureCodeMapAuditLogDTO update(ItemProcedureCodeMapAuditLogDTO itemProcedureCodeMapAuditLogDTO) {
-        log.debug("Request to update ItemProcedureCodeMapAuditLog : {}", itemProcedureCodeMapAuditLogDTO);
+        log.debug("Request to save ItemProcedureCodeMapAuditLog : {}", itemProcedureCodeMapAuditLogDTO);
         ItemProcedureCodeMapAuditLog itemProcedureCodeMapAuditLog = itemProcedureCodeMapAuditLogMapper.toEntity(
             itemProcedureCodeMapAuditLogDTO
         );

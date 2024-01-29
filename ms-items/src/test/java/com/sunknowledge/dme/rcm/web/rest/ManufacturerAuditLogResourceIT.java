@@ -211,7 +211,7 @@ class ManufacturerAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingManufacturerAuditLog() throws Exception {
+    void putNewManufacturerAuditLog() throws Exception {
         // Initialize the database
         manufacturerAuditLogRepository.saveAndFlush(manufacturerAuditLog);
 

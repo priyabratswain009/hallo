@@ -1,19 +1,19 @@
 package com.sunknowledge.dme.rcm.service.impl.items;
 
+import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
 import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
 import com.sunknowledge.dme.rcm.domain.ItemMaster;
 import com.sunknowledge.dme.rcm.repository.items.ItemMasterRepositoryExtended;
-import com.sunknowledge.dme.rcm.service.dto.ItemGroupDTO;
 import com.sunknowledge.dme.rcm.service.dto.ItemMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
-import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterCombinedSearchInputDTO;
 import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterOutputDTO;
+import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterRejectedDTO;
 import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterResponseDTO;
 import com.sunknowledge.dme.rcm.service.helper.items.ItemMasterServiceImplHelper;
 import com.sunknowledge.dme.rcm.service.items.ItemMasterServiceExtended;
 import com.sunknowledge.dme.rcm.service.items.ItemProcedureCodeMapServiceExtended;
-import com.sunknowledge.dme.rcm.service.items.ItemVendorMappingServiceExtended;
 import com.sunknowledge.dme.rcm.service.mapper.ItemMasterMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,13 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.management.InvalidAttributeValueException;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -93,7 +99,7 @@ public class ItemMasterServiceExtendedImpl implements ItemMasterServiceExtended 
             if (skipped > 0) {
                 message += " and Skipped " + skipped + " Rows";
             }
-            return (new ResponseDTO(Boolean.TRUE,message,List.of(itemMasterBothData.get("SkippedManufacturerDTO"))));
+            return (new ResponseDTO(Boolean.TRUE,message,List.of(itemMasterBothData.get("SkippedManufacturerDTO")), 200));
         } catch (IOException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException("Fail to store csv data: " + e.getMessage());
@@ -142,7 +148,7 @@ public class ItemMasterServiceExtendedImpl implements ItemMasterServiceExtended 
                 itemProcedureCodeMapServiceExtended.saveItemProcedureCodeMap(itemMasterParameterDTO, itemMasterData);
                 List list = new ArrayList<>();
                 list.add(itemMasterSaved);
-                return new ResponseDTO(true, "Successfully Saved", list);
+                return new ResponseDTO(true, "Successfully Saved", list, 200);
             } catch (InvalidAttributeValueException e) {
                 log.error("=====>> Error : "+e);
                 throw new RuntimeException(e);
@@ -150,7 +156,7 @@ public class ItemMasterServiceExtendedImpl implements ItemMasterServiceExtended 
         } else {
             return new ResponseDTO(false,
                 "PrimaryProcedureCode is not exist at ProcedureCode List",
-                new ArrayList<>());
+                new ArrayList<>(), 200);
         }
     }
 
@@ -255,6 +261,7 @@ public class ItemMasterServiceExtendedImpl implements ItemMasterServiceExtended 
     public List<ItemMasterOutputDTO> getAllItemMasterData() {
         List<ItemMasterOutputDTO> itemMasterOutputDTOList = new ArrayList<ItemMasterOutputDTO>();
         List<ItemMaster> data = itemMasterRepositoryExtended.findByStatusIgnoreCase("active");
+        System.out.println("========data======="+data);
         if (data != null) {
             data.stream().forEach(x -> {
                 ItemMasterOutputDTO itemMasterOutputDTO = new ItemMasterOutputDTO();
@@ -262,6 +269,7 @@ public class ItemMasterServiceExtendedImpl implements ItemMasterServiceExtended 
                 itemMasterOutputDTOList.add(itemMasterOutputDTO);
             });
         }
+        System.out.println("==========itemMasterOutputDTOList========="+itemMasterOutputDTOList);
         return itemMasterOutputDTOList;
     }
 
@@ -326,13 +334,13 @@ public class ItemMasterServiceExtendedImpl implements ItemMasterServiceExtended 
                 ItemMaster itemMaster = itemMasterRepositoryExtended.findByItemId(itemId);
                 itemMaster.setStatus(status);
                 itemMasterRepositoryExtended.save(itemMaster);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemMaster)));
+                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", itemMaster, 200));
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null, 200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null, 200));
         }
     }
 
@@ -393,6 +401,33 @@ public class ItemMasterServiceExtendedImpl implements ItemMasterServiceExtended 
             }
         }
         return itemPriceSearchByPriceTableId;
+    }
+
+    @Override
+    public ServiceOutcome getItemMasterDataByCombinedSearchParameters(ItemMasterCombinedSearchInputDTO itemMasterCombinedSearchInputDTO) {
+        List<ItemMaster> itemMasterList = new ArrayList<>();
+        String itemNumber = itemMasterCombinedSearchInputDTO.getItemNumber()!=null && !itemMasterCombinedSearchInputDTO.getItemNumber().equals("") ? itemMasterCombinedSearchInputDTO.getItemNumber().trim() : "";
+        String itemName = itemMasterCombinedSearchInputDTO.getItemName()!=null && !itemMasterCombinedSearchInputDTO.getItemName().equals("") ? itemMasterCombinedSearchInputDTO.getItemName().trim() : "";
+        String manufacturerName =  itemMasterCombinedSearchInputDTO.getManufacturerName()!=null && !itemMasterCombinedSearchInputDTO.getManufacturerName().equals("") ? itemMasterCombinedSearchInputDTO.getManufacturerName().trim() : "";
+        String itemGroupName = itemMasterCombinedSearchInputDTO.getItemGroupName()!=null && !itemMasterCombinedSearchInputDTO.getItemGroupName().equals("") ? itemMasterCombinedSearchInputDTO.getItemGroupName().trim() : "";
+        String itemTypeName = itemMasterCombinedSearchInputDTO.getItemTypeName()!=null && !itemMasterCombinedSearchInputDTO.getItemTypeName().equals("") ? itemMasterCombinedSearchInputDTO.getItemTypeName().trim() : "";
+        if(!itemNumber.equals("")){
+            System.out.println("====itemNumber==="+itemNumber);
+            itemMasterList = itemMasterRepositoryExtended.findItemMasterDataByCombinedSearchParameters(itemNumber, itemName, manufacturerName, itemGroupName, itemTypeName);
+            return new ServiceOutcome(itemMasterMapper.toDto(itemMasterList), true, "", 200);
+        }else if(!itemName.equals("") ){
+            System.out.println("====itemNumber==="+itemName);
+            itemMasterList = itemMasterRepositoryExtended.findItemMasterDataByCombinedSearchParameters(itemNumber, itemName, manufacturerName, itemGroupName, itemTypeName);
+            return new ServiceOutcome(itemMasterMapper.toDto(itemMasterList), true, "", 200);
+        }else if(!manufacturerName.equals("") && (!itemGroupName.equals("") || !itemTypeName.equals(""))){
+            System.out.println("====manufacturerName==="+manufacturerName);
+            System.out.println("====itemGroupName==="+itemGroupName);
+            System.out.println("====itemTypeName==="+itemTypeName);
+            itemMasterList = itemMasterRepositoryExtended.findItemMasterDataByCombinedSearchParameters(itemNumber, itemName, manufacturerName, itemGroupName, itemTypeName);
+            return new ServiceOutcome(itemMasterMapper.toDto(itemMasterList), true, "", 200);
+        }else{
+            return new ServiceOutcome(itemMasterMapper.toDto(itemMasterList), false, "Invalid Input Data.", 200);
+        }
     }
 
 

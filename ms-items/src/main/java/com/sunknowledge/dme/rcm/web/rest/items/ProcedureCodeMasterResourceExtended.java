@@ -54,14 +54,14 @@ public class ProcedureCodeMasterResourceExtended {
     public ResponseDTO getProcedureCodeByCode(
         @RequestParam("procedureCode") String procedureCode){
         ProcedureCodeMasterDTO obj = procedureCodeMasterServiceExtended.getProcedureCodeByCode(procedureCode);
-        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", List.of(obj)));
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", List.of(obj), 200));
     }
 
     @GetMapping("/getProcedureCodeById")
     public ResponseDTO getProcedureCodeById(
         @RequestParam("procedureId") Long procedureId){
         ProcedureCodeMasterDTO obj = procedureCodeMasterServiceExtended.getProcedureCodeById(procedureId);
-        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", List.of(obj)));
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", List.of(obj), 200));
     }
 
     @GetMapping("/getProcedureCodeByName")
@@ -69,12 +69,12 @@ public class ProcedureCodeMasterResourceExtended {
         @RequestParam("procedureName") String procedureName){
         List<ProcedureCodeMasterDTO> obj =procedureName.trim()!=""?
             procedureCodeMasterServiceExtended.getProcedureCodeByName(procedureName.trim()):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getAllProcedureCode")
     public ResponseDTO getAllProcedureCode(){
         List<ProcedureCodeMasterDTO> obj = procedureCodeMasterServiceExtended.getAllProcedureCode();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj, 200));
     }
 }

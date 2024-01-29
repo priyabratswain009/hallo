@@ -62,7 +62,7 @@ public class VendorMasterResourceExtended {
         @RequestParam("vendorId") Long vendorId){
 
         List<VendorMasterDTO> obj = vendorMasterServiceExtended.getVendorById(vendorId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getVendorByVendorName")
@@ -71,7 +71,7 @@ public class VendorMasterResourceExtended {
         @RequestParam("vendorName") String vendorName){
 
         List<VendorMasterDTO> obj = vendorName.trim()!=""?vendorMasterServiceExtended.getVendorByVendorName(vendorName.trim()):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getVendorByVendorNo")
@@ -80,7 +80,7 @@ public class VendorMasterResourceExtended {
         @RequestParam("vendorNo") String vendorNo){
 
         List<VendorMasterDTO> obj = vendorMasterServiceExtended.getVendorByVendorNo(vendorNo);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getVendorByVendorDescription")
@@ -89,13 +89,13 @@ public class VendorMasterResourceExtended {
         @RequestParam("vendorDescription") String vendorDescription){
 
         List<VendorMasterDTO> obj = vendorDescription.trim()!= ""? vendorMasterServiceExtended.getVendorByVendorDescription(vendorDescription):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getAllVendorMasterData")
     public ResponseDTO getAllVendorMasterData(){
         List<VendorMasterDTO> obj =  vendorMasterServiceExtended.getAllVendorMasterData();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getVendorByStatus")
@@ -104,7 +104,7 @@ public class VendorMasterResourceExtended {
         @RequestParam("status") String status){
 
         List<VendorMasterDTO> obj =  vendorMasterServiceExtended.getVendorByStatus(status);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @PutMapping("/setVendorMasterStatusById/{vendorId}/{status}")

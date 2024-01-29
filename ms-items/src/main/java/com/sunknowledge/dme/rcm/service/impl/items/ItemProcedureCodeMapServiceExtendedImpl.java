@@ -154,13 +154,13 @@ public class ItemProcedureCodeMapServiceExtendedImpl implements ItemProcedureCod
                 ItemProcedureCodeMap itemProcedureCodeMap = itemProcedureCodeMapRepositoryExtended.findByItemProcedureCodeMapId(itemProcedureCodeMapId);
                 itemProcedureCodeMap.setStatus(status);
                 itemProcedureCodeMapRepositoryExtended.save(itemProcedureCodeMap);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemProcedureCodeMap)));
+                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemProcedureCodeMap), 200));
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(), 200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(), 200));
         }
     }
 

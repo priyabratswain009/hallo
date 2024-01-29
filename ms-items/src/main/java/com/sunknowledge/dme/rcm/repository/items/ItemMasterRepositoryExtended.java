@@ -2,7 +2,6 @@ package com.sunknowledge.dme.rcm.repository.items;
 
 import com.sunknowledge.dme.rcm.domain.ItemMaster;
 import com.sunknowledge.dme.rcm.repository.ItemMasterRepository;
-import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -19,7 +18,8 @@ public interface ItemMasterRepositoryExtended extends ItemMasterRepository {
 
     List<ItemMaster> findByItemDescriptionLikeAndStatusIgnoreCase(String itemDescription, String active);
 
-    List<ItemMaster> findByStatusIgnoreCase(String status);
+    @Query(value = "select * from item.t_item_master where lower(status) = :status",nativeQuery = true)
+    List<ItemMaster> findByStatusIgnoreCase(@Param("status") String status);
 
     List<ItemMaster> findByItemIdInAndStatusIgnoreCase(List<Long> itemIdList, String active);
 
@@ -117,4 +117,11 @@ public interface ItemMasterRepositoryExtended extends ItemMasterRepository {
                                           @Param("priceTableId") String priceTableId,
                                           @Param("purchaseType") String purchaseType,
                                           @Param("dos") String dos);
+
+    @Query(value = "SELECT * FROM item.items_combined_search(:itemNumber,:itemName,:manufacturerName,:itemGroupName,:itemTypeName)",nativeQuery = true)
+    List<ItemMaster> findItemMasterDataByCombinedSearchParameters(@Param("itemNumber") String itemNumber,
+                                                                                         @Param("itemName") String itemName,
+                                                                                         @Param("manufacturerName") String manufacturerName,
+                                                                                         @Param("itemGroupName") String itemGroupName,
+                                                                                         @Param("itemTypeName") String itemTypeName);
 }

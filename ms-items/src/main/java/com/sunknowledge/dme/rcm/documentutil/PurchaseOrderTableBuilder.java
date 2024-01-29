@@ -72,6 +72,7 @@ public class PurchaseOrderTableBuilder {
         table.addCell(createCellWithBodyValueText(""));
         return table;
     }
+
     public static PdfPTable createPurchaseOrderMainBodyVendorDetailsShipto(DeliveryAddress deliveryAddress) throws DocumentException, IOException
     {
         PdfPTable table = new PdfPTable(4);
@@ -210,8 +211,6 @@ public class PurchaseOrderTableBuilder {
         return table;
     }
 
-
-
     private static PdfPCell createCellWithBodyValueText(String text)
     {
         Font font = new Font(FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
@@ -250,14 +249,19 @@ public class PurchaseOrderTableBuilder {
 
     private static PdfPCell createTitleRowLargeText(String text)
     {
-        Font font = new Font(FontFamily.TIMES_ROMAN, 18, Font.BOLD, BaseColor.BLACK);
+        Font font = new Font(FontFamily.TIMES_ROMAN, 20, Font.BOLD, BaseColor.BLACK);
         PdfPCell cell = new PdfPCell(new Phrase(text, font));
         titleRowTextRightLargeStyle(cell);
         cell.setBorder(PdfPCell.BOTTOM);
+        cell.setPaddingTop(3f);
+        cell.setPaddingLeft(1f);
+        cell.setPaddingBottom(3f);
+        cell.setBorderWidthBottom(0.55f);
+        cell.setBackgroundColor(BaseColor.WHITE);
+        cell.setBorderColor(BaseColor.WHITE);
+        cell.setBorderColorBottom(BaseColor.BLACK);
         return cell;
     }
-
-
 
     private static void titleRowTextRightLargeStyle(PdfPCell cell)
     {

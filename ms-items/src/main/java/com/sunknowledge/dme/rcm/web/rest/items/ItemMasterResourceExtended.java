@@ -1,21 +1,34 @@
 package com.sunknowledge.dme.rcm.web.rest.items;
 
+import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
 import com.sunknowledge.dme.rcm.exception.ItemNotFoundException;
+import com.sunknowledge.dme.rcm.service.dto.ItemMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
-import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterCombinedSearchInputDTO;
 import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterOutputDTO;
+import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterParameterDTO;
 import com.sunknowledge.dme.rcm.service.items.ItemMasterServiceExtended;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.management.InvalidAttributeValueException;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -66,7 +79,7 @@ public class ItemMasterResourceExtended {
         @RequestParam("itemId") Long itemId){
 
         ItemMasterOutputDTO obj = itemMasterServiceExtended.getItemMasterById(itemId);
-        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", List.of(obj)));
+        return (new ResponseDTO((obj!=null && obj.getItemId()!= null) ?true:false, obj!=null? "": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemByItemName")
@@ -75,7 +88,7 @@ public class ItemMasterResourceExtended {
         @RequestParam("itemName") String itemName){
 
         List<ItemMasterOutputDTO> obj = itemName.trim()!=""? itemMasterServiceExtended.getItemByItemName(itemName.trim()):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemByItemNo")
@@ -84,7 +97,7 @@ public class ItemMasterResourceExtended {
         @RequestParam("itemNumber") String itemNumber){
 
         List<ItemMasterOutputDTO> obj = itemMasterServiceExtended.getItemByItemNo(itemNumber);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemByItemDescription")
@@ -93,13 +106,13 @@ public class ItemMasterResourceExtended {
         @RequestParam("itemDescription") String itemDescription){
 
         List<ItemMasterOutputDTO> obj = itemDescription.trim() != "" ?itemMasterServiceExtended.getItemByItemDescription(itemDescription.trim()):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getAllItemMasterData")
     public ResponseDTO getAllItemMasterData(){
         List<ItemMasterOutputDTO> obj = itemMasterServiceExtended.getAllItemMasterData();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemByStatus")
@@ -108,7 +121,7 @@ public class ItemMasterResourceExtended {
         @RequestParam("status") String status){
 
         List<ItemMasterOutputDTO> obj = itemMasterServiceExtended.getItemByStatus(status);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping(value = "getItemByItemNoOrItemNameAndLocationIdAndPricetableId")
@@ -123,7 +136,7 @@ public class ItemMasterResourceExtended {
         @RequestParam("pricetableId") Long pricetableId){
 
         List<Map> obj = itemMasterServiceExtended.getItemByItemNoOrItemNameAndLocationIdAndPricetableId(itemNo,itemName,locationId,pricetableId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping(value = "getItemByItemNoOrItemNameAndPricetableId")
@@ -136,7 +149,7 @@ public class ItemMasterResourceExtended {
         @RequestParam("pricetableId") Long pricetableId){
 
         List<Map> obj = itemMasterServiceExtended.getItemByItemNoOrItemNameAndPricetableId(itemNo,itemName,pricetableId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @PutMapping("/setItemStatusById/{itemId}/{status}")
@@ -161,7 +174,7 @@ public class ItemMasterResourceExtended {
 
         List<Map> obj = obj = itemMasterServiceExtended.getItemsForSoByItemLocationIdAndItemNoAndProcCodeAndItemNameAndGroupId(itemLocationId,itemNo,procCode, itemName, groupId);
 
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     /**********Checking Condition :: (itemno || itemname) && (lid && ptid) is mandatory*****************/
@@ -176,7 +189,7 @@ public class ItemMasterResourceExtended {
 
         List<Map> obj = itemMasterServiceExtended.getItemsForPricingByItemNoAndItemNameAndLidAndPtid(itemNo,itemName,lid, ptid);
 
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping(value = "/itemPriceSearchByPriceTableId")
@@ -192,9 +205,33 @@ public class ItemMasterResourceExtended {
 
         List<Map> obj = itemMasterServiceExtended.itemPriceSearchByPriceTableId(itemNo,procCode,priceTableId, purchaseType, dos);
 
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
+    @GetMapping("getItemMasterDataByCombinedSearchParameters")
+    public ServiceOutcome getItemMasterDataByCombinedSearchParameters(
+        @Valid @ModelAttribute ItemMasterCombinedSearchInputDTO itemMasterCombinedSearchInputDTO
+    ) {
 
+        //BeanUtils.copyProperties(patientSearchByPatientIdNoAndBranchIdInputDTO, obj);
+        if((itemMasterCombinedSearchInputDTO.getItemNumber()!=null && !itemMasterCombinedSearchInputDTO.getItemNumber().trim().equals("")) ||
+            (itemMasterCombinedSearchInputDTO.getItemName()!=null && !itemMasterCombinedSearchInputDTO.getItemName().trim().equals("")) ||
+            (itemMasterCombinedSearchInputDTO.getManufacturerName()!=null && !itemMasterCombinedSearchInputDTO.getManufacturerName().trim().equals("")) ||
+            (itemMasterCombinedSearchInputDTO.getItemGroupName()!=null && !itemMasterCombinedSearchInputDTO.getItemGroupName().trim().equals("")) ||
+            (itemMasterCombinedSearchInputDTO.getItemTypeName()!=null && !itemMasterCombinedSearchInputDTO.getItemTypeName().trim().equals(""))
+        ){
+            ServiceOutcome outputData = itemMasterServiceExtended.getItemMasterDataByCombinedSearchParameters(itemMasterCombinedSearchInputDTO);
+            //List<ItemMasterDTO> itemMasterList = new ArrayList<>();
+            log.info("=========outputData========"+outputData);
+            if(outputData.getOutcome() && outputData.getData()!=null){
+                List<ItemMasterDTO> itemMasterList = (List<ItemMasterDTO>) outputData.getData();
+                return new ServiceOutcome(itemMasterList.size()> 0 ? itemMasterList : "", itemMasterList.size()> 0 ? true : false, itemMasterList.size()> 0 ? "" : "Data Not Found", 200);
+            }else{
+                return outputData;
+            }
+        }else{
+            return new ServiceOutcome(null, false, "Invalid Input.", 200);
+        }
+    }
 
 }

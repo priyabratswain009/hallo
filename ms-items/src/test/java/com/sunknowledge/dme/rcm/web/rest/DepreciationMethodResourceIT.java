@@ -236,7 +236,7 @@ class DepreciationMethodResourceIT {
 
     @Test
     @Transactional
-    void putExistingDepreciationMethod() throws Exception {
+    void putNewDepreciationMethod() throws Exception {
         // Initialize the database
         depreciationMethodRepository.saveAndFlush(depreciationMethod);
 

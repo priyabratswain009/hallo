@@ -41,7 +41,7 @@ public class ItemTypeServiceImpl implements ItemTypeService {
 
     @Override
     public ItemTypeDTO update(ItemTypeDTO itemTypeDTO) {
-        log.debug("Request to update ItemType : {}", itemTypeDTO);
+        log.debug("Request to save ItemType : {}", itemTypeDTO);
         ItemType itemType = itemTypeMapper.toEntity(itemTypeDTO);
         itemType = itemTypeRepository.save(itemType);
         return itemTypeMapper.toDto(itemType);

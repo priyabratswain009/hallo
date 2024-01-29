@@ -86,7 +86,7 @@ public class VendorMasterServiceExtendedImpl implements VendorMasterServiceExten
                 message += " and Skipped " + skipped + " Rows";
             }
 
-            return (new ResponseDTO(Boolean.TRUE,message,List.of(vendorMasterBothData.get("SkippedVendorMasterDTO"))));
+            return (new ResponseDTO(Boolean.TRUE,message,List.of(vendorMasterBothData.get("SkippedVendorMasterDTO")), 200));
         } catch (IOException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException("Fail to store csv data: " + e.getMessage());
@@ -129,7 +129,7 @@ public class VendorMasterServiceExtendedImpl implements VendorMasterServiceExten
             VendorMasterDTO savedVendorMasterDTO = vendorMasterMapper.toDto(
                 vendorMasterRepositoryExtended.save(vendorMasterMapper.toEntity(vendorMasterDTO))
             );
-            return new ResponseDTO(true, "Successfully Saved.", List.of(savedVendorMasterDTO));
+            return new ResponseDTO(true, "Successfully Saved.", List.of(savedVendorMasterDTO), 200);
         }catch (InvalidAttributeValueException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException(e);
@@ -198,13 +198,13 @@ public class VendorMasterServiceExtendedImpl implements VendorMasterServiceExten
                 VendorMaster vendorMaster = vendorMasterRepositoryExtended.findByVendorId(id);
                 vendorMaster.setStatus(status);
                 vendorMasterRepositoryExtended.save(vendorMaster);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(vendorMaster)));
+                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(vendorMaster), 200));
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(), 200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(), 200));
         }
     }
 }

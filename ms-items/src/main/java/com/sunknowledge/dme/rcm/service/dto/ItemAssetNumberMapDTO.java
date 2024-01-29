@@ -8,7 +8,6 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ItemAssetNumberMap} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemAssetNumberMapDTO implements Serializable {
 
     private Long itemAssetNumberId;

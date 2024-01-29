@@ -46,7 +46,7 @@ public class PurchaseOrderItemsReceivedAuditLogServiceImpl implements PurchaseOr
 
     @Override
     public PurchaseOrderItemsReceivedAuditLogDTO update(PurchaseOrderItemsReceivedAuditLogDTO purchaseOrderItemsReceivedAuditLogDTO) {
-        log.debug("Request to update PurchaseOrderItemsReceivedAuditLog : {}", purchaseOrderItemsReceivedAuditLogDTO);
+        log.debug("Request to save PurchaseOrderItemsReceivedAuditLog : {}", purchaseOrderItemsReceivedAuditLogDTO);
         PurchaseOrderItemsReceivedAuditLog purchaseOrderItemsReceivedAuditLog = purchaseOrderItemsReceivedAuditLogMapper.toEntity(
             purchaseOrderItemsReceivedAuditLogDTO
         );

@@ -41,7 +41,7 @@ public class StockAdjustmentServiceImpl implements StockAdjustmentService {
 
     @Override
     public StockAdjustmentDTO update(StockAdjustmentDTO stockAdjustmentDTO) {
-        log.debug("Request to update StockAdjustment : {}", stockAdjustmentDTO);
+        log.debug("Request to save StockAdjustment : {}", stockAdjustmentDTO);
         StockAdjustment stockAdjustment = stockAdjustmentMapper.toEntity(stockAdjustmentDTO);
         stockAdjustment = stockAdjustmentRepository.save(stockAdjustment);
         return stockAdjustmentMapper.toDto(stockAdjustment);

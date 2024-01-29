@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_stock_transfer")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class StockTransfer implements Serializable {
 
     private static final long serialVersionUID = 1L;

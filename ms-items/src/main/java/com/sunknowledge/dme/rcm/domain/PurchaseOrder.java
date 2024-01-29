@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_purchase_order")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PurchaseOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -140,6 +139,36 @@ public class PurchaseOrder implements Serializable {
 
     @Column(name = "branch_name")
     private String branchName;
+
+    @Column(name = "vendor_fax_no")
+    private String vendorFaxNo;
+
+    @Column(name = "vendor_email")
+    private String vendorEmail;
+
+    @Column(name = "vendor_fax_request_status")
+    private String vendorFaxRequestStatus;
+
+    @Column(name = "vendor_email_request_status")
+    private String vendorEmailRequestStatus;
+
+    @Column(name = "po_request_document_name")
+    private String poRequestDocumentName;
+
+    @Column(name = "po_request_ack_received_status")
+    private String poRequestAckReceivedStatus;
+
+    @Column(name = "po_850_edi_string")
+    private String po850EdiString;
+
+    @Column(name = "po_855_edi_string")
+    private String po855EdiString;
+
+    @Column(name = "po_request_send_datetime")
+    private LocalDate poRequestSendDatetime;
+
+    @Column(name = "po_ack_received_datetime")
+    private LocalDate poAckReceivedDatetime;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -676,6 +705,136 @@ public class PurchaseOrder implements Serializable {
         this.branchName = branchName;
     }
 
+    public String getVendorFaxNo() {
+        return this.vendorFaxNo;
+    }
+
+    public PurchaseOrder vendorFaxNo(String vendorFaxNo) {
+        this.setVendorFaxNo(vendorFaxNo);
+        return this;
+    }
+
+    public void setVendorFaxNo(String vendorFaxNo) {
+        this.vendorFaxNo = vendorFaxNo;
+    }
+
+    public String getVendorEmail() {
+        return this.vendorEmail;
+    }
+
+    public PurchaseOrder vendorEmail(String vendorEmail) {
+        this.setVendorEmail(vendorEmail);
+        return this;
+    }
+
+    public void setVendorEmail(String vendorEmail) {
+        this.vendorEmail = vendorEmail;
+    }
+
+    public String getVendorFaxRequestStatus() {
+        return this.vendorFaxRequestStatus;
+    }
+
+    public PurchaseOrder vendorFaxRequestStatus(String vendorFaxRequestStatus) {
+        this.setVendorFaxRequestStatus(vendorFaxRequestStatus);
+        return this;
+    }
+
+    public void setVendorFaxRequestStatus(String vendorFaxRequestStatus) {
+        this.vendorFaxRequestStatus = vendorFaxRequestStatus;
+    }
+
+    public String getVendorEmailRequestStatus() {
+        return this.vendorEmailRequestStatus;
+    }
+
+    public PurchaseOrder vendorEmailRequestStatus(String vendorEmailRequestStatus) {
+        this.setVendorEmailRequestStatus(vendorEmailRequestStatus);
+        return this;
+    }
+
+    public void setVendorEmailRequestStatus(String vendorEmailRequestStatus) {
+        this.vendorEmailRequestStatus = vendorEmailRequestStatus;
+    }
+
+    public String getPoRequestDocumentName() {
+        return this.poRequestDocumentName;
+    }
+
+    public PurchaseOrder poRequestDocumentName(String poRequestDocumentName) {
+        this.setPoRequestDocumentName(poRequestDocumentName);
+        return this;
+    }
+
+    public void setPoRequestDocumentName(String poRequestDocumentName) {
+        this.poRequestDocumentName = poRequestDocumentName;
+    }
+
+    public String getPoRequestAckReceivedStatus() {
+        return this.poRequestAckReceivedStatus;
+    }
+
+    public PurchaseOrder poRequestAckReceivedStatus(String poRequestAckReceivedStatus) {
+        this.setPoRequestAckReceivedStatus(poRequestAckReceivedStatus);
+        return this;
+    }
+
+    public void setPoRequestAckReceivedStatus(String poRequestAckReceivedStatus) {
+        this.poRequestAckReceivedStatus = poRequestAckReceivedStatus;
+    }
+
+    public String getPo850EdiString() {
+        return this.po850EdiString;
+    }
+
+    public PurchaseOrder po850EdiString(String po850EdiString) {
+        this.setPo850EdiString(po850EdiString);
+        return this;
+    }
+
+    public void setPo850EdiString(String po850EdiString) {
+        this.po850EdiString = po850EdiString;
+    }
+
+    public String getPo855EdiString() {
+        return this.po855EdiString;
+    }
+
+    public PurchaseOrder po855EdiString(String po855EdiString) {
+        this.setPo855EdiString(po855EdiString);
+        return this;
+    }
+
+    public void setPo855EdiString(String po855EdiString) {
+        this.po855EdiString = po855EdiString;
+    }
+
+    public LocalDate getPoRequestSendDatetime() {
+        return this.poRequestSendDatetime;
+    }
+
+    public PurchaseOrder poRequestSendDatetime(LocalDate poRequestSendDatetime) {
+        this.setPoRequestSendDatetime(poRequestSendDatetime);
+        return this;
+    }
+
+    public void setPoRequestSendDatetime(LocalDate poRequestSendDatetime) {
+        this.poRequestSendDatetime = poRequestSendDatetime;
+    }
+
+    public LocalDate getPoAckReceivedDatetime() {
+        return this.poAckReceivedDatetime;
+    }
+
+    public PurchaseOrder poAckReceivedDatetime(LocalDate poAckReceivedDatetime) {
+        this.setPoAckReceivedDatetime(poAckReceivedDatetime);
+        return this;
+    }
+
+    public void setPoAckReceivedDatetime(LocalDate poAckReceivedDatetime) {
+        this.poAckReceivedDatetime = poAckReceivedDatetime;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -740,6 +899,16 @@ public class PurchaseOrder implements Serializable {
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", branchId=" + getBranchId() +
             ", branchName='" + getBranchName() + "'" +
+            ", vendorFaxNo='" + getVendorFaxNo() + "'" +
+            ", vendorEmail='" + getVendorEmail() + "'" +
+            ", vendorFaxRequestStatus='" + getVendorFaxRequestStatus() + "'" +
+            ", vendorEmailRequestStatus='" + getVendorEmailRequestStatus() + "'" +
+            ", poRequestDocumentName='" + getPoRequestDocumentName() + "'" +
+            ", poRequestAckReceivedStatus='" + getPoRequestAckReceivedStatus() + "'" +
+            ", po850EdiString='" + getPo850EdiString() + "'" +
+            ", po855EdiString='" + getPo855EdiString() + "'" +
+            ", poRequestSendDatetime='" + getPoRequestSendDatetime() + "'" +
+            ", poAckReceivedDatetime='" + getPoAckReceivedDatetime() + "'" +
             "}";
     }
 }

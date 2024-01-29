@@ -155,6 +155,36 @@ class PurchaseOrderResourceIT {
     private static final String DEFAULT_BRANCH_NAME = "AAAAAAAAAA";
     private static final String UPDATED_BRANCH_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_VENDOR_FAX_NO = "AAAAAAAAAA";
+    private static final String UPDATED_VENDOR_FAX_NO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_VENDOR_EMAIL = "AAAAAAAAAA";
+    private static final String UPDATED_VENDOR_EMAIL = "BBBBBBBBBB";
+
+    private static final String DEFAULT_VENDOR_FAX_REQUEST_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_VENDOR_FAX_REQUEST_STATUS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_VENDOR_EMAIL_REQUEST_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_VENDOR_EMAIL_REQUEST_STATUS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PO_REQUEST_DOCUMENT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_PO_REQUEST_DOCUMENT_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PO_REQUEST_ACK_RECEIVED_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_PO_REQUEST_ACK_RECEIVED_STATUS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PO_850_EDI_STRING = "AAAAAAAAAA";
+    private static final String UPDATED_PO_850_EDI_STRING = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PO_855_EDI_STRING = "AAAAAAAAAA";
+    private static final String UPDATED_PO_855_EDI_STRING = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_PO_REQUEST_SEND_DATETIME = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_PO_REQUEST_SEND_DATETIME = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_PO_ACK_RECEIVED_DATETIME = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_PO_ACK_RECEIVED_DATETIME = LocalDate.now(ZoneId.systemDefault());
+
     private static final String ENTITY_API_URL = "/api/purchase-orders";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{poId}";
 
@@ -222,7 +252,17 @@ class PurchaseOrderResourceIT {
             .vendorDelivery(DEFAULT_VENDOR_DELIVERY)
             .updatedByName(DEFAULT_UPDATED_BY_NAME)
             .branchId(DEFAULT_BRANCH_ID)
-            .branchName(DEFAULT_BRANCH_NAME);
+            .branchName(DEFAULT_BRANCH_NAME)
+            .vendorFaxNo(DEFAULT_VENDOR_FAX_NO)
+            .vendorEmail(DEFAULT_VENDOR_EMAIL)
+            .vendorFaxRequestStatus(DEFAULT_VENDOR_FAX_REQUEST_STATUS)
+            .vendorEmailRequestStatus(DEFAULT_VENDOR_EMAIL_REQUEST_STATUS)
+            .poRequestDocumentName(DEFAULT_PO_REQUEST_DOCUMENT_NAME)
+            .poRequestAckReceivedStatus(DEFAULT_PO_REQUEST_ACK_RECEIVED_STATUS)
+            .po850EdiString(DEFAULT_PO_850_EDI_STRING)
+            .po855EdiString(DEFAULT_PO_855_EDI_STRING)
+            .poRequestSendDatetime(DEFAULT_PO_REQUEST_SEND_DATETIME)
+            .poAckReceivedDatetime(DEFAULT_PO_ACK_RECEIVED_DATETIME);
         return purchaseOrder;
     }
 
@@ -273,7 +313,17 @@ class PurchaseOrderResourceIT {
             .vendorDelivery(UPDATED_VENDOR_DELIVERY)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .branchId(UPDATED_BRANCH_ID)
-            .branchName(UPDATED_BRANCH_NAME);
+            .branchName(UPDATED_BRANCH_NAME)
+            .vendorFaxNo(UPDATED_VENDOR_FAX_NO)
+            .vendorEmail(UPDATED_VENDOR_EMAIL)
+            .vendorFaxRequestStatus(UPDATED_VENDOR_FAX_REQUEST_STATUS)
+            .vendorEmailRequestStatus(UPDATED_VENDOR_EMAIL_REQUEST_STATUS)
+            .poRequestDocumentName(UPDATED_PO_REQUEST_DOCUMENT_NAME)
+            .poRequestAckReceivedStatus(UPDATED_PO_REQUEST_ACK_RECEIVED_STATUS)
+            .po850EdiString(UPDATED_PO_850_EDI_STRING)
+            .po855EdiString(UPDATED_PO_855_EDI_STRING)
+            .poRequestSendDatetime(UPDATED_PO_REQUEST_SEND_DATETIME)
+            .poAckReceivedDatetime(UPDATED_PO_ACK_RECEIVED_DATETIME);
         return purchaseOrder;
     }
 
@@ -341,6 +391,16 @@ class PurchaseOrderResourceIT {
         assertThat(testPurchaseOrder.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testPurchaseOrder.getBranchId()).isEqualTo(DEFAULT_BRANCH_ID);
         assertThat(testPurchaseOrder.getBranchName()).isEqualTo(DEFAULT_BRANCH_NAME);
+        assertThat(testPurchaseOrder.getVendorFaxNo()).isEqualTo(DEFAULT_VENDOR_FAX_NO);
+        assertThat(testPurchaseOrder.getVendorEmail()).isEqualTo(DEFAULT_VENDOR_EMAIL);
+        assertThat(testPurchaseOrder.getVendorFaxRequestStatus()).isEqualTo(DEFAULT_VENDOR_FAX_REQUEST_STATUS);
+        assertThat(testPurchaseOrder.getVendorEmailRequestStatus()).isEqualTo(DEFAULT_VENDOR_EMAIL_REQUEST_STATUS);
+        assertThat(testPurchaseOrder.getPoRequestDocumentName()).isEqualTo(DEFAULT_PO_REQUEST_DOCUMENT_NAME);
+        assertThat(testPurchaseOrder.getPoRequestAckReceivedStatus()).isEqualTo(DEFAULT_PO_REQUEST_ACK_RECEIVED_STATUS);
+        assertThat(testPurchaseOrder.getPo850EdiString()).isEqualTo(DEFAULT_PO_850_EDI_STRING);
+        assertThat(testPurchaseOrder.getPo855EdiString()).isEqualTo(DEFAULT_PO_855_EDI_STRING);
+        assertThat(testPurchaseOrder.getPoRequestSendDatetime()).isEqualTo(DEFAULT_PO_REQUEST_SEND_DATETIME);
+        assertThat(testPurchaseOrder.getPoAckReceivedDatetime()).isEqualTo(DEFAULT_PO_ACK_RECEIVED_DATETIME);
     }
 
     @Test
@@ -418,7 +478,17 @@ class PurchaseOrderResourceIT {
             .andExpect(jsonPath("$.[*].vendorDelivery").value(hasItem(DEFAULT_VENDOR_DELIVERY.booleanValue())))
             .andExpect(jsonPath("$.[*].updatedByName").value(hasItem(DEFAULT_UPDATED_BY_NAME)))
             .andExpect(jsonPath("$.[*].branchId").value(hasItem(DEFAULT_BRANCH_ID.intValue())))
-            .andExpect(jsonPath("$.[*].branchName").value(hasItem(DEFAULT_BRANCH_NAME)));
+            .andExpect(jsonPath("$.[*].branchName").value(hasItem(DEFAULT_BRANCH_NAME)))
+            .andExpect(jsonPath("$.[*].vendorFaxNo").value(hasItem(DEFAULT_VENDOR_FAX_NO)))
+            .andExpect(jsonPath("$.[*].vendorEmail").value(hasItem(DEFAULT_VENDOR_EMAIL)))
+            .andExpect(jsonPath("$.[*].vendorFaxRequestStatus").value(hasItem(DEFAULT_VENDOR_FAX_REQUEST_STATUS)))
+            .andExpect(jsonPath("$.[*].vendorEmailRequestStatus").value(hasItem(DEFAULT_VENDOR_EMAIL_REQUEST_STATUS)))
+            .andExpect(jsonPath("$.[*].poRequestDocumentName").value(hasItem(DEFAULT_PO_REQUEST_DOCUMENT_NAME)))
+            .andExpect(jsonPath("$.[*].poRequestAckReceivedStatus").value(hasItem(DEFAULT_PO_REQUEST_ACK_RECEIVED_STATUS)))
+            .andExpect(jsonPath("$.[*].po850EdiString").value(hasItem(DEFAULT_PO_850_EDI_STRING)))
+            .andExpect(jsonPath("$.[*].po855EdiString").value(hasItem(DEFAULT_PO_855_EDI_STRING)))
+            .andExpect(jsonPath("$.[*].poRequestSendDatetime").value(hasItem(DEFAULT_PO_REQUEST_SEND_DATETIME.toString())))
+            .andExpect(jsonPath("$.[*].poAckReceivedDatetime").value(hasItem(DEFAULT_PO_ACK_RECEIVED_DATETIME.toString())));
     }
 
     @Test
@@ -472,7 +542,17 @@ class PurchaseOrderResourceIT {
             .andExpect(jsonPath("$.vendorDelivery").value(DEFAULT_VENDOR_DELIVERY.booleanValue()))
             .andExpect(jsonPath("$.updatedByName").value(DEFAULT_UPDATED_BY_NAME))
             .andExpect(jsonPath("$.branchId").value(DEFAULT_BRANCH_ID.intValue()))
-            .andExpect(jsonPath("$.branchName").value(DEFAULT_BRANCH_NAME));
+            .andExpect(jsonPath("$.branchName").value(DEFAULT_BRANCH_NAME))
+            .andExpect(jsonPath("$.vendorFaxNo").value(DEFAULT_VENDOR_FAX_NO))
+            .andExpect(jsonPath("$.vendorEmail").value(DEFAULT_VENDOR_EMAIL))
+            .andExpect(jsonPath("$.vendorFaxRequestStatus").value(DEFAULT_VENDOR_FAX_REQUEST_STATUS))
+            .andExpect(jsonPath("$.vendorEmailRequestStatus").value(DEFAULT_VENDOR_EMAIL_REQUEST_STATUS))
+            .andExpect(jsonPath("$.poRequestDocumentName").value(DEFAULT_PO_REQUEST_DOCUMENT_NAME))
+            .andExpect(jsonPath("$.poRequestAckReceivedStatus").value(DEFAULT_PO_REQUEST_ACK_RECEIVED_STATUS))
+            .andExpect(jsonPath("$.po850EdiString").value(DEFAULT_PO_850_EDI_STRING))
+            .andExpect(jsonPath("$.po855EdiString").value(DEFAULT_PO_855_EDI_STRING))
+            .andExpect(jsonPath("$.poRequestSendDatetime").value(DEFAULT_PO_REQUEST_SEND_DATETIME.toString()))
+            .andExpect(jsonPath("$.poAckReceivedDatetime").value(DEFAULT_PO_ACK_RECEIVED_DATETIME.toString()));
     }
 
     @Test
@@ -484,7 +564,7 @@ class PurchaseOrderResourceIT {
 
     @Test
     @Transactional
-    void putExistingPurchaseOrder() throws Exception {
+    void putNewPurchaseOrder() throws Exception {
         // Initialize the database
         purchaseOrderRepository.saveAndFlush(purchaseOrder);
 
@@ -534,7 +614,17 @@ class PurchaseOrderResourceIT {
             .vendorDelivery(UPDATED_VENDOR_DELIVERY)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .branchId(UPDATED_BRANCH_ID)
-            .branchName(UPDATED_BRANCH_NAME);
+            .branchName(UPDATED_BRANCH_NAME)
+            .vendorFaxNo(UPDATED_VENDOR_FAX_NO)
+            .vendorEmail(UPDATED_VENDOR_EMAIL)
+            .vendorFaxRequestStatus(UPDATED_VENDOR_FAX_REQUEST_STATUS)
+            .vendorEmailRequestStatus(UPDATED_VENDOR_EMAIL_REQUEST_STATUS)
+            .poRequestDocumentName(UPDATED_PO_REQUEST_DOCUMENT_NAME)
+            .poRequestAckReceivedStatus(UPDATED_PO_REQUEST_ACK_RECEIVED_STATUS)
+            .po850EdiString(UPDATED_PO_850_EDI_STRING)
+            .po855EdiString(UPDATED_PO_855_EDI_STRING)
+            .poRequestSendDatetime(UPDATED_PO_REQUEST_SEND_DATETIME)
+            .poAckReceivedDatetime(UPDATED_PO_ACK_RECEIVED_DATETIME);
         PurchaseOrderDTO purchaseOrderDTO = purchaseOrderMapper.toDto(updatedPurchaseOrder);
 
         restPurchaseOrderMockMvc
@@ -590,6 +680,16 @@ class PurchaseOrderResourceIT {
         assertThat(testPurchaseOrder.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testPurchaseOrder.getBranchId()).isEqualTo(UPDATED_BRANCH_ID);
         assertThat(testPurchaseOrder.getBranchName()).isEqualTo(UPDATED_BRANCH_NAME);
+        assertThat(testPurchaseOrder.getVendorFaxNo()).isEqualTo(UPDATED_VENDOR_FAX_NO);
+        assertThat(testPurchaseOrder.getVendorEmail()).isEqualTo(UPDATED_VENDOR_EMAIL);
+        assertThat(testPurchaseOrder.getVendorFaxRequestStatus()).isEqualTo(UPDATED_VENDOR_FAX_REQUEST_STATUS);
+        assertThat(testPurchaseOrder.getVendorEmailRequestStatus()).isEqualTo(UPDATED_VENDOR_EMAIL_REQUEST_STATUS);
+        assertThat(testPurchaseOrder.getPoRequestDocumentName()).isEqualTo(UPDATED_PO_REQUEST_DOCUMENT_NAME);
+        assertThat(testPurchaseOrder.getPoRequestAckReceivedStatus()).isEqualTo(UPDATED_PO_REQUEST_ACK_RECEIVED_STATUS);
+        assertThat(testPurchaseOrder.getPo850EdiString()).isEqualTo(UPDATED_PO_850_EDI_STRING);
+        assertThat(testPurchaseOrder.getPo855EdiString()).isEqualTo(UPDATED_PO_855_EDI_STRING);
+        assertThat(testPurchaseOrder.getPoRequestSendDatetime()).isEqualTo(UPDATED_PO_REQUEST_SEND_DATETIME);
+        assertThat(testPurchaseOrder.getPoAckReceivedDatetime()).isEqualTo(UPDATED_PO_ACK_RECEIVED_DATETIME);
     }
 
     @Test
@@ -697,7 +797,15 @@ class PurchaseOrderResourceIT {
             .vendorDelivery(UPDATED_VENDOR_DELIVERY)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .branchId(UPDATED_BRANCH_ID)
-            .branchName(UPDATED_BRANCH_NAME);
+            .branchName(UPDATED_BRANCH_NAME)
+            .vendorFaxNo(UPDATED_VENDOR_FAX_NO)
+            .vendorEmail(UPDATED_VENDOR_EMAIL)
+            .vendorFaxRequestStatus(UPDATED_VENDOR_FAX_REQUEST_STATUS)
+            .vendorEmailRequestStatus(UPDATED_VENDOR_EMAIL_REQUEST_STATUS)
+            .poRequestDocumentName(UPDATED_PO_REQUEST_DOCUMENT_NAME)
+            .poRequestAckReceivedStatus(UPDATED_PO_REQUEST_ACK_RECEIVED_STATUS)
+            .po850EdiString(UPDATED_PO_850_EDI_STRING)
+            .poAckReceivedDatetime(UPDATED_PO_ACK_RECEIVED_DATETIME);
 
         restPurchaseOrderMockMvc
             .perform(
@@ -752,6 +860,16 @@ class PurchaseOrderResourceIT {
         assertThat(testPurchaseOrder.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testPurchaseOrder.getBranchId()).isEqualTo(UPDATED_BRANCH_ID);
         assertThat(testPurchaseOrder.getBranchName()).isEqualTo(UPDATED_BRANCH_NAME);
+        assertThat(testPurchaseOrder.getVendorFaxNo()).isEqualTo(UPDATED_VENDOR_FAX_NO);
+        assertThat(testPurchaseOrder.getVendorEmail()).isEqualTo(UPDATED_VENDOR_EMAIL);
+        assertThat(testPurchaseOrder.getVendorFaxRequestStatus()).isEqualTo(UPDATED_VENDOR_FAX_REQUEST_STATUS);
+        assertThat(testPurchaseOrder.getVendorEmailRequestStatus()).isEqualTo(UPDATED_VENDOR_EMAIL_REQUEST_STATUS);
+        assertThat(testPurchaseOrder.getPoRequestDocumentName()).isEqualTo(UPDATED_PO_REQUEST_DOCUMENT_NAME);
+        assertThat(testPurchaseOrder.getPoRequestAckReceivedStatus()).isEqualTo(UPDATED_PO_REQUEST_ACK_RECEIVED_STATUS);
+        assertThat(testPurchaseOrder.getPo850EdiString()).isEqualTo(UPDATED_PO_850_EDI_STRING);
+        assertThat(testPurchaseOrder.getPo855EdiString()).isEqualTo(DEFAULT_PO_855_EDI_STRING);
+        assertThat(testPurchaseOrder.getPoRequestSendDatetime()).isEqualTo(DEFAULT_PO_REQUEST_SEND_DATETIME);
+        assertThat(testPurchaseOrder.getPoAckReceivedDatetime()).isEqualTo(UPDATED_PO_ACK_RECEIVED_DATETIME);
     }
 
     @Test
@@ -806,7 +924,17 @@ class PurchaseOrderResourceIT {
             .vendorDelivery(UPDATED_VENDOR_DELIVERY)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .branchId(UPDATED_BRANCH_ID)
-            .branchName(UPDATED_BRANCH_NAME);
+            .branchName(UPDATED_BRANCH_NAME)
+            .vendorFaxNo(UPDATED_VENDOR_FAX_NO)
+            .vendorEmail(UPDATED_VENDOR_EMAIL)
+            .vendorFaxRequestStatus(UPDATED_VENDOR_FAX_REQUEST_STATUS)
+            .vendorEmailRequestStatus(UPDATED_VENDOR_EMAIL_REQUEST_STATUS)
+            .poRequestDocumentName(UPDATED_PO_REQUEST_DOCUMENT_NAME)
+            .poRequestAckReceivedStatus(UPDATED_PO_REQUEST_ACK_RECEIVED_STATUS)
+            .po850EdiString(UPDATED_PO_850_EDI_STRING)
+            .po855EdiString(UPDATED_PO_855_EDI_STRING)
+            .poRequestSendDatetime(UPDATED_PO_REQUEST_SEND_DATETIME)
+            .poAckReceivedDatetime(UPDATED_PO_ACK_RECEIVED_DATETIME);
 
         restPurchaseOrderMockMvc
             .perform(
@@ -861,6 +989,16 @@ class PurchaseOrderResourceIT {
         assertThat(testPurchaseOrder.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testPurchaseOrder.getBranchId()).isEqualTo(UPDATED_BRANCH_ID);
         assertThat(testPurchaseOrder.getBranchName()).isEqualTo(UPDATED_BRANCH_NAME);
+        assertThat(testPurchaseOrder.getVendorFaxNo()).isEqualTo(UPDATED_VENDOR_FAX_NO);
+        assertThat(testPurchaseOrder.getVendorEmail()).isEqualTo(UPDATED_VENDOR_EMAIL);
+        assertThat(testPurchaseOrder.getVendorFaxRequestStatus()).isEqualTo(UPDATED_VENDOR_FAX_REQUEST_STATUS);
+        assertThat(testPurchaseOrder.getVendorEmailRequestStatus()).isEqualTo(UPDATED_VENDOR_EMAIL_REQUEST_STATUS);
+        assertThat(testPurchaseOrder.getPoRequestDocumentName()).isEqualTo(UPDATED_PO_REQUEST_DOCUMENT_NAME);
+        assertThat(testPurchaseOrder.getPoRequestAckReceivedStatus()).isEqualTo(UPDATED_PO_REQUEST_ACK_RECEIVED_STATUS);
+        assertThat(testPurchaseOrder.getPo850EdiString()).isEqualTo(UPDATED_PO_850_EDI_STRING);
+        assertThat(testPurchaseOrder.getPo855EdiString()).isEqualTo(UPDATED_PO_855_EDI_STRING);
+        assertThat(testPurchaseOrder.getPoRequestSendDatetime()).isEqualTo(UPDATED_PO_REQUEST_SEND_DATETIME);
+        assertThat(testPurchaseOrder.getPoAckReceivedDatetime()).isEqualTo(UPDATED_PO_ACK_RECEIVED_DATETIME);
     }
 
     @Test

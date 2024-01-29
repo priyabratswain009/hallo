@@ -364,7 +364,7 @@ class PurchaseOrderItemsResourceIT {
 
     @Test
     @Transactional
-    void putExistingPurchaseOrderItems() throws Exception {
+    void putNewPurchaseOrderItems() throws Exception {
         // Initialize the database
         purchaseOrderItemsRepository.saveAndFlush(purchaseOrderItems);
 

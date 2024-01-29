@@ -41,7 +41,7 @@ public class VendorMasterServiceImpl implements VendorMasterService {
 
     @Override
     public VendorMasterDTO update(VendorMasterDTO vendorMasterDTO) {
-        log.debug("Request to update VendorMaster : {}", vendorMasterDTO);
+        log.debug("Request to save VendorMaster : {}", vendorMasterDTO);
         VendorMaster vendorMaster = vendorMasterMapper.toEntity(vendorMasterDTO);
         vendorMaster = vendorMasterRepository.save(vendorMaster);
         return vendorMasterMapper.toDto(vendorMaster);

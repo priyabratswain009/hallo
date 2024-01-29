@@ -142,10 +142,10 @@ public class ItemItemlocationMapServiceExtendedImpl implements ItemItemlocationM
                      itemItemlocationMapRepositoryExtended.saveAll(itemItemlocationMapMapper.toEntity(itemItemlocationMapDTOS))
                  );
 
-                 return new ResponseDTO(isDataSaved, isDataSaved?"Successfully Saved.":"Data already exist.", List.of(savedItemItemlocationMapDTOList));
+                 return new ResponseDTO(isDataSaved, isDataSaved?"Successfully Saved.":"Data already exist.", List.of(savedItemItemlocationMapDTOList), 200);
              }
              else{
-                 return new ResponseDTO(false, "Data Not Found.", new ArrayList<>());
+                 return new ResponseDTO(false, "Data Not Found.", new ArrayList<>(), 200);
              }
         }catch (InvalidAttributeValueException e) {
              log.error("=====>> Error : "+e);
@@ -161,9 +161,9 @@ public class ItemItemlocationMapServiceExtendedImpl implements ItemItemlocationM
             updateDTOs.stream().peek(x -> x.setStatus("inactive")).collect(Collectors.toList());
             List<ItemItemlocationMapDTO> updatedItemItemlocationMapDTOList = itemItemlocationMapMapper.toDto(
                 itemItemlocationMapRepositoryExtended.saveAll(updateDTOs));
-            return new ResponseDTO(true, "Successfully Saved.", List.of(updatedItemItemlocationMapDTOList));
+            return new ResponseDTO(true, "Successfully Saved.", List.of(updatedItemItemlocationMapDTOList), 200);
         }else{
-            return new ResponseDTO(false, "Data Not Found.", new ArrayList());
+            return new ResponseDTO(false, "Data Not Found.", new ArrayList(), 200);
         }
     }
 
@@ -303,13 +303,13 @@ public class ItemItemlocationMapServiceExtendedImpl implements ItemItemlocationM
                 Optional<ItemItemlocationMap> itemItemlocationMap = itemItemlocationMapRepositoryExtended.findById(itemItemlocationMapId);
                 itemItemlocationMap.get().setStatus(status);
                 itemItemlocationMapRepositoryExtended.save(itemItemlocationMap.get());
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemItemlocationMap.get())));
+                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemItemlocationMap.get()), 200));
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(), 200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(), 200));
         }
     }
 }

@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_purchase_order_items")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PurchaseOrderItems implements Serializable {
 
     private static final long serialVersionUID = 1L;

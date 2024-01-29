@@ -391,7 +391,7 @@ class SoItemTransactionDetailsResourceIT {
 
     @Test
     @Transactional
-    void putExistingSoItemTransactionDetails() throws Exception {
+    void putNewSoItemTransactionDetails() throws Exception {
         // Initialize the database
         soItemTransactionDetailsRepository.saveAndFlush(soItemTransactionDetails);
 

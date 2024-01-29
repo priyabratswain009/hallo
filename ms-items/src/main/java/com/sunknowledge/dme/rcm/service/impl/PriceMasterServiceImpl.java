@@ -41,7 +41,7 @@ public class PriceMasterServiceImpl implements PriceMasterService {
 
     @Override
     public PriceMasterDTO update(PriceMasterDTO priceMasterDTO) {
-        log.debug("Request to update PriceMaster : {}", priceMasterDTO);
+        log.debug("Request to save PriceMaster : {}", priceMasterDTO);
         PriceMaster priceMaster = priceMasterMapper.toEntity(priceMasterDTO);
         priceMaster = priceMasterRepository.save(priceMaster);
         return priceMasterMapper.toDto(priceMaster);

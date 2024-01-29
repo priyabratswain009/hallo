@@ -211,7 +211,7 @@ class ItemSerialNumberAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemSerialNumberAuditLog() throws Exception {
+    void putNewItemSerialNumberAuditLog() throws Exception {
         // Initialize the database
         itemSerialNumberAuditLogRepository.saveAndFlush(itemSerialNumberAuditLog);
 

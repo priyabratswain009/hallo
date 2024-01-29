@@ -41,7 +41,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     public PurchaseOrderDTO update(PurchaseOrderDTO purchaseOrderDTO) {
-        log.debug("Request to update PurchaseOrder : {}", purchaseOrderDTO);
+        log.debug("Request to save PurchaseOrder : {}", purchaseOrderDTO);
         PurchaseOrder purchaseOrder = purchaseOrderMapper.toEntity(purchaseOrderDTO);
         purchaseOrder = purchaseOrderRepository.save(purchaseOrder);
         return purchaseOrderMapper.toDto(purchaseOrder);

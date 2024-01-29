@@ -75,9 +75,9 @@ public class DepreciationMethodServiceExtendedImpl implements DepreciationMethod
                     depreciationMethodRepositoryExtended.save(depreciationMethodMapper.toEntity(depreciationMethodDTO))
                 );
 
-                return new ResponseDTO(true, "Successfully Saved.", List.of(savedDepreciationMethodDTO));
+                return new ResponseDTO(true, "Successfully Saved.", List.of(savedDepreciationMethodDTO), 200);
             }else{
-                outcome.setStatus(false);
+                outcome.setOutcome(false);
                 outcome.setMessage("Data Not Saved.");
                 return outcome;
             }

@@ -372,7 +372,7 @@ class StockTransferResourceIT {
 
     @Test
     @Transactional
-    void putExistingStockTransfer() throws Exception {
+    void putNewStockTransfer() throws Exception {
         // Initialize the database
         stockTransferRepository.saveAndFlush(stockTransfer);
 

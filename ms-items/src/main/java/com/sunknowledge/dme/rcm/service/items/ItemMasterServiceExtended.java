@@ -1,10 +1,12 @@
 package com.sunknowledge.dme.rcm.service.items;
 
+import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
 import com.sunknowledge.dme.rcm.service.ItemMasterService;
 import com.sunknowledge.dme.rcm.service.dto.ItemMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
-import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterCombinedSearchInputDTO;
 import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterOutputDTO;
+import com.sunknowledge.dme.rcm.service.dto.items.ItemMasterParameterDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.management.InvalidAttributeValueException;
@@ -42,5 +44,5 @@ public interface ItemMasterServiceExtended extends ItemMasterService {
 
     List<Map> itemPriceSearchByPriceTableId(String itemNo, String procCode, String priceTableId, String purchaseType, String dos) throws InvalidAttributeValueException;
 
-
+    ServiceOutcome getItemMasterDataByCombinedSearchParameters(ItemMasterCombinedSearchInputDTO itemMasterCombinedSearchInputDTO);
 }

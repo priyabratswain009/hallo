@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_stock_adjustment")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class StockAdjustment implements Serializable {
 
     private static final long serialVersionUID = 1L;

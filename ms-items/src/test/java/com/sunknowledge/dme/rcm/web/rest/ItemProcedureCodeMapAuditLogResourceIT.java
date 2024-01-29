@@ -217,7 +217,7 @@ class ItemProcedureCodeMapAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemProcedureCodeMapAuditLog() throws Exception {
+    void putNewItemProcedureCodeMapAuditLog() throws Exception {
         // Initialize the database
         itemProcedureCodeMapAuditLogRepository.saveAndFlush(itemProcedureCodeMapAuditLog);
 

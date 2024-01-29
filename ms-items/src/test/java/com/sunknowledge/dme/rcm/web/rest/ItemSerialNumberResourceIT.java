@@ -460,7 +460,7 @@ class ItemSerialNumberResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemSerialNumber() throws Exception {
+    void putNewItemSerialNumber() throws Exception {
         // Initialize the database
         itemSerialNumberRepository.saveAndFlush(itemSerialNumber);
 

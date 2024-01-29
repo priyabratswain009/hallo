@@ -211,7 +211,7 @@ class PriceDetailsAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingPriceDetailsAuditLog() throws Exception {
+    void putNewPriceDetailsAuditLog() throws Exception {
         // Initialize the database
         priceDetailsAuditLogRepository.saveAndFlush(priceDetailsAuditLog);
 

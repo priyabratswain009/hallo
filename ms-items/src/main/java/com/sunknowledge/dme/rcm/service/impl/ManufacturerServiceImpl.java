@@ -41,7 +41,7 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
     @Override
     public ManufacturerDTO update(ManufacturerDTO manufacturerDTO) {
-        log.debug("Request to update Manufacturer : {}", manufacturerDTO);
+        log.debug("Request to save Manufacturer : {}", manufacturerDTO);
         Manufacturer manufacturer = manufacturerMapper.toEntity(manufacturerDTO);
         manufacturer = manufacturerRepository.save(manufacturer);
         return manufacturerMapper.toDto(manufacturer);

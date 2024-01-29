@@ -32,7 +32,7 @@ public class ItemItemlocationMapResourceExtended {
         System.out.println("test" + itemItemlocationMapInputDTO.getItemIdList().contains(0L));
         if(itemItemlocationMapInputDTO.getItemIdList().contains(0L) || itemItemlocationMapInputDTO.getItemIdList().contains(null) ||
             itemItemlocationMapInputDTO.getItemLocationId() == null || itemItemlocationMapInputDTO.getItemLocationId() == 0L){
-            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>());
+            return new ResponseDTO(Boolean.FALSE,"Ids Not Valid.",new ArrayList<>(), 200);
         }
         return itemItemlocationMapServiceExtended.saveItemItemlocationMap(itemItemlocationMapInputDTO);
     }
@@ -45,31 +45,31 @@ public class ItemItemlocationMapResourceExtended {
     @GetMapping("/getItemItemlocationMapByItemId")
     public ResponseDTO getItemItemlocationMapByItemId(Long itemId){
         List<ItemItemlocationMapDTO> obj = itemItemlocationMapServiceExtended.getItemItemlocationMapByItemId(itemId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemItemlocationMapByItemLocationId")
     public ResponseDTO getItemItemlocationMapByItemLocationId(Long itemLocationId){
         List<ItemItemlocationMapDTO> obj = itemItemlocationMapServiceExtended.getItemItemlocationMapByItemLocationId(itemLocationId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemItemlocationMapByItemLocationName")
     public ResponseDTO getItemItemlocationMapByItemLocationName(String itemLocationName){
         List<ItemItemlocationMapDTO> obj = itemItemlocationMapServiceExtended.getItemItemlocationMapByItemLocationName(itemLocationName);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemItemlocationMapByItemName")
     public ResponseDTO getItemItemlocationMapByItemName(String itemName){
         List<ItemItemlocationMapDTO> obj = itemItemlocationMapServiceExtended.getItemItemlocationMapByItemName(itemName);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getItemItemlocationMapByStatus")
     public ResponseDTO getItemItemlocationMapByStatus(String status){
         List<ItemItemlocationMapDTO> obj = itemItemlocationMapServiceExtended.getItemItemlocationMapByStatus(status);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @PutMapping("/setItemItemlocationMapStatusById/{itemItemlocationMapId}/{status}")

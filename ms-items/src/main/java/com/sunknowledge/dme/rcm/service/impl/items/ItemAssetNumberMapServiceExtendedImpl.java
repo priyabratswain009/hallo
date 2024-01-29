@@ -18,8 +18,10 @@ import org.springframework.stereotype.Service;
 
 import javax.management.InvalidAttributeValueException;
 import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Primary
 @Service("ItemAssetNumberMapServiceExtendedImpl")
@@ -89,14 +91,14 @@ public class ItemAssetNumberMapServiceExtendedImpl implements ItemAssetNumberMap
                     itemAssetNumberMapRepositoryExtended.save(itemAssetNumberMapMapper.toEntity(itemAssetNumberMapDTO))
                 );
 
-                return new ResponseDTO(true, "Successfully Saved.", List.of(savedItemAssetNumberDTO));
+                return new ResponseDTO(true, "Successfully Saved.", List.of(savedItemAssetNumberDTO), 200);
             } else {
                // throw new InputMismatchException("Status must be provided and should be active/inactive");
-                return new ResponseDTO(Boolean.FALSE, "Status should be active/inactive", new ArrayList());
+                return new ResponseDTO(Boolean.FALSE, "Status should be active/inactive", new ArrayList(), 200);
             }
         }catch (Exception e) {
             log.error("Error=" + e);
-            return new ResponseDTO(Boolean.FALSE, "Failed to Save! Data Error.", new ArrayList());
+            return new ResponseDTO(Boolean.FALSE, "Failed to Save! Data Error.", new ArrayList(), 200);
         }
     }
 

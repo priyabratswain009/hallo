@@ -173,6 +173,46 @@
     {
       "fieldName": "branchName",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorFaxNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorFaxRequestStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vendorEmailRequestStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "poRequestDocumentName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "poRequestAckReceivedStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "po850EdiString",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "po855EdiString",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "poRequestSendDatetime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "poAckReceivedDatetime",
+      "fieldType": "LocalDate"
     }
   ],
   "fluentMethods": true,

@@ -9,7 +9,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_item_procedure_code_map_audit_log")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemProcedureCodeMapAuditLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

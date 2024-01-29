@@ -236,7 +236,7 @@ class ItemGroupResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemGroup() throws Exception {
+    void putNewItemGroup() throws Exception {
         // Initialize the database
         itemGroupRepository.saveAndFlush(itemGroup);
 

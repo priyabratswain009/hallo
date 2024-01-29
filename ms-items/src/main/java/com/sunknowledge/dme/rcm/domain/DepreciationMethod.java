@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_depreciation_method")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class DepreciationMethod implements Serializable {
 
     private static final long serialVersionUID = 1L;

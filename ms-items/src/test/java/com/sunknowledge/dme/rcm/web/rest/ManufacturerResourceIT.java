@@ -340,7 +340,7 @@ class ManufacturerResourceIT {
 
     @Test
     @Transactional
-    void putExistingManufacturer() throws Exception {
+    void putNewManufacturer() throws Exception {
         // Initialize the database
         manufacturerRepository.saveAndFlush(manufacturer);
 

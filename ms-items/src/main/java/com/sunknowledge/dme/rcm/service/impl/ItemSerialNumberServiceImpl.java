@@ -44,7 +44,7 @@ public class ItemSerialNumberServiceImpl implements ItemSerialNumberService {
 
     @Override
     public ItemSerialNumberDTO update(ItemSerialNumberDTO itemSerialNumberDTO) {
-        log.debug("Request to update ItemSerialNumber : {}", itemSerialNumberDTO);
+        log.debug("Request to save ItemSerialNumber : {}", itemSerialNumberDTO);
         ItemSerialNumber itemSerialNumber = itemSerialNumberMapper.toEntity(itemSerialNumberDTO);
         itemSerialNumber = itemSerialNumberRepository.save(itemSerialNumber);
         return itemSerialNumberMapper.toDto(itemSerialNumber);

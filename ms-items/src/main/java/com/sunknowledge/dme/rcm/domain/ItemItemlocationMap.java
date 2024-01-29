@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_item_itemlocation_map")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemItemlocationMap implements Serializable {
 
     private static final long serialVersionUID = 1L;

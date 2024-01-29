@@ -7,7 +7,6 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.PriceMasterAuditLog} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PriceMasterAuditLogDTO implements Serializable {
 
     private Long prceTbleId;

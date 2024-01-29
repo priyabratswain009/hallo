@@ -11,7 +11,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "t_item_procedure_code_map")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemProcedureCodeMap implements Serializable {
 
     private static final long serialVersionUID = 1L;

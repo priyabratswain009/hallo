@@ -213,7 +213,7 @@ class ItemVendorMappingAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemVendorMappingAuditLog() throws Exception {
+    void putNewItemVendorMappingAuditLog() throws Exception {
         // Initialize the database
         itemVendorMappingAuditLogRepository.saveAndFlush(itemVendorMappingAuditLog);
 

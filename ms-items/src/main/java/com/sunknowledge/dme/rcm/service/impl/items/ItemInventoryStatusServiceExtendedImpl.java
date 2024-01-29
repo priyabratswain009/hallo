@@ -1,6 +1,6 @@
 package com.sunknowledge.dme.rcm.service.impl.items;
 
-import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
 import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
 import com.sunknowledge.dme.rcm.domain.ItemInventoryStatus;
 import com.sunknowledge.dme.rcm.repository.items.ItemInventoryStatusRepositoryExtended;
@@ -69,7 +69,7 @@ public class ItemInventoryStatusServiceExtendedImpl implements ItemInventoryStat
             itemInventoryStatusRepositoryExtended.save(itemInventoryStatusMapper.toEntity(itemInventoryStatusDTO))
         );
 
-        return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",List.of(savedItemInventoryStatusDTO)));
+        return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",List.of(savedItemInventoryStatusDTO), 200));
     }
 
     @Override
@@ -99,7 +99,7 @@ public class ItemInventoryStatusServiceExtendedImpl implements ItemInventoryStat
         ItemInventoryStatusDTO savedItemInventoryStatusDTO = itemInventoryStatusMapper.toDto(
             itemInventoryStatusRepositoryExtended.save(itemInventoryStatusMapper.toEntity(itemInventoryStatusDTO))
         );
-        return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",List.of(savedItemInventoryStatusDTO)));
+        return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",List.of(savedItemInventoryStatusDTO), 200));
     }
 
     @Override
@@ -176,13 +176,13 @@ public class ItemInventoryStatusServiceExtendedImpl implements ItemInventoryStat
                         //return (new ServiceOutcome(savedItemInventoryStatusDTO, true, "Successfully Saved"));
                     //}
                 }else{
-                    return (new ServiceOutcome(null, false,"Data Error."));
+                    return (new ServiceOutcome(null, false,"Data Error.", 200));
                 }
             }else{
-                return (new ServiceOutcome(null, false,"Item Id And Item Location Id do not Exist."));
+                return (new ServiceOutcome(null, false,"Item Id And Item Location Id do not Exist.", 200));
             }
         }
-        return (new ServiceOutcome(itemInventoryStatusDTOs.size() > 0 ? itemInventoryStatusDTOs : null, itemInventoryStatusDTOs.size() > 0 ? true : false, itemInventoryStatusDTOs.size() > 0 ? "Successfully Saved" : "Failed To Update"));
+        return (new ServiceOutcome(itemInventoryStatusDTOs.size() > 0 ? itemInventoryStatusDTOs : null, itemInventoryStatusDTOs.size() > 0 ? true : false, itemInventoryStatusDTOs.size() > 0 ? "Successfully Saved" : "Failed To Update", 200));
     }
 
     @Override
@@ -206,22 +206,24 @@ public class ItemInventoryStatusServiceExtendedImpl implements ItemInventoryStat
                 Long onRentQty = 0L;
                 Long onHandQty = 0L;
                 Long onBackorder = 0L;
+                String dropshipStatus = "";
                 if(itemInventoryStatusDTO.getItemInventoryStatusId()!=null && itemInventoryStatusDTO.getItemInventoryStatusId()!= 0){
                     onHandQty = itemInventoryStatusDTO.getOnhandQty()!= null && itemInventoryStatusDTO.getOnhandQty()!= 0 ? itemInventoryStatusDTO.getOnhandQty() : 0L;
                     inorderQty = itemInventoryStatusDTO.getInorderQty()!= null && itemInventoryStatusDTO.getInorderQty()!= 0 ? itemInventoryStatusDTO.getInorderQty() : 0L;
                     comittedQty = itemInventoryStatusDTO.getComittedQty()!= null && itemInventoryStatusDTO.getComittedQty()!= 0 ? itemInventoryStatusDTO.getComittedQty() : 0L;
                     onRentQty = itemInventoryStatusDTO.getOnrentQty()!= null && itemInventoryStatusDTO.getOnrentQty()!= 0 ? itemInventoryStatusDTO.getOnrentQty() : 0L;
                     onBackorder = itemInventoryStatusDTO.getOnBackorder()!= null && itemInventoryStatusDTO.getOnBackorder()!= 0 ? itemInventoryStatusDTO.getOnBackorder() : 0L;
+                    dropshipStatus = inputDTO.getIsDropshipFlag() == null ? "" : inputDTO.getIsDropshipFlag();
                     System.out.println("ItemQty:: "+inputDTO.getItemQty()+", onHandQty:: "+onHandQty+", inorderQty:: "+inorderQty+", comittedQty:: "+comittedQty+", onBackorder:: "+onBackorder);
-                    if(inputDTO.getIsDropshipFlag().equalsIgnoreCase("Y")){
+                    if(dropshipStatus.equalsIgnoreCase("Y")){
                         if(onBackorder >= inputDTO.getItemQty()) {
                             onBackorder = onBackorder - inputDTO.getItemQty();
                         }else{
-                            return (new ServiceOutcome(null, false, "Insufficient Quantity."));
+                            return (new ServiceOutcome(null, false, "Insufficient Quantity.", 200));
                         }
                     }else {
                         if (inputDTO.getItemQty() > (onHandQty - (inorderQty + comittedQty)) || comittedQty < inputDTO.getItemQty()) {
-                            return (new ServiceOutcome(null, false, "Insufficient Quantity."));
+                            return (new ServiceOutcome(null, false, "Insufficient Quantity.", 200));
                         } else {
                             comittedQty = comittedQty - inputDTO.getItemQty();
                             onHandQty = onHandQty - inputDTO.getItemQty();
@@ -246,13 +248,13 @@ public class ItemInventoryStatusServiceExtendedImpl implements ItemInventoryStat
                         soItemTransactionDetails.setItemTransactionStatus("Delivered");
                         soItemTransactionDetailsDTOS.add(soItemTransactionDetails);
                     }else{
-                        return (new ServiceOutcome(null, false,"Data Error."));
+                        return (new ServiceOutcome(null, false,"Data Error.", 200));
                     }
                 }else{
-                    return (new ServiceOutcome(null, false,"Data Error."));
+                    return (new ServiceOutcome(null, false,"Data Error.", 200));
                 }
             }else{
-                return (new ServiceOutcome(null, false,"Item Id And Item Location Id do not Exist."));
+                return (new ServiceOutcome(null, false,"Item Id And Item Location Id do not Exist.", 200));
             }
         }
         List<ItemInventoryStatusDTO> savedItemInventoryStatusDTOs = itemInventoryStatusMapper.toDto(
@@ -265,7 +267,7 @@ public class ItemInventoryStatusServiceExtendedImpl implements ItemInventoryStat
         return (new ServiceOutcome(savedItemInventoryStatusDTOs.size() > 0 && savedSoItemTransactionDetailsDTOs.size() >0
             ? savedItemInventoryStatusDTOs : null, savedItemInventoryStatusDTOs.size() > 0 && savedSoItemTransactionDetailsDTOs.size() >0
             ? true : false, savedItemInventoryStatusDTOs.size() > 0 && savedSoItemTransactionDetailsDTOs.size() >0
-            ? "Successfully Saved" : "Failed To Update"));
+            ? "Successfully Saved" : "Failed To Update", 200));
     }
 
     @Override
@@ -275,13 +277,13 @@ public class ItemInventoryStatusServiceExtendedImpl implements ItemInventoryStat
                 ItemInventoryStatus itemInventoryStatus = itemInventoryStatusRepositoryExtended.findByItemInventoryStatusId(itemInventoryStatusId);
                 itemInventoryStatus.setStatus(status);
                 itemInventoryStatusRepositoryExtended.save(itemInventoryStatus);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemInventoryStatus)));
+                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemInventoryStatus), 200));
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(), 200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(), 200));
         }
     }
 

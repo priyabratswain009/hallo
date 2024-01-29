@@ -1,6 +1,6 @@
 package com.sunknowledge.dme.rcm.web.rest.healthcheck;
 
-import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +26,6 @@ public class HealthCheckResource {
             e.printStackTrace();
         }
         System.out.println("=========END=============Result============================"+status);
-        return new ServiceOutcome<>(status, true, "Service is active!!!");
+        return new ServiceOutcome<>(status, true, "Service is active!!!", 200);
     }
 }

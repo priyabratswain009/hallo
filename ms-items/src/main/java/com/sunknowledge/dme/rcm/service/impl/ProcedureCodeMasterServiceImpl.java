@@ -44,7 +44,7 @@ public class ProcedureCodeMasterServiceImpl implements ProcedureCodeMasterServic
 
     @Override
     public ProcedureCodeMasterDTO update(ProcedureCodeMasterDTO procedureCodeMasterDTO) {
-        log.debug("Request to update ProcedureCodeMaster : {}", procedureCodeMasterDTO);
+        log.debug("Request to save ProcedureCodeMaster : {}", procedureCodeMasterDTO);
         ProcedureCodeMaster procedureCodeMaster = procedureCodeMasterMapper.toEntity(procedureCodeMasterDTO);
         procedureCodeMaster = procedureCodeMasterRepository.save(procedureCodeMaster);
         return procedureCodeMasterMapper.toDto(procedureCodeMaster);

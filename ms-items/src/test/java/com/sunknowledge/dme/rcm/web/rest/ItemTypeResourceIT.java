@@ -236,7 +236,7 @@ class ItemTypeResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemType() throws Exception {
+    void putNewItemType() throws Exception {
         // Initialize the database
         itemTypeRepository.saveAndFlush(itemType);
 

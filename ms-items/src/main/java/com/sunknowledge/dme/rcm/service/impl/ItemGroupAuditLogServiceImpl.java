@@ -44,7 +44,7 @@ public class ItemGroupAuditLogServiceImpl implements ItemGroupAuditLogService {
 
     @Override
     public ItemGroupAuditLogDTO update(ItemGroupAuditLogDTO itemGroupAuditLogDTO) {
-        log.debug("Request to update ItemGroupAuditLog : {}", itemGroupAuditLogDTO);
+        log.debug("Request to save ItemGroupAuditLog : {}", itemGroupAuditLogDTO);
         ItemGroupAuditLog itemGroupAuditLog = itemGroupAuditLogMapper.toEntity(itemGroupAuditLogDTO);
         itemGroupAuditLog = itemGroupAuditLogRepository.save(itemGroupAuditLog);
         return itemGroupAuditLogMapper.toDto(itemGroupAuditLog);

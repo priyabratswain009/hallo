@@ -44,7 +44,7 @@ public class ItemVendorMappingServiceImpl implements ItemVendorMappingService {
 
     @Override
     public ItemVendorMappingDTO update(ItemVendorMappingDTO itemVendorMappingDTO) {
-        log.debug("Request to update ItemVendorMapping : {}", itemVendorMappingDTO);
+        log.debug("Request to save ItemVendorMapping : {}", itemVendorMappingDTO);
         ItemVendorMapping itemVendorMapping = itemVendorMappingMapper.toEntity(itemVendorMappingDTO);
         itemVendorMapping = itemVendorMappingRepository.save(itemVendorMapping);
         return itemVendorMappingMapper.toDto(itemVendorMapping);

@@ -44,7 +44,7 @@ public class PriceMasterAuditLogServiceImpl implements PriceMasterAuditLogServic
 
     @Override
     public PriceMasterAuditLogDTO update(PriceMasterAuditLogDTO priceMasterAuditLogDTO) {
-        log.debug("Request to update PriceMasterAuditLog : {}", priceMasterAuditLogDTO);
+        log.debug("Request to save PriceMasterAuditLog : {}", priceMasterAuditLogDTO);
         PriceMasterAuditLog priceMasterAuditLog = priceMasterAuditLogMapper.toEntity(priceMasterAuditLogDTO);
         priceMasterAuditLog = priceMasterAuditLogRepository.save(priceMasterAuditLog);
         return priceMasterAuditLogMapper.toDto(priceMasterAuditLog);

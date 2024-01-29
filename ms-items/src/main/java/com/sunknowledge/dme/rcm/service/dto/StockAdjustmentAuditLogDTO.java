@@ -7,7 +7,6 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.StockAdjustmentAuditLog} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class StockAdjustmentAuditLogDTO implements Serializable {
 
     private Long stckAdjstentId;

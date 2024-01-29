@@ -11,7 +11,6 @@ import javax.validation.constraints.*;
  */
 @Entity
 @Table(name = "t_item_vendor_mapping")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemVendorMapping implements Serializable {
 
     private static final long serialVersionUID = 1L;

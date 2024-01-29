@@ -13,7 +13,6 @@ import com.sunknowledge.dme.rcm.service.items.ItemVendorMappingServiceExtended;
 import com.sunknowledge.dme.rcm.service.mapper.ItemVendorMappingMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
@@ -23,7 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.management.InvalidAttributeValueException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -114,10 +120,10 @@ public class ItemVendorMappingServiceExtendedImpl implements ItemVendorMappingSe
                     itemVendorMappingRepositoryExtended.saveAll(itemVendorMappingMapper.toEntity(itemVendorMappingDTOS))
                 );
 
-                return new ResponseDTO(isDataSaved, isDataSaved?"Successfully Saved.":"Data already exist.", List.of(savedItemVendorMappingDTOs));
+                return new ResponseDTO(isDataSaved, isDataSaved?"Successfully Saved.":"Data already exist.", List.of(savedItemVendorMappingDTOs), 200);
             }
             else{
-                return new ResponseDTO(Boolean.FALSE, "Data Not Found.", new ArrayList<>());
+                return new ResponseDTO(Boolean.FALSE, "Data Not Found.", new ArrayList<>(), 200);
             }
         }catch (InvalidAttributeValueException e) {
             log.error("=====>> Error : "+e);
@@ -138,9 +144,9 @@ public class ItemVendorMappingServiceExtendedImpl implements ItemVendorMappingSe
             }).collect(Collectors.toList());
             List<ItemVendorMappingDTO> deactivatedItemVendorMappingDTOs = itemVendorMappingMapper.toDto(
                 itemVendorMappingRepositoryExtended.saveAll(updateDTOs));
-            return new ResponseDTO(true, "Successfully Saved.", List.of(deactivatedItemVendorMappingDTOs));
+            return new ResponseDTO(true, "Successfully Saved.", List.of(deactivatedItemVendorMappingDTOs), 200);
         }else{
-            return new ResponseDTO(false, "Data Not Found.", new ArrayList());
+            return new ResponseDTO(false, "Data Not Found.", new ArrayList(), 200);
         }
     }
 
@@ -187,13 +193,13 @@ public class ItemVendorMappingServiceExtendedImpl implements ItemVendorMappingSe
                 Optional<ItemVendorMapping> itemVendorMapping = itemVendorMappingRepositoryExtended.findById(itemVendorId);
                 itemVendorMapping.get().setStatus(status);
                 itemVendorMappingRepositoryExtended.save(itemVendorMapping.get());
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemVendorMapping.get())));
+                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(itemVendorMapping.get()), 200));
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(), 200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(), 200));
         }
     }
 

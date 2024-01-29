@@ -44,7 +44,7 @@ public class PriceDetailsAuditLogServiceImpl implements PriceDetailsAuditLogServ
 
     @Override
     public PriceDetailsAuditLogDTO update(PriceDetailsAuditLogDTO priceDetailsAuditLogDTO) {
-        log.debug("Request to update PriceDetailsAuditLog : {}", priceDetailsAuditLogDTO);
+        log.debug("Request to save PriceDetailsAuditLog : {}", priceDetailsAuditLogDTO);
         PriceDetailsAuditLog priceDetailsAuditLog = priceDetailsAuditLogMapper.toEntity(priceDetailsAuditLogDTO);
         priceDetailsAuditLog = priceDetailsAuditLogRepository.save(priceDetailsAuditLog);
         return priceDetailsAuditLogMapper.toDto(priceDetailsAuditLog);
