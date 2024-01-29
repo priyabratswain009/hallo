@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.sunknowledge.dme.rcm.application.utils.ApplicationConstants;
 import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
-import com.sunknowledge.dme.rcm.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.core.TokenOutCome;
 import com.sunknowledge.dme.rcm.domain.ClaimSubmissionStatus;
 import com.sunknowledge.dme.rcm.domain.SecondaryClaimsSubmissionMaster;

@@ -1,17 +1,22 @@
 package com.sunknowledge.dme.rcm.service.claimservice;
 
+import com.amazonaws.services.s3.model.CopyObjectResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.io.RandomAccessSourceFactory;
 import com.itextpdf.text.pdf.*;
+import com.sunknowledge.dme.rcm.amazon.AmazonS3Service;
+import com.sunknowledge.dme.rcm.amazon.BucketName;
 import com.sunknowledge.dme.rcm.application.applicationstatus.DefineStatus;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.application.properties.AsyncConfigurationSetup;
 import com.sunknowledge.dme.rcm.application.properties.FileConfigUtility;
 import com.sunknowledge.dme.rcm.application.properties.FileUploadConfigProperties;
 import com.sunknowledge.dme.rcm.application.utils.ApplicationDateUtility;
 import com.sunknowledge.dme.rcm.commonutil.AccessTokenUtilities;
+import com.sunknowledge.dme.rcm.commonutil.CommonBasicOperations;
 import com.sunknowledge.dme.rcm.core.TokenOutCome;
 import com.sunknowledge.dme.rcm.domain.*;
 import com.sunknowledge.dme.rcm.pojo.claimreports.ActualClaimResponseReport;
@@ -36,6 +41,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -44,18 +50,18 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,7 +94,6 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
     private DepositMasterDetailsRepo depositMasterDetailsRepository;
     @Autowired
     private ReceiptMasterDetailsRepo receiptMasterDetailsRepository;
-
     @Autowired
     private Transaction835MasterDetailsRepo transaction835MasterDetailsRepository;
     @Autowired
@@ -112,6 +117,8 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 	@Autowired
 	private RestTemplate restTemplate;
     private final WebClient webClient;
+    @Autowired
+    private AmazonS3Service amazonS3Service;
 
     public ClaimResponsesAndReportsV2ServiceImpl(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("http://localhost:8080/services").build();
@@ -132,7 +139,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 				String token = tokenOutCome.getTokenResponseOutput().getAccessToken();
 				//String token = "eyJraWQiOiIxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJhY2Nlc3NfdG9rZW4iOiJlUWJ1bFh0MkxaRzVIbU12anIxQUVOeVlvcGcyIiwiYXVkIjoiYXBpUGxhdGZvcm0iLCJhcGlfcHJvZHVjdF9saXN0IjpbIk1OX1Byb2R1Y3RfUmVwb3J0c192MSIsIk1OX1Byb2R1Y3RfQXR0YWNobWVudHNfdjEiLCJNTl9Qcm9kdWN0X0NsYWltU3RhdHVzX3YyIiwiTU5fUHJvZHVjdF9FbGlnaWJpbGl0eV92MyIsIk1OX1Byb2R1Y3RfUHJvZmVzc2lvbmFsQ2xhaW1zX3YzIiwiTU5fUHJvZHVjdF9JbnN0aXR1dGlvbmFsQ2xhaW1zX3YxIl0sImFwcGxpY2F0aW9uX25hbWUiOiJNTl9TdW4gS25vd2xlZGdlX0FQUCIsIm5iZiI6MTY1MzY1NzgyNywiZGV2ZWxvcGVyX2VtYWlsIjoicmFuamFuLmtvbGV5QHN1bmtub3dsZWRnZS5jb20iLCJpc3MiOiJodHRwczpcL1wvc2FuZGJveC5hcGlndy5jaGFuZ2VoZWFsdGhjYXJlLmNvbSIsInNjb3BlcyI6IiIsImV4cCI6MTY1MzY2MTQyNywiaWF0IjoxNjUzNjU3ODI3LCJjbGllbnRfaWQiOiI5TW90cjgxZTZsU212N2JDdDIxZm5oU2lYN1FlNjVaTCIsImp0aSI6IjM3YTc4YzMwLWRiNjgtNDVjZC1iNTE0LTQ4NmFiOWY5MzFjMiJ9.nupyJJbHxcQEoVL9MYfF5xYQrfxx3g86jBSoLr3PVpQei6kkeQF95e3_4PLsC82wsDg0HBw_6YfbiXzomDuJbo7kdkvp-hIEpeZyTEGUDpywvHahF3Q5TvxiaktTz6gPvjt2Z1QTC9BQC81wYTxj-xTWZozA46dd_58RmEfejqcciCUdlirsE0d2vofwzS8HmRTVOmy5RN2LjoF1dOMHNBefv7O6q2oWVFZMxY9sJRGMOn6el17QWxvU_kfzX60FpaIljzcp5jJFX_tf7GKS3VkK4vskrwe67iy86uTIZnptgynzDQ3uM2lcS3gnT5fA2-8-hCiZzUFKsfZqsI6xow";
 				routcome = completeAvailableCustomerDocumentsList(tokenOutCome.getTokenResponseOutput().getAccessToken());
-				if(routcome.getData().getReports().size() > 0) {
+				if(!routcome.getData().getReports().isEmpty()) {
 					routcome.getData().getReports().forEach(reportType -> {
 						ServiceOutcome<X12EDIReportContents> x12EDIReportContent = getX12EDIReportContent(reportType, token);
 						System.out.println("File Content:"+x12EDIReportContent.getData().getReportContent());
@@ -179,9 +186,6 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 					routcome.setOutcome(false);
 				}
 			}
-			catch (JsonMappingException e) {
-				e.printStackTrace();
-			}
 			catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
@@ -208,9 +212,6 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 					routcome.setMessage("Failed to retrieved the X12 EDI report contents.");
 					routcome.setOutcome(false);
 				}
-			}
-			catch (JsonMappingException e) {
-				e.printStackTrace();
 			}
 			catch (JsonProcessingException e) {
 				e.printStackTrace();
@@ -267,9 +268,6 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 					}
 				}
 			}
-			catch (JsonMappingException e) {
-				e.printStackTrace();
-			}
 			catch (JsonProcessingException e) {
 				e.printStackTrace();
 			}
@@ -300,8 +298,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 		headers.add("Accept","application/json");
 		headers.set("Authorization", "Bearer "+accessToken);
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-		ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
-		return responseEntity;
+        return restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
 	}
 
     @Override
@@ -314,16 +311,16 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
         claimTransactionInput.forEach(list -> {
             String fileName = list.getFileName();
             List<ClaimsReportFileProcessStatus> claimFileProcessStatus = claimsReportFileProcessStatusRepository.getClaimFileProcessStatusOnFileName(fileName);
-            if(claimFileProcessStatus.size() == 0) {
+            if(claimFileProcessStatus.isEmpty()) {
                 String reportType = fileName.substring(0, 2);
                 if(list.getClaimsTransactionReport().getClaimsRemittanceTransaction() != null && reportType.equals("R5")) {
-                    list.getClaimsTransactionReport().getClaimsRemittanceTransaction().getTransactions().stream()
+                    list.getClaimsTransactionReport().getClaimsRemittanceTransaction().getTransactions()
                         .forEach(trans -> {
                             System.out.println("===>"+trans.getControlNumber());
-                            trans.getDetailInfo().stream()
+                            trans.getDetailInfo()
                                 .forEach(detailInfo -> {
                                     System.out.println("====>"+detailInfo.getAssignedNumber());
-                                    detailInfo.getPaymentInfo().stream()
+                                    detailInfo.getPaymentInfo()
                                         .forEach(paymentInfo -> {
                                             ClaimsCOB835Master claimTransactionMaster = new ClaimsCOB835Master();
                                             claimTransactionMaster.setFileName(list.getFileName());
@@ -366,18 +363,18 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                 }
                 else if(list.getClaimsTransactionReport().getClaimStatusResponseTransaction() != null && reportType.equals("X3")) {
                     log.info("======================Enter to Claim Transaction Status======================");
-                    list.getClaimsTransactionReport().getClaimStatusResponseTransaction().getTransactions().stream()
+                    list.getClaimsTransactionReport().getClaimStatusResponseTransaction().getTransactions()
                         .forEach(trans -> {
                             System.out.println("======>"+trans.getControlNumber());
-                            trans.getPayers().stream()
+                            trans.getPayers()
                                 .forEach(payer -> {
-                                    payer.getClaimStatusTransactions().stream()
+                                    payer.getClaimStatusTransactions()
                                         .forEach(claimStatusTransaction -> {
-                                            claimStatusTransaction.getClaimStatusDetails().stream()
+                                            claimStatusTransaction.getClaimStatusDetails()
                                                 .forEach(claimStatusDetail -> {
-                                                    claimStatusDetail.getPatientClaimStatusDetails().stream()
+                                                    claimStatusDetail.getPatientClaimStatusDetails()
                                                         .forEach(patientClaimStatusDetails -> {
-                                                            patientClaimStatusDetails.getClaims().stream()
+                                                            patientClaimStatusDetails.getClaims()
                                                                 .forEach(claims -> {
                                                                     ClaimsStatus277Master claimTransactionStatusMaster = new ClaimsStatus277Master();
                                                                     claimTransactionStatusMaster.setFileName(list.getFileName());
@@ -527,7 +524,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
         System.out.println("=====>CLAIM COB 835 MASTER ID===>"+saveClaimTransactionMaster.getClaimCob835MasterId());
         claimsCOB835Masters.add(saveClaimTransactionMaster);
         List<ClaimsCOB835Details> claimsCOB835DetailsList = new ArrayList<>();
-        paymentInfo.getServiceLines().stream()
+        paymentInfo.getServiceLines()
             .forEach(serviceLine -> {
                 ServiceLineDetails serviceLineDetails = new ServiceLineDetails();
                 serviceLineDetails.setServiceDate(serviceLine.getServiceDate());
@@ -551,7 +548,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                 serviceLineDetails.setProviderPaymentAmount(Double.parseDouble(serviceLine.getServicePaymentInformation().getLineItemProviderPaymentAmount()));
 
                 ClaimsCOB835Details claimTransactionDetails = new ClaimsCOB835Details();
-                serviceLine.getServiceAdjustments().stream()
+                serviceLine.getServiceAdjustments()
                     .forEach(serviceAdj -> {
                         if(serviceAdj.getClaimAdjustmentGroupCode().equalsIgnoreCase("PR") && serviceAdj.getClaimAdjustmentGroupCode() != null) {
                             claimTransactionDetails.setAdjustmentPrCode1(serviceAdj.getAdjustmentReasonCode1());
@@ -708,7 +705,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
         ClaimsStatus277Master saveTransactionStatusMaster = claimsStatus277MasterRepository.save(claimTransactionStatusMaster);
         if(claims.getServiceLines() != null) {
             List<ClaimsStatus277Details> claimTransactionStatusDetailsList = new ArrayList<>();
-            claims.getServiceLines().stream()
+            claims.getServiceLines()
                 .forEach(serviceLines -> {
                     ClaimsStatus277Details claimTransactionStatusDetails = new ClaimsStatus277Details();
                     claimTransactionStatusDetails.setProcedureCode(serviceLines.getService().getProcedureCode());
@@ -728,10 +725,10 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                     claimTransactionStatusDetails.setServiceLineBeginDate(ApplicationDateUtility.convertStringToDateOnSpecific(serviceLines.getBeginServiceLineDate()));
                     claimTransactionStatusDetails.setServiceLineEndDate(ApplicationDateUtility.convertStringToDateOnSpecific(serviceLines.getEndServiceLineDate()));
 
-                    serviceLines.getServiceClaimStatuses().stream()
+                    serviceLines.getServiceClaimStatuses()
                         .forEach(serviceClaimStatuses -> {
                             claimTransactionStatusDetails.setEffectiveDate(ApplicationDateUtility.convertStringToDateOnSpecific(serviceClaimStatuses.getEffectiveDate()));
-                            serviceClaimStatuses.getServiceStatuses().stream()
+                            serviceClaimStatuses.getServiceStatuses()
                                 .forEach(serviceStatuses -> {
                                     claimTransactionStatusDetails.setClaimStatusCategoryCode(serviceStatuses.getHealthCareClaimStatusCategoryCode());
                                     claimTransactionStatusDetails.setClaimStatusCategoryCodeValue(serviceStatuses.getHealthCareClaimStatusCategoryCodeValue());
@@ -763,7 +760,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
         log.info("===============================Claim Submission Status==============================");
         List<Long> salesOrderId = new ArrayList<>();
         if(transactionOutcome.getClaimsCOB835MasterList() != null) {
-            transactionOutcome.getClaimsCOB835MasterList().stream()
+            transactionOutcome.getClaimsCOB835MasterList()
                 .forEach(claimRemittance -> {
                     System.out.println("X5==========>"+claimRemittance.getFileName());
                     if(claimRemittance.getCrossoverCarrierName()){
@@ -789,7 +786,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                     else{
                         System.out.println("==============NO:There is no Cross-over in claim======================");
                         String payerClaimControlNumber = "";
-                        if(Objects.isNull(claimRemittance.getPayerClaimControlNumber()) || claimRemittance.getPayerClaimControlNumber().equals(""))
+                        if(Objects.isNull(claimRemittance.getPayerClaimControlNumber()) || claimRemittance.getPayerClaimControlNumber().isEmpty())
                             payerClaimControlNumber = "DUMMY";
                         ClaimSubmissionStatus claimSubmissionStatus = claimSubmissionStatusRepository.getClaimSubmissionStatusByPayorClaimControlNumber(payerClaimControlNumber, claimRemittance.getPatientControlNumber());
                         if(claimSubmissionStatus != null && claimSubmissionStatus.getClaimCob835MasterId() != null) {
@@ -818,36 +815,34 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                                 secondaryClaimsSubmissionMaster.setPayerPaidAmount(claimRemittance.getTotalClaimPaymentAmount());
                                 secondaryClaimsSubmissionMaster.setRemainingPatientLiability(claimRemittance.getTotalPatientResponsibilityAmount());
                                 SecondaryClaimsSubmissionMaster submissionMaster = secondaryClaimsSubmissionMasterRepository.save(secondaryClaimsSubmissionMaster);
-                                if(submissionMaster != null){
-                                    log.info("================Update updateServiceLineMasterDataOnSalesOrder===============");
-                                    ModelMapper modelMapper = new ModelMapper();
-                                    List<LineAdjustmentProjection> lineAdjustments = secondaryServiceLinesMasterRepository
-                                        .getServiceLineMasterDataOnSalesOrder(submissionMaster.getSalesOrderId(), submissionMaster.getClaimControlNo()).stream()
-                                        .map(lineAdjustmentProjection -> modelMapper.map(lineAdjustmentProjection, LineAdjustmentProjection.class))
-                                        .collect(Collectors.toList());
-                                    log.info("================lineAdjustments.size()================"+lineAdjustments.size());
-                                    if(lineAdjustments != null && lineAdjustments.size() > 0){
-                                        lineAdjustments.stream().forEach(line -> {
-                                            log.info("==========>>>>>ID==================>>>>"+submissionMaster.getChangeHealthSecondarySubmisionMasterId());
-                                            log.info("==========>>>>>line.getAdjudicatedprocedure()==================>>>>"+line.getAdjudicatedprocedurecode());
-                                            SecondaryServiceLinesMaster secondaryServiceLinesMaster = secondaryServiceLinesMasterRepository.getServiceLineMasterDataOnSubmissionMasterNProcCode(
-                                                submissionMaster.getChangeHealthSecondarySubmisionMasterId(), line.getAdjudicatedprocedurecode());
-                                            if(secondaryServiceLinesMaster != null){
-                                                secondaryServiceLinesMaster.setPayorClaimControlNo(line.getPayerclaimcontrolnumber());
-                                                secondaryServiceLinesMaster.setProviderPaymentAmount(line.getProviderpaymentamount());
-                                                secondaryServiceLinesMaster.setLineAdjustment(line.getPr()+"#"+line.getCo()+"#"+line.getCr()+"#"+line.getOa()+"#"+line.getPi()+"#");
-                                                secondaryServiceLinesMaster.setSecondaryClaimsSubmissionMaster(submissionMaster);
-                                                secondaryServiceLinesMasterRepository.save(secondaryServiceLinesMaster);
-                                            }
-                                        });
-                                        log.info("=================>submissionMaster============="+submissionMaster.getClaimControlNo());
-                                        claimSubmissionStatus = claimSubmissionStatusRepository.getClaimSubmissionStatusByInternalClaimControlNumber(submissionMaster.getClaimControlNo());
-                                        if(claimSubmissionStatus != null) {
-                                            log.info("=================>If submissionMaster============="+claimSubmissionStatus.getPatientAccountNo());
-                                            log.info("=================>If submissionMaster============="+claimSubmissionStatus.getIntClaimNo());
-                                            claimSubmissionStatus.setReadyForSubmissionStatus("Y");
-                                            claimSubmissionStatusRepository.save(claimSubmissionStatus);
+                                log.info("================Update updateServiceLineMasterDataOnSalesOrder===============");
+                                ModelMapper modelMapper = new ModelMapper();
+                                List<LineAdjustmentProjection> lineAdjustments = secondaryServiceLinesMasterRepository
+                                    .getServiceLineMasterDataOnSalesOrder(submissionMaster.getSalesOrderId(), submissionMaster.getClaimControlNo()).stream()
+                                    .map(lineAdjustmentProjection -> modelMapper.map(lineAdjustmentProjection, LineAdjustmentProjection.class))
+                                    .collect(Collectors.toList());
+                                log.info("================lineAdjustments.size()================"+lineAdjustments.size());
+                                if(!lineAdjustments.isEmpty()){
+                                    lineAdjustments.forEach(line -> {
+                                        log.info("==========>>>>>ID==================>>>>"+submissionMaster.getChangeHealthSecondarySubmisionMasterId());
+                                        log.info("==========>>>>>line.getAdjudicatedprocedure()==================>>>>"+line.getAdjudicatedprocedurecode());
+                                        SecondaryServiceLinesMaster secondaryServiceLinesMaster = secondaryServiceLinesMasterRepository.getServiceLineMasterDataOnSubmissionMasterNProcCode(
+                                            submissionMaster.getChangeHealthSecondarySubmisionMasterId(), line.getAdjudicatedprocedurecode());
+                                        if(secondaryServiceLinesMaster != null){
+                                            secondaryServiceLinesMaster.setPayorClaimControlNo(line.getPayerclaimcontrolnumber());
+                                            secondaryServiceLinesMaster.setProviderPaymentAmount(line.getProviderpaymentamount());
+                                            secondaryServiceLinesMaster.setLineAdjustment(line.getPr()+"#"+line.getCo()+"#"+line.getCr()+"#"+line.getOa()+"#"+line.getPi()+"#");
+                                            secondaryServiceLinesMaster.setSecondaryClaimsSubmissionMaster(submissionMaster);
+                                            secondaryServiceLinesMasterRepository.save(secondaryServiceLinesMaster);
                                         }
+                                    });
+                                    log.info("=================>submissionMaster============="+submissionMaster.getClaimControlNo());
+                                    claimSubmissionStatus = claimSubmissionStatusRepository.getClaimSubmissionStatusByInternalClaimControlNumber(submissionMaster.getClaimControlNo());
+                                    if(claimSubmissionStatus != null) {
+                                        log.info("=================>If submissionMaster============="+claimSubmissionStatus.getPatientAccountNo());
+                                        log.info("=================>If submissionMaster============="+claimSubmissionStatus.getIntClaimNo());
+                                        claimSubmissionStatus.setReadyForSubmissionStatus("Y");
+                                        claimSubmissionStatusRepository.save(claimSubmissionStatus);
                                     }
                                 }
                             }
@@ -878,7 +873,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                 });
         }
         if(transactionOutcome.getClaimsStatus277MasterList() != null) {
-            transactionOutcome.getClaimsStatus277MasterList().stream()
+            transactionOutcome.getClaimsStatus277MasterList()
                 .forEach(claimStatus -> {
                     System.out.println("X3==========>"+claimStatus.getFileName());
                     ClaimSubmissionStatus claimSubmissionStatus = claimSubmissionStatusRepository.getClaimSubmissionStatusByPatientControlNumberNPatientMemberId(claimStatus.getPatientAccountNumber());
@@ -901,7 +896,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                     }
                 });
             log.info("============>salesOrderId.size()<============="+salesOrderId.size());
-            if(salesOrderId.size() > 0){
+            if(!salesOrderId.isEmpty()){
                 String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
                 log.info("============><============="+token);
                 MultiValueMap<String, List<Long>> formData = new LinkedMultiValueMap<>();
@@ -931,7 +926,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
             .map(claimsCOB835CrossoverProjection -> mapper.map(claimsCOB835CrossoverProjection, ClaimsCOB835CrossoverProjection.class)).collect(Collectors.toList());
         log.info("========>SIZE======="+claimsCOB835CrossoverProjections.size());
         String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
-        claimsCOB835CrossoverProjections.stream().forEach(claimCOBCrossover -> {
+        claimsCOB835CrossoverProjections.forEach(claimCOBCrossover -> {
             log.info("============><============="+claimCOBCrossover.getCrossoverCarrierPayerId());
             log.info("============><============="+token);
             ServiceOutcome<InsuranceMasterDTO> insuranceMasterCrossoverServiceOutcome;
@@ -972,7 +967,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                         if(salesOrderInsuranceDetailsDTOServiceOutcome.getData().getSecondaryInsurerId() != null){
                             log.info("============SecondaryInsuranceId is NOT NULL================="+salesOrderInsuranceDetailsDTOServiceOutcome.getData().getSecondaryInsurerId());
                             log.info("============InsuranceId is NOT NULL================="+insuranceMasterCrossoverServiceOutcome.getData().getInsuranceId());
-                            if(salesOrderInsuranceDetailsDTOServiceOutcome.getData().getSecondaryInsurerId() == insuranceMasterCrossoverServiceOutcome.getData().getInsuranceId()){
+                            if(Objects.equals(salesOrderInsuranceDetailsDTOServiceOutcome.getData().getSecondaryInsurerId(), insuranceMasterCrossoverServiceOutcome.getData().getInsuranceId())){
                                 log.info("============SecondaryInsuranceId is SAME================= Fetch the Secondary Insurance Details then Return the Details.");
                                 PatientInsuranceParameterMicroserviceDTO savePatientInsuranceParameters =
                                     createPatientInsuranceParameters(salesOrderInsuranceDetailsDTOServiceOutcome.getData(),
@@ -1050,7 +1045,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
                                 log.info("===================>3.OUTPUT====>SecondaryInsuranceInfo======>"+patientInsuranceServiceOutcome.getData().getInsuranceName());
                                 //2.ADD Secondary Insurance Details on Invoices using Stored Procedure.
                                 if(patientInsuranceServiceOutcome.getOutcome()){
-                                    if(patientInsuranceServiceOutcome.getData().getInsuranceId() == insuranceMasterCrossoverServiceOutcome.getData().getInsuranceId()){
+                                    if(Objects.equals(patientInsuranceServiceOutcome.getData().getInsuranceId(), insuranceMasterCrossoverServiceOutcome.getData().getInsuranceId())){
                                         log.info("===================>2.ADD Secondary Insurance Details on Invoices using Stored Procedure.===============");
                                         ServiceOutcome<AddSecondaryForPrimaryDTO> secondaryInsuranceServiceOutcome = addSecondaryDetailsForExistingPrimaryInsurance(salesOrderInsuranceDetailsDTOServiceOutcome.getData().getSalesOrderId(),
                                             claimCOBCrossover.getPatientControlNumber(), token);
@@ -1100,7 +1095,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 
     public void updateInvoiceLineItem(ClaimSubmissionStatus claimSubmissionStatus, AddSecondaryForPrimaryDTO secondaryForPrimaryDTO){
         List<InvoiceLineItemDetails> invoiceLineItemDetailsList = invoiceLineItemDetailsRepository.getPrimaryInvoiceLineItemDetailsOnPrimaryInvoiceNo(claimSubmissionStatus.getInvoiceNo());
-        invoiceLineItemDetailsList.stream().forEach(invoiceList -> {
+        invoiceLineItemDetailsList.forEach(invoiceList -> {
             invoiceList.setSecondaryInvoiceNo(secondaryForPrimaryDTO.getSecondaryInvoiceNo());
             invoiceList.setSecondaryInvoiceId(secondaryForPrimaryDTO.getSecondaryInvoiceId());
             invoiceLineItemDetailsRepository.save(invoiceList);
@@ -1313,7 +1308,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 
     void createTransaction835(List<ClaimsCOB835Details> claimsCOB835DetailsList, ReceiptMasterDetails receiptMasterDetails) {
         System.out.println("====================createTransaction835===========================");
-        claimsCOB835DetailsList.stream()
+        claimsCOB835DetailsList
             .forEach(transaction -> {
                 if(transaction.getProviderPaymentAmount() != 0) {
                     saveTransaction835(transaction, receiptMasterDetails, "Payment", "Payment", transaction.getProviderPaymentAmount());
@@ -1392,60 +1387,133 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
     }
 
     @Override
-    public void preparePrimaryClaimSubmissionHealthInsuranceForm(String claimControlNumber) throws Exception {
+    @Async(AsyncConfigurationSetup.TASK_EXECUTOR_SERVICE)
+    public CompletableFuture<ServiceOutcome<String>> preparePrimaryClaimSubmissionHealthInsuranceForm(String claimControlNumber) {
         System.out.println("=============prepareHealthInsuranceForm==============");
-        Optional<ClaimsSubmissionMaster> claimsSubmissionMaster = Optional.ofNullable(claimsSubmissionMasterRepository.getHealthInsuranceClaimDetailsOnClaimControlNumber(claimControlNumber));
-        if(claimsSubmissionMaster != null) {
-            List<ServiceLinesMaster> serviceLinesMasters = serviceLinesMasterRepository.getServiceLineMasterDataOnClaimSubmission(claimsSubmissionMaster.get().getChangeHealthPrimarySubmisionMasterId());
-            preparePrimaryClaimSubmissionHealthInsuranceData(claimsSubmissionMaster, serviceLinesMasters);
+        try {
+            return CompletableFuture.supplyAsync(() -> {
+                Optional<ClaimsSubmissionMaster> claimsSubmissionMaster = Optional.ofNullable(claimsSubmissionMasterRepository.getHealthInsuranceClaimDetailsOnClaimControlNumber(claimControlNumber));
+                if (claimsSubmissionMaster.isPresent()) {
+                    List<ServiceLinesMaster> serviceLinesMasters = serviceLinesMasterRepository.getServiceLineMasterDataOnClaimSubmission(claimsSubmissionMaster.get().getChangeHealthPrimarySubmisionMasterId());
+                    try {
+                        return preparePrimaryClaimSubmissionHealthInsuranceData(claimsSubmissionMaster.get(), serviceLinesMasters)
+                            .thenApply(result -> new ServiceOutcome<>(result.getData(), result.getOutcome(), result.getMessage()))
+                            .join(); // Join to handle potential CompletableFuture completed exceptionally
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                return new ServiceOutcome<>("Primary claim submission health insurance form prepared successfully!!!", true, "Primary claim submission health insurance form prepared successfully!!!");
+            });
+        } catch (Exception e) {
+            log.error("Unable to prepare primary claim submission health insurance form");
+            return CompletableFuture.completedFuture(new ServiceOutcome<>("Unable to prepare primary claim submission health insurance form", false, "Failed to prepare primary claim submission health insurance form"));
         }
     }
 
-    public void preparePrimaryClaimSubmissionHealthInsuranceData(Optional<ClaimsSubmissionMaster> claimsSubmissionMaster, List<ServiceLinesMaster> serviceLinesMasters) throws Exception {
-        long serviceLineSize = serviceLinesMasters.size();
-        List<ServiceLinesMaster> firstPage;
-        List<ServiceLinesMaster> secondPage;
-        Double totalChargeAmount = 0.00d;
-        if(serviceLineSize >= 6){
-            File file1 = new File(fileUploadConfigProperties.getTempClaimFormCMS1500Documents()+"/"+createNewClaimFormFile("first_"+claimsSubmissionMaster.get().getClaimControlNo(), "TEMP"));
-            file1.getParentFile().mkdirs();
+    public CompletableFuture<ServiceOutcome<String>> preparePrimaryClaimSubmissionHealthInsuranceData(ClaimsSubmissionMaster claimsSubmissionMaster, List<ServiceLinesMaster> serviceLinesMasters) throws Exception {
+        log.info("==============preparePrimaryClaimSubmissionHealthInsuranceData======================");
+        return CompletableFuture.supplyAsync(() -> {
+            String finalFileName = null;
+            long serviceLineSize = serviceLinesMasters.size();
+            List<ServiceLinesMaster> firstPage;
+            List<ServiceLinesMaster> secondPage;
+            double totalChargeAmount = 0.00d;
+            try {
+                if (Boolean.parseBoolean(fileConfigUtility.getProperty("is_cloud_storage"))) {
+                    log.info("==============PrimaryClaimSubmission-CLOUD STORAGE======================");
+                    if (serviceLineSize >= 6) {
+                        log.info("==============IF Serviceline===================");
+                        File file1 = new File(fileUploadConfigProperties.getTempClaimFormCMS1500Documents() + "/" + createNewClaimFormFile("first_" + claimsSubmissionMaster.getClaimControlNo(), "TEMP"));
+                        file1.getParentFile().mkdirs();
 
-            File file2 = new File(fileUploadConfigProperties.getTempClaimFormCMS1500Documents()+"/"+createNewClaimFormFile("second_"+claimsSubmissionMaster.get().getClaimControlNo(), "TEMP"));
-            file2.getParentFile().mkdirs();
-            firstPage = new ArrayList<>();
-            secondPage = new ArrayList<>();
-            for (int i = 0; i < serviceLineSize - 1; i++) {
-                firstPage.add(serviceLinesMasters.get(i));
-                totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
-            }
-            for (int i = 2; i < serviceLineSize; i++) {
-                secondPage.add(serviceLinesMasters.get(i));
-                totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
-            }
+                        File file2 = new File(fileUploadConfigProperties.getTempClaimFormCMS1500Documents() + "/" + createNewClaimFormFile("second_" + claimsSubmissionMaster.getClaimControlNo(), "TEMP"));
+                        file2.getParentFile().mkdirs();
+                        firstPage = new ArrayList<>();
+                        secondPage = new ArrayList<>();
+                        for (int i = 0; i < serviceLineSize - 1; i++) {
+                            firstPage.add(serviceLinesMasters.get(i));
+                            totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
+                        }
+                        for (int i = 2; i < serviceLineSize; i++) {
+                            secondPage.add(serviceLinesMasters.get(i));
+                            totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
+                        }
 
-            PdfStamper stamper1 = fillPrimaryClaimSubmissionFormData(file1.getName(), "TEMP", claimsSubmissionMaster.get(), firstPage, 0.00d);
-            stamper1.close();
-            PdfStamper stamper2 = fillPrimaryClaimSubmissionFormData(file2.getName(), "TEMP", claimsSubmissionMaster.get(), secondPage, totalChargeAmount);
-            stamper2.close();
+                        PdfStamper stamper1 = fillPrimaryClaimSubmissionFormData(file1.getName(), "TEMP", claimsSubmissionMaster, firstPage, 0.00d);
+                        stamper1.close();
+                        PdfStamper stamper2 = fillPrimaryClaimSubmissionFormData(file2.getName(), "TEMP", claimsSubmissionMaster, secondPage, totalChargeAmount);
+                        stamper2.close();
 
-            String finalFileName = createNewClaimFormFile(claimsSubmissionMaster.get().getClaimControlNo(), "PRIMARY");
-            mergePdfs(file1.getName(), file2.getName(), finalFileName, "PRIMARY");
-            if(finalFileName != null){
-                claimsSubmissionMaster.get().setCms1500FormName(finalFileName);
-                claimsSubmissionMasterRepository.save(claimsSubmissionMaster.get());
+                        finalFileName = createNewClaimFormFile(claimsSubmissionMaster.getClaimControlNo(), "PRIMARY");
+                        mergePdfs(file1.getName(), file2.getName(), finalFileName, "PRIMARY");
+                        if (finalFileName != null) {
+                            claimsSubmissionMaster.setCms1500FormName(finalFileName);
+                            claimsSubmissionMasterRepository.save(claimsSubmissionMaster);
+                        }
+                    } else {
+                        log.info("==============ELSE Serviceline===================");
+                        finalFileName = createNewClaimFormFile(claimsSubmissionMaster.getClaimControlNo(), "PRIMARY");
+                        for (int i = 0; i < serviceLineSize; i++) {
+                            totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
+                        }
+                        fillPrimaryClaimSubmissionFormData(finalFileName, "PRIMARY", claimsSubmissionMaster, serviceLinesMasters, totalChargeAmount);
+                        if (finalFileName != null) {
+                            claimsSubmissionMaster.setCms1500FormName(finalFileName);
+                            claimsSubmissionMasterRepository.save(claimsSubmissionMaster);
+                        }
+                    }
+                } else {
+                    log.info("==============PrimaryClaimSubmission-LOCAL STORAGE======================");
+                    if (serviceLineSize >= 6) {
+                        log.info("==============IF Serviceline===================");
+                        File file1 = new File(fileUploadConfigProperties.getTempClaimFormCMS1500Documents() + "/" + createNewClaimFormFile("first_" + claimsSubmissionMaster.getClaimControlNo(), "TEMP"));
+                        file1.getParentFile().mkdirs();
+
+                        File file2 = new File(fileUploadConfigProperties.getTempClaimFormCMS1500Documents() + "/" + createNewClaimFormFile("second_" + claimsSubmissionMaster.getClaimControlNo(), "TEMP"));
+                        file2.getParentFile().mkdirs();
+                        firstPage = new ArrayList<>();
+                        secondPage = new ArrayList<>();
+                        for (int i = 0; i < serviceLineSize - 1; i++) {
+                            firstPage.add(serviceLinesMasters.get(i));
+                            totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
+                        }
+                        for (int i = 2; i < serviceLineSize; i++) {
+                            secondPage.add(serviceLinesMasters.get(i));
+                            totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
+                        }
+
+                        PdfStamper stamper1 = fillPrimaryClaimSubmissionFormData(file1.getName(), "TEMP", claimsSubmissionMaster, firstPage, 0.00d);
+                        stamper1.close();
+                        PdfStamper stamper2 = fillPrimaryClaimSubmissionFormData(file2.getName(), "TEMP", claimsSubmissionMaster, secondPage, totalChargeAmount);
+                        stamper2.close();
+
+                        finalFileName = createNewClaimFormFile(claimsSubmissionMaster.getClaimControlNo(), "PRIMARY");
+                        mergePdfs(file1.getName(), file2.getName(), finalFileName, "PRIMARY");
+                        if (finalFileName != null) {
+                            claimsSubmissionMaster.setCms1500FormName(finalFileName);
+                            claimsSubmissionMasterRepository.save(claimsSubmissionMaster);
+                        }
+                    } else {
+                        log.info("==============ELSE Serviceline===================");
+                        finalFileName = createNewClaimFormFile(claimsSubmissionMaster.getClaimControlNo(), "PRIMARY");
+                        for (int i = 0; i < serviceLineSize; i++) {
+                            totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
+                        }
+                        fillPrimaryClaimSubmissionFormData(finalFileName, "PRIMARY", claimsSubmissionMaster, serviceLinesMasters, totalChargeAmount);
+                        if (finalFileName != null) {
+                            claimsSubmissionMaster.setCms1500FormName(finalFileName);
+                            claimsSubmissionMasterRepository.save(claimsSubmissionMaster);
+                        }
+                    }
+                }
             }
-        }
-        else{
-            String finalFileName = createNewClaimFormFile(claimsSubmissionMaster.get().getClaimControlNo(), "PRIMARY");
-            for (int i = 0; i < serviceLineSize; i++) {
-                totalChargeAmount = totalChargeAmount + serviceLinesMasters.get(i).getChargeAmt();
+            catch(Exception e){
+                e.printStackTrace();
+                return new ServiceOutcome<>("", false, "Failed to prepare primary claim submission health insurance data");
             }
-            fillPrimaryClaimSubmissionFormData(finalFileName, "PRIMARY", claimsSubmissionMaster.get(), serviceLinesMasters, totalChargeAmount);
-            if(finalFileName != null){
-                claimsSubmissionMaster.get().setCms1500FormName(finalFileName);
-                claimsSubmissionMasterRepository.save(claimsSubmissionMaster.get());
-            }
-        }
+            return new ServiceOutcome<>(finalFileName, true, "");
+        });
     }
 
     public void deleteTemporaryFiles(File file1, File file2){
@@ -1467,15 +1535,39 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
     }
 
     public PdfStamper fillPrimaryClaimSubmissionFormData(String dest, String type, ClaimsSubmissionMaster claimsSubmissionMaster, List<ServiceLinesMaster> serviceLinesMasters, Double totalChargeAmount) throws Exception{
+        log.info("==============fillPrimaryClaimSubmissionFormData===================");
         final DecimalFormat df = new DecimalFormat("0.00");
-        PdfReader pdfReader = new PdfReader(fileUploadConfigProperties.getBaseFormCMS1500Documents().getLocation()+"/"+"form.pdf");
-        //Create PdfStamper instance.
-        String filePath = null;
-        if(type.equalsIgnoreCase("TEMP"))
-            filePath = fileUploadConfigProperties.getTempClaimFormCMS1500Documents().getLocation()+"/"+dest;
-        if(type.equalsIgnoreCase("PRIMARY"))
-            filePath = fileUploadConfigProperties.getPrimaryClaimFormCMS1500Documents().getLocation()+"/"+dest;
-        PdfStamper stamper = new PdfStamper(pdfReader, new FileOutputStream(filePath));
+        PdfStamper stamper = null;
+        PdfReader pdfReader = null;
+        log.info("===============dest================"+dest);
+        log.info("===============type================"+type);
+        String bucketName = null;
+        File tempFile = null;
+        if(Boolean.parseBoolean(fileConfigUtility.getProperty("is_cloud_storage"))){
+            log.info("==============fillPrimaryClaimSubmissionFormData========S3-BUCKET===========");
+            bucketName = BucketName.BUCKET_NAME.getClaimsServiceBucket();
+            String sourceKey = (fileConfigUtility.getProperty("file.base.form-cms1500.document.path") + File.separator + "form.pdf").replace("\\", "/");
+            pdfReader = amazonS3Service.createPdfReaderFromS3(bucketName, sourceKey);
+            if(pdfReader != null) {
+                tempFile = new CommonBasicOperations().createTempFile();
+                log.info("================TempFile=================="+tempFile.getAbsolutePath());
+                log.info("================TempFile=================="+tempFile.getName());
+                stamper = amazonS3Service.getPdfStamper(pdfReader, tempFile);
+            }
+        }
+        else{
+            log.info("==============fillPrimaryClaimSubmissionFormData========LOCAL===========");
+            pdfReader = new PdfReader(fileUploadConfigProperties.getBaseFormCMS1500Documents().getLocation()+"/"+"form.pdf");
+            //Create PdfStamper instance.
+            String filePath = null;
+            if(type.equalsIgnoreCase("TEMP"))
+                filePath = fileUploadConfigProperties.getTempClaimFormCMS1500Documents().getLocation()+"/"+dest;
+            if(type.equalsIgnoreCase("PRIMARY"))
+                filePath = fileUploadConfigProperties.getPrimaryClaimFormCMS1500Documents().getLocation()+"/"+dest;
+            assert filePath != null;
+            stamper = new PdfStamper(pdfReader, new FileOutputStream(filePath));
+        }
+        assert stamper != null;
         stamper.getAcroFields().setField("insurance_name", claimsSubmissionMaster.getReceiverOrganizationName().toUpperCase());
         if(Objects.isNull(claimsSubmissionMaster.getTradingPartnerAddressLine1()))
             stamper.getAcroFields().setField("insurance_address", "");
@@ -1485,7 +1577,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
             stamper.getAcroFields().setField("insurance_address2", "");
         else
             stamper.getAcroFields().setField("insurance_address2", claimsSubmissionMaster.getInsuredAddressLine2().toUpperCase());
-        StringBuffer insuranceCityStateZip = new StringBuffer();
+        StringBuilder insuranceCityStateZip = new StringBuilder();
         if(!Objects.isNull(claimsSubmissionMaster.getTradingPartnerCity()))
             insuranceCityStateZip.append(claimsSubmissionMaster.getTradingPartnerCity().toUpperCase());
         if(!Objects.isNull(claimsSubmissionMaster.getTradingPartnerState()))
@@ -1564,8 +1656,6 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
         else
             stamper.getAcroFields().setField("ins_benefit_plan", "NO", true);
 
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
         Date originalDos = new SimpleDateFormat("yyyy-MM-dd").parse(claimsSubmissionMaster.getOriginalDos().toString());
         if(claimsSubmissionMaster.getSignatureIndicator().equalsIgnoreCase("Y"))
             stamper.getAcroFields().setField("pt_signature", "Signature on file");
@@ -1579,29 +1669,29 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
 
         stamper.getAcroFields().setField("99icd", claimsSubmissionMaster.getDiagnosisCodeType());
 
-        if(claimsSubmissionMaster.getIcd10diagnosisCode1() != null && !claimsSubmissionMaster.getIcd10diagnosisCode1().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode1() != null && !claimsSubmissionMaster.getIcd10diagnosisCode1().isEmpty())
             stamper.getAcroFields().setField("diagnosis1", claimsSubmissionMaster.getIcd10diagnosisCode1().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode1().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode2() != null && !claimsSubmissionMaster.getIcd10diagnosisCode2().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode2() != null && !claimsSubmissionMaster.getIcd10diagnosisCode2().isEmpty())
             stamper.getAcroFields().setField("diagnosis2", claimsSubmissionMaster.getIcd10diagnosisCode2().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode2().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode3() != null && !claimsSubmissionMaster.getIcd10diagnosisCode3().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode3() != null && !claimsSubmissionMaster.getIcd10diagnosisCode3().isEmpty())
             stamper.getAcroFields().setField("diagnosis3", claimsSubmissionMaster.getIcd10diagnosisCode3().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode3().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode4() != null && !claimsSubmissionMaster.getIcd10diagnosisCode4().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode4() != null && !claimsSubmissionMaster.getIcd10diagnosisCode4().isEmpty())
             stamper.getAcroFields().setField("diagnosis4", claimsSubmissionMaster.getIcd10diagnosisCode4().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode4().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode5() != null && !claimsSubmissionMaster.getIcd10diagnosisCode5().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode5() != null && !claimsSubmissionMaster.getIcd10diagnosisCode5().isEmpty())
             stamper.getAcroFields().setField("diagnosis5", claimsSubmissionMaster.getIcd10diagnosisCode5().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode5().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode6() != null && !claimsSubmissionMaster.getIcd10diagnosisCode6().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode6() != null && !claimsSubmissionMaster.getIcd10diagnosisCode6().isEmpty())
             stamper.getAcroFields().setField("diagnosis6", claimsSubmissionMaster.getIcd10diagnosisCode6().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode6().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode7() != null && !claimsSubmissionMaster.getIcd10diagnosisCode7().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode7() != null && !claimsSubmissionMaster.getIcd10diagnosisCode7().isEmpty())
             stamper.getAcroFields().setField("diagnosis7", claimsSubmissionMaster.getIcd10diagnosisCode7().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode7().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode8() != null && !claimsSubmissionMaster.getIcd10diagnosisCode8().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode8() != null && !claimsSubmissionMaster.getIcd10diagnosisCode8().isEmpty())
             stamper.getAcroFields().setField("diagnosis8", claimsSubmissionMaster.getIcd10diagnosisCode8().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode8().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode9() != null && !claimsSubmissionMaster.getIcd10diagnosisCode9().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode9() != null && !claimsSubmissionMaster.getIcd10diagnosisCode9().isEmpty())
             stamper.getAcroFields().setField("diagnosis9", claimsSubmissionMaster.getIcd10diagnosisCode9().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode9().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode10() != null && !claimsSubmissionMaster.getIcd10diagnosisCode10().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode10() != null && !claimsSubmissionMaster.getIcd10diagnosisCode10().isEmpty())
             stamper.getAcroFields().setField("diagnosis10", claimsSubmissionMaster.getIcd10diagnosisCode10().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode10().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode11() != null && !claimsSubmissionMaster.getIcd10diagnosisCode11().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode11() != null && !claimsSubmissionMaster.getIcd10diagnosisCode11().isEmpty())
             stamper.getAcroFields().setField("diagnosis11", claimsSubmissionMaster.getIcd10diagnosisCode11().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode11().indexOf(',')));
-        if(claimsSubmissionMaster.getIcd10diagnosisCode12() != null && !claimsSubmissionMaster.getIcd10diagnosisCode12().equals(""))
+        if(claimsSubmissionMaster.getIcd10diagnosisCode12() != null && !claimsSubmissionMaster.getIcd10diagnosisCode12().isEmpty())
             stamper.getAcroFields().setField("diagnosis12", claimsSubmissionMaster.getIcd10diagnosisCode12().substring(0, claimsSubmissionMaster.getIcd10diagnosisCode12().indexOf(',')));
 
         if(claimsSubmissionMaster.getParNo() != null)
@@ -1650,14 +1740,27 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
         stamper.getAcroFields().setField("grp", claimsSubmissionMaster.getBillingProviderTaxonomy().toUpperCase());
 
         fillPrimaryClaimSubmissionServiceLineFormData(claimsSubmissionMaster, serviceLinesMasters, stamper);
-
         stamper.setFormFlattening(true);
         stamper.close();
         pdfReader.close();
+        if(Boolean.parseBoolean(fileConfigUtility.getProperty("is_cloud_storage"))){
+            log.info("================S3-Second Part=====================");
+            assert tempFile != null;
+            String outputFilePathKey = (fileConfigUtility.getProperty("file.primary-claim.form-cms1500.documents.path") + File.separator + dest).replace("\\", "/");
+            log.info("================outputFilePathKey======================="+outputFilePathKey);
+            log.info("==============tempFile======================"+tempFile.getAbsolutePath());
+            byte[] byteArray = CommonBasicOperations.fileToByteArray(tempFile.getAbsolutePath());
+            ByteArrayOutputStream outputStream = new CommonBasicOperations().createByteArrayOutputStream(byteArray);
+            amazonS3Service.uploadDocumentToS3Bucket(bucketName, outputFilePathKey, outputStream);
+            if(tempFile.exists())
+                tempFile.delete();
+            System.out.println("File uploaded to S3 successfully.");
+        }
         return stamper;
     }
 
     public void fillPrimaryClaimSubmissionServiceLineFormData(ClaimsSubmissionMaster claimsSubmissionMaster, List<ServiceLinesMaster> serviceLinesMasters, PdfStamper stamper){
+        log.info("==============fillPrimaryClaimSubmissionServiceLineFormData===================");
         final DecimalFormat df = new DecimalFormat("0.00");
         char diagnosisPointer = '\0';
         if(Integer.parseInt(claimsSubmissionMaster.getPrimaryDiagnosis()) == 1)
@@ -1687,7 +1790,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
         var wrapper = new Object(){ int ordinal = 1; };
         char finalDiagnosisPointer = diagnosisPointer;
 
-        serviceLinesMasters.stream()
+        serviceLinesMasters
             //.limit(2)
             .forEach(serviceLine -> {
                 try {
@@ -1733,6 +1836,7 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
     }
 
     public void mergePdfs(String file1, String file2, String finalFileName, String type){
+        log.info("==============mergePdfs===================");
         try {
             String[] files = {fileUploadConfigProperties.getTempClaimFormCMS1500Documents().getLocation() + "/" + file1, fileUploadConfigProperties.getTempClaimFormCMS1500Documents().getLocation() + "/" + file2};
             String path = null;
@@ -1748,14 +1852,14 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
             pDFCombineUsingJava.open();
             PdfReader readInputPDF;
             //int number_of_pages;
-            for (int i = 0; i < files.length; i++) {
-                RandomAccessFile raf = new RandomAccessFile(files[i], "r");
+            for (String file : files) {
+                RandomAccessFile raf = new RandomAccessFile(file, "r");
                 RandomAccessFileOrArray pdfFile = new RandomAccessFileOrArray(new RandomAccessSourceFactory().createSource(raf));
                 readInputPDF = new PdfReader(pdfFile, new byte[0]);
                 copy.addDocument(readInputPDF);
                 copy.freeReader(readInputPDF);
                 readInputPDF.close();
-                Files.deleteIfExists(Paths.get(files[i]));
+                Files.deleteIfExists(Paths.get(file));
             }
             pDFCombineUsingJava.close();
             copy.close();
@@ -1766,35 +1870,66 @@ public class ClaimResponsesAndReportsV2ServiceImpl implements ClaimResponsesAndR
     }
 
     public String createNewClaimFormFile(String fileName, String type){
+        log.info("==============createNewClaimFormFile===================");
         File finalFile = null;
-        try {
-            File file = new File(fileUploadConfigProperties.getBaseFormCMS1500Documents().getLocation()+"/"+"form.pdf");
-            String[] files = {file.getAbsolutePath()};
-            if(type.equalsIgnoreCase("TEMP"))
-                finalFile = new File(fileUploadConfigProperties.getTempClaimFormCMS1500Documents().getLocation()+"/"+fileName+".pdf");
-            else if(type.equalsIgnoreCase("PRIMARY"))
-                finalFile = new File(fileUploadConfigProperties.getPrimaryClaimFormCMS1500Documents().getLocation()+"/"+fileName+".pdf");
-            else if(type.equalsIgnoreCase("SECONDARY"))
-                finalFile = new File(fileUploadConfigProperties.getSecondaryClaimFormCMS1500Documents().getLocation()+"/"+fileName+".pdf");
-            else if(type.equalsIgnoreCase("RECLAIM"))
-                finalFile = new File(fileUploadConfigProperties.getReClaimFormCMS1500Documents().getLocation()+"/"+fileName+".pdf");
-
-            Document pDFCombineUsingJava = new Document();
-            PdfCopy copy = new PdfCopy(pDFCombineUsingJava , new FileOutputStream(finalFile));
-            pDFCombineUsingJava.open();
-            PdfReader ReadInputPDF;
-//            //int number_of_pages;
-            for (int i = 0; i < files.length; i++) {
-                ReadInputPDF = new PdfReader(files[i]);
-                copy.addDocument(ReadInputPDF);
-                copy.freeReader(ReadInputPDF);
+        if(Boolean.parseBoolean(fileConfigUtility.getProperty("is_cloud_storage"))){
+            try {
+                String bucketName = BucketName.BUCKET_NAME.getClaimsServiceBucket();
+                log.info("========bucketName=========="+bucketName);
+                String sourceKey = (fileConfigUtility.getProperty("file.base.form-cms1500.document.path")+File.separator + "form.pdf").replace("\\", "/");
+                log.info("========Source KEY=========="+sourceKey);
+                String destinationKey = null;
+                if(type.equalsIgnoreCase("PRIMARY"))
+                    destinationKey = (fileConfigUtility.getProperty("file.primary-claim.form-cms1500.documents.path")+File.separator+fileName+".pdf").replace("\\", "/");
+                else if(type.equalsIgnoreCase("SECONDARY"))
+                    destinationKey = (fileConfigUtility.getProperty("file.primary-claim.form-cms1500.documents.path")+File.separator+fileName+".pdf").replace("\\", "/");
+                else if(type.equalsIgnoreCase("RECLAIM"))
+                    destinationKey = (fileConfigUtility.getProperty("file.primary-claim.form-cms1500.documents.path")+File.separator+fileName+".pdf").replace("\\", "/");
+                log.info("========destinationKey=========="+destinationKey);
+                CopyObjectResult response = amazonS3Service.copyS3BucketPdfFile(bucketName, sourceKey, destinationKey);
+                log.info("===================response=====Filename========="+response);
+                // Extract filename from the destinationKey
+                String destinationFilename = amazonS3Service.extractFilename(destinationKey);
+                System.out.println("Destination Filename: " + destinationFilename);
+                System.out.println("PDF file copied successfully.");
+                return destinationFilename;
             }
-            pDFCombineUsingJava.close();
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        else{
+            try {
+                File file = new File(fileUploadConfigProperties.getBaseFormCMS1500Documents().getLocation()+"/"+"form.pdf");
+                String[] files = {file.getAbsolutePath()};
+                if(type.equalsIgnoreCase("TEMP"))
+                    finalFile = new File(fileUploadConfigProperties.getTempClaimFormCMS1500Documents().getLocation()+"/"+fileName+".pdf");
+                else if(type.equalsIgnoreCase("PRIMARY"))
+                    finalFile = new File(fileUploadConfigProperties.getPrimaryClaimFormCMS1500Documents().getLocation()+"/"+fileName+".pdf");
+                else if(type.equalsIgnoreCase("SECONDARY"))
+                    finalFile = new File(fileUploadConfigProperties.getSecondaryClaimFormCMS1500Documents().getLocation()+"/"+fileName+".pdf");
+                else if(type.equalsIgnoreCase("RECLAIM"))
+                    finalFile = new File(fileUploadConfigProperties.getReClaimFormCMS1500Documents().getLocation()+"/"+fileName+".pdf");
+
+                Document pDFCombineUsingJava = new Document();
+                assert finalFile != null;
+                PdfCopy copy = new PdfCopy(pDFCombineUsingJava , new FileOutputStream(finalFile));
+                pDFCombineUsingJava.open();
+                PdfReader ReadInputPDF;
+                for (String s : files) {
+                    ReadInputPDF = new PdfReader(s);
+                    copy.addDocument(ReadInputPDF);
+                    copy.freeReader(ReadInputPDF);
+                }
+                pDFCombineUsingJava.close();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            assert finalFile != null;
+            return finalFile.getName();
         }
-        return finalFile.getName();
+        return fileName;
     }
 
     @Override

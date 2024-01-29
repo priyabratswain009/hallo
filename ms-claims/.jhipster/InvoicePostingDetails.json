@@ -107,6 +107,10 @@
     {
       "fieldName": "postingNo",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "isManualPosting",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

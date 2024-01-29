@@ -2,10 +2,10 @@ package com.sunknowledge.dme.rcm.service.claimservice;
 
 import java.util.List;
 
+import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sunknowledge.dme.rcm.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.domain.ClaimSubmissionStatus;
 import com.sunknowledge.dme.rcm.repository.primaryclaimrepository.ClaimSubmissionStatusRepo;
 

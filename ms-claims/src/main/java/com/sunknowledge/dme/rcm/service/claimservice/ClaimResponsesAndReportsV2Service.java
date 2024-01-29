@@ -11,6 +11,7 @@ import com.sunknowledge.dme.rcm.pojo.claimreports.transaction.ClaimsStatus277Dat
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public interface ClaimResponsesAndReportsV2Service {
@@ -22,7 +23,7 @@ public interface ClaimResponsesAndReportsV2Service {
 	void claimSubmissionStatusOperation(ClaimTransactionOutcome transactionOutcome) throws ExecutionException, InterruptedException;
 	List<ClaimsCOB835Data> getAllClaimsCOB835MasterData();
 	List<ClaimsStatus277Data> getAllClaimsStatus277MasterData();
-    void preparePrimaryClaimSubmissionHealthInsuranceForm(String claimControlNumber) throws Exception;
+    CompletableFuture<ServiceOutcome<String>> preparePrimaryClaimSubmissionHealthInsuranceForm(String claimControlNumber) throws Exception;
     void prepareSecondaryClaimSubmissionHealthInsuranceForm(String claimControlNumber) throws Exception;
     void preparePrimaryClaimReSubmissionHealthInsuranceForm(String claimControlNumber) throws Exception;
     void process835CrossoverInsurance();

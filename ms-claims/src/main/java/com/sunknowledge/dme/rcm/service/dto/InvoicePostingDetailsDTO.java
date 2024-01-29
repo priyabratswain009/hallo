@@ -60,6 +60,8 @@ public class InvoicePostingDetailsDTO implements Serializable {
 
     private String postingNo;
 
+    private Boolean isManualPosting;
+
     public Long getInvoiceLineItemPostingId() {
         return invoiceLineItemPostingId;
     }
@@ -252,6 +254,14 @@ public class InvoicePostingDetailsDTO implements Serializable {
         this.postingNo = postingNo;
     }
 
+    public Boolean getIsManualPosting() {
+        return isManualPosting;
+    }
+
+    public void setIsManualPosting(Boolean isManualPosting) {
+        this.isManualPosting = isManualPosting;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -301,6 +311,7 @@ public class InvoicePostingDetailsDTO implements Serializable {
             ", invoiceLineItemDetailsId=" + getInvoiceLineItemDetailsId() +
             ", hcpcsCode='" + getHcpcsCode() + "'" +
             ", postingNo='" + getPostingNo() + "'" +
+            ", isManualPosting='" + getIsManualPosting() + "'" +
             "}";
     }
 }

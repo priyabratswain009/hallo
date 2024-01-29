@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.application.properties.ApplicationPropertiesSetup;
+import com.sunknowledge.dme.rcm.application.properties.AsyncConfigurationSetup;
 import com.sunknowledge.dme.rcm.pojo.claimreports.ActualClaimResponseReport;
 import com.sunknowledge.dme.rcm.pojo.claimreports.transaction.ClaimTransactionOutcome;
 import com.sunknowledge.dme.rcm.service.claimservice.ClaimResponsesAndReportsV2Service;
@@ -14,12 +16,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Bimal K Sahoo
@@ -106,17 +110,16 @@ public class ClaimResponsesAndReportsV2Controller {
 
     @ApiOperation(value = "Prepare Primary Claim Submission Health Insurance Form")
     @PostMapping(path = "/preparePrimaryClaimSubmissionHealthInsuranceForm", produces = "application/json")
-    public String preparePrimaryClaimSubmissionHealthInsuranceForm(@RequestParam("claimControlNumber") String claimControlNumber) {
+    @Async(AsyncConfigurationSetup.TASK_EXECUTOR_CONTROLLER)
+    public CompletableFuture<ServiceOutcome<String>> preparePrimaryClaimSubmissionHealthInsuranceForm(@RequestParam("claimControlNumber") String claimControlNumber) {
         log.info("=======================POST(CONTROLLER) Prepare Primary Claim Submission Health Insurance Form==========================");
-        String resultOutcomeJson = "";
         try {
-            claimResponsesAndReportsV2Service.preparePrimaryClaimSubmissionHealthInsuranceForm(claimControlNumber);
-            System.out.println("RESULT OUTCOME=>"+resultOutcomeJson);
+            return claimResponsesAndReportsV2Service.preparePrimaryClaimSubmissionHealthInsuranceForm(claimControlNumber);
         }
         catch(Exception e) {
-            e.printStackTrace();
+            log.error("Unable to prepare primary claim submission health insurance form");
+            return CompletableFuture.completedFuture(new ServiceOutcome<>("Unable to prepare primary claim submission health insurance form", false, "Failed to prepare primary claim submission health insurance form"));
         }
-        return resultOutcomeJson;
     }
 
     @ApiOperation(value = "Prepare Secondary Claim Submission Health Insurance Form")

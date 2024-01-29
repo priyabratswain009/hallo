@@ -91,6 +91,9 @@ public class InvoicePostingDetails implements Serializable {
     @Column(name = "posting_no")
     private String postingNo;
 
+    @Column(name = "is_manual_posting")
+    private Boolean isManualPosting;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getInvoiceLineItemPostingId() {
@@ -405,6 +408,19 @@ public class InvoicePostingDetails implements Serializable {
         this.postingNo = postingNo;
     }
 
+    public Boolean getIsManualPosting() {
+        return this.isManualPosting;
+    }
+
+    public InvoicePostingDetails isManualPosting(Boolean isManualPosting) {
+        this.setIsManualPosting(isManualPosting);
+        return this;
+    }
+
+    public void setIsManualPosting(Boolean isManualPosting) {
+        this.isManualPosting = isManualPosting;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -452,6 +468,7 @@ public class InvoicePostingDetails implements Serializable {
             ", invoiceLineItemDetailsId=" + getInvoiceLineItemDetailsId() +
             ", hcpcsCode='" + getHcpcsCode() + "'" +
             ", postingNo='" + getPostingNo() + "'" +
+            ", isManualPosting='" + getIsManualPosting() + "'" +
             "}";
     }
 }

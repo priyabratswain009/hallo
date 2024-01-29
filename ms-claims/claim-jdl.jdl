@@ -794,6 +794,7 @@ entity InvoicePostingDetails(t_invoice_posting_details){
     invoicePostingDetailsUuid UUID
     hcpcsCode String
     postingNo String
+    isManualPosting Boolean
 }
 
 entity Claims835CrossoverException(t_claims_835_crossover_exception){

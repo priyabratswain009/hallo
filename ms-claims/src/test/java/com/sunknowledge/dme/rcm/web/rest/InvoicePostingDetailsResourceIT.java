@@ -104,6 +104,9 @@ class InvoicePostingDetailsResourceIT {
     private static final String DEFAULT_POSTING_NO = "AAAAAAAAAA";
     private static final String UPDATED_POSTING_NO = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_IS_MANUAL_POSTING = false;
+    private static final Boolean UPDATED_IS_MANUAL_POSTING = true;
+
     private static final String ENTITY_API_URL = "/api/invoice-posting-details";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{invoiceLineItemPostingId}";
 
@@ -154,7 +157,8 @@ class InvoicePostingDetailsResourceIT {
             .invoiceDate(DEFAULT_INVOICE_DATE)
             .invoiceLineItemDetailsId(DEFAULT_INVOICE_LINE_ITEM_DETAILS_ID)
             .hcpcsCode(DEFAULT_HCPCS_CODE)
-            .postingNo(DEFAULT_POSTING_NO);
+            .postingNo(DEFAULT_POSTING_NO)
+            .isManualPosting(DEFAULT_IS_MANUAL_POSTING);
         return invoicePostingDetails;
     }
 
@@ -188,7 +192,8 @@ class InvoicePostingDetailsResourceIT {
             .invoiceDate(UPDATED_INVOICE_DATE)
             .invoiceLineItemDetailsId(UPDATED_INVOICE_LINE_ITEM_DETAILS_ID)
             .hcpcsCode(UPDATED_HCPCS_CODE)
-            .postingNo(UPDATED_POSTING_NO);
+            .postingNo(UPDATED_POSTING_NO)
+            .isManualPosting(UPDATED_IS_MANUAL_POSTING);
         return invoicePostingDetails;
     }
 
@@ -239,6 +244,7 @@ class InvoicePostingDetailsResourceIT {
         assertThat(testInvoicePostingDetails.getInvoiceLineItemDetailsId()).isEqualTo(DEFAULT_INVOICE_LINE_ITEM_DETAILS_ID);
         assertThat(testInvoicePostingDetails.getHcpcsCode()).isEqualTo(DEFAULT_HCPCS_CODE);
         assertThat(testInvoicePostingDetails.getPostingNo()).isEqualTo(DEFAULT_POSTING_NO);
+        assertThat(testInvoicePostingDetails.getIsManualPosting()).isEqualTo(DEFAULT_IS_MANUAL_POSTING);
     }
 
     @Test
@@ -301,7 +307,8 @@ class InvoicePostingDetailsResourceIT {
             .andExpect(jsonPath("$.[*].invoiceDate").value(hasItem(DEFAULT_INVOICE_DATE.toString())))
             .andExpect(jsonPath("$.[*].invoiceLineItemDetailsId").value(hasItem(DEFAULT_INVOICE_LINE_ITEM_DETAILS_ID.intValue())))
             .andExpect(jsonPath("$.[*].hcpcsCode").value(hasItem(DEFAULT_HCPCS_CODE)))
-            .andExpect(jsonPath("$.[*].postingNo").value(hasItem(DEFAULT_POSTING_NO)));
+            .andExpect(jsonPath("$.[*].postingNo").value(hasItem(DEFAULT_POSTING_NO)))
+            .andExpect(jsonPath("$.[*].isManualPosting").value(hasItem(DEFAULT_IS_MANUAL_POSTING.booleanValue())));
     }
 
     @Test
@@ -338,7 +345,8 @@ class InvoicePostingDetailsResourceIT {
             .andExpect(jsonPath("$.invoiceDate").value(DEFAULT_INVOICE_DATE.toString()))
             .andExpect(jsonPath("$.invoiceLineItemDetailsId").value(DEFAULT_INVOICE_LINE_ITEM_DETAILS_ID.intValue()))
             .andExpect(jsonPath("$.hcpcsCode").value(DEFAULT_HCPCS_CODE))
-            .andExpect(jsonPath("$.postingNo").value(DEFAULT_POSTING_NO));
+            .andExpect(jsonPath("$.postingNo").value(DEFAULT_POSTING_NO))
+            .andExpect(jsonPath("$.isManualPosting").value(DEFAULT_IS_MANUAL_POSTING.booleanValue()));
     }
 
     @Test
@@ -385,7 +393,8 @@ class InvoicePostingDetailsResourceIT {
             .invoiceDate(UPDATED_INVOICE_DATE)
             .invoiceLineItemDetailsId(UPDATED_INVOICE_LINE_ITEM_DETAILS_ID)
             .hcpcsCode(UPDATED_HCPCS_CODE)
-            .postingNo(UPDATED_POSTING_NO);
+            .postingNo(UPDATED_POSTING_NO)
+            .isManualPosting(UPDATED_IS_MANUAL_POSTING);
         InvoicePostingDetailsDTO invoicePostingDetailsDTO = invoicePostingDetailsMapper.toDto(updatedInvoicePostingDetails);
 
         restInvoicePostingDetailsMockMvc
@@ -424,6 +433,7 @@ class InvoicePostingDetailsResourceIT {
         assertThat(testInvoicePostingDetails.getInvoiceLineItemDetailsId()).isEqualTo(UPDATED_INVOICE_LINE_ITEM_DETAILS_ID);
         assertThat(testInvoicePostingDetails.getHcpcsCode()).isEqualTo(UPDATED_HCPCS_CODE);
         assertThat(testInvoicePostingDetails.getPostingNo()).isEqualTo(UPDATED_POSTING_NO);
+        assertThat(testInvoicePostingDetails.getIsManualPosting()).isEqualTo(UPDATED_IS_MANUAL_POSTING);
     }
 
     @Test
@@ -562,6 +572,7 @@ class InvoicePostingDetailsResourceIT {
         assertThat(testInvoicePostingDetails.getInvoiceLineItemDetailsId()).isEqualTo(DEFAULT_INVOICE_LINE_ITEM_DETAILS_ID);
         assertThat(testInvoicePostingDetails.getHcpcsCode()).isEqualTo(DEFAULT_HCPCS_CODE);
         assertThat(testInvoicePostingDetails.getPostingNo()).isEqualTo(DEFAULT_POSTING_NO);
+        assertThat(testInvoicePostingDetails.getIsManualPosting()).isEqualTo(DEFAULT_IS_MANUAL_POSTING);
     }
 
     @Test
@@ -599,7 +610,8 @@ class InvoicePostingDetailsResourceIT {
             .invoiceDate(UPDATED_INVOICE_DATE)
             .invoiceLineItemDetailsId(UPDATED_INVOICE_LINE_ITEM_DETAILS_ID)
             .hcpcsCode(UPDATED_HCPCS_CODE)
-            .postingNo(UPDATED_POSTING_NO);
+            .postingNo(UPDATED_POSTING_NO)
+            .isManualPosting(UPDATED_IS_MANUAL_POSTING);
 
         restInvoicePostingDetailsMockMvc
             .perform(
@@ -637,6 +649,7 @@ class InvoicePostingDetailsResourceIT {
         assertThat(testInvoicePostingDetails.getInvoiceLineItemDetailsId()).isEqualTo(UPDATED_INVOICE_LINE_ITEM_DETAILS_ID);
         assertThat(testInvoicePostingDetails.getHcpcsCode()).isEqualTo(UPDATED_HCPCS_CODE);
         assertThat(testInvoicePostingDetails.getPostingNo()).isEqualTo(UPDATED_POSTING_NO);
+        assertThat(testInvoicePostingDetails.getIsManualPosting()).isEqualTo(UPDATED_IS_MANUAL_POSTING);
     }
 
     @Test
