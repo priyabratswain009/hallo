@@ -248,16 +248,17 @@ public class InsurancePricetableMapResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/insurance-pricetable-maps/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteInsurancePricetableMap(@PathVariable Long id) {
         log.debug("REST request to delete InsurancePricetableMap : {}", id);
         return insurancePricetableMapService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

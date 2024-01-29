@@ -39,7 +39,7 @@ public class ParDetailsServiceImpl implements ParDetailsService {
 
     @Override
     public Mono<ParDetailsDTO> update(ParDetailsDTO parDetailsDTO) {
-        log.debug("Request to save ParDetails : {}", parDetailsDTO);
+        log.debug("Request to update ParDetails : {}", parDetailsDTO);
         return parDetailsRepository.save(parDetailsMapper.toEntity(parDetailsDTO)).map(parDetailsMapper::toDto);
     }
 

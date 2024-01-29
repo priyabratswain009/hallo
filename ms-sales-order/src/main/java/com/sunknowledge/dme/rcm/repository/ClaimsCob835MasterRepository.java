@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Spring Data SQL reactive repository for the ClaimsCob835Master entity.
+ * Spring Data R2DBC repository for the ClaimsCob835Master entity.
  */
 @SuppressWarnings("unused")
 @Repository

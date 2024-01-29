@@ -220,16 +220,17 @@ public class SoRecurringPurchaseResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/so-recurring-purchases/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteSoRecurringPurchase(@PathVariable Long id) {
         log.debug("REST request to delete SoRecurringPurchase : {}", id);
         return soRecurringPurchaseService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

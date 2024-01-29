@@ -5,12 +5,14 @@ import com.sunknowledge.dme.rcm.dto.cmn.CmnSearchResponse;
 import com.sunknowledge.dme.rcm.dto.cmn.EquipmentDetailsDTO;
 import com.sunknowledge.dme.rcm.dto.cmn.SWODataDTO;
 import com.sunknowledge.dme.rcm.repository.CmnRepository;
+import com.sunknowledge.dme.rcm.service.dto.cmn.CmnPatientData;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.query.Param;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public interface CmnRepo extends CmnRepository {
     @Query("select tsom.sales_order_id,tsom.facility_npi, tsom.patient_id, tsom.sales_order_no, tsom.billing_branch_name, tsom.branch_address_line_1, tsom.branch_address_line_2,\n" +
@@ -101,4 +103,19 @@ public interface CmnRepo extends CmnRepository {
                                                 @Param("dos") LocalDate dos,
                                                 @Param("itemNo") String itemNo,
                                                 @Param("orderingProviderNpi") String orderingProviderNpi);
+
+    @Query("SELECT *\n" +
+        "FROM so.t_cmn\n" +
+        "WHERE sales_order_id = :soId\n" +
+        "AND LOWER(status) = 'active'\n" +
+        "AND LOWER(cmn_status) IN ('initiated', 'logged')")
+    Mono<Cmn> getCMNMasterData(@Param("soId") Long soId);
+
+    @Query("SELECT distinct tc.sales_order_id ,tc.sales_order_no ,tsom.patient_id_no,tsom.patient_first_name ,tsom.patient_last_name  FROM so.t_cmn tc \n" +
+        "       join so.t_sales_order_master tsom on tsom.patient_id =tc.patient_id \n" +
+        "        WHERE cmn_number = :cmnNo and lower(tsom.status) = 'active' and lower(tc.status)='active'")
+    Mono<CmnPatientData> getCMNSOIdandPatientData(@Param("cmnNo") String cmnNo);
+
+    @Query("select * from so.t_cmn tc where tc.cmn_id_uuid = :cmnUUID and lower(tc.status) = 'active'")
+    Mono<Cmn> getCMNDetailsOnUUID(@Param("cmnUUID") UUID cmnUUID);
 }

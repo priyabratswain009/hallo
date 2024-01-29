@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A SoRentalHelper.
  */
 @Table("t_so_rental_helper")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SoRentalHelper implements Serializable {
 
     private static final long serialVersionUID = 1L;

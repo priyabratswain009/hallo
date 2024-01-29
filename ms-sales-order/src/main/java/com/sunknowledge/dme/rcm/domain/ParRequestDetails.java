@@ -14,6 +14,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ParRequestDetails.
  */
 @Table("t_par_request_details")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ParRequestDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -91,6 +92,9 @@ public class ParRequestDetails implements Serializable {
 
     @Column("par_request_details_uuid")
     private UUID parRequestDetailsUuid;
+
+    @Column("fax_response_date")
+    private LocalDate faxResponseDate;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -406,6 +410,19 @@ public class ParRequestDetails implements Serializable {
         this.parRequestDetailsUuid = parRequestDetailsUuid;
     }
 
+    public LocalDate getFaxResponseDate() {
+        return this.faxResponseDate;
+    }
+
+    public ParRequestDetails faxResponseDate(LocalDate faxResponseDate) {
+        this.setFaxResponseDate(faxResponseDate);
+        return this;
+    }
+
+    public void setFaxResponseDate(LocalDate faxResponseDate) {
+        this.faxResponseDate = faxResponseDate;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -453,6 +470,7 @@ public class ParRequestDetails implements Serializable {
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", updatedDate='" + getUpdatedDate() + "'" +
             ", parRequestDetailsUuid='" + getParRequestDetailsUuid() + "'" +
+            ", faxResponseDate='" + getFaxResponseDate() + "'" +
             "}";
     }
 }

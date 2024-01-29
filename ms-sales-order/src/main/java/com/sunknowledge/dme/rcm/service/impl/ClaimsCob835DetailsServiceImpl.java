@@ -44,7 +44,7 @@ public class ClaimsCob835DetailsServiceImpl implements ClaimsCob835DetailsServic
 
     @Override
     public Mono<ClaimsCob835DetailsDTO> update(ClaimsCob835DetailsDTO claimsCob835DetailsDTO) {
-        log.debug("Request to save ClaimsCob835Details : {}", claimsCob835DetailsDTO);
+        log.debug("Request to update ClaimsCob835Details : {}", claimsCob835DetailsDTO);
         return claimsCob835DetailsRepository
             .save(claimsCob835DetailsMapper.toEntity(claimsCob835DetailsDTO))
             .map(claimsCob835DetailsMapper::toDto);

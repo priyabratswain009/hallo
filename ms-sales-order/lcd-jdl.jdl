@@ -84,6 +84,7 @@ entity SoLcdDocRefTransaction(t_so_lcd_doc_ref_transaction){
 	soLcdDocRefTransactionUuid UUID
 	itemGroupId Long
 	itemGroupName String
+	coverageCriteriaId Long
 }
 
 entity SoLcdCoverageCriteriaTransaction(t_so_lcd_coverage_criteria_transaction){
@@ -124,8 +125,9 @@ entity CoverageCriteriaFileMap(t_coverage_criteria_file_map){
 	fileReference String
 	coverageCriteriaNotes String
 	soId Long
-	itemId Long
-	hcpcsCode String
+	itemGroupId Long
+	itemGroupName String
+	coverageCriteriaId Long
 }
 
 entity DocumentReferenceFileMap(t_document_reference_file_map){
@@ -145,13 +147,8 @@ entity DocumentReferenceFileMap(t_document_reference_file_map){
 	fileReference String
 	documentReferenceNotes String
 	soId Long
-	itemId Long
-	hcpcsCode String
+	itemGroupId Long
+	itemGroupName String
 }
 
 use mapstruct, serviceImpl, pagination for all
-
-
-
-
-

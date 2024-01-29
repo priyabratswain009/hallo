@@ -101,9 +101,6 @@ class SoLcdDocRefTransactionGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "soId":"0"
-                , "itemId":"0"
-                , "itemName":"SAMPLE_TEXT"
-                , "hcpcsCode":"SAMPLE_TEXT"
                 , "checklistId":"0"
                 , "checklistName":"SAMPLE_TEXT"
                 , "docRefId":"0"
@@ -117,6 +114,9 @@ class SoLcdDocRefTransactionGatlingTest extends Simulation {
                 , "updatedById":"0"
                 , "updatedByName":"SAMPLE_TEXT"
                 , "soLcdDocRefTransactionUuid":null
+                , "itemGroupId":"0"
+                , "itemGroupName":"SAMPLE_TEXT"
+                , "coverageCriteriaId":"0"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_soLcdDocRefTransaction_url"))).exitHereIfFailed

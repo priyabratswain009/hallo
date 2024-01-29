@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Spring Data SQL reactive repository for the SalesOrderClinicalDetailsAuditLog entity.
+ * Spring Data R2DBC repository for the SalesOrderClinicalDetailsAuditLog entity.
  */
 @SuppressWarnings("unused")
 @Repository

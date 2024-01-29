@@ -51,6 +51,7 @@ public class ParRequestDetailsRowMapper implements BiFunction<Row, String, ParRe
         entity.setUpdatedByName(converter.fromRow(row, prefix + "_updated_by_name", String.class));
         entity.setUpdatedDate(converter.fromRow(row, prefix + "_updated_date", LocalDate.class));
         entity.setParRequestDetailsUuid(converter.fromRow(row, prefix + "_par_request_details_uuid", UUID.class));
+        entity.setFaxResponseDate(converter.fromRow(row, prefix + "_fax_response_date", LocalDate.class));
         return entity;
     }
 }

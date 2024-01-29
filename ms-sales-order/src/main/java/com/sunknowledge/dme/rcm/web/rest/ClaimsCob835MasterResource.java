@@ -243,16 +243,17 @@ public class ClaimsCob835MasterResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/claims-cob-835-masters/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteClaimsCob835Master(@PathVariable Long id) {
         log.debug("REST request to delete ClaimsCob835Master : {}", id);
         return claimsCob835MasterService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

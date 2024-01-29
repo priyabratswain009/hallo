@@ -21,9 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -224,8 +221,8 @@ class SalesOrderInsuranceDetailsResourceIT {
     private static final String DEFAULT_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS = "BBBBBBBBBB";
 
-    private static final Long DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID = 1L;
-    private static final Long UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID = 2L;
+    private static final String DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE = "BBBBBBBBBB";
 
     private static final String DEFAULT_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS = "BBBBBBBBBB";
@@ -413,6 +410,72 @@ class SalesOrderInsuranceDetailsResourceIT {
     private static final String DEFAULT_TERTIARY_CLAIM_PROGRAM = "AAAAAAAAAA";
     private static final String UPDATED_TERTIARY_CLAIM_PROGRAM = "BBBBBBBBBB";
 
+    private static final String DEFAULT_WORKERS_COMP_INSURED_EMPLOYER = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_INSURED_EMPLOYER = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_PAYER_ID_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_PAYER_ID_NUMBER = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_PLAN_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_PLAN_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_ADDITIONAL_DTLS = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_ADDITIONAL_DTLS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_CLAIM_FILLING_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_CLAIM_FILLING_CODE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_TPL_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_TPL_CODE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_TPL_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_TPL_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_CARRIER_ID = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_CARRIER_ID = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1 = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2 = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_CITY = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_CITY = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_STATE = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_STATE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_COUNTRY = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_COUNTRY = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_ZIP = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_ZIP = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_1 = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_1 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_2 = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_2 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_FAX = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_FAX = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_EFAX = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_EFAX = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_EMPLOYER_EMAIL = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_EMPLOYER_EMAIL = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_RELATIONSHIP = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_RELATIONSHIP = "BBBBBBBBBB";
+
+    private static final String DEFAULT_WORKERS_COMP_MODE_OF_CONTACT = "AAAAAAAAAA";
+    private static final String UPDATED_WORKERS_COMP_MODE_OF_CONTACT = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/sales-order-insurance-details";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{salesOrderInsuranceDetailsId}";
 
@@ -503,7 +566,7 @@ class SalesOrderInsuranceDetailsResourceIT {
             .workersCompDateOfOnset(DEFAULT_WORKERS_COMP_DATE_OF_ONSET)
             .workersCompInjuryRelatedEmploymentStatus(DEFAULT_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS)
             .workersCompInjuryRelatedAutoAccidentStatus(DEFAULT_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS)
-            .workersCompAutoAccidentStateId(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID)
+            .workersCompAutoAccidentStateCode(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE)
             .workersCompInjuryRelatedToOtherAccidentStatus(DEFAULT_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS)
             .eclaimsAttachmentStatus(DEFAULT_ECLAIMS_ATTACHMENT_STATUS)
             .attachmentNumber(DEFAULT_ATTACHMENT_NUMBER)
@@ -565,7 +628,29 @@ class SalesOrderInsuranceDetailsResourceIT {
             .primaryInsurerContactName(DEFAULT_PRIMARY_INSURER_CONTACT_NAME)
             .primaryClaimProgram(DEFAULT_PRIMARY_CLAIM_PROGRAM)
             .secondaryClaimProgram(DEFAULT_SECONDARY_CLAIM_PROGRAM)
-            .tertiaryClaimProgram(DEFAULT_TERTIARY_CLAIM_PROGRAM);
+            .tertiaryClaimProgram(DEFAULT_TERTIARY_CLAIM_PROGRAM)
+            .workersCompInsuredEmployer(DEFAULT_WORKERS_COMP_INSURED_EMPLOYER)
+            .workersCompPayerIdNumber(DEFAULT_WORKERS_COMP_PAYER_ID_NUMBER)
+            .workersCompPlanName(DEFAULT_WORKERS_COMP_PLAN_NAME)
+            .workersCompAdditionalDtls(DEFAULT_WORKERS_COMP_ADDITIONAL_DTLS)
+            .workersCompClaimFillingCode(DEFAULT_WORKERS_COMP_CLAIM_FILLING_CODE)
+            .workersCompTplCode(DEFAULT_WORKERS_COMP_TPL_CODE)
+            .workersCompTplName(DEFAULT_WORKERS_COMP_TPL_NAME)
+            .workersCompPropertyCasualtyAgencyClaimNo(DEFAULT_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO)
+            .workersCompCarrierId(DEFAULT_WORKERS_COMP_CARRIER_ID)
+            .workersCompEmployerAddressLine1(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1)
+            .workersCompEmployerAddressLine2(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2)
+            .workersCompEmployerCity(DEFAULT_WORKERS_COMP_EMPLOYER_CITY)
+            .workersCompEmployerState(DEFAULT_WORKERS_COMP_EMPLOYER_STATE)
+            .workersCompEmployerCountry(DEFAULT_WORKERS_COMP_EMPLOYER_COUNTRY)
+            .workersCompEmployerZip(DEFAULT_WORKERS_COMP_EMPLOYER_ZIP)
+            .workersCompEmployerContactNo1(DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_1)
+            .workersCompEmployerContactNo2(DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_2)
+            .workersCompEmployerFax(DEFAULT_WORKERS_COMP_EMPLOYER_FAX)
+            .workersCompEmployerEfax(DEFAULT_WORKERS_COMP_EMPLOYER_EFAX)
+            .workersCompEmployerEmail(DEFAULT_WORKERS_COMP_EMPLOYER_EMAIL)
+            .workersCompRelationship(DEFAULT_WORKERS_COMP_RELATIONSHIP)
+            .workersCompModeOfContact(DEFAULT_WORKERS_COMP_MODE_OF_CONTACT);
         return salesOrderInsuranceDetails;
     }
 
@@ -639,7 +724,7 @@ class SalesOrderInsuranceDetailsResourceIT {
             .workersCompDateOfOnset(UPDATED_WORKERS_COMP_DATE_OF_ONSET)
             .workersCompInjuryRelatedEmploymentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS)
             .workersCompInjuryRelatedAutoAccidentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS)
-            .workersCompAutoAccidentStateId(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID)
+            .workersCompAutoAccidentStateCode(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE)
             .workersCompInjuryRelatedToOtherAccidentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS)
             .eclaimsAttachmentStatus(UPDATED_ECLAIMS_ATTACHMENT_STATUS)
             .attachmentNumber(UPDATED_ATTACHMENT_NUMBER)
@@ -701,7 +786,29 @@ class SalesOrderInsuranceDetailsResourceIT {
             .primaryInsurerContactName(UPDATED_PRIMARY_INSURER_CONTACT_NAME)
             .primaryClaimProgram(UPDATED_PRIMARY_CLAIM_PROGRAM)
             .secondaryClaimProgram(UPDATED_SECONDARY_CLAIM_PROGRAM)
-            .tertiaryClaimProgram(UPDATED_TERTIARY_CLAIM_PROGRAM);
+            .tertiaryClaimProgram(UPDATED_TERTIARY_CLAIM_PROGRAM)
+            .workersCompInsuredEmployer(UPDATED_WORKERS_COMP_INSURED_EMPLOYER)
+            .workersCompPayerIdNumber(UPDATED_WORKERS_COMP_PAYER_ID_NUMBER)
+            .workersCompPlanName(UPDATED_WORKERS_COMP_PLAN_NAME)
+            .workersCompAdditionalDtls(UPDATED_WORKERS_COMP_ADDITIONAL_DTLS)
+            .workersCompClaimFillingCode(UPDATED_WORKERS_COMP_CLAIM_FILLING_CODE)
+            .workersCompTplCode(UPDATED_WORKERS_COMP_TPL_CODE)
+            .workersCompTplName(UPDATED_WORKERS_COMP_TPL_NAME)
+            .workersCompPropertyCasualtyAgencyClaimNo(UPDATED_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO)
+            .workersCompCarrierId(UPDATED_WORKERS_COMP_CARRIER_ID)
+            .workersCompEmployerAddressLine1(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1)
+            .workersCompEmployerAddressLine2(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2)
+            .workersCompEmployerCity(UPDATED_WORKERS_COMP_EMPLOYER_CITY)
+            .workersCompEmployerState(UPDATED_WORKERS_COMP_EMPLOYER_STATE)
+            .workersCompEmployerCountry(UPDATED_WORKERS_COMP_EMPLOYER_COUNTRY)
+            .workersCompEmployerZip(UPDATED_WORKERS_COMP_EMPLOYER_ZIP)
+            .workersCompEmployerContactNo1(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_1)
+            .workersCompEmployerContactNo2(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_2)
+            .workersCompEmployerFax(UPDATED_WORKERS_COMP_EMPLOYER_FAX)
+            .workersCompEmployerEfax(UPDATED_WORKERS_COMP_EMPLOYER_EFAX)
+            .workersCompEmployerEmail(UPDATED_WORKERS_COMP_EMPLOYER_EMAIL)
+            .workersCompRelationship(UPDATED_WORKERS_COMP_RELATIONSHIP)
+            .workersCompModeOfContact(UPDATED_WORKERS_COMP_MODE_OF_CONTACT);
         return salesOrderInsuranceDetails;
     }
 
@@ -832,8 +939,8 @@ class SalesOrderInsuranceDetailsResourceIT {
             .isEqualTo(DEFAULT_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS);
         assertThat(testSalesOrderInsuranceDetails.getWorkersCompInjuryRelatedAutoAccidentStatus())
             .isEqualTo(DEFAULT_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS);
-        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAutoAccidentStateId())
-            .isEqualTo(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAutoAccidentStateCode())
+            .isEqualTo(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE);
         assertThat(testSalesOrderInsuranceDetails.getWorkersCompInjuryRelatedToOtherAccidentStatus())
             .isEqualTo(DEFAULT_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS);
         assertThat(testSalesOrderInsuranceDetails.getEclaimsAttachmentStatus()).isEqualTo(DEFAULT_ECLAIMS_ATTACHMENT_STATUS);
@@ -899,6 +1006,31 @@ class SalesOrderInsuranceDetailsResourceIT {
         assertThat(testSalesOrderInsuranceDetails.getPrimaryClaimProgram()).isEqualTo(DEFAULT_PRIMARY_CLAIM_PROGRAM);
         assertThat(testSalesOrderInsuranceDetails.getSecondaryClaimProgram()).isEqualTo(DEFAULT_SECONDARY_CLAIM_PROGRAM);
         assertThat(testSalesOrderInsuranceDetails.getTertiaryClaimProgram()).isEqualTo(DEFAULT_TERTIARY_CLAIM_PROGRAM);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompInsuredEmployer()).isEqualTo(DEFAULT_WORKERS_COMP_INSURED_EMPLOYER);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPayerIdNumber()).isEqualTo(DEFAULT_WORKERS_COMP_PAYER_ID_NUMBER);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPlanName()).isEqualTo(DEFAULT_WORKERS_COMP_PLAN_NAME);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAdditionalDtls()).isEqualTo(DEFAULT_WORKERS_COMP_ADDITIONAL_DTLS);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompClaimFillingCode()).isEqualTo(DEFAULT_WORKERS_COMP_CLAIM_FILLING_CODE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompTplCode()).isEqualTo(DEFAULT_WORKERS_COMP_TPL_CODE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompTplName()).isEqualTo(DEFAULT_WORKERS_COMP_TPL_NAME);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPropertyCasualtyAgencyClaimNo())
+            .isEqualTo(DEFAULT_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompCarrierId()).isEqualTo(DEFAULT_WORKERS_COMP_CARRIER_ID);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerAddressLine1())
+            .isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerAddressLine2())
+            .isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerCity()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_CITY);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerState()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_STATE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerCountry()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_COUNTRY);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerZip()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_ZIP);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerContactNo1()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_1);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerContactNo2()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_2);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerFax()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_FAX);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerEfax()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_EFAX);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerEmail()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_EMAIL);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompRelationship()).isEqualTo(DEFAULT_WORKERS_COMP_RELATIONSHIP);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompModeOfContact()).isEqualTo(DEFAULT_WORKERS_COMP_MODE_OF_CONTACT);
     }
 
     @Test
@@ -1069,8 +1201,8 @@ class SalesOrderInsuranceDetailsResourceIT {
             .value(hasItem(DEFAULT_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS))
             .jsonPath("$.[*].workersCompInjuryRelatedAutoAccidentStatus")
             .value(hasItem(DEFAULT_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS))
-            .jsonPath("$.[*].workersCompAutoAccidentStateId")
-            .value(hasItem(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID.intValue()))
+            .jsonPath("$.[*].workersCompAutoAccidentStateCode")
+            .value(hasItem(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE))
             .jsonPath("$.[*].workersCompInjuryRelatedToOtherAccidentStatus")
             .value(hasItem(DEFAULT_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS))
             .jsonPath("$.[*].eclaimsAttachmentStatus")
@@ -1194,7 +1326,51 @@ class SalesOrderInsuranceDetailsResourceIT {
             .jsonPath("$.[*].secondaryClaimProgram")
             .value(hasItem(DEFAULT_SECONDARY_CLAIM_PROGRAM))
             .jsonPath("$.[*].tertiaryClaimProgram")
-            .value(hasItem(DEFAULT_TERTIARY_CLAIM_PROGRAM));
+            .value(hasItem(DEFAULT_TERTIARY_CLAIM_PROGRAM))
+            .jsonPath("$.[*].workersCompInsuredEmployer")
+            .value(hasItem(DEFAULT_WORKERS_COMP_INSURED_EMPLOYER))
+            .jsonPath("$.[*].workersCompPayerIdNumber")
+            .value(hasItem(DEFAULT_WORKERS_COMP_PAYER_ID_NUMBER))
+            .jsonPath("$.[*].workersCompPlanName")
+            .value(hasItem(DEFAULT_WORKERS_COMP_PLAN_NAME))
+            .jsonPath("$.[*].workersCompAdditionalDtls")
+            .value(hasItem(DEFAULT_WORKERS_COMP_ADDITIONAL_DTLS))
+            .jsonPath("$.[*].workersCompClaimFillingCode")
+            .value(hasItem(DEFAULT_WORKERS_COMP_CLAIM_FILLING_CODE))
+            .jsonPath("$.[*].workersCompTplCode")
+            .value(hasItem(DEFAULT_WORKERS_COMP_TPL_CODE))
+            .jsonPath("$.[*].workersCompTplName")
+            .value(hasItem(DEFAULT_WORKERS_COMP_TPL_NAME))
+            .jsonPath("$.[*].workersCompPropertyCasualtyAgencyClaimNo")
+            .value(hasItem(DEFAULT_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO))
+            .jsonPath("$.[*].workersCompCarrierId")
+            .value(hasItem(DEFAULT_WORKERS_COMP_CARRIER_ID))
+            .jsonPath("$.[*].workersCompEmployerAddressLine1")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1))
+            .jsonPath("$.[*].workersCompEmployerAddressLine2")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2))
+            .jsonPath("$.[*].workersCompEmployerCity")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_CITY))
+            .jsonPath("$.[*].workersCompEmployerState")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_STATE))
+            .jsonPath("$.[*].workersCompEmployerCountry")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_COUNTRY))
+            .jsonPath("$.[*].workersCompEmployerZip")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_ZIP))
+            .jsonPath("$.[*].workersCompEmployerContactNo1")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_1))
+            .jsonPath("$.[*].workersCompEmployerContactNo2")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_2))
+            .jsonPath("$.[*].workersCompEmployerFax")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_FAX))
+            .jsonPath("$.[*].workersCompEmployerEfax")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_EFAX))
+            .jsonPath("$.[*].workersCompEmployerEmail")
+            .value(hasItem(DEFAULT_WORKERS_COMP_EMPLOYER_EMAIL))
+            .jsonPath("$.[*].workersCompRelationship")
+            .value(hasItem(DEFAULT_WORKERS_COMP_RELATIONSHIP))
+            .jsonPath("$.[*].workersCompModeOfContact")
+            .value(hasItem(DEFAULT_WORKERS_COMP_MODE_OF_CONTACT));
     }
 
     @Test
@@ -1339,8 +1515,8 @@ class SalesOrderInsuranceDetailsResourceIT {
             .value(is(DEFAULT_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS))
             .jsonPath("$.workersCompInjuryRelatedAutoAccidentStatus")
             .value(is(DEFAULT_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS))
-            .jsonPath("$.workersCompAutoAccidentStateId")
-            .value(is(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID.intValue()))
+            .jsonPath("$.workersCompAutoAccidentStateCode")
+            .value(is(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE))
             .jsonPath("$.workersCompInjuryRelatedToOtherAccidentStatus")
             .value(is(DEFAULT_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS))
             .jsonPath("$.eclaimsAttachmentStatus")
@@ -1464,7 +1640,51 @@ class SalesOrderInsuranceDetailsResourceIT {
             .jsonPath("$.secondaryClaimProgram")
             .value(is(DEFAULT_SECONDARY_CLAIM_PROGRAM))
             .jsonPath("$.tertiaryClaimProgram")
-            .value(is(DEFAULT_TERTIARY_CLAIM_PROGRAM));
+            .value(is(DEFAULT_TERTIARY_CLAIM_PROGRAM))
+            .jsonPath("$.workersCompInsuredEmployer")
+            .value(is(DEFAULT_WORKERS_COMP_INSURED_EMPLOYER))
+            .jsonPath("$.workersCompPayerIdNumber")
+            .value(is(DEFAULT_WORKERS_COMP_PAYER_ID_NUMBER))
+            .jsonPath("$.workersCompPlanName")
+            .value(is(DEFAULT_WORKERS_COMP_PLAN_NAME))
+            .jsonPath("$.workersCompAdditionalDtls")
+            .value(is(DEFAULT_WORKERS_COMP_ADDITIONAL_DTLS))
+            .jsonPath("$.workersCompClaimFillingCode")
+            .value(is(DEFAULT_WORKERS_COMP_CLAIM_FILLING_CODE))
+            .jsonPath("$.workersCompTplCode")
+            .value(is(DEFAULT_WORKERS_COMP_TPL_CODE))
+            .jsonPath("$.workersCompTplName")
+            .value(is(DEFAULT_WORKERS_COMP_TPL_NAME))
+            .jsonPath("$.workersCompPropertyCasualtyAgencyClaimNo")
+            .value(is(DEFAULT_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO))
+            .jsonPath("$.workersCompCarrierId")
+            .value(is(DEFAULT_WORKERS_COMP_CARRIER_ID))
+            .jsonPath("$.workersCompEmployerAddressLine1")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1))
+            .jsonPath("$.workersCompEmployerAddressLine2")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2))
+            .jsonPath("$.workersCompEmployerCity")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_CITY))
+            .jsonPath("$.workersCompEmployerState")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_STATE))
+            .jsonPath("$.workersCompEmployerCountry")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_COUNTRY))
+            .jsonPath("$.workersCompEmployerZip")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_ZIP))
+            .jsonPath("$.workersCompEmployerContactNo1")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_1))
+            .jsonPath("$.workersCompEmployerContactNo2")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_CONTACT_NO_2))
+            .jsonPath("$.workersCompEmployerFax")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_FAX))
+            .jsonPath("$.workersCompEmployerEfax")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_EFAX))
+            .jsonPath("$.workersCompEmployerEmail")
+            .value(is(DEFAULT_WORKERS_COMP_EMPLOYER_EMAIL))
+            .jsonPath("$.workersCompRelationship")
+            .value(is(DEFAULT_WORKERS_COMP_RELATIONSHIP))
+            .jsonPath("$.workersCompModeOfContact")
+            .value(is(DEFAULT_WORKERS_COMP_MODE_OF_CONTACT));
     }
 
     @Test
@@ -1480,7 +1700,7 @@ class SalesOrderInsuranceDetailsResourceIT {
     }
 
     @Test
-    void putNewSalesOrderInsuranceDetails() throws Exception {
+    void putExistingSalesOrderInsuranceDetails() throws Exception {
         // Initialize the database
         salesOrderInsuranceDetailsRepository.save(salesOrderInsuranceDetails).block();
 
@@ -1553,7 +1773,7 @@ class SalesOrderInsuranceDetailsResourceIT {
             .workersCompDateOfOnset(UPDATED_WORKERS_COMP_DATE_OF_ONSET)
             .workersCompInjuryRelatedEmploymentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS)
             .workersCompInjuryRelatedAutoAccidentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS)
-            .workersCompAutoAccidentStateId(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID)
+            .workersCompAutoAccidentStateCode(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE)
             .workersCompInjuryRelatedToOtherAccidentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS)
             .eclaimsAttachmentStatus(UPDATED_ECLAIMS_ATTACHMENT_STATUS)
             .attachmentNumber(UPDATED_ATTACHMENT_NUMBER)
@@ -1615,7 +1835,29 @@ class SalesOrderInsuranceDetailsResourceIT {
             .primaryInsurerContactName(UPDATED_PRIMARY_INSURER_CONTACT_NAME)
             .primaryClaimProgram(UPDATED_PRIMARY_CLAIM_PROGRAM)
             .secondaryClaimProgram(UPDATED_SECONDARY_CLAIM_PROGRAM)
-            .tertiaryClaimProgram(UPDATED_TERTIARY_CLAIM_PROGRAM);
+            .tertiaryClaimProgram(UPDATED_TERTIARY_CLAIM_PROGRAM)
+            .workersCompInsuredEmployer(UPDATED_WORKERS_COMP_INSURED_EMPLOYER)
+            .workersCompPayerIdNumber(UPDATED_WORKERS_COMP_PAYER_ID_NUMBER)
+            .workersCompPlanName(UPDATED_WORKERS_COMP_PLAN_NAME)
+            .workersCompAdditionalDtls(UPDATED_WORKERS_COMP_ADDITIONAL_DTLS)
+            .workersCompClaimFillingCode(UPDATED_WORKERS_COMP_CLAIM_FILLING_CODE)
+            .workersCompTplCode(UPDATED_WORKERS_COMP_TPL_CODE)
+            .workersCompTplName(UPDATED_WORKERS_COMP_TPL_NAME)
+            .workersCompPropertyCasualtyAgencyClaimNo(UPDATED_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO)
+            .workersCompCarrierId(UPDATED_WORKERS_COMP_CARRIER_ID)
+            .workersCompEmployerAddressLine1(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1)
+            .workersCompEmployerAddressLine2(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2)
+            .workersCompEmployerCity(UPDATED_WORKERS_COMP_EMPLOYER_CITY)
+            .workersCompEmployerState(UPDATED_WORKERS_COMP_EMPLOYER_STATE)
+            .workersCompEmployerCountry(UPDATED_WORKERS_COMP_EMPLOYER_COUNTRY)
+            .workersCompEmployerZip(UPDATED_WORKERS_COMP_EMPLOYER_ZIP)
+            .workersCompEmployerContactNo1(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_1)
+            .workersCompEmployerContactNo2(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_2)
+            .workersCompEmployerFax(UPDATED_WORKERS_COMP_EMPLOYER_FAX)
+            .workersCompEmployerEfax(UPDATED_WORKERS_COMP_EMPLOYER_EFAX)
+            .workersCompEmployerEmail(UPDATED_WORKERS_COMP_EMPLOYER_EMAIL)
+            .workersCompRelationship(UPDATED_WORKERS_COMP_RELATIONSHIP)
+            .workersCompModeOfContact(UPDATED_WORKERS_COMP_MODE_OF_CONTACT);
         SalesOrderInsuranceDetailsDTO salesOrderInsuranceDetailsDTO = salesOrderInsuranceDetailsMapper.toDto(
             updatedSalesOrderInsuranceDetails
         );
@@ -1718,8 +1960,8 @@ class SalesOrderInsuranceDetailsResourceIT {
             .isEqualTo(UPDATED_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS);
         assertThat(testSalesOrderInsuranceDetails.getWorkersCompInjuryRelatedAutoAccidentStatus())
             .isEqualTo(UPDATED_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS);
-        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAutoAccidentStateId())
-            .isEqualTo(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAutoAccidentStateCode())
+            .isEqualTo(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE);
         assertThat(testSalesOrderInsuranceDetails.getWorkersCompInjuryRelatedToOtherAccidentStatus())
             .isEqualTo(UPDATED_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS);
         assertThat(testSalesOrderInsuranceDetails.getEclaimsAttachmentStatus()).isEqualTo(UPDATED_ECLAIMS_ATTACHMENT_STATUS);
@@ -1785,6 +2027,31 @@ class SalesOrderInsuranceDetailsResourceIT {
         assertThat(testSalesOrderInsuranceDetails.getPrimaryClaimProgram()).isEqualTo(UPDATED_PRIMARY_CLAIM_PROGRAM);
         assertThat(testSalesOrderInsuranceDetails.getSecondaryClaimProgram()).isEqualTo(UPDATED_SECONDARY_CLAIM_PROGRAM);
         assertThat(testSalesOrderInsuranceDetails.getTertiaryClaimProgram()).isEqualTo(UPDATED_TERTIARY_CLAIM_PROGRAM);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompInsuredEmployer()).isEqualTo(UPDATED_WORKERS_COMP_INSURED_EMPLOYER);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPayerIdNumber()).isEqualTo(UPDATED_WORKERS_COMP_PAYER_ID_NUMBER);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPlanName()).isEqualTo(UPDATED_WORKERS_COMP_PLAN_NAME);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAdditionalDtls()).isEqualTo(UPDATED_WORKERS_COMP_ADDITIONAL_DTLS);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompClaimFillingCode()).isEqualTo(UPDATED_WORKERS_COMP_CLAIM_FILLING_CODE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompTplCode()).isEqualTo(UPDATED_WORKERS_COMP_TPL_CODE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompTplName()).isEqualTo(UPDATED_WORKERS_COMP_TPL_NAME);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPropertyCasualtyAgencyClaimNo())
+            .isEqualTo(UPDATED_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompCarrierId()).isEqualTo(UPDATED_WORKERS_COMP_CARRIER_ID);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerAddressLine1())
+            .isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerAddressLine2())
+            .isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerCity()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CITY);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerState()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_STATE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerCountry()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_COUNTRY);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerZip()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_ZIP);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerContactNo1()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_1);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerContactNo2()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_2);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerFax()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_FAX);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerEfax()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_EFAX);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerEmail()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_EMAIL);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompRelationship()).isEqualTo(UPDATED_WORKERS_COMP_RELATIONSHIP);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompModeOfContact()).isEqualTo(UPDATED_WORKERS_COMP_MODE_OF_CONTACT);
     }
 
     @Test
@@ -1942,7 +2209,21 @@ class SalesOrderInsuranceDetailsResourceIT {
             .tertiaryInsurerState(UPDATED_TERTIARY_INSURER_STATE)
             .primaryClaimProgram(UPDATED_PRIMARY_CLAIM_PROGRAM)
             .secondaryClaimProgram(UPDATED_SECONDARY_CLAIM_PROGRAM)
-            .tertiaryClaimProgram(UPDATED_TERTIARY_CLAIM_PROGRAM);
+            .tertiaryClaimProgram(UPDATED_TERTIARY_CLAIM_PROGRAM)
+            .workersCompInsuredEmployer(UPDATED_WORKERS_COMP_INSURED_EMPLOYER)
+            .workersCompPayerIdNumber(UPDATED_WORKERS_COMP_PAYER_ID_NUMBER)
+            .workersCompPlanName(UPDATED_WORKERS_COMP_PLAN_NAME)
+            .workersCompAdditionalDtls(UPDATED_WORKERS_COMP_ADDITIONAL_DTLS)
+            .workersCompTplCode(UPDATED_WORKERS_COMP_TPL_CODE)
+            .workersCompPropertyCasualtyAgencyClaimNo(UPDATED_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO)
+            .workersCompCarrierId(UPDATED_WORKERS_COMP_CARRIER_ID)
+            .workersCompEmployerAddressLine2(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2)
+            .workersCompEmployerCity(UPDATED_WORKERS_COMP_EMPLOYER_CITY)
+            .workersCompEmployerCountry(UPDATED_WORKERS_COMP_EMPLOYER_COUNTRY)
+            .workersCompEmployerZip(UPDATED_WORKERS_COMP_EMPLOYER_ZIP)
+            .workersCompEmployerContactNo1(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_1)
+            .workersCompEmployerContactNo2(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_2)
+            .workersCompModeOfContact(UPDATED_WORKERS_COMP_MODE_OF_CONTACT);
 
         webTestClient
             .patch()
@@ -2042,8 +2323,8 @@ class SalesOrderInsuranceDetailsResourceIT {
             .isEqualTo(UPDATED_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS);
         assertThat(testSalesOrderInsuranceDetails.getWorkersCompInjuryRelatedAutoAccidentStatus())
             .isEqualTo(UPDATED_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS);
-        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAutoAccidentStateId())
-            .isEqualTo(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAutoAccidentStateCode())
+            .isEqualTo(DEFAULT_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE);
         assertThat(testSalesOrderInsuranceDetails.getWorkersCompInjuryRelatedToOtherAccidentStatus())
             .isEqualTo(DEFAULT_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS);
         assertThat(testSalesOrderInsuranceDetails.getEclaimsAttachmentStatus()).isEqualTo(UPDATED_ECLAIMS_ATTACHMENT_STATUS);
@@ -2109,6 +2390,31 @@ class SalesOrderInsuranceDetailsResourceIT {
         assertThat(testSalesOrderInsuranceDetails.getPrimaryClaimProgram()).isEqualTo(UPDATED_PRIMARY_CLAIM_PROGRAM);
         assertThat(testSalesOrderInsuranceDetails.getSecondaryClaimProgram()).isEqualTo(UPDATED_SECONDARY_CLAIM_PROGRAM);
         assertThat(testSalesOrderInsuranceDetails.getTertiaryClaimProgram()).isEqualTo(UPDATED_TERTIARY_CLAIM_PROGRAM);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompInsuredEmployer()).isEqualTo(UPDATED_WORKERS_COMP_INSURED_EMPLOYER);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPayerIdNumber()).isEqualTo(UPDATED_WORKERS_COMP_PAYER_ID_NUMBER);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPlanName()).isEqualTo(UPDATED_WORKERS_COMP_PLAN_NAME);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAdditionalDtls()).isEqualTo(UPDATED_WORKERS_COMP_ADDITIONAL_DTLS);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompClaimFillingCode()).isEqualTo(DEFAULT_WORKERS_COMP_CLAIM_FILLING_CODE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompTplCode()).isEqualTo(UPDATED_WORKERS_COMP_TPL_CODE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompTplName()).isEqualTo(DEFAULT_WORKERS_COMP_TPL_NAME);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPropertyCasualtyAgencyClaimNo())
+            .isEqualTo(UPDATED_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompCarrierId()).isEqualTo(UPDATED_WORKERS_COMP_CARRIER_ID);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerAddressLine1())
+            .isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerAddressLine2())
+            .isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerCity()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CITY);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerState()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_STATE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerCountry()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_COUNTRY);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerZip()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_ZIP);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerContactNo1()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_1);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerContactNo2()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_2);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerFax()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_FAX);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerEfax()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_EFAX);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerEmail()).isEqualTo(DEFAULT_WORKERS_COMP_EMPLOYER_EMAIL);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompRelationship()).isEqualTo(DEFAULT_WORKERS_COMP_RELATIONSHIP);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompModeOfContact()).isEqualTo(UPDATED_WORKERS_COMP_MODE_OF_CONTACT);
     }
 
     @Test
@@ -2187,7 +2493,7 @@ class SalesOrderInsuranceDetailsResourceIT {
             .workersCompDateOfOnset(UPDATED_WORKERS_COMP_DATE_OF_ONSET)
             .workersCompInjuryRelatedEmploymentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS)
             .workersCompInjuryRelatedAutoAccidentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS)
-            .workersCompAutoAccidentStateId(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID)
+            .workersCompAutoAccidentStateCode(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE)
             .workersCompInjuryRelatedToOtherAccidentStatus(UPDATED_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS)
             .eclaimsAttachmentStatus(UPDATED_ECLAIMS_ATTACHMENT_STATUS)
             .attachmentNumber(UPDATED_ATTACHMENT_NUMBER)
@@ -2249,7 +2555,29 @@ class SalesOrderInsuranceDetailsResourceIT {
             .primaryInsurerContactName(UPDATED_PRIMARY_INSURER_CONTACT_NAME)
             .primaryClaimProgram(UPDATED_PRIMARY_CLAIM_PROGRAM)
             .secondaryClaimProgram(UPDATED_SECONDARY_CLAIM_PROGRAM)
-            .tertiaryClaimProgram(UPDATED_TERTIARY_CLAIM_PROGRAM);
+            .tertiaryClaimProgram(UPDATED_TERTIARY_CLAIM_PROGRAM)
+            .workersCompInsuredEmployer(UPDATED_WORKERS_COMP_INSURED_EMPLOYER)
+            .workersCompPayerIdNumber(UPDATED_WORKERS_COMP_PAYER_ID_NUMBER)
+            .workersCompPlanName(UPDATED_WORKERS_COMP_PLAN_NAME)
+            .workersCompAdditionalDtls(UPDATED_WORKERS_COMP_ADDITIONAL_DTLS)
+            .workersCompClaimFillingCode(UPDATED_WORKERS_COMP_CLAIM_FILLING_CODE)
+            .workersCompTplCode(UPDATED_WORKERS_COMP_TPL_CODE)
+            .workersCompTplName(UPDATED_WORKERS_COMP_TPL_NAME)
+            .workersCompPropertyCasualtyAgencyClaimNo(UPDATED_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO)
+            .workersCompCarrierId(UPDATED_WORKERS_COMP_CARRIER_ID)
+            .workersCompEmployerAddressLine1(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1)
+            .workersCompEmployerAddressLine2(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2)
+            .workersCompEmployerCity(UPDATED_WORKERS_COMP_EMPLOYER_CITY)
+            .workersCompEmployerState(UPDATED_WORKERS_COMP_EMPLOYER_STATE)
+            .workersCompEmployerCountry(UPDATED_WORKERS_COMP_EMPLOYER_COUNTRY)
+            .workersCompEmployerZip(UPDATED_WORKERS_COMP_EMPLOYER_ZIP)
+            .workersCompEmployerContactNo1(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_1)
+            .workersCompEmployerContactNo2(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_2)
+            .workersCompEmployerFax(UPDATED_WORKERS_COMP_EMPLOYER_FAX)
+            .workersCompEmployerEfax(UPDATED_WORKERS_COMP_EMPLOYER_EFAX)
+            .workersCompEmployerEmail(UPDATED_WORKERS_COMP_EMPLOYER_EMAIL)
+            .workersCompRelationship(UPDATED_WORKERS_COMP_RELATIONSHIP)
+            .workersCompModeOfContact(UPDATED_WORKERS_COMP_MODE_OF_CONTACT);
 
         webTestClient
             .patch()
@@ -2349,8 +2677,8 @@ class SalesOrderInsuranceDetailsResourceIT {
             .isEqualTo(UPDATED_WORKERS_COMP_INJURY_RELATED_EMPLOYMENT_STATUS);
         assertThat(testSalesOrderInsuranceDetails.getWorkersCompInjuryRelatedAutoAccidentStatus())
             .isEqualTo(UPDATED_WORKERS_COMP_INJURY_RELATED_AUTO_ACCIDENT_STATUS);
-        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAutoAccidentStateId())
-            .isEqualTo(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_ID);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAutoAccidentStateCode())
+            .isEqualTo(UPDATED_WORKERS_COMP_AUTO_ACCIDENT_STATE_CODE);
         assertThat(testSalesOrderInsuranceDetails.getWorkersCompInjuryRelatedToOtherAccidentStatus())
             .isEqualTo(UPDATED_WORKERS_COMP_INJURY_RELATED_TO_OTHER_ACCIDENT_STATUS);
         assertThat(testSalesOrderInsuranceDetails.getEclaimsAttachmentStatus()).isEqualTo(UPDATED_ECLAIMS_ATTACHMENT_STATUS);
@@ -2416,6 +2744,31 @@ class SalesOrderInsuranceDetailsResourceIT {
         assertThat(testSalesOrderInsuranceDetails.getPrimaryClaimProgram()).isEqualTo(UPDATED_PRIMARY_CLAIM_PROGRAM);
         assertThat(testSalesOrderInsuranceDetails.getSecondaryClaimProgram()).isEqualTo(UPDATED_SECONDARY_CLAIM_PROGRAM);
         assertThat(testSalesOrderInsuranceDetails.getTertiaryClaimProgram()).isEqualTo(UPDATED_TERTIARY_CLAIM_PROGRAM);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompInsuredEmployer()).isEqualTo(UPDATED_WORKERS_COMP_INSURED_EMPLOYER);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPayerIdNumber()).isEqualTo(UPDATED_WORKERS_COMP_PAYER_ID_NUMBER);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPlanName()).isEqualTo(UPDATED_WORKERS_COMP_PLAN_NAME);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompAdditionalDtls()).isEqualTo(UPDATED_WORKERS_COMP_ADDITIONAL_DTLS);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompClaimFillingCode()).isEqualTo(UPDATED_WORKERS_COMP_CLAIM_FILLING_CODE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompTplCode()).isEqualTo(UPDATED_WORKERS_COMP_TPL_CODE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompTplName()).isEqualTo(UPDATED_WORKERS_COMP_TPL_NAME);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompPropertyCasualtyAgencyClaimNo())
+            .isEqualTo(UPDATED_WORKERS_COMP_PROPERTY_CASUALTY_AGENCY_CLAIM_NO);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompCarrierId()).isEqualTo(UPDATED_WORKERS_COMP_CARRIER_ID);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerAddressLine1())
+            .isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_1);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerAddressLine2())
+            .isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_ADDRESS_LINE_2);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerCity()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CITY);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerState()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_STATE);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerCountry()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_COUNTRY);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerZip()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_ZIP);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerContactNo1()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_1);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerContactNo2()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_CONTACT_NO_2);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerFax()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_FAX);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerEfax()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_EFAX);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompEmployerEmail()).isEqualTo(UPDATED_WORKERS_COMP_EMPLOYER_EMAIL);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompRelationship()).isEqualTo(UPDATED_WORKERS_COMP_RELATIONSHIP);
+        assertThat(testSalesOrderInsuranceDetails.getWorkersCompModeOfContact()).isEqualTo(UPDATED_WORKERS_COMP_MODE_OF_CONTACT);
     }
 
     @Test

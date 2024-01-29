@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Spring Data SQL reactive repository for the MemberElligibilityMaster entity.
+ * Spring Data R2DBC repository for the MemberElligibilityMaster entity.
  */
 @SuppressWarnings("unused")
 @Repository

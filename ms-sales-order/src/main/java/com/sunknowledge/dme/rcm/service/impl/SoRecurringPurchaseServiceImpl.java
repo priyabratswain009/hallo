@@ -44,7 +44,7 @@ public class SoRecurringPurchaseServiceImpl implements SoRecurringPurchaseServic
 
     @Override
     public Mono<SoRecurringPurchaseDTO> update(SoRecurringPurchaseDTO soRecurringPurchaseDTO) {
-        log.debug("Request to save SoRecurringPurchase : {}", soRecurringPurchaseDTO);
+        log.debug("Request to update SoRecurringPurchase : {}", soRecurringPurchaseDTO);
         return soRecurringPurchaseRepository
             .save(soRecurringPurchaseMapper.toEntity(soRecurringPurchaseDTO))
             .map(soRecurringPurchaseMapper::toDto);

@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A CmnDocumentMaster.
  */
 @Table("t_cmn_document_master")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class CmnDocumentMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;

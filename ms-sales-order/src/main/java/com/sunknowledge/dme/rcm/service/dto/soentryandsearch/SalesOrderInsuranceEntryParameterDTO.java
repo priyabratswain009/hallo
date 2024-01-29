@@ -49,9 +49,9 @@ public class SalesOrderInsuranceEntryParameterDTO {
 //    @NotNull(message = "Primary_Insurer_Effective_Date must be provided")
     private LocalDate primaryInsurerEffectiveDate;
 
-    private String primaryInsurerVerificationStatus;
+//    private String primaryInsurerVerificationStatus;
 
-    private LocalDate primaryInsurerVerificationDate;
+//    private LocalDate primaryInsurerVerificationDate;
 
 //    @NotNull(message = "Primary_Insurer_Pay_Percentage must be provided")
     private Long primaryInsurerPayPercentage;
@@ -84,9 +84,9 @@ public class SalesOrderInsuranceEntryParameterDTO {
 
     private LocalDate secondaryInsurerEffectiveDate;
 
-    private String secondaryInsurerVerificationStatus;
-
-    private LocalDate secondaryInsurerVerificationDate;
+//    private String secondaryInsurerVerificationStatus;
+//
+//    private LocalDate secondaryInsurerVerificationDate;
 
     private Long secondaryInsurerPayPercentage;
 
@@ -118,9 +118,9 @@ public class SalesOrderInsuranceEntryParameterDTO {
 
     private LocalDate tertiaryInsurerEffectiveDate;
 
-    private String tertiaryInsurerVerificationStatus;
-
-    private LocalDate tertiaryInsurerVerificationDate;
+//    private String tertiaryInsurerVerificationStatus;
+//
+//    private LocalDate tertiaryInsurerVerificationDate;
 
     private Long tertiaryInsurerPayPercentage;
 
@@ -155,27 +155,17 @@ public class SalesOrderInsuranceEntryParameterDTO {
 
     private String patientWaitForPreviousPayerBeforeBillingStatus;
 
-    private LocalDate workersCompDateOfOnset;
+//    private String eclaimsAttachmentStatus;
+//
+//    private Long attachmentNumber;
 
-    private String workersCompInjuryRelatedEmploymentStatus;
-
-    private String workersCompInjuryRelatedAutoAccidentStatus;
-
-    private Long workersCompAutoAccidentStateId;
-
-    private String workersCompInjuryRelatedToOtherAccidentStatus;
-
-    private String eclaimsAttachmentStatus;
-
-    private Long attachmentNumber;
-
-    private String typeCode;
-
-    private String transactionCode;
-
-    private String claimsNoteType;
-
-    private String claimsNote;
+//    private String typeCode;
+//
+//    private String transactionCode;
+//
+//    private String claimsNoteType;
+//
+//    private String claimsNote;
 
 //    private String status;
 
@@ -193,15 +183,15 @@ public class SalesOrderInsuranceEntryParameterDTO {
 //
 //    private String tertiaryInsuranceGroupName;
 
-    private Long primaryInsurancePlanId;
+//    private Long primaryInsurancePlanId;
 
     private String primaryInsurancePlanType;
 
-    private Long secondaryInsurancePlanId;
+//    private Long secondaryInsurancePlanId;
 
     private String secondaryInsurancePlanType;
 
-    private Long tertiaryInsurancePlanId;
+//    private Long tertiaryInsurancePlanId;
 
     private String tertiaryInsurancePlanType;
 
@@ -286,4 +276,58 @@ public class SalesOrderInsuranceEntryParameterDTO {
 //    @NotBlank(message = "Primary_Insurer_Contact_Name must be provided")
 //    @NotNull(message = "Primary_Insurer_Contact_Name must be provided")
     private String primaryInsurerContactName;
+
+    private LocalDate workersCompDateOfOnset;
+
+    private String workersCompInjuryRelatedEmploymentStatus;
+
+    private String workersCompInjuryRelatedAutoAccidentStatus;
+
+    private String workersCompAutoAccidentStateCode;
+
+    private String workersCompInjuryRelatedToOtherAccidentStatus;
+
+    private String workersCompInsuredEmployer;
+
+    private String workersCompPayerIdNumber;
+
+    private String workersCompPlanName;
+
+    private String workersCompAdditionalDtls;
+
+    private String workersCompClaimFillingCode;
+
+    private String workersCompTplCode;
+
+    private String workersCompTplName;
+
+    private String workersCompPropertyCasualtyAgencyClaimNo;
+
+    private String workersCompCarrierId;
+
+    private String workersCompEmployerAddressLine1;
+
+    private String workersCompEmployerAddressLine2;
+
+    private String workersCompEmployerCity;
+
+    private String workersCompEmployerState;
+
+    private String workersCompEmployerCountry;
+
+    private String workersCompEmployerZip;
+
+    private String workersCompEmployerContactNo1;
+
+    private String workersCompEmployerContactNo2;
+
+    private String workersCompEmployerFax;
+
+    private String workersCompEmployerEfax;
+
+    private String workersCompEmployerEmail;
+
+    private String workersCompRelationship;
+
+    private String workersCompModeOfContact;
 }

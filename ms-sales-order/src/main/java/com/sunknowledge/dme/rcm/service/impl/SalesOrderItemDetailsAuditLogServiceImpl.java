@@ -44,7 +44,7 @@ public class SalesOrderItemDetailsAuditLogServiceImpl implements SalesOrderItemD
 
     @Override
     public Mono<SalesOrderItemDetailsAuditLogDTO> update(SalesOrderItemDetailsAuditLogDTO salesOrderItemDetailsAuditLogDTO) {
-        log.debug("Request to save SalesOrderItemDetailsAuditLog : {}", salesOrderItemDetailsAuditLogDTO);
+        log.debug("Request to update SalesOrderItemDetailsAuditLog : {}", salesOrderItemDetailsAuditLogDTO);
         return salesOrderItemDetailsAuditLogRepository
             .save(salesOrderItemDetailsAuditLogMapper.toEntity(salesOrderItemDetailsAuditLogDTO))
             .map(salesOrderItemDetailsAuditLogMapper::toDto);

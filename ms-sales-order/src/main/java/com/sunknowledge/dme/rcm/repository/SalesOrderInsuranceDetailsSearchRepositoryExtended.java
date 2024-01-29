@@ -1,10 +1,12 @@
 package com.sunknowledge.dme.rcm.repository;
 
+import com.sunknowledge.dme.rcm.domain.SalesOrderInsuranceDetails;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderInsuranceSearchDetailsDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderMasterSearchDetailsDTO;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.query.Param;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface SalesOrderInsuranceDetailsSearchRepositoryExtended extends SalesOrderInsuranceDetailsRepository {
     @Query(value = "select * from so.InsuranceIDLookup(:insuranceName) as\n" +
@@ -19,4 +21,7 @@ public interface SalesOrderInsuranceDetailsSearchRepositoryExtended extends Sale
         "c_date timestamp without time zone,c_by_id bigint,c_by_name character varying, " +
         "primary_insurer_id bigint)\n")
     Flux<SalesOrderMasterSearchDetailsDTO> findSODetailsByInsuranceId(Long insuranceId);
+
+    @Query(value = "select * from so.t_sales_order_insurance_details tsoid where tsoid.sales_order_id = :salesOrderID")
+    Mono<SalesOrderInsuranceDetails> findBySalesOrderId(@Param("salesOrderID") Long salesOrderID);
 }

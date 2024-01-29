@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A PrimaryClaimSubmisionServicelines.
  */
 @Table("t_primary_claim_submision_servicelines")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PrimaryClaimSubmisionServicelines implements Serializable {
 
     private static final long serialVersionUID = 1L;

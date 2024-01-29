@@ -16,26 +16,14 @@
     },
     {
       "fieldName": "benefitCoverageRequestId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "requestControlNumberExt",
       "fieldType": "String"
     },
     {
-      "fieldName": "createdDate",
-      "fieldType": "LocalDate"
-    },
-    {
-      "fieldName": "updatedDate",
-      "fieldType": "LocalDate"
-    },
-    {
-      "fieldName": "expirationDate",
-      "fieldType": "LocalDate"
-    },
-    {
-      "fieldName": "requestedDate",
-      "fieldType": "LocalDate"
-    },
-    {
-      "fieldName": "responseDate",
+      "fieldName": "asOnDate",
       "fieldType": "LocalDate"
     },
     {
@@ -43,7 +31,35 @@
       "fieldType": "String"
     },
     {
+      "fieldName": "memberFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "memberLastName",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "subscriberMemberId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "memberGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientFirstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "patientGender",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "payerName",
       "fieldType": "String"
     },
     {
@@ -51,32 +67,36 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "payerId",
+      "fieldName": "patientState",
       "fieldType": "String"
     },
     {
-      "fieldName": "providerNpi",
+      "fieldName": "coverageStatus",
       "fieldType": "String"
     },
     {
-      "fieldName": "plansStatusCode",
+      "fieldName": "payerGroupNumber",
       "fieldType": "String"
     },
     {
-      "fieldName": "plansStatus",
-      "fieldType": "String"
+      "fieldName": "serviceDate",
+      "fieldType": "LocalDate"
     },
     {
-      "fieldName": "primaryResponse",
-      "fieldType": "String"
+      "fieldName": "planStartDate",
+      "fieldType": "LocalDate"
     },
     {
-      "fieldName": "secondaryResponse",
+      "fieldName": "responseJsonText",
       "fieldType": "String"
     },
     {
       "fieldName": "status",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
     },
     {
       "fieldName": "createdById",
@@ -85,6 +105,10 @@
     {
       "fieldName": "createdByName",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
     },
     {
       "fieldName": "updatedById",
@@ -97,18 +121,6 @@
     {
       "fieldName": "benefitCoverageResponseUuid",
       "fieldType": "UUID"
-    },
-    {
-      "fieldName": "patientState",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "subscriberRelationship",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "memberId",
-      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

@@ -44,7 +44,7 @@ public class PriceDetailsMasterServiceImpl implements PriceDetailsMasterService 
 
     @Override
     public Mono<PriceDetailsMasterDTO> update(PriceDetailsMasterDTO priceDetailsMasterDTO) {
-        log.debug("Request to save PriceDetailsMaster : {}", priceDetailsMasterDTO);
+        log.debug("Request to update PriceDetailsMaster : {}", priceDetailsMasterDTO);
         return priceDetailsMasterRepository
             .save(priceDetailsMasterMapper.toEntity(priceDetailsMasterDTO))
             .map(priceDetailsMasterMapper::toDto);

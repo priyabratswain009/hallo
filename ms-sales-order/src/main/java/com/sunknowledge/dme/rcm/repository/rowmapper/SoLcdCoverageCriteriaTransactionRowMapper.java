@@ -26,11 +26,10 @@ public class SoLcdCoverageCriteriaTransactionRowMapper implements BiFunction<Row
     @Override
     public SoLcdCoverageCriteriaTransaction apply(Row row, String prefix) {
         SoLcdCoverageCriteriaTransaction entity = new SoLcdCoverageCriteriaTransaction();
-        entity.setSoLcdDocRefId(converter.fromRow(row, prefix + "_so_lcd_doc_ref_id", Long.class));
+        entity.setSoLcdCoverageCriteriaTransactionId(
+            converter.fromRow(row, prefix + "_so_lcd_coverage_criteria_transaction_id", Long.class)
+        );
         entity.setSoId(converter.fromRow(row, prefix + "_so_id", Long.class));
-        entity.setItemId(converter.fromRow(row, prefix + "_item_id", Long.class));
-        entity.setItemName(converter.fromRow(row, prefix + "_item_name", String.class));
-        entity.setHcpcsCode(converter.fromRow(row, prefix + "_hcpcs_code", String.class));
         entity.setChecklistId(converter.fromRow(row, prefix + "_checklist_id", Long.class));
         entity.setChecklistName(converter.fromRow(row, prefix + "_checklist_name", String.class));
         entity.setCoverageCriteriaId(converter.fromRow(row, prefix + "_coverage_criteria_id", Long.class));
@@ -45,6 +44,9 @@ public class SoLcdCoverageCriteriaTransactionRowMapper implements BiFunction<Row
         entity.setSoLcdCoverageCriteriaTransactionUuid(
             converter.fromRow(row, prefix + "_so_lcd_coverage_criteria_transaction_uuid", UUID.class)
         );
+        entity.setItemGroupId(converter.fromRow(row, prefix + "_item_group_id", Long.class));
+        entity.setItemGroupName(converter.fromRow(row, prefix + "_item_group_name", String.class));
+        entity.setCoverageCriteriaName(converter.fromRow(row, prefix + "_coverage_criteria_name", String.class));
         return entity;
     }
 }

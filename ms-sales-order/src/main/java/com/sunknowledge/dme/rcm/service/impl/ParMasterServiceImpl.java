@@ -39,7 +39,7 @@ public class ParMasterServiceImpl implements ParMasterService {
 
     @Override
     public Mono<ParMasterDTO> update(ParMasterDTO parMasterDTO) {
-        log.debug("Request to save ParMaster : {}", parMasterDTO);
+        log.debug("Request to update ParMaster : {}", parMasterDTO);
         return parMasterRepository.save(parMasterMapper.toEntity(parMasterDTO)).map(parMasterMapper::toDto);
     }
 

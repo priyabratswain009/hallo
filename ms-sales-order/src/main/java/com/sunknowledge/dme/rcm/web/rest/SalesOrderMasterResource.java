@@ -225,16 +225,17 @@ public class SalesOrderMasterResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/sales-order-masters/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteSalesOrderMaster(@PathVariable Long id) {
         log.debug("REST request to delete SalesOrderMaster : {}", id);
         return salesOrderMasterService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

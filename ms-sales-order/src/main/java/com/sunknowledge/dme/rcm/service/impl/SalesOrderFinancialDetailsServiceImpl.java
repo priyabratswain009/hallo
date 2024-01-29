@@ -44,7 +44,7 @@ public class SalesOrderFinancialDetailsServiceImpl implements SalesOrderFinancia
 
     @Override
     public Mono<SalesOrderFinancialDetailsDTO> update(SalesOrderFinancialDetailsDTO salesOrderFinancialDetailsDTO) {
-        log.debug("Request to save SalesOrderFinancialDetails : {}", salesOrderFinancialDetailsDTO);
+        log.debug("Request to update SalesOrderFinancialDetails : {}", salesOrderFinancialDetailsDTO);
         return salesOrderFinancialDetailsRepository
             .save(salesOrderFinancialDetailsMapper.toEntity(salesOrderFinancialDetailsDTO))
             .map(salesOrderFinancialDetailsMapper::toDto);

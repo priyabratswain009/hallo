@@ -115,7 +115,7 @@ public class SalesOrderInsuranceDetailsRowMapper implements BiFunction<Row, Stri
         entity.setWorkersCompInjuryRelatedAutoAccidentStatus(
             converter.fromRow(row, prefix + "_workers_comp_injury_related_auto_accident_status", String.class)
         );
-        entity.setWorkersCompAutoAccidentStateId(converter.fromRow(row, prefix + "_workers_comp_auto_accident_state_id", Long.class));
+        entity.setWorkersCompAutoAccidentStateCode(converter.fromRow(row, prefix + "_workers_comp_auto_accident_state_code", String.class));
         entity.setWorkersCompInjuryRelatedToOtherAccidentStatus(
             converter.fromRow(row, prefix + "_workers_comp_injury_related_to_other_accident_status", String.class)
         );
@@ -180,6 +180,30 @@ public class SalesOrderInsuranceDetailsRowMapper implements BiFunction<Row, Stri
         entity.setPrimaryClaimProgram(converter.fromRow(row, prefix + "_primary_claim_program", String.class));
         entity.setSecondaryClaimProgram(converter.fromRow(row, prefix + "_secondary_claim_program", String.class));
         entity.setTertiaryClaimProgram(converter.fromRow(row, prefix + "_tertiary_claim_program", String.class));
+        entity.setWorkersCompInsuredEmployer(converter.fromRow(row, prefix + "_workers_comp_insured_employer", String.class));
+        entity.setWorkersCompPayerIdNumber(converter.fromRow(row, prefix + "_workers_comp_payer_id_number", String.class));
+        entity.setWorkersCompPlanName(converter.fromRow(row, prefix + "_workers_comp_plan_name", String.class));
+        entity.setWorkersCompAdditionalDtls(converter.fromRow(row, prefix + "_workers_comp_additional_dtls", String.class));
+        entity.setWorkersCompClaimFillingCode(converter.fromRow(row, prefix + "_workers_comp_claim_filling_code", String.class));
+        entity.setWorkersCompTplCode(converter.fromRow(row, prefix + "_workers_comp_tpl_code", String.class));
+        entity.setWorkersCompTplName(converter.fromRow(row, prefix + "_workers_comp_tpl_name", String.class));
+        entity.setWorkersCompPropertyCasualtyAgencyClaimNo(
+            converter.fromRow(row, prefix + "_workers_comp_property_casualty_agency_claim_no", String.class)
+        );
+        entity.setWorkersCompCarrierId(converter.fromRow(row, prefix + "_workers_comp_carrier_id", String.class));
+        entity.setWorkersCompEmployerAddressLine1(converter.fromRow(row, prefix + "_workers_comp_employer_address_line_1", String.class));
+        entity.setWorkersCompEmployerAddressLine2(converter.fromRow(row, prefix + "_workers_comp_employer_address_line_2", String.class));
+        entity.setWorkersCompEmployerCity(converter.fromRow(row, prefix + "_workers_comp_employer_city", String.class));
+        entity.setWorkersCompEmployerState(converter.fromRow(row, prefix + "_workers_comp_employer_state", String.class));
+        entity.setWorkersCompEmployerCountry(converter.fromRow(row, prefix + "_workers_comp_employer_country", String.class));
+        entity.setWorkersCompEmployerZip(converter.fromRow(row, prefix + "_workers_comp_employer_zip", String.class));
+        entity.setWorkersCompEmployerContactNo1(converter.fromRow(row, prefix + "_workers_comp_employer_contact_no_1", String.class));
+        entity.setWorkersCompEmployerContactNo2(converter.fromRow(row, prefix + "_workers_comp_employer_contact_no_2", String.class));
+        entity.setWorkersCompEmployerFax(converter.fromRow(row, prefix + "_workers_comp_employer_fax", String.class));
+        entity.setWorkersCompEmployerEfax(converter.fromRow(row, prefix + "_workers_comp_employer_efax", String.class));
+        entity.setWorkersCompEmployerEmail(converter.fromRow(row, prefix + "_workers_comp_employer_email", String.class));
+        entity.setWorkersCompRelationship(converter.fromRow(row, prefix + "_workers_comp_relationship", String.class));
+        entity.setWorkersCompModeOfContact(converter.fromRow(row, prefix + "_workers_comp_mode_of_contact", String.class));
         return entity;
     }
 }

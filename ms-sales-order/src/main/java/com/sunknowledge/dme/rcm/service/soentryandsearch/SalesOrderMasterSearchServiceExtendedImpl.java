@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.soentryandsearch;
 
+import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
 import com.sunknowledge.dme.rcm.domain.SalesOrderMaster;
 import com.sunknowledge.dme.rcm.repository.SalesOrderMasterSearchRepositoryExtended;
@@ -11,6 +12,8 @@ import com.sunknowledge.dme.rcm.service.dto.SalesOrderMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderMasterSearchOutputDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderMasterSearchDetailsDTO;
 import com.sunknowledge.dme.rcm.util.CommonUtil;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +23,7 @@ import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -302,4 +306,28 @@ public class SalesOrderMasterSearchServiceExtendedImpl implements SalesOrderMast
             salesOrderCommonSearchInternalDTO.getDeliveryActualDateEnd()
         );
     }
+
+	@Override
+	public Mono<ServiceOutcome> getSalesOrderDetailsByPatientIdNo(String patientIdNo) throws InterruptedException, ExecutionException {
+		// TODO Auto-generated method stub
+		ServiceOutcome outCome = new ServiceOutcome();
+		
+		List<SalesOrderMaster> salesOrderMasterList = salesOrderMasterSearchRepository.getSalesOrderDetailsByPatientIdNo(patientIdNo).collectList().toFuture().get();
+		
+		if(salesOrderMasterList.size()>0) {
+			outCome.setData(salesOrderMasterList);
+			outCome.setMessage("");
+			outCome.setOutcome(true);
+			outCome.setStatusCode("200");
+		}else {
+			outCome.setData(salesOrderMasterList);
+			outCome.setMessage("");
+			outCome.setOutcome(true);
+			outCome.setStatusCode("204");
+		}
+		
+		return Mono.just(outCome);
+		
+		
+	}
 }

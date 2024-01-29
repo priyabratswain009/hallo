@@ -10,6 +10,7 @@
     {
       "fieldName": "soLcdDocRefId",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"],
       "options": {
         "id": true
       }
@@ -17,18 +18,6 @@
     {
       "fieldName": "soId",
       "fieldType": "Long"
-    },
-    {
-      "fieldName": "itemId",
-      "fieldType": "Long"
-    },
-    {
-      "fieldName": "itemName",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "hcpcsCode",
-      "fieldType": "String"
     },
     {
       "fieldName": "checklistId",
@@ -81,6 +70,18 @@
     {
       "fieldName": "soLcdDocRefTransactionUuid",
       "fieldType": "UUID"
+    },
+    {
+      "fieldName": "itemGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageCriteriaId",
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

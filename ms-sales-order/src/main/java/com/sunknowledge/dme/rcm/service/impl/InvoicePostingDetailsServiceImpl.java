@@ -44,7 +44,7 @@ public class InvoicePostingDetailsServiceImpl implements InvoicePostingDetailsSe
 
     @Override
     public Mono<InvoicePostingDetailsDTO> update(InvoicePostingDetailsDTO invoicePostingDetailsDTO) {
-        log.debug("Request to save InvoicePostingDetails : {}", invoicePostingDetailsDTO);
+        log.debug("Request to update InvoicePostingDetails : {}", invoicePostingDetailsDTO);
         return invoicePostingDetailsRepository
             .save(invoicePostingDetailsMapper.toEntity(invoicePostingDetailsDTO))
             .map(invoicePostingDetailsMapper::toDto);

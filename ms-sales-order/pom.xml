@@ -417,6 +417,12 @@
             <groupId>com.sunknowledge.dme.rcm</groupId>
             <artifactId>common-util</artifactId>
             <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.datatype</groupId>
+                    <artifactId>jackson-datatype-jsr310</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.skyscreamer</groupId>
@@ -508,25 +514,49 @@
             <version>3.0.5</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
         </dependency>
-        <!-- Thanks for using https://jar-download.com -->
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-aop &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-aop</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-circuitbreaker &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>io.github.resilience4j</groupId>-->
-<!--            <artifactId>resilience4j-circuitbreaker</artifactId>-->
-<!--        </dependency>-->
+        <!-- Convert API -->
+        <dependency>
+            <groupId>com.convertapi.client</groupId>
+            <artifactId>convertapi</artifactId>
+            <version>2.9</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-core -->
+        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/auth -->
+        <!--<dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>auth</artifactId>
+            <version>2.22.0</version>
+        </dependency>-->
+       <!-- <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.11.1000</version>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/s3 -->
+        <!--<dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.22.0</version>
+            <scope>test</scope>
+        </dependency>-->
+
+
     </dependencies>
 
     <build>
@@ -740,7 +770,7 @@
                         </includeOnlyProperties>
                     </configuration>
                 </plugin>
-                <plugin>
+                <!--plugin>
                     <groupId>org.gaul</groupId>
                     <artifactId>modernizer-maven-plugin</artifactId>
                     <version>${modernizer-maven-plugin.version}</version>
@@ -756,7 +786,7 @@
                     <configuration>
                         <javaVersion>${java.version}</javaVersion>
                     </configuration>
-                </plugin>
+                </plugin-->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>

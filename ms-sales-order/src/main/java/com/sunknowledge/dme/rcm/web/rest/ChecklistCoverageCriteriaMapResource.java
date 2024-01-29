@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +67,7 @@ public class ChecklistCoverageCriteriaMapResource {
      */
     @PostMapping("/checklist-coverage-criteria-maps")
     public Mono<ResponseEntity<ChecklistCoverageCriteriaMapDTO>> createChecklistCoverageCriteriaMap(
-        @RequestBody ChecklistCoverageCriteriaMapDTO checklistCoverageCriteriaMapDTO
+        @Valid @RequestBody ChecklistCoverageCriteriaMapDTO checklistCoverageCriteriaMapDTO
     ) throws URISyntaxException {
         log.debug("REST request to save ChecklistCoverageCriteriaMap : {}", checklistCoverageCriteriaMapDTO);
         if (checklistCoverageCriteriaMapDTO.getChecklistCoverageCriteriaId() != null) {
@@ -105,7 +107,7 @@ public class ChecklistCoverageCriteriaMapResource {
     @PutMapping("/checklist-coverage-criteria-maps/{checklistCoverageCriteriaId}")
     public Mono<ResponseEntity<ChecklistCoverageCriteriaMapDTO>> updateChecklistCoverageCriteriaMap(
         @PathVariable(value = "checklistCoverageCriteriaId", required = false) final Long checklistCoverageCriteriaId,
-        @RequestBody ChecklistCoverageCriteriaMapDTO checklistCoverageCriteriaMapDTO
+        @Valid @RequestBody ChecklistCoverageCriteriaMapDTO checklistCoverageCriteriaMapDTO
     ) throws URISyntaxException {
         log.debug(
             "REST request to update ChecklistCoverageCriteriaMap : {}, {}",
@@ -162,7 +164,7 @@ public class ChecklistCoverageCriteriaMapResource {
     )
     public Mono<ResponseEntity<ChecklistCoverageCriteriaMapDTO>> partialUpdateChecklistCoverageCriteriaMap(
         @PathVariable(value = "checklistCoverageCriteriaId", required = false) final Long checklistCoverageCriteriaId,
-        @RequestBody ChecklistCoverageCriteriaMapDTO checklistCoverageCriteriaMapDTO
+        @NotNull @RequestBody ChecklistCoverageCriteriaMapDTO checklistCoverageCriteriaMapDTO
     ) throws URISyntaxException {
         log.debug(
             "REST request to partial update ChecklistCoverageCriteriaMap partially : {}, {}",
@@ -254,16 +256,17 @@ public class ChecklistCoverageCriteriaMapResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/checklist-coverage-criteria-maps/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteChecklistCoverageCriteriaMap(@PathVariable Long id) {
         log.debug("REST request to delete ChecklistCoverageCriteriaMap : {}", id);
         return checklistCoverageCriteriaMapService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

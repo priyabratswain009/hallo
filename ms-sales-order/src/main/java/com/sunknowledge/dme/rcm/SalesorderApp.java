@@ -1,12 +1,6 @@
 package com.sunknowledge.dme.rcm;
 
-import com.sunknowledge.dme.rcm.config.ApplicationProperties;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
-import javax.annotation.PostConstruct;
+import com.sunknowledge.dme.rcm.application.properties.ApplicationPropertiesSetup;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +13,15 @@ import org.springframework.core.env.Environment;
 import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 
+import javax.annotation.PostConstruct;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
+
 @SpringBootApplication
-@EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
+@EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationPropertiesSetup.class })
 @EnableEurekaClient
 public class SalesorderApp {
 

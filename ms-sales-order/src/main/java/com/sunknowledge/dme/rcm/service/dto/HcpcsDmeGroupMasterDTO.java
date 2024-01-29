@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.HcpcsDmeGroupMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class HcpcsDmeGroupMasterDTO implements Serializable {
 
+    @NotNull(message = "must not be null")
     private Long hcpcsDmeId;
 
     private String hcpcsCode;

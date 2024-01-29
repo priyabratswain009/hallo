@@ -39,7 +39,7 @@ public class CmnServiceImpl implements CmnService {
 
     @Override
     public Mono<CmnDTO> update(CmnDTO cmnDTO) {
-        log.debug("Request to save Cmn : {}", cmnDTO);
+        log.debug("Request to update Cmn : {}", cmnDTO);
         return cmnRepository.save(cmnMapper.toEntity(cmnDTO)).map(cmnMapper::toDto);
     }
 

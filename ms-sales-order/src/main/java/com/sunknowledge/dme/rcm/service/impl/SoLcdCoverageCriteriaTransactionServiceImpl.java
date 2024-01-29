@@ -44,7 +44,7 @@ public class SoLcdCoverageCriteriaTransactionServiceImpl implements SoLcdCoverag
 
     @Override
     public Mono<SoLcdCoverageCriteriaTransactionDTO> update(SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO) {
-        log.debug("Request to save SoLcdCoverageCriteriaTransaction : {}", soLcdCoverageCriteriaTransactionDTO);
+        log.debug("Request to update SoLcdCoverageCriteriaTransaction : {}", soLcdCoverageCriteriaTransactionDTO);
         return soLcdCoverageCriteriaTransactionRepository
             .save(soLcdCoverageCriteriaTransactionMapper.toEntity(soLcdCoverageCriteriaTransactionDTO))
             .map(soLcdCoverageCriteriaTransactionMapper::toDto);
@@ -57,7 +57,7 @@ public class SoLcdCoverageCriteriaTransactionServiceImpl implements SoLcdCoverag
         log.debug("Request to partially update SoLcdCoverageCriteriaTransaction : {}", soLcdCoverageCriteriaTransactionDTO);
 
         return soLcdCoverageCriteriaTransactionRepository
-            .findById(soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId())
+            .findById(soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId())
             .map(existingSoLcdCoverageCriteriaTransaction -> {
                 soLcdCoverageCriteriaTransactionMapper.partialUpdate(
                     existingSoLcdCoverageCriteriaTransaction,

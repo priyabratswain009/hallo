@@ -44,7 +44,7 @@ public class SoLcdDocRefTransactionServiceImpl implements SoLcdDocRefTransaction
 
     @Override
     public Mono<SoLcdDocRefTransactionDTO> update(SoLcdDocRefTransactionDTO soLcdDocRefTransactionDTO) {
-        log.debug("Request to save SoLcdDocRefTransaction : {}", soLcdDocRefTransactionDTO);
+        log.debug("Request to update SoLcdDocRefTransaction : {}", soLcdDocRefTransactionDTO);
         return soLcdDocRefTransactionRepository
             .save(soLcdDocRefTransactionMapper.toEntity(soLcdDocRefTransactionDTO))
             .map(soLcdDocRefTransactionMapper::toDto);

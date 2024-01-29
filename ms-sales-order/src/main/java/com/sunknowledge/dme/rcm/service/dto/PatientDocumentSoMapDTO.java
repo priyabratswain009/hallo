@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.PatientDocumentSoMap} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PatientDocumentSoMapDTO implements Serializable {
 
     private Long patientDocumentSoMapId;

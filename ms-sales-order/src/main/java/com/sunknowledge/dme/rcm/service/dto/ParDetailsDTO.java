@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ParDetails} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ParDetailsDTO implements Serializable {
 
     @NotNull(message = "must not be null")

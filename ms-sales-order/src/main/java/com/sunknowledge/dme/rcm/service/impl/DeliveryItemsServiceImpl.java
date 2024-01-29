@@ -39,7 +39,7 @@ public class DeliveryItemsServiceImpl implements DeliveryItemsService {
 
     @Override
     public Mono<DeliveryItemsDTO> update(DeliveryItemsDTO deliveryItemsDTO) {
-        log.debug("Request to save DeliveryItems : {}", deliveryItemsDTO);
+        log.debug("Request to update DeliveryItems : {}", deliveryItemsDTO);
         return deliveryItemsRepository.save(deliveryItemsMapper.toEntity(deliveryItemsDTO)).map(deliveryItemsMapper::toDto);
     }
 

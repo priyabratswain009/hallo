@@ -44,7 +44,7 @@ public class SalesOrderClinicalDetailsServiceImpl implements SalesOrderClinicalD
 
     @Override
     public Mono<SalesOrderClinicalDetailsDTO> update(SalesOrderClinicalDetailsDTO salesOrderClinicalDetailsDTO) {
-        log.debug("Request to save SalesOrderClinicalDetails : {}", salesOrderClinicalDetailsDTO);
+        log.debug("Request to update SalesOrderClinicalDetails : {}", salesOrderClinicalDetailsDTO);
         return salesOrderClinicalDetailsRepository
             .save(salesOrderClinicalDetailsMapper.toEntity(salesOrderClinicalDetailsDTO))
             .map(salesOrderClinicalDetailsMapper::toDto);

@@ -3,6 +3,7 @@ package com.sunknowledge.dme.rcm.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
+import javax.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
@@ -12,10 +13,12 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ChecklistCoverageCriteriaMap.
  */
 @Table("t_checklist_coverage_criteria_map")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ChecklistCoverageCriteriaMap implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull(message = "must not be null")
     @Id
     @Column("checklist_coverage_criteria_id")
     private Long checklistCoverageCriteriaId;
@@ -58,6 +61,12 @@ public class ChecklistCoverageCriteriaMap implements Serializable {
 
     @Column("coverage_criteria_name")
     private String coverageCriteriaName;
+
+    @Column("item_group_id")
+    private Long itemGroupId;
+
+    @Column("item_group_name")
+    private String itemGroupName;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -243,6 +252,32 @@ public class ChecklistCoverageCriteriaMap implements Serializable {
         this.coverageCriteriaName = coverageCriteriaName;
     }
 
+    public Long getItemGroupId() {
+        return this.itemGroupId;
+    }
+
+    public ChecklistCoverageCriteriaMap itemGroupId(Long itemGroupId) {
+        this.setItemGroupId(itemGroupId);
+        return this;
+    }
+
+    public void setItemGroupId(Long itemGroupId) {
+        this.itemGroupId = itemGroupId;
+    }
+
+    public String getItemGroupName() {
+        return this.itemGroupName;
+    }
+
+    public ChecklistCoverageCriteriaMap itemGroupName(String itemGroupName) {
+        this.setItemGroupName(itemGroupName);
+        return this;
+    }
+
+    public void setItemGroupName(String itemGroupName) {
+        this.itemGroupName = itemGroupName;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -283,6 +318,8 @@ public class ChecklistCoverageCriteriaMap implements Serializable {
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", checklistCoverageCriteriaMapUuid='" + getChecklistCoverageCriteriaMapUuid() + "'" +
             ", coverageCriteriaName='" + getCoverageCriteriaName() + "'" +
+            ", itemGroupId=" + getItemGroupId() +
+            ", itemGroupName='" + getItemGroupName() + "'" +
             "}";
     }
 }

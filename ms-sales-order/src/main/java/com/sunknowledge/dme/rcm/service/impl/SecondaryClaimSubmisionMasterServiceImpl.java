@@ -44,7 +44,7 @@ public class SecondaryClaimSubmisionMasterServiceImpl implements SecondaryClaimS
 
     @Override
     public Mono<SecondaryClaimSubmisionMasterDTO> update(SecondaryClaimSubmisionMasterDTO secondaryClaimSubmisionMasterDTO) {
-        log.debug("Request to save SecondaryClaimSubmisionMaster : {}", secondaryClaimSubmisionMasterDTO);
+        log.debug("Request to update SecondaryClaimSubmisionMaster : {}", secondaryClaimSubmisionMasterDTO);
         return secondaryClaimSubmisionMasterRepository
             .save(secondaryClaimSubmisionMasterMapper.toEntity(secondaryClaimSubmisionMasterDTO))
             .map(secondaryClaimSubmisionMasterMapper::toDto);

@@ -21,9 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -38,59 +35,77 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @WithMockUser
 class BenefitCoverageResponseResourceIT {
 
-    private static final String DEFAULT_BENEFIT_COVERAGE_REQUEST_ID = "AAAAAAAAAA";
-    private static final String UPDATED_BENEFIT_COVERAGE_REQUEST_ID = "BBBBBBBBBB";
+    private static final Long DEFAULT_BENEFIT_COVERAGE_REQUEST_ID = 1L;
+    private static final Long UPDATED_BENEFIT_COVERAGE_REQUEST_ID = 2L;
 
-    private static final LocalDate DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATED_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final String DEFAULT_REQUEST_CONTROL_NUMBER_EXT = "AAAAAAAAAA";
+    private static final String UPDATED_REQUEST_CONTROL_NUMBER_EXT = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_UPDATED_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
-
-    private static final LocalDate DEFAULT_EXPIRATION_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_EXPIRATION_DATE = LocalDate.now(ZoneId.systemDefault());
-
-    private static final LocalDate DEFAULT_REQUESTED_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_REQUESTED_DATE = LocalDate.now(ZoneId.systemDefault());
-
-    private static final LocalDate DEFAULT_RESPONSE_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_RESPONSE_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_AS_ON_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_AS_ON_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final String DEFAULT_SERVICE_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_SERVICE_TYPE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_MEMBER_FIRST_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_MEMBER_FIRST_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_MEMBER_LAST_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_MEMBER_LAST_NAME = "BBBBBBBBBB";
+
     private static final String DEFAULT_SUBSCRIBER_MEMBER_ID = "AAAAAAAAAA";
     private static final String UPDATED_SUBSCRIBER_MEMBER_ID = "BBBBBBBBBB";
+
+    private static final String DEFAULT_MEMBER_GENDER = "AAAAAAAAAA";
+    private static final String UPDATED_MEMBER_GENDER = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PATIENT_FIRST_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_PATIENT_FIRST_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PATIENT_LAST_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_PATIENT_LAST_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PATIENT_GENDER = "AAAAAAAAAA";
+    private static final String UPDATED_PATIENT_GENDER = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PAYER_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_PAYER_NAME = "BBBBBBBBBB";
 
     private static final String DEFAULT_PATIENT_RELATIONSHIP_CODE = "AAAAAAAAAA";
     private static final String UPDATED_PATIENT_RELATIONSHIP_CODE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PAYER_ID = "AAAAAAAAAA";
-    private static final String UPDATED_PAYER_ID = "BBBBBBBBBB";
+    private static final String DEFAULT_PATIENT_STATE = "AAAAAAAAAA";
+    private static final String UPDATED_PATIENT_STATE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PROVIDER_NPI = "AAAAAAAAAA";
-    private static final String UPDATED_PROVIDER_NPI = "BBBBBBBBBB";
+    private static final String DEFAULT_COVERAGE_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_COVERAGE_STATUS = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PLANS_STATUS_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_PLANS_STATUS_CODE = "BBBBBBBBBB";
+    private static final String DEFAULT_PAYER_GROUP_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_PAYER_GROUP_NUMBER = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PLANS_STATUS = "AAAAAAAAAA";
-    private static final String UPDATED_PLANS_STATUS = "BBBBBBBBBB";
+    private static final LocalDate DEFAULT_SERVICE_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_SERVICE_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final String DEFAULT_PRIMARY_RESPONSE = "AAAAAAAAAA";
-    private static final String UPDATED_PRIMARY_RESPONSE = "BBBBBBBBBB";
+    private static final LocalDate DEFAULT_PLAN_START_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_PLAN_START_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final String DEFAULT_SECONDARY_RESPONSE = "AAAAAAAAAA";
-    private static final String UPDATED_SECONDARY_RESPONSE = "BBBBBBBBBB";
+    private static final String DEFAULT_RESPONSE_JSON_TEXT = "AAAAAAAAAA";
+    private static final String UPDATED_RESPONSE_JSON_TEXT = "BBBBBBBBBB";
 
     private static final String DEFAULT_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CREATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final Long DEFAULT_CREATED_BY_ID = 1L;
     private static final Long UPDATED_CREATED_BY_ID = 2L;
 
     private static final String DEFAULT_CREATED_BY_NAME = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY_NAME = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_UPDATED_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     private static final Long DEFAULT_UPDATED_BY_ID = 1L;
     private static final Long UPDATED_UPDATED_BY_ID = 2L;
@@ -100,15 +115,6 @@ class BenefitCoverageResponseResourceIT {
 
     private static final UUID DEFAULT_BENEFIT_COVERAGE_RESPONSE_UUID = UUID.randomUUID();
     private static final UUID UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID = UUID.randomUUID();
-
-    private static final String DEFAULT_PATIENT_STATE = "AAAAAAAAAA";
-    private static final String UPDATED_PATIENT_STATE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_SUBSCRIBER_RELATIONSHIP = "AAAAAAAAAA";
-    private static final String UPDATED_SUBSCRIBER_RELATIONSHIP = "BBBBBBBBBB";
-
-    private static final String DEFAULT_MEMBER_ID = "AAAAAAAAAA";
-    private static final String UPDATED_MEMBER_ID = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/benefit-coverage-responses";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{benefitCoverageResponseId}";
@@ -139,29 +145,32 @@ class BenefitCoverageResponseResourceIT {
     public static BenefitCoverageResponse createEntity(EntityManager em) {
         BenefitCoverageResponse benefitCoverageResponse = new BenefitCoverageResponse()
             .benefitCoverageRequestId(DEFAULT_BENEFIT_COVERAGE_REQUEST_ID)
-            .createdDate(DEFAULT_CREATED_DATE)
-            .updatedDate(DEFAULT_UPDATED_DATE)
-            .expirationDate(DEFAULT_EXPIRATION_DATE)
-            .requestedDate(DEFAULT_REQUESTED_DATE)
-            .responseDate(DEFAULT_RESPONSE_DATE)
+            .requestControlNumberExt(DEFAULT_REQUEST_CONTROL_NUMBER_EXT)
+            .asOnDate(DEFAULT_AS_ON_DATE)
             .serviceType(DEFAULT_SERVICE_TYPE)
+            .memberFirstName(DEFAULT_MEMBER_FIRST_NAME)
+            .memberLastName(DEFAULT_MEMBER_LAST_NAME)
             .subscriberMemberId(DEFAULT_SUBSCRIBER_MEMBER_ID)
+            .memberGender(DEFAULT_MEMBER_GENDER)
+            .patientFirstName(DEFAULT_PATIENT_FIRST_NAME)
+            .patientLastName(DEFAULT_PATIENT_LAST_NAME)
+            .patientGender(DEFAULT_PATIENT_GENDER)
+            .payerName(DEFAULT_PAYER_NAME)
             .patientRelationshipCode(DEFAULT_PATIENT_RELATIONSHIP_CODE)
-            .payerId(DEFAULT_PAYER_ID)
-            .providerNpi(DEFAULT_PROVIDER_NPI)
-            .plansStatusCode(DEFAULT_PLANS_STATUS_CODE)
-            .plansStatus(DEFAULT_PLANS_STATUS)
-            .primaryResponse(DEFAULT_PRIMARY_RESPONSE)
-            .secondaryResponse(DEFAULT_SECONDARY_RESPONSE)
+            .patientState(DEFAULT_PATIENT_STATE)
+            .coverageStatus(DEFAULT_COVERAGE_STATUS)
+            .payerGroupNumber(DEFAULT_PAYER_GROUP_NUMBER)
+            .serviceDate(DEFAULT_SERVICE_DATE)
+            .planStartDate(DEFAULT_PLAN_START_DATE)
+            .responseJsonText(DEFAULT_RESPONSE_JSON_TEXT)
             .status(DEFAULT_STATUS)
+            .createdDate(DEFAULT_CREATED_DATE)
             .createdById(DEFAULT_CREATED_BY_ID)
             .createdByName(DEFAULT_CREATED_BY_NAME)
+            .updatedDate(DEFAULT_UPDATED_DATE)
             .updatedById(DEFAULT_UPDATED_BY_ID)
             .updatedByName(DEFAULT_UPDATED_BY_NAME)
-            .benefitCoverageResponseUuid(DEFAULT_BENEFIT_COVERAGE_RESPONSE_UUID)
-            .patientState(DEFAULT_PATIENT_STATE)
-            .subscriberRelationship(DEFAULT_SUBSCRIBER_RELATIONSHIP)
-            .memberId(DEFAULT_MEMBER_ID);
+            .benefitCoverageResponseUuid(DEFAULT_BENEFIT_COVERAGE_RESPONSE_UUID);
         return benefitCoverageResponse;
     }
 
@@ -174,29 +183,32 @@ class BenefitCoverageResponseResourceIT {
     public static BenefitCoverageResponse createUpdatedEntity(EntityManager em) {
         BenefitCoverageResponse benefitCoverageResponse = new BenefitCoverageResponse()
             .benefitCoverageRequestId(UPDATED_BENEFIT_COVERAGE_REQUEST_ID)
-            .createdDate(UPDATED_CREATED_DATE)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .expirationDate(UPDATED_EXPIRATION_DATE)
-            .requestedDate(UPDATED_REQUESTED_DATE)
-            .responseDate(UPDATED_RESPONSE_DATE)
+            .requestControlNumberExt(UPDATED_REQUEST_CONTROL_NUMBER_EXT)
+            .asOnDate(UPDATED_AS_ON_DATE)
             .serviceType(UPDATED_SERVICE_TYPE)
+            .memberFirstName(UPDATED_MEMBER_FIRST_NAME)
+            .memberLastName(UPDATED_MEMBER_LAST_NAME)
             .subscriberMemberId(UPDATED_SUBSCRIBER_MEMBER_ID)
+            .memberGender(UPDATED_MEMBER_GENDER)
+            .patientFirstName(UPDATED_PATIENT_FIRST_NAME)
+            .patientLastName(UPDATED_PATIENT_LAST_NAME)
+            .patientGender(UPDATED_PATIENT_GENDER)
+            .payerName(UPDATED_PAYER_NAME)
             .patientRelationshipCode(UPDATED_PATIENT_RELATIONSHIP_CODE)
-            .payerId(UPDATED_PAYER_ID)
-            .providerNpi(UPDATED_PROVIDER_NPI)
-            .plansStatusCode(UPDATED_PLANS_STATUS_CODE)
-            .plansStatus(UPDATED_PLANS_STATUS)
-            .primaryResponse(UPDATED_PRIMARY_RESPONSE)
-            .secondaryResponse(UPDATED_SECONDARY_RESPONSE)
+            .patientState(UPDATED_PATIENT_STATE)
+            .coverageStatus(UPDATED_COVERAGE_STATUS)
+            .payerGroupNumber(UPDATED_PAYER_GROUP_NUMBER)
+            .serviceDate(UPDATED_SERVICE_DATE)
+            .planStartDate(UPDATED_PLAN_START_DATE)
+            .responseJsonText(UPDATED_RESPONSE_JSON_TEXT)
             .status(UPDATED_STATUS)
+            .createdDate(UPDATED_CREATED_DATE)
             .createdById(UPDATED_CREATED_BY_ID)
             .createdByName(UPDATED_CREATED_BY_NAME)
+            .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .benefitCoverageResponseUuid(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID)
-            .patientState(UPDATED_PATIENT_STATE)
-            .subscriberRelationship(UPDATED_SUBSCRIBER_RELATIONSHIP)
-            .memberId(UPDATED_MEMBER_ID);
+            .benefitCoverageResponseUuid(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID);
         return benefitCoverageResponse;
     }
 
@@ -243,29 +255,32 @@ class BenefitCoverageResponseResourceIT {
         assertThat(benefitCoverageResponseList).hasSize(databaseSizeBeforeCreate + 1);
         BenefitCoverageResponse testBenefitCoverageResponse = benefitCoverageResponseList.get(benefitCoverageResponseList.size() - 1);
         assertThat(testBenefitCoverageResponse.getBenefitCoverageRequestId()).isEqualTo(DEFAULT_BENEFIT_COVERAGE_REQUEST_ID);
-        assertThat(testBenefitCoverageResponse.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
-        assertThat(testBenefitCoverageResponse.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
-        assertThat(testBenefitCoverageResponse.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
-        assertThat(testBenefitCoverageResponse.getRequestedDate()).isEqualTo(DEFAULT_REQUESTED_DATE);
-        assertThat(testBenefitCoverageResponse.getResponseDate()).isEqualTo(DEFAULT_RESPONSE_DATE);
+        assertThat(testBenefitCoverageResponse.getRequestControlNumberExt()).isEqualTo(DEFAULT_REQUEST_CONTROL_NUMBER_EXT);
+        assertThat(testBenefitCoverageResponse.getAsOnDate()).isEqualTo(DEFAULT_AS_ON_DATE);
         assertThat(testBenefitCoverageResponse.getServiceType()).isEqualTo(DEFAULT_SERVICE_TYPE);
+        assertThat(testBenefitCoverageResponse.getMemberFirstName()).isEqualTo(DEFAULT_MEMBER_FIRST_NAME);
+        assertThat(testBenefitCoverageResponse.getMemberLastName()).isEqualTo(DEFAULT_MEMBER_LAST_NAME);
         assertThat(testBenefitCoverageResponse.getSubscriberMemberId()).isEqualTo(DEFAULT_SUBSCRIBER_MEMBER_ID);
+        assertThat(testBenefitCoverageResponse.getMemberGender()).isEqualTo(DEFAULT_MEMBER_GENDER);
+        assertThat(testBenefitCoverageResponse.getPatientFirstName()).isEqualTo(DEFAULT_PATIENT_FIRST_NAME);
+        assertThat(testBenefitCoverageResponse.getPatientLastName()).isEqualTo(DEFAULT_PATIENT_LAST_NAME);
+        assertThat(testBenefitCoverageResponse.getPatientGender()).isEqualTo(DEFAULT_PATIENT_GENDER);
+        assertThat(testBenefitCoverageResponse.getPayerName()).isEqualTo(DEFAULT_PAYER_NAME);
         assertThat(testBenefitCoverageResponse.getPatientRelationshipCode()).isEqualTo(DEFAULT_PATIENT_RELATIONSHIP_CODE);
-        assertThat(testBenefitCoverageResponse.getPayerId()).isEqualTo(DEFAULT_PAYER_ID);
-        assertThat(testBenefitCoverageResponse.getProviderNpi()).isEqualTo(DEFAULT_PROVIDER_NPI);
-        assertThat(testBenefitCoverageResponse.getPlansStatusCode()).isEqualTo(DEFAULT_PLANS_STATUS_CODE);
-        assertThat(testBenefitCoverageResponse.getPlansStatus()).isEqualTo(DEFAULT_PLANS_STATUS);
-        assertThat(testBenefitCoverageResponse.getPrimaryResponse()).isEqualTo(DEFAULT_PRIMARY_RESPONSE);
-        assertThat(testBenefitCoverageResponse.getSecondaryResponse()).isEqualTo(DEFAULT_SECONDARY_RESPONSE);
+        assertThat(testBenefitCoverageResponse.getPatientState()).isEqualTo(DEFAULT_PATIENT_STATE);
+        assertThat(testBenefitCoverageResponse.getCoverageStatus()).isEqualTo(DEFAULT_COVERAGE_STATUS);
+        assertThat(testBenefitCoverageResponse.getPayerGroupNumber()).isEqualTo(DEFAULT_PAYER_GROUP_NUMBER);
+        assertThat(testBenefitCoverageResponse.getServiceDate()).isEqualTo(DEFAULT_SERVICE_DATE);
+        assertThat(testBenefitCoverageResponse.getPlanStartDate()).isEqualTo(DEFAULT_PLAN_START_DATE);
+        assertThat(testBenefitCoverageResponse.getResponseJsonText()).isEqualTo(DEFAULT_RESPONSE_JSON_TEXT);
         assertThat(testBenefitCoverageResponse.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testBenefitCoverageResponse.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testBenefitCoverageResponse.getCreatedById()).isEqualTo(DEFAULT_CREATED_BY_ID);
         assertThat(testBenefitCoverageResponse.getCreatedByName()).isEqualTo(DEFAULT_CREATED_BY_NAME);
+        assertThat(testBenefitCoverageResponse.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
         assertThat(testBenefitCoverageResponse.getUpdatedById()).isEqualTo(DEFAULT_UPDATED_BY_ID);
         assertThat(testBenefitCoverageResponse.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testBenefitCoverageResponse.getBenefitCoverageResponseUuid()).isEqualTo(DEFAULT_BENEFIT_COVERAGE_RESPONSE_UUID);
-        assertThat(testBenefitCoverageResponse.getPatientState()).isEqualTo(DEFAULT_PATIENT_STATE);
-        assertThat(testBenefitCoverageResponse.getSubscriberRelationship()).isEqualTo(DEFAULT_SUBSCRIBER_RELATIONSHIP);
-        assertThat(testBenefitCoverageResponse.getMemberId()).isEqualTo(DEFAULT_MEMBER_ID);
     }
 
     @Test
@@ -310,53 +325,59 @@ class BenefitCoverageResponseResourceIT {
             .jsonPath("$.[*].benefitCoverageResponseId")
             .value(hasItem(benefitCoverageResponse.getBenefitCoverageResponseId().intValue()))
             .jsonPath("$.[*].benefitCoverageRequestId")
-            .value(hasItem(DEFAULT_BENEFIT_COVERAGE_REQUEST_ID))
-            .jsonPath("$.[*].createdDate")
-            .value(hasItem(DEFAULT_CREATED_DATE.toString()))
-            .jsonPath("$.[*].updatedDate")
-            .value(hasItem(DEFAULT_UPDATED_DATE.toString()))
-            .jsonPath("$.[*].expirationDate")
-            .value(hasItem(DEFAULT_EXPIRATION_DATE.toString()))
-            .jsonPath("$.[*].requestedDate")
-            .value(hasItem(DEFAULT_REQUESTED_DATE.toString()))
-            .jsonPath("$.[*].responseDate")
-            .value(hasItem(DEFAULT_RESPONSE_DATE.toString()))
+            .value(hasItem(DEFAULT_BENEFIT_COVERAGE_REQUEST_ID.intValue()))
+            .jsonPath("$.[*].requestControlNumberExt")
+            .value(hasItem(DEFAULT_REQUEST_CONTROL_NUMBER_EXT))
+            .jsonPath("$.[*].asOnDate")
+            .value(hasItem(DEFAULT_AS_ON_DATE.toString()))
             .jsonPath("$.[*].serviceType")
             .value(hasItem(DEFAULT_SERVICE_TYPE))
+            .jsonPath("$.[*].memberFirstName")
+            .value(hasItem(DEFAULT_MEMBER_FIRST_NAME))
+            .jsonPath("$.[*].memberLastName")
+            .value(hasItem(DEFAULT_MEMBER_LAST_NAME))
             .jsonPath("$.[*].subscriberMemberId")
             .value(hasItem(DEFAULT_SUBSCRIBER_MEMBER_ID))
+            .jsonPath("$.[*].memberGender")
+            .value(hasItem(DEFAULT_MEMBER_GENDER))
+            .jsonPath("$.[*].patientFirstName")
+            .value(hasItem(DEFAULT_PATIENT_FIRST_NAME))
+            .jsonPath("$.[*].patientLastName")
+            .value(hasItem(DEFAULT_PATIENT_LAST_NAME))
+            .jsonPath("$.[*].patientGender")
+            .value(hasItem(DEFAULT_PATIENT_GENDER))
+            .jsonPath("$.[*].payerName")
+            .value(hasItem(DEFAULT_PAYER_NAME))
             .jsonPath("$.[*].patientRelationshipCode")
             .value(hasItem(DEFAULT_PATIENT_RELATIONSHIP_CODE))
-            .jsonPath("$.[*].payerId")
-            .value(hasItem(DEFAULT_PAYER_ID))
-            .jsonPath("$.[*].providerNpi")
-            .value(hasItem(DEFAULT_PROVIDER_NPI))
-            .jsonPath("$.[*].plansStatusCode")
-            .value(hasItem(DEFAULT_PLANS_STATUS_CODE))
-            .jsonPath("$.[*].plansStatus")
-            .value(hasItem(DEFAULT_PLANS_STATUS))
-            .jsonPath("$.[*].primaryResponse")
-            .value(hasItem(DEFAULT_PRIMARY_RESPONSE))
-            .jsonPath("$.[*].secondaryResponse")
-            .value(hasItem(DEFAULT_SECONDARY_RESPONSE))
+            .jsonPath("$.[*].patientState")
+            .value(hasItem(DEFAULT_PATIENT_STATE))
+            .jsonPath("$.[*].coverageStatus")
+            .value(hasItem(DEFAULT_COVERAGE_STATUS))
+            .jsonPath("$.[*].payerGroupNumber")
+            .value(hasItem(DEFAULT_PAYER_GROUP_NUMBER))
+            .jsonPath("$.[*].serviceDate")
+            .value(hasItem(DEFAULT_SERVICE_DATE.toString()))
+            .jsonPath("$.[*].planStartDate")
+            .value(hasItem(DEFAULT_PLAN_START_DATE.toString()))
+            .jsonPath("$.[*].responseJsonText")
+            .value(hasItem(DEFAULT_RESPONSE_JSON_TEXT))
             .jsonPath("$.[*].status")
             .value(hasItem(DEFAULT_STATUS))
+            .jsonPath("$.[*].createdDate")
+            .value(hasItem(DEFAULT_CREATED_DATE.toString()))
             .jsonPath("$.[*].createdById")
             .value(hasItem(DEFAULT_CREATED_BY_ID.intValue()))
             .jsonPath("$.[*].createdByName")
             .value(hasItem(DEFAULT_CREATED_BY_NAME))
+            .jsonPath("$.[*].updatedDate")
+            .value(hasItem(DEFAULT_UPDATED_DATE.toString()))
             .jsonPath("$.[*].updatedById")
             .value(hasItem(DEFAULT_UPDATED_BY_ID.intValue()))
             .jsonPath("$.[*].updatedByName")
             .value(hasItem(DEFAULT_UPDATED_BY_NAME))
             .jsonPath("$.[*].benefitCoverageResponseUuid")
-            .value(hasItem(DEFAULT_BENEFIT_COVERAGE_RESPONSE_UUID.toString()))
-            .jsonPath("$.[*].patientState")
-            .value(hasItem(DEFAULT_PATIENT_STATE))
-            .jsonPath("$.[*].subscriberRelationship")
-            .value(hasItem(DEFAULT_SUBSCRIBER_RELATIONSHIP))
-            .jsonPath("$.[*].memberId")
-            .value(hasItem(DEFAULT_MEMBER_ID));
+            .value(hasItem(DEFAULT_BENEFIT_COVERAGE_RESPONSE_UUID.toString()));
     }
 
     @Test
@@ -378,53 +399,59 @@ class BenefitCoverageResponseResourceIT {
             .jsonPath("$.benefitCoverageResponseId")
             .value(is(benefitCoverageResponse.getBenefitCoverageResponseId().intValue()))
             .jsonPath("$.benefitCoverageRequestId")
-            .value(is(DEFAULT_BENEFIT_COVERAGE_REQUEST_ID))
-            .jsonPath("$.createdDate")
-            .value(is(DEFAULT_CREATED_DATE.toString()))
-            .jsonPath("$.updatedDate")
-            .value(is(DEFAULT_UPDATED_DATE.toString()))
-            .jsonPath("$.expirationDate")
-            .value(is(DEFAULT_EXPIRATION_DATE.toString()))
-            .jsonPath("$.requestedDate")
-            .value(is(DEFAULT_REQUESTED_DATE.toString()))
-            .jsonPath("$.responseDate")
-            .value(is(DEFAULT_RESPONSE_DATE.toString()))
+            .value(is(DEFAULT_BENEFIT_COVERAGE_REQUEST_ID.intValue()))
+            .jsonPath("$.requestControlNumberExt")
+            .value(is(DEFAULT_REQUEST_CONTROL_NUMBER_EXT))
+            .jsonPath("$.asOnDate")
+            .value(is(DEFAULT_AS_ON_DATE.toString()))
             .jsonPath("$.serviceType")
             .value(is(DEFAULT_SERVICE_TYPE))
+            .jsonPath("$.memberFirstName")
+            .value(is(DEFAULT_MEMBER_FIRST_NAME))
+            .jsonPath("$.memberLastName")
+            .value(is(DEFAULT_MEMBER_LAST_NAME))
             .jsonPath("$.subscriberMemberId")
             .value(is(DEFAULT_SUBSCRIBER_MEMBER_ID))
+            .jsonPath("$.memberGender")
+            .value(is(DEFAULT_MEMBER_GENDER))
+            .jsonPath("$.patientFirstName")
+            .value(is(DEFAULT_PATIENT_FIRST_NAME))
+            .jsonPath("$.patientLastName")
+            .value(is(DEFAULT_PATIENT_LAST_NAME))
+            .jsonPath("$.patientGender")
+            .value(is(DEFAULT_PATIENT_GENDER))
+            .jsonPath("$.payerName")
+            .value(is(DEFAULT_PAYER_NAME))
             .jsonPath("$.patientRelationshipCode")
             .value(is(DEFAULT_PATIENT_RELATIONSHIP_CODE))
-            .jsonPath("$.payerId")
-            .value(is(DEFAULT_PAYER_ID))
-            .jsonPath("$.providerNpi")
-            .value(is(DEFAULT_PROVIDER_NPI))
-            .jsonPath("$.plansStatusCode")
-            .value(is(DEFAULT_PLANS_STATUS_CODE))
-            .jsonPath("$.plansStatus")
-            .value(is(DEFAULT_PLANS_STATUS))
-            .jsonPath("$.primaryResponse")
-            .value(is(DEFAULT_PRIMARY_RESPONSE))
-            .jsonPath("$.secondaryResponse")
-            .value(is(DEFAULT_SECONDARY_RESPONSE))
+            .jsonPath("$.patientState")
+            .value(is(DEFAULT_PATIENT_STATE))
+            .jsonPath("$.coverageStatus")
+            .value(is(DEFAULT_COVERAGE_STATUS))
+            .jsonPath("$.payerGroupNumber")
+            .value(is(DEFAULT_PAYER_GROUP_NUMBER))
+            .jsonPath("$.serviceDate")
+            .value(is(DEFAULT_SERVICE_DATE.toString()))
+            .jsonPath("$.planStartDate")
+            .value(is(DEFAULT_PLAN_START_DATE.toString()))
+            .jsonPath("$.responseJsonText")
+            .value(is(DEFAULT_RESPONSE_JSON_TEXT))
             .jsonPath("$.status")
             .value(is(DEFAULT_STATUS))
+            .jsonPath("$.createdDate")
+            .value(is(DEFAULT_CREATED_DATE.toString()))
             .jsonPath("$.createdById")
             .value(is(DEFAULT_CREATED_BY_ID.intValue()))
             .jsonPath("$.createdByName")
             .value(is(DEFAULT_CREATED_BY_NAME))
+            .jsonPath("$.updatedDate")
+            .value(is(DEFAULT_UPDATED_DATE.toString()))
             .jsonPath("$.updatedById")
             .value(is(DEFAULT_UPDATED_BY_ID.intValue()))
             .jsonPath("$.updatedByName")
             .value(is(DEFAULT_UPDATED_BY_NAME))
             .jsonPath("$.benefitCoverageResponseUuid")
-            .value(is(DEFAULT_BENEFIT_COVERAGE_RESPONSE_UUID.toString()))
-            .jsonPath("$.patientState")
-            .value(is(DEFAULT_PATIENT_STATE))
-            .jsonPath("$.subscriberRelationship")
-            .value(is(DEFAULT_SUBSCRIBER_RELATIONSHIP))
-            .jsonPath("$.memberId")
-            .value(is(DEFAULT_MEMBER_ID));
+            .value(is(DEFAULT_BENEFIT_COVERAGE_RESPONSE_UUID.toString()));
     }
 
     @Test
@@ -440,7 +467,7 @@ class BenefitCoverageResponseResourceIT {
     }
 
     @Test
-    void putNewBenefitCoverageResponse() throws Exception {
+    void putExistingBenefitCoverageResponse() throws Exception {
         // Initialize the database
         benefitCoverageResponseRepository.save(benefitCoverageResponse).block();
 
@@ -452,29 +479,32 @@ class BenefitCoverageResponseResourceIT {
             .block();
         updatedBenefitCoverageResponse
             .benefitCoverageRequestId(UPDATED_BENEFIT_COVERAGE_REQUEST_ID)
-            .createdDate(UPDATED_CREATED_DATE)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .expirationDate(UPDATED_EXPIRATION_DATE)
-            .requestedDate(UPDATED_REQUESTED_DATE)
-            .responseDate(UPDATED_RESPONSE_DATE)
+            .requestControlNumberExt(UPDATED_REQUEST_CONTROL_NUMBER_EXT)
+            .asOnDate(UPDATED_AS_ON_DATE)
             .serviceType(UPDATED_SERVICE_TYPE)
+            .memberFirstName(UPDATED_MEMBER_FIRST_NAME)
+            .memberLastName(UPDATED_MEMBER_LAST_NAME)
             .subscriberMemberId(UPDATED_SUBSCRIBER_MEMBER_ID)
+            .memberGender(UPDATED_MEMBER_GENDER)
+            .patientFirstName(UPDATED_PATIENT_FIRST_NAME)
+            .patientLastName(UPDATED_PATIENT_LAST_NAME)
+            .patientGender(UPDATED_PATIENT_GENDER)
+            .payerName(UPDATED_PAYER_NAME)
             .patientRelationshipCode(UPDATED_PATIENT_RELATIONSHIP_CODE)
-            .payerId(UPDATED_PAYER_ID)
-            .providerNpi(UPDATED_PROVIDER_NPI)
-            .plansStatusCode(UPDATED_PLANS_STATUS_CODE)
-            .plansStatus(UPDATED_PLANS_STATUS)
-            .primaryResponse(UPDATED_PRIMARY_RESPONSE)
-            .secondaryResponse(UPDATED_SECONDARY_RESPONSE)
+            .patientState(UPDATED_PATIENT_STATE)
+            .coverageStatus(UPDATED_COVERAGE_STATUS)
+            .payerGroupNumber(UPDATED_PAYER_GROUP_NUMBER)
+            .serviceDate(UPDATED_SERVICE_DATE)
+            .planStartDate(UPDATED_PLAN_START_DATE)
+            .responseJsonText(UPDATED_RESPONSE_JSON_TEXT)
             .status(UPDATED_STATUS)
+            .createdDate(UPDATED_CREATED_DATE)
             .createdById(UPDATED_CREATED_BY_ID)
             .createdByName(UPDATED_CREATED_BY_NAME)
+            .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .benefitCoverageResponseUuid(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID)
-            .patientState(UPDATED_PATIENT_STATE)
-            .subscriberRelationship(UPDATED_SUBSCRIBER_RELATIONSHIP)
-            .memberId(UPDATED_MEMBER_ID);
+            .benefitCoverageResponseUuid(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID);
         BenefitCoverageResponseDTO benefitCoverageResponseDTO = benefitCoverageResponseMapper.toDto(updatedBenefitCoverageResponse);
 
         webTestClient
@@ -491,29 +521,32 @@ class BenefitCoverageResponseResourceIT {
         assertThat(benefitCoverageResponseList).hasSize(databaseSizeBeforeUpdate);
         BenefitCoverageResponse testBenefitCoverageResponse = benefitCoverageResponseList.get(benefitCoverageResponseList.size() - 1);
         assertThat(testBenefitCoverageResponse.getBenefitCoverageRequestId()).isEqualTo(UPDATED_BENEFIT_COVERAGE_REQUEST_ID);
-        assertThat(testBenefitCoverageResponse.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
-        assertThat(testBenefitCoverageResponse.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
-        assertThat(testBenefitCoverageResponse.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
-        assertThat(testBenefitCoverageResponse.getRequestedDate()).isEqualTo(UPDATED_REQUESTED_DATE);
-        assertThat(testBenefitCoverageResponse.getResponseDate()).isEqualTo(UPDATED_RESPONSE_DATE);
+        assertThat(testBenefitCoverageResponse.getRequestControlNumberExt()).isEqualTo(UPDATED_REQUEST_CONTROL_NUMBER_EXT);
+        assertThat(testBenefitCoverageResponse.getAsOnDate()).isEqualTo(UPDATED_AS_ON_DATE);
         assertThat(testBenefitCoverageResponse.getServiceType()).isEqualTo(UPDATED_SERVICE_TYPE);
+        assertThat(testBenefitCoverageResponse.getMemberFirstName()).isEqualTo(UPDATED_MEMBER_FIRST_NAME);
+        assertThat(testBenefitCoverageResponse.getMemberLastName()).isEqualTo(UPDATED_MEMBER_LAST_NAME);
         assertThat(testBenefitCoverageResponse.getSubscriberMemberId()).isEqualTo(UPDATED_SUBSCRIBER_MEMBER_ID);
+        assertThat(testBenefitCoverageResponse.getMemberGender()).isEqualTo(UPDATED_MEMBER_GENDER);
+        assertThat(testBenefitCoverageResponse.getPatientFirstName()).isEqualTo(UPDATED_PATIENT_FIRST_NAME);
+        assertThat(testBenefitCoverageResponse.getPatientLastName()).isEqualTo(UPDATED_PATIENT_LAST_NAME);
+        assertThat(testBenefitCoverageResponse.getPatientGender()).isEqualTo(UPDATED_PATIENT_GENDER);
+        assertThat(testBenefitCoverageResponse.getPayerName()).isEqualTo(UPDATED_PAYER_NAME);
         assertThat(testBenefitCoverageResponse.getPatientRelationshipCode()).isEqualTo(UPDATED_PATIENT_RELATIONSHIP_CODE);
-        assertThat(testBenefitCoverageResponse.getPayerId()).isEqualTo(UPDATED_PAYER_ID);
-        assertThat(testBenefitCoverageResponse.getProviderNpi()).isEqualTo(UPDATED_PROVIDER_NPI);
-        assertThat(testBenefitCoverageResponse.getPlansStatusCode()).isEqualTo(UPDATED_PLANS_STATUS_CODE);
-        assertThat(testBenefitCoverageResponse.getPlansStatus()).isEqualTo(UPDATED_PLANS_STATUS);
-        assertThat(testBenefitCoverageResponse.getPrimaryResponse()).isEqualTo(UPDATED_PRIMARY_RESPONSE);
-        assertThat(testBenefitCoverageResponse.getSecondaryResponse()).isEqualTo(UPDATED_SECONDARY_RESPONSE);
+        assertThat(testBenefitCoverageResponse.getPatientState()).isEqualTo(UPDATED_PATIENT_STATE);
+        assertThat(testBenefitCoverageResponse.getCoverageStatus()).isEqualTo(UPDATED_COVERAGE_STATUS);
+        assertThat(testBenefitCoverageResponse.getPayerGroupNumber()).isEqualTo(UPDATED_PAYER_GROUP_NUMBER);
+        assertThat(testBenefitCoverageResponse.getServiceDate()).isEqualTo(UPDATED_SERVICE_DATE);
+        assertThat(testBenefitCoverageResponse.getPlanStartDate()).isEqualTo(UPDATED_PLAN_START_DATE);
+        assertThat(testBenefitCoverageResponse.getResponseJsonText()).isEqualTo(UPDATED_RESPONSE_JSON_TEXT);
         assertThat(testBenefitCoverageResponse.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testBenefitCoverageResponse.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testBenefitCoverageResponse.getCreatedById()).isEqualTo(UPDATED_CREATED_BY_ID);
         assertThat(testBenefitCoverageResponse.getCreatedByName()).isEqualTo(UPDATED_CREATED_BY_NAME);
+        assertThat(testBenefitCoverageResponse.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
         assertThat(testBenefitCoverageResponse.getUpdatedById()).isEqualTo(UPDATED_UPDATED_BY_ID);
         assertThat(testBenefitCoverageResponse.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testBenefitCoverageResponse.getBenefitCoverageResponseUuid()).isEqualTo(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID);
-        assertThat(testBenefitCoverageResponse.getPatientState()).isEqualTo(UPDATED_PATIENT_STATE);
-        assertThat(testBenefitCoverageResponse.getSubscriberRelationship()).isEqualTo(UPDATED_SUBSCRIBER_RELATIONSHIP);
-        assertThat(testBenefitCoverageResponse.getMemberId()).isEqualTo(UPDATED_MEMBER_ID);
     }
 
     @Test
@@ -597,18 +630,19 @@ class BenefitCoverageResponseResourceIT {
         partialUpdatedBenefitCoverageResponse.setBenefitCoverageResponseId(benefitCoverageResponse.getBenefitCoverageResponseId());
 
         partialUpdatedBenefitCoverageResponse
-            .subscriberMemberId(UPDATED_SUBSCRIBER_MEMBER_ID)
-            .payerId(UPDATED_PAYER_ID)
-            .plansStatusCode(UPDATED_PLANS_STATUS_CODE)
-            .primaryResponse(UPDATED_PRIMARY_RESPONSE)
-            .secondaryResponse(UPDATED_SECONDARY_RESPONSE)
+            .memberGender(UPDATED_MEMBER_GENDER)
+            .patientLastName(UPDATED_PATIENT_LAST_NAME)
+            .payerName(UPDATED_PAYER_NAME)
+            .patientState(UPDATED_PATIENT_STATE)
+            .coverageStatus(UPDATED_COVERAGE_STATUS)
+            .payerGroupNumber(UPDATED_PAYER_GROUP_NUMBER)
+            .serviceDate(UPDATED_SERVICE_DATE)
+            .planStartDate(UPDATED_PLAN_START_DATE)
+            .responseJsonText(UPDATED_RESPONSE_JSON_TEXT)
             .status(UPDATED_STATUS)
-            .createdById(UPDATED_CREATED_BY_ID)
+            .createdDate(UPDATED_CREATED_DATE)
             .createdByName(UPDATED_CREATED_BY_NAME)
-            .updatedById(UPDATED_UPDATED_BY_ID)
-            .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .benefitCoverageResponseUuid(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID)
-            .subscriberRelationship(UPDATED_SUBSCRIBER_RELATIONSHIP);
+            .benefitCoverageResponseUuid(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID);
 
         webTestClient
             .patch()
@@ -624,29 +658,32 @@ class BenefitCoverageResponseResourceIT {
         assertThat(benefitCoverageResponseList).hasSize(databaseSizeBeforeUpdate);
         BenefitCoverageResponse testBenefitCoverageResponse = benefitCoverageResponseList.get(benefitCoverageResponseList.size() - 1);
         assertThat(testBenefitCoverageResponse.getBenefitCoverageRequestId()).isEqualTo(DEFAULT_BENEFIT_COVERAGE_REQUEST_ID);
-        assertThat(testBenefitCoverageResponse.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
-        assertThat(testBenefitCoverageResponse.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
-        assertThat(testBenefitCoverageResponse.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
-        assertThat(testBenefitCoverageResponse.getRequestedDate()).isEqualTo(DEFAULT_REQUESTED_DATE);
-        assertThat(testBenefitCoverageResponse.getResponseDate()).isEqualTo(DEFAULT_RESPONSE_DATE);
+        assertThat(testBenefitCoverageResponse.getRequestControlNumberExt()).isEqualTo(DEFAULT_REQUEST_CONTROL_NUMBER_EXT);
+        assertThat(testBenefitCoverageResponse.getAsOnDate()).isEqualTo(DEFAULT_AS_ON_DATE);
         assertThat(testBenefitCoverageResponse.getServiceType()).isEqualTo(DEFAULT_SERVICE_TYPE);
-        assertThat(testBenefitCoverageResponse.getSubscriberMemberId()).isEqualTo(UPDATED_SUBSCRIBER_MEMBER_ID);
+        assertThat(testBenefitCoverageResponse.getMemberFirstName()).isEqualTo(DEFAULT_MEMBER_FIRST_NAME);
+        assertThat(testBenefitCoverageResponse.getMemberLastName()).isEqualTo(DEFAULT_MEMBER_LAST_NAME);
+        assertThat(testBenefitCoverageResponse.getSubscriberMemberId()).isEqualTo(DEFAULT_SUBSCRIBER_MEMBER_ID);
+        assertThat(testBenefitCoverageResponse.getMemberGender()).isEqualTo(UPDATED_MEMBER_GENDER);
+        assertThat(testBenefitCoverageResponse.getPatientFirstName()).isEqualTo(DEFAULT_PATIENT_FIRST_NAME);
+        assertThat(testBenefitCoverageResponse.getPatientLastName()).isEqualTo(UPDATED_PATIENT_LAST_NAME);
+        assertThat(testBenefitCoverageResponse.getPatientGender()).isEqualTo(DEFAULT_PATIENT_GENDER);
+        assertThat(testBenefitCoverageResponse.getPayerName()).isEqualTo(UPDATED_PAYER_NAME);
         assertThat(testBenefitCoverageResponse.getPatientRelationshipCode()).isEqualTo(DEFAULT_PATIENT_RELATIONSHIP_CODE);
-        assertThat(testBenefitCoverageResponse.getPayerId()).isEqualTo(UPDATED_PAYER_ID);
-        assertThat(testBenefitCoverageResponse.getProviderNpi()).isEqualTo(DEFAULT_PROVIDER_NPI);
-        assertThat(testBenefitCoverageResponse.getPlansStatusCode()).isEqualTo(UPDATED_PLANS_STATUS_CODE);
-        assertThat(testBenefitCoverageResponse.getPlansStatus()).isEqualTo(DEFAULT_PLANS_STATUS);
-        assertThat(testBenefitCoverageResponse.getPrimaryResponse()).isEqualTo(UPDATED_PRIMARY_RESPONSE);
-        assertThat(testBenefitCoverageResponse.getSecondaryResponse()).isEqualTo(UPDATED_SECONDARY_RESPONSE);
+        assertThat(testBenefitCoverageResponse.getPatientState()).isEqualTo(UPDATED_PATIENT_STATE);
+        assertThat(testBenefitCoverageResponse.getCoverageStatus()).isEqualTo(UPDATED_COVERAGE_STATUS);
+        assertThat(testBenefitCoverageResponse.getPayerGroupNumber()).isEqualTo(UPDATED_PAYER_GROUP_NUMBER);
+        assertThat(testBenefitCoverageResponse.getServiceDate()).isEqualTo(UPDATED_SERVICE_DATE);
+        assertThat(testBenefitCoverageResponse.getPlanStartDate()).isEqualTo(UPDATED_PLAN_START_DATE);
+        assertThat(testBenefitCoverageResponse.getResponseJsonText()).isEqualTo(UPDATED_RESPONSE_JSON_TEXT);
         assertThat(testBenefitCoverageResponse.getStatus()).isEqualTo(UPDATED_STATUS);
-        assertThat(testBenefitCoverageResponse.getCreatedById()).isEqualTo(UPDATED_CREATED_BY_ID);
+        assertThat(testBenefitCoverageResponse.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
+        assertThat(testBenefitCoverageResponse.getCreatedById()).isEqualTo(DEFAULT_CREATED_BY_ID);
         assertThat(testBenefitCoverageResponse.getCreatedByName()).isEqualTo(UPDATED_CREATED_BY_NAME);
-        assertThat(testBenefitCoverageResponse.getUpdatedById()).isEqualTo(UPDATED_UPDATED_BY_ID);
-        assertThat(testBenefitCoverageResponse.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
+        assertThat(testBenefitCoverageResponse.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
+        assertThat(testBenefitCoverageResponse.getUpdatedById()).isEqualTo(DEFAULT_UPDATED_BY_ID);
+        assertThat(testBenefitCoverageResponse.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testBenefitCoverageResponse.getBenefitCoverageResponseUuid()).isEqualTo(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID);
-        assertThat(testBenefitCoverageResponse.getPatientState()).isEqualTo(DEFAULT_PATIENT_STATE);
-        assertThat(testBenefitCoverageResponse.getSubscriberRelationship()).isEqualTo(UPDATED_SUBSCRIBER_RELATIONSHIP);
-        assertThat(testBenefitCoverageResponse.getMemberId()).isEqualTo(DEFAULT_MEMBER_ID);
     }
 
     @Test
@@ -662,29 +699,32 @@ class BenefitCoverageResponseResourceIT {
 
         partialUpdatedBenefitCoverageResponse
             .benefitCoverageRequestId(UPDATED_BENEFIT_COVERAGE_REQUEST_ID)
-            .createdDate(UPDATED_CREATED_DATE)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .expirationDate(UPDATED_EXPIRATION_DATE)
-            .requestedDate(UPDATED_REQUESTED_DATE)
-            .responseDate(UPDATED_RESPONSE_DATE)
+            .requestControlNumberExt(UPDATED_REQUEST_CONTROL_NUMBER_EXT)
+            .asOnDate(UPDATED_AS_ON_DATE)
             .serviceType(UPDATED_SERVICE_TYPE)
+            .memberFirstName(UPDATED_MEMBER_FIRST_NAME)
+            .memberLastName(UPDATED_MEMBER_LAST_NAME)
             .subscriberMemberId(UPDATED_SUBSCRIBER_MEMBER_ID)
+            .memberGender(UPDATED_MEMBER_GENDER)
+            .patientFirstName(UPDATED_PATIENT_FIRST_NAME)
+            .patientLastName(UPDATED_PATIENT_LAST_NAME)
+            .patientGender(UPDATED_PATIENT_GENDER)
+            .payerName(UPDATED_PAYER_NAME)
             .patientRelationshipCode(UPDATED_PATIENT_RELATIONSHIP_CODE)
-            .payerId(UPDATED_PAYER_ID)
-            .providerNpi(UPDATED_PROVIDER_NPI)
-            .plansStatusCode(UPDATED_PLANS_STATUS_CODE)
-            .plansStatus(UPDATED_PLANS_STATUS)
-            .primaryResponse(UPDATED_PRIMARY_RESPONSE)
-            .secondaryResponse(UPDATED_SECONDARY_RESPONSE)
+            .patientState(UPDATED_PATIENT_STATE)
+            .coverageStatus(UPDATED_COVERAGE_STATUS)
+            .payerGroupNumber(UPDATED_PAYER_GROUP_NUMBER)
+            .serviceDate(UPDATED_SERVICE_DATE)
+            .planStartDate(UPDATED_PLAN_START_DATE)
+            .responseJsonText(UPDATED_RESPONSE_JSON_TEXT)
             .status(UPDATED_STATUS)
+            .createdDate(UPDATED_CREATED_DATE)
             .createdById(UPDATED_CREATED_BY_ID)
             .createdByName(UPDATED_CREATED_BY_NAME)
+            .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .benefitCoverageResponseUuid(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID)
-            .patientState(UPDATED_PATIENT_STATE)
-            .subscriberRelationship(UPDATED_SUBSCRIBER_RELATIONSHIP)
-            .memberId(UPDATED_MEMBER_ID);
+            .benefitCoverageResponseUuid(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID);
 
         webTestClient
             .patch()
@@ -700,29 +740,32 @@ class BenefitCoverageResponseResourceIT {
         assertThat(benefitCoverageResponseList).hasSize(databaseSizeBeforeUpdate);
         BenefitCoverageResponse testBenefitCoverageResponse = benefitCoverageResponseList.get(benefitCoverageResponseList.size() - 1);
         assertThat(testBenefitCoverageResponse.getBenefitCoverageRequestId()).isEqualTo(UPDATED_BENEFIT_COVERAGE_REQUEST_ID);
-        assertThat(testBenefitCoverageResponse.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
-        assertThat(testBenefitCoverageResponse.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
-        assertThat(testBenefitCoverageResponse.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
-        assertThat(testBenefitCoverageResponse.getRequestedDate()).isEqualTo(UPDATED_REQUESTED_DATE);
-        assertThat(testBenefitCoverageResponse.getResponseDate()).isEqualTo(UPDATED_RESPONSE_DATE);
+        assertThat(testBenefitCoverageResponse.getRequestControlNumberExt()).isEqualTo(UPDATED_REQUEST_CONTROL_NUMBER_EXT);
+        assertThat(testBenefitCoverageResponse.getAsOnDate()).isEqualTo(UPDATED_AS_ON_DATE);
         assertThat(testBenefitCoverageResponse.getServiceType()).isEqualTo(UPDATED_SERVICE_TYPE);
+        assertThat(testBenefitCoverageResponse.getMemberFirstName()).isEqualTo(UPDATED_MEMBER_FIRST_NAME);
+        assertThat(testBenefitCoverageResponse.getMemberLastName()).isEqualTo(UPDATED_MEMBER_LAST_NAME);
         assertThat(testBenefitCoverageResponse.getSubscriberMemberId()).isEqualTo(UPDATED_SUBSCRIBER_MEMBER_ID);
+        assertThat(testBenefitCoverageResponse.getMemberGender()).isEqualTo(UPDATED_MEMBER_GENDER);
+        assertThat(testBenefitCoverageResponse.getPatientFirstName()).isEqualTo(UPDATED_PATIENT_FIRST_NAME);
+        assertThat(testBenefitCoverageResponse.getPatientLastName()).isEqualTo(UPDATED_PATIENT_LAST_NAME);
+        assertThat(testBenefitCoverageResponse.getPatientGender()).isEqualTo(UPDATED_PATIENT_GENDER);
+        assertThat(testBenefitCoverageResponse.getPayerName()).isEqualTo(UPDATED_PAYER_NAME);
         assertThat(testBenefitCoverageResponse.getPatientRelationshipCode()).isEqualTo(UPDATED_PATIENT_RELATIONSHIP_CODE);
-        assertThat(testBenefitCoverageResponse.getPayerId()).isEqualTo(UPDATED_PAYER_ID);
-        assertThat(testBenefitCoverageResponse.getProviderNpi()).isEqualTo(UPDATED_PROVIDER_NPI);
-        assertThat(testBenefitCoverageResponse.getPlansStatusCode()).isEqualTo(UPDATED_PLANS_STATUS_CODE);
-        assertThat(testBenefitCoverageResponse.getPlansStatus()).isEqualTo(UPDATED_PLANS_STATUS);
-        assertThat(testBenefitCoverageResponse.getPrimaryResponse()).isEqualTo(UPDATED_PRIMARY_RESPONSE);
-        assertThat(testBenefitCoverageResponse.getSecondaryResponse()).isEqualTo(UPDATED_SECONDARY_RESPONSE);
+        assertThat(testBenefitCoverageResponse.getPatientState()).isEqualTo(UPDATED_PATIENT_STATE);
+        assertThat(testBenefitCoverageResponse.getCoverageStatus()).isEqualTo(UPDATED_COVERAGE_STATUS);
+        assertThat(testBenefitCoverageResponse.getPayerGroupNumber()).isEqualTo(UPDATED_PAYER_GROUP_NUMBER);
+        assertThat(testBenefitCoverageResponse.getServiceDate()).isEqualTo(UPDATED_SERVICE_DATE);
+        assertThat(testBenefitCoverageResponse.getPlanStartDate()).isEqualTo(UPDATED_PLAN_START_DATE);
+        assertThat(testBenefitCoverageResponse.getResponseJsonText()).isEqualTo(UPDATED_RESPONSE_JSON_TEXT);
         assertThat(testBenefitCoverageResponse.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testBenefitCoverageResponse.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testBenefitCoverageResponse.getCreatedById()).isEqualTo(UPDATED_CREATED_BY_ID);
         assertThat(testBenefitCoverageResponse.getCreatedByName()).isEqualTo(UPDATED_CREATED_BY_NAME);
+        assertThat(testBenefitCoverageResponse.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
         assertThat(testBenefitCoverageResponse.getUpdatedById()).isEqualTo(UPDATED_UPDATED_BY_ID);
         assertThat(testBenefitCoverageResponse.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testBenefitCoverageResponse.getBenefitCoverageResponseUuid()).isEqualTo(UPDATED_BENEFIT_COVERAGE_RESPONSE_UUID);
-        assertThat(testBenefitCoverageResponse.getPatientState()).isEqualTo(UPDATED_PATIENT_STATE);
-        assertThat(testBenefitCoverageResponse.getSubscriberRelationship()).isEqualTo(UPDATED_SUBSCRIBER_RELATIONSHIP);
-        assertThat(testBenefitCoverageResponse.getMemberId()).isEqualTo(UPDATED_MEMBER_ID);
     }
 
     @Test

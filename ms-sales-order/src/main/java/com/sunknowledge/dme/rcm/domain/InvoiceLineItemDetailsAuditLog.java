@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A InvoiceLineItemDetailsAuditLog.
  */
 @Table("t_invoice_line_item_details_audit_log")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class InvoiceLineItemDetailsAuditLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

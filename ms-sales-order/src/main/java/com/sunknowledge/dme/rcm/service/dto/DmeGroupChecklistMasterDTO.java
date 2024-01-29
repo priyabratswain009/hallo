@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.DmeGroupChecklistMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class DmeGroupChecklistMasterDTO implements Serializable {
 
+    @NotNull(message = "must not be null")
     private Long dmeGroupChecklistId;
 
     private Long dmeGroupId;

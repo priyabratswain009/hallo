@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.SalesOrderInsuranceDetails} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SalesOrderInsuranceDetailsDTO implements Serializable {
 
     private Long salesOrderInsuranceDetailsId;
@@ -136,7 +137,7 @@ public class SalesOrderInsuranceDetailsDTO implements Serializable {
 
     private String workersCompInjuryRelatedAutoAccidentStatus;
 
-    private Long workersCompAutoAccidentStateId;
+    private String workersCompAutoAccidentStateCode;
 
     private String workersCompInjuryRelatedToOtherAccidentStatus;
 
@@ -261,6 +262,50 @@ public class SalesOrderInsuranceDetailsDTO implements Serializable {
     private String secondaryClaimProgram;
 
     private String tertiaryClaimProgram;
+
+    private String workersCompInsuredEmployer;
+
+    private String workersCompPayerIdNumber;
+
+    private String workersCompPlanName;
+
+    private String workersCompAdditionalDtls;
+
+    private String workersCompClaimFillingCode;
+
+    private String workersCompTplCode;
+
+    private String workersCompTplName;
+
+    private String workersCompPropertyCasualtyAgencyClaimNo;
+
+    private String workersCompCarrierId;
+
+    private String workersCompEmployerAddressLine1;
+
+    private String workersCompEmployerAddressLine2;
+
+    private String workersCompEmployerCity;
+
+    private String workersCompEmployerState;
+
+    private String workersCompEmployerCountry;
+
+    private String workersCompEmployerZip;
+
+    private String workersCompEmployerContactNo1;
+
+    private String workersCompEmployerContactNo2;
+
+    private String workersCompEmployerFax;
+
+    private String workersCompEmployerEfax;
+
+    private String workersCompEmployerEmail;
+
+    private String workersCompRelationship;
+
+    private String workersCompModeOfContact;
 
     public Long getSalesOrderInsuranceDetailsId() {
         return salesOrderInsuranceDetailsId;
@@ -766,12 +811,12 @@ public class SalesOrderInsuranceDetailsDTO implements Serializable {
         this.workersCompInjuryRelatedAutoAccidentStatus = workersCompInjuryRelatedAutoAccidentStatus;
     }
 
-    public Long getWorkersCompAutoAccidentStateId() {
-        return workersCompAutoAccidentStateId;
+    public String getWorkersCompAutoAccidentStateCode() {
+        return workersCompAutoAccidentStateCode;
     }
 
-    public void setWorkersCompAutoAccidentStateId(Long workersCompAutoAccidentStateId) {
-        this.workersCompAutoAccidentStateId = workersCompAutoAccidentStateId;
+    public void setWorkersCompAutoAccidentStateCode(String workersCompAutoAccidentStateCode) {
+        this.workersCompAutoAccidentStateCode = workersCompAutoAccidentStateCode;
     }
 
     public String getWorkersCompInjuryRelatedToOtherAccidentStatus() {
@@ -1270,6 +1315,182 @@ public class SalesOrderInsuranceDetailsDTO implements Serializable {
         this.tertiaryClaimProgram = tertiaryClaimProgram;
     }
 
+    public String getWorkersCompInsuredEmployer() {
+        return workersCompInsuredEmployer;
+    }
+
+    public void setWorkersCompInsuredEmployer(String workersCompInsuredEmployer) {
+        this.workersCompInsuredEmployer = workersCompInsuredEmployer;
+    }
+
+    public String getWorkersCompPayerIdNumber() {
+        return workersCompPayerIdNumber;
+    }
+
+    public void setWorkersCompPayerIdNumber(String workersCompPayerIdNumber) {
+        this.workersCompPayerIdNumber = workersCompPayerIdNumber;
+    }
+
+    public String getWorkersCompPlanName() {
+        return workersCompPlanName;
+    }
+
+    public void setWorkersCompPlanName(String workersCompPlanName) {
+        this.workersCompPlanName = workersCompPlanName;
+    }
+
+    public String getWorkersCompAdditionalDtls() {
+        return workersCompAdditionalDtls;
+    }
+
+    public void setWorkersCompAdditionalDtls(String workersCompAdditionalDtls) {
+        this.workersCompAdditionalDtls = workersCompAdditionalDtls;
+    }
+
+    public String getWorkersCompClaimFillingCode() {
+        return workersCompClaimFillingCode;
+    }
+
+    public void setWorkersCompClaimFillingCode(String workersCompClaimFillingCode) {
+        this.workersCompClaimFillingCode = workersCompClaimFillingCode;
+    }
+
+    public String getWorkersCompTplCode() {
+        return workersCompTplCode;
+    }
+
+    public void setWorkersCompTplCode(String workersCompTplCode) {
+        this.workersCompTplCode = workersCompTplCode;
+    }
+
+    public String getWorkersCompTplName() {
+        return workersCompTplName;
+    }
+
+    public void setWorkersCompTplName(String workersCompTplName) {
+        this.workersCompTplName = workersCompTplName;
+    }
+
+    public String getWorkersCompPropertyCasualtyAgencyClaimNo() {
+        return workersCompPropertyCasualtyAgencyClaimNo;
+    }
+
+    public void setWorkersCompPropertyCasualtyAgencyClaimNo(String workersCompPropertyCasualtyAgencyClaimNo) {
+        this.workersCompPropertyCasualtyAgencyClaimNo = workersCompPropertyCasualtyAgencyClaimNo;
+    }
+
+    public String getWorkersCompCarrierId() {
+        return workersCompCarrierId;
+    }
+
+    public void setWorkersCompCarrierId(String workersCompCarrierId) {
+        this.workersCompCarrierId = workersCompCarrierId;
+    }
+
+    public String getWorkersCompEmployerAddressLine1() {
+        return workersCompEmployerAddressLine1;
+    }
+
+    public void setWorkersCompEmployerAddressLine1(String workersCompEmployerAddressLine1) {
+        this.workersCompEmployerAddressLine1 = workersCompEmployerAddressLine1;
+    }
+
+    public String getWorkersCompEmployerAddressLine2() {
+        return workersCompEmployerAddressLine2;
+    }
+
+    public void setWorkersCompEmployerAddressLine2(String workersCompEmployerAddressLine2) {
+        this.workersCompEmployerAddressLine2 = workersCompEmployerAddressLine2;
+    }
+
+    public String getWorkersCompEmployerCity() {
+        return workersCompEmployerCity;
+    }
+
+    public void setWorkersCompEmployerCity(String workersCompEmployerCity) {
+        this.workersCompEmployerCity = workersCompEmployerCity;
+    }
+
+    public String getWorkersCompEmployerState() {
+        return workersCompEmployerState;
+    }
+
+    public void setWorkersCompEmployerState(String workersCompEmployerState) {
+        this.workersCompEmployerState = workersCompEmployerState;
+    }
+
+    public String getWorkersCompEmployerCountry() {
+        return workersCompEmployerCountry;
+    }
+
+    public void setWorkersCompEmployerCountry(String workersCompEmployerCountry) {
+        this.workersCompEmployerCountry = workersCompEmployerCountry;
+    }
+
+    public String getWorkersCompEmployerZip() {
+        return workersCompEmployerZip;
+    }
+
+    public void setWorkersCompEmployerZip(String workersCompEmployerZip) {
+        this.workersCompEmployerZip = workersCompEmployerZip;
+    }
+
+    public String getWorkersCompEmployerContactNo1() {
+        return workersCompEmployerContactNo1;
+    }
+
+    public void setWorkersCompEmployerContactNo1(String workersCompEmployerContactNo1) {
+        this.workersCompEmployerContactNo1 = workersCompEmployerContactNo1;
+    }
+
+    public String getWorkersCompEmployerContactNo2() {
+        return workersCompEmployerContactNo2;
+    }
+
+    public void setWorkersCompEmployerContactNo2(String workersCompEmployerContactNo2) {
+        this.workersCompEmployerContactNo2 = workersCompEmployerContactNo2;
+    }
+
+    public String getWorkersCompEmployerFax() {
+        return workersCompEmployerFax;
+    }
+
+    public void setWorkersCompEmployerFax(String workersCompEmployerFax) {
+        this.workersCompEmployerFax = workersCompEmployerFax;
+    }
+
+    public String getWorkersCompEmployerEfax() {
+        return workersCompEmployerEfax;
+    }
+
+    public void setWorkersCompEmployerEfax(String workersCompEmployerEfax) {
+        this.workersCompEmployerEfax = workersCompEmployerEfax;
+    }
+
+    public String getWorkersCompEmployerEmail() {
+        return workersCompEmployerEmail;
+    }
+
+    public void setWorkersCompEmployerEmail(String workersCompEmployerEmail) {
+        this.workersCompEmployerEmail = workersCompEmployerEmail;
+    }
+
+    public String getWorkersCompRelationship() {
+        return workersCompRelationship;
+    }
+
+    public void setWorkersCompRelationship(String workersCompRelationship) {
+        this.workersCompRelationship = workersCompRelationship;
+    }
+
+    public String getWorkersCompModeOfContact() {
+        return workersCompModeOfContact;
+    }
+
+    public void setWorkersCompModeOfContact(String workersCompModeOfContact) {
+        this.workersCompModeOfContact = workersCompModeOfContact;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -1358,7 +1579,7 @@ public class SalesOrderInsuranceDetailsDTO implements Serializable {
             ", workersCompDateOfOnset='" + getWorkersCompDateOfOnset() + "'" +
             ", workersCompInjuryRelatedEmploymentStatus='" + getWorkersCompInjuryRelatedEmploymentStatus() + "'" +
             ", workersCompInjuryRelatedAutoAccidentStatus='" + getWorkersCompInjuryRelatedAutoAccidentStatus() + "'" +
-            ", workersCompAutoAccidentStateId=" + getWorkersCompAutoAccidentStateId() +
+            ", workersCompAutoAccidentStateCode='" + getWorkersCompAutoAccidentStateCode() + "'" +
             ", workersCompInjuryRelatedToOtherAccidentStatus='" + getWorkersCompInjuryRelatedToOtherAccidentStatus() + "'" +
             ", eclaimsAttachmentStatus='" + getEclaimsAttachmentStatus() + "'" +
             ", attachmentNumber=" + getAttachmentNumber() +
@@ -1421,6 +1642,28 @@ public class SalesOrderInsuranceDetailsDTO implements Serializable {
             ", primaryClaimProgram='" + getPrimaryClaimProgram() + "'" +
             ", secondaryClaimProgram='" + getSecondaryClaimProgram() + "'" +
             ", tertiaryClaimProgram='" + getTertiaryClaimProgram() + "'" +
+            ", workersCompInsuredEmployer='" + getWorkersCompInsuredEmployer() + "'" +
+            ", workersCompPayerIdNumber='" + getWorkersCompPayerIdNumber() + "'" +
+            ", workersCompPlanName='" + getWorkersCompPlanName() + "'" +
+            ", workersCompAdditionalDtls='" + getWorkersCompAdditionalDtls() + "'" +
+            ", workersCompClaimFillingCode='" + getWorkersCompClaimFillingCode() + "'" +
+            ", workersCompTplCode='" + getWorkersCompTplCode() + "'" +
+            ", workersCompTplName='" + getWorkersCompTplName() + "'" +
+            ", workersCompPropertyCasualtyAgencyClaimNo='" + getWorkersCompPropertyCasualtyAgencyClaimNo() + "'" +
+            ", workersCompCarrierId='" + getWorkersCompCarrierId() + "'" +
+            ", workersCompEmployerAddressLine1='" + getWorkersCompEmployerAddressLine1() + "'" +
+            ", workersCompEmployerAddressLine2='" + getWorkersCompEmployerAddressLine2() + "'" +
+            ", workersCompEmployerCity='" + getWorkersCompEmployerCity() + "'" +
+            ", workersCompEmployerState='" + getWorkersCompEmployerState() + "'" +
+            ", workersCompEmployerCountry='" + getWorkersCompEmployerCountry() + "'" +
+            ", workersCompEmployerZip='" + getWorkersCompEmployerZip() + "'" +
+            ", workersCompEmployerContactNo1='" + getWorkersCompEmployerContactNo1() + "'" +
+            ", workersCompEmployerContactNo2='" + getWorkersCompEmployerContactNo2() + "'" +
+            ", workersCompEmployerFax='" + getWorkersCompEmployerFax() + "'" +
+            ", workersCompEmployerEfax='" + getWorkersCompEmployerEfax() + "'" +
+            ", workersCompEmployerEmail='" + getWorkersCompEmployerEmail() + "'" +
+            ", workersCompRelationship='" + getWorkersCompRelationship() + "'" +
+            ", workersCompModeOfContact='" + getWorkersCompModeOfContact() + "'" +
             "}";
     }
 }

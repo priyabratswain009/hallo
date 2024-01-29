@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.InvoiceLineItemDetailsAuditLog} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class InvoiceLineItemDetailsAuditLogDTO implements Serializable {
 
     private Long invceLinItmDetilId;

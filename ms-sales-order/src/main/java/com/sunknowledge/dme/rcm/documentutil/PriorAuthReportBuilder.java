@@ -1,9 +1,6 @@
 package com.sunknowledge.dme.rcm.documentutil;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -23,6 +20,10 @@ import com.sunknowledge.dme.rcm.dto.cmn.IcdDetails;
 import com.sunknowledge.dme.rcm.dto.cmn.InsuranceMasterDTO;
 import com.sunknowledge.dme.rcm.dto.cmn.SWODataDTO;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PriorAuthReportBuilder {
 
 	public static void addQrCodeOnFooter(Long parId, PdfWriter writer) {
@@ -38,6 +39,14 @@ public class PriorAuthReportBuilder {
 			e.printStackTrace();
 		}
 	}
+
+    public static Image addQrCodeOnFooterInAwsBucket(Document document, byte[] qrCodeBytes, Image qrCodeImage) throws BadElementException, IOException {
+        qrCodeImage.setAlignment(Element.ALIGN_LEFT);
+        qrCodeImage.scalePercent(100f, 100f); // Adjust the size as needed
+        qrCodeImage.setAbsolutePosition(30, 10);
+        //qrCodeImage.setAbsolutePosition(document.leftMargin(), document.bottomMargin() - 30); // Adjust coordinates as needed
+        return qrCodeImage;
+    }
 
 	public static PdfPTable PriorAuthInitReporMainTitle(int pageno) throws DocumentException, IOException {
 		PdfPTable table = new PdfPTable(1);
@@ -151,7 +160,7 @@ public class PriorAuthReportBuilder {
 
 		table.addCell(createCellWithBodyLebelText("NPI:"));
 		if (swoDataDTO.getBilling_branch_name() != null)
-			table.addCell(createCellWithBodyValueText(String.valueOf(swoDataDTO.getFacility_npi())));
+			table.addCell(createCellWithBodyValueText(swoDataDTO.getFacility_npi()!=null ? String.valueOf(swoDataDTO.getFacility_npi()) : ""));
 		else
 			table.addCell(createCellWithBodyValueText(" "));
 		table.addCell(createCellWithBodyLebelText("DOB:"));

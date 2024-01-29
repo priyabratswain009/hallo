@@ -20,9 +20,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -259,7 +256,7 @@ class SalesOrderMasterAuditLogResourceIT {
     }
 
     @Test
-    void putNewSalesOrderMasterAuditLog() throws Exception {
+    void putExistingSalesOrderMasterAuditLog() throws Exception {
         // Initialize the database
         salesOrderMasterAuditLogRepository.save(salesOrderMasterAuditLog).block();
 

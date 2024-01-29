@@ -44,7 +44,7 @@ public class ClaimSubmissionStatusServiceImpl implements ClaimSubmissionStatusSe
 
     @Override
     public Mono<ClaimSubmissionStatusDTO> update(ClaimSubmissionStatusDTO claimSubmissionStatusDTO) {
-        log.debug("Request to save ClaimSubmissionStatus : {}", claimSubmissionStatusDTO);
+        log.debug("Request to update ClaimSubmissionStatus : {}", claimSubmissionStatusDTO);
         return claimSubmissionStatusRepository
             .save(claimSubmissionStatusMapper.toEntity(claimSubmissionStatusDTO))
             .map(claimSubmissionStatusMapper::toDto);

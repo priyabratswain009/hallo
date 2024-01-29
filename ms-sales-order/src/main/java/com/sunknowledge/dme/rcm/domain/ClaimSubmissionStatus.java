@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ClaimSubmissionStatus.
  */
 @Table("t_claim_submission_status")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ClaimSubmissionStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;

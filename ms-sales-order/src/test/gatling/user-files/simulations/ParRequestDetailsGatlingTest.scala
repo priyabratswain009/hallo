@@ -123,6 +123,7 @@ class ParRequestDetailsGatlingTest extends Simulation {
                 , "updatedByName":"SAMPLE_TEXT"
                 , "updatedDate":"2020-01-01T00:00:00.000Z"
                 , "parRequestDetailsUuid":null
+                , "faxResponseDate":"2020-01-01T00:00:00.000Z"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_parRequestDetails_url"))).exitHereIfFailed

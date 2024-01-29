@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A PatientDto.
  */
 @Table("t_patient_dto")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PatientDto implements Serializable {
 
     private static final long serialVersionUID = 1L;

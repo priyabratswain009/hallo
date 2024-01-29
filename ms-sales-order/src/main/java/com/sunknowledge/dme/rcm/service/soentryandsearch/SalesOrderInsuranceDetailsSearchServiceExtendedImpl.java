@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.soentryandsearch;
 
+import com.sunknowledge.dme.rcm.domain.SalesOrderInsuranceDetails;
 import com.sunknowledge.dme.rcm.repository.SalesOrderInsuranceDetailsSearchRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderInsuranceDetailsSearchServiceExtended;
 import com.sunknowledge.dme.rcm.service.dto.SalesOrderInsuranceDetailsDTO;
@@ -27,6 +28,11 @@ public class SalesOrderInsuranceDetailsSearchServiceExtendedImpl implements Sale
     public Flux<SalesOrderMasterSearchDetailsDTO> getSODetailsByInsuranceId(Long insuranceId) {
         Flux<SalesOrderMasterSearchDetailsDTO> list = salesOrderInsuranceDetailsSearchRepository.findSODetailsByInsuranceId(insuranceId);
         return list;
+    }
+
+    @Override
+    public Mono<SalesOrderInsuranceDetails> findBySalesOrderId(Long salesOrderID) {
+        return salesOrderInsuranceDetailsSearchRepository.findBySalesOrderId(salesOrderID);
     }
 
     @Override

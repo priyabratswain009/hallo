@@ -10,6 +10,7 @@
     {
       "fieldName": "checklistCoverageCriteriaId",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"],
       "options": {
         "id": true
       }
@@ -64,6 +65,14 @@
     },
     {
       "fieldName": "coverageCriteriaName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "itemGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupName",
       "fieldType": "String"
     }
   ],

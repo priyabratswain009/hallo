@@ -39,7 +39,7 @@ public class ParSoMapServiceImpl implements ParSoMapService {
 
     @Override
     public Mono<ParSoMapDTO> update(ParSoMapDTO parSoMapDTO) {
-        log.debug("Request to save ParSoMap : {}", parSoMapDTO);
+        log.debug("Request to update ParSoMap : {}", parSoMapDTO);
         return parSoMapRepository.save(parSoMapMapper.toEntity(parSoMapDTO)).map(parSoMapMapper::toDto);
     }
 

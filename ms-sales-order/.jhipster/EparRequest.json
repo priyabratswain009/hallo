@@ -1,0 +1,80 @@
+{
+  "applications": "*",
+  "changelogDate": "20231130124320",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_epar_request",
+  "fields": [
+    {
+      "fieldName": "eparRequestId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "soNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "parId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "parNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "requestDatetime",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "responseStatus",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "responseUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "requestJson",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "epaRequestUuid",
+      "fieldType": "UUID"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "EparRequest",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

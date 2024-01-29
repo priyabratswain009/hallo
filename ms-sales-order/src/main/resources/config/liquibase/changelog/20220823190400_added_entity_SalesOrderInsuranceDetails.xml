@@ -3,7 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
@@ -200,7 +200,7 @@
             <column name="workers_comp_injury_related_auto_accident_status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="workers_comp_auto_accident_state_id" type="bigint">
+            <column name="workers_comp_auto_accident_state_code" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="workers_comp_injury_related_to_other_accident_status" type="varchar(255)">
@@ -389,6 +389,72 @@
             <column name="tertiary_claim_program" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="workers_comp_insured_employer" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_payer_id_number" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_plan_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_additional_dtls" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_claim_filling_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_tpl_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_tpl_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_property_casualty_agency_claim_no" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_carrier_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_address_line_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_address_line_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_city" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_state" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_country" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_zip" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_contact_no_1" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_contact_no_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_fax" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_efax" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_employer_email" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_relationship" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="workers_comp_mode_of_contact" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -472,7 +538,7 @@
             <column name="workers_comp_date_of_onset" type="date"/>
             <column name="workers_comp_injury_related_employment_status" type="string"/>
             <column name="workers_comp_injury_related_auto_accident_status" type="string"/>
-            <column name="workers_comp_auto_accident_state_id" type="numeric"/>
+            <column name="workers_comp_auto_accident_state_code" type="string"/>
             <column name="workers_comp_injury_related_to_other_accident_status" type="string"/>
             <column name="eclaims_attachment_status" type="string"/>
             <column name="attachment_number" type="numeric"/>
@@ -535,6 +601,28 @@
             <column name="primary_claim_program" type="string"/>
             <column name="secondary_claim_program" type="string"/>
             <column name="tertiary_claim_program" type="string"/>
+            <column name="workers_comp_insured_employer" type="string"/>
+            <column name="workers_comp_payer_id_number" type="string"/>
+            <column name="workers_comp_plan_name" type="string"/>
+            <column name="workers_comp_additional_dtls" type="string"/>
+            <column name="workers_comp_claim_filling_code" type="string"/>
+            <column name="workers_comp_tpl_code" type="string"/>
+            <column name="workers_comp_tpl_name" type="string"/>
+            <column name="workers_comp_property_casualty_agency_claim_no" type="string"/>
+            <column name="workers_comp_carrier_id" type="string"/>
+            <column name="workers_comp_employer_address_line_1" type="string"/>
+            <column name="workers_comp_employer_address_line_2" type="string"/>
+            <column name="workers_comp_employer_city" type="string"/>
+            <column name="workers_comp_employer_state" type="string"/>
+            <column name="workers_comp_employer_country" type="string"/>
+            <column name="workers_comp_employer_zip" type="string"/>
+            <column name="workers_comp_employer_contact_no_1" type="string"/>
+            <column name="workers_comp_employer_contact_no_2" type="string"/>
+            <column name="workers_comp_employer_fax" type="string"/>
+            <column name="workers_comp_employer_efax" type="string"/>
+            <column name="workers_comp_employer_email" type="string"/>
+            <column name="workers_comp_relationship" type="string"/>
+            <column name="workers_comp_mode_of_contact" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A BenefitCoverageRequest.
  */
 @Table("t_benefit_coverage_request")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BenefitCoverageRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;

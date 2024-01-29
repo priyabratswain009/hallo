@@ -44,7 +44,7 @@ public class SalesOrderFinancialDetailsAuditLogServiceImpl implements SalesOrder
 
     @Override
     public Mono<SalesOrderFinancialDetailsAuditLogDTO> update(SalesOrderFinancialDetailsAuditLogDTO salesOrderFinancialDetailsAuditLogDTO) {
-        log.debug("Request to save SalesOrderFinancialDetailsAuditLog : {}", salesOrderFinancialDetailsAuditLogDTO);
+        log.debug("Request to update SalesOrderFinancialDetailsAuditLog : {}", salesOrderFinancialDetailsAuditLogDTO);
         return salesOrderFinancialDetailsAuditLogRepository
             .save(salesOrderFinancialDetailsAuditLogMapper.toEntity(salesOrderFinancialDetailsAuditLogDTO))
             .map(salesOrderFinancialDetailsAuditLogMapper::toDto);

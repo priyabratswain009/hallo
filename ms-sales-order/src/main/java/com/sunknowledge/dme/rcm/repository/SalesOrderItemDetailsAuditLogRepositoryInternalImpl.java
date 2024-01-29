@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.convert.R2dbcConverter;
 import org.springframework.data.r2dbc.core.R2dbcEntityOperations;
@@ -34,7 +35,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Spring Data SQL reactive custom repository implementation for the SalesOrderItemDetailsAuditLog entity.
+ * Spring Data R2DBC custom repository implementation for the SalesOrderItemDetailsAuditLog entity.
  */
 @SuppressWarnings("unused")
 class SalesOrderItemDetailsAuditLogRepositoryInternalImpl

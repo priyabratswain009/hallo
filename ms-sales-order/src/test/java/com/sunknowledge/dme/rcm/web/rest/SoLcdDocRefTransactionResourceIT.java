@@ -21,9 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -40,15 +37,6 @@ class SoLcdDocRefTransactionResourceIT {
 
     private static final Long DEFAULT_SO_ID = 1L;
     private static final Long UPDATED_SO_ID = 2L;
-
-    private static final Long DEFAULT_ITEM_ID = 1L;
-    private static final Long UPDATED_ITEM_ID = 2L;
-
-    private static final String DEFAULT_ITEM_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_ITEM_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_HCPCS_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_HCPCS_CODE = "BBBBBBBBBB";
 
     private static final Long DEFAULT_CHECKLIST_ID = 1L;
     private static final Long UPDATED_CHECKLIST_ID = 2L;
@@ -89,6 +77,15 @@ class SoLcdDocRefTransactionResourceIT {
     private static final UUID DEFAULT_SO_LCD_DOC_REF_TRANSACTION_UUID = UUID.randomUUID();
     private static final UUID UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID = UUID.randomUUID();
 
+    private static final Long DEFAULT_ITEM_GROUP_ID = 1L;
+    private static final Long UPDATED_ITEM_GROUP_ID = 2L;
+
+    private static final String DEFAULT_ITEM_GROUP_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_ITEM_GROUP_NAME = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_COVERAGE_CRITERIA_ID = 1L;
+    private static final Long UPDATED_COVERAGE_CRITERIA_ID = 2L;
+
     private static final String ENTITY_API_URL = "/api/so-lcd-doc-ref-transactions";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{soLcdDocRefId}";
 
@@ -118,9 +115,6 @@ class SoLcdDocRefTransactionResourceIT {
     public static SoLcdDocRefTransaction createEntity(EntityManager em) {
         SoLcdDocRefTransaction soLcdDocRefTransaction = new SoLcdDocRefTransaction()
             .soId(DEFAULT_SO_ID)
-            .itemId(DEFAULT_ITEM_ID)
-            .itemName(DEFAULT_ITEM_NAME)
-            .hcpcsCode(DEFAULT_HCPCS_CODE)
             .checklistId(DEFAULT_CHECKLIST_ID)
             .checklistName(DEFAULT_CHECKLIST_NAME)
             .docRefId(DEFAULT_DOC_REF_ID)
@@ -133,7 +127,10 @@ class SoLcdDocRefTransactionResourceIT {
             .updatedDate(DEFAULT_UPDATED_DATE)
             .updatedById(DEFAULT_UPDATED_BY_ID)
             .updatedByName(DEFAULT_UPDATED_BY_NAME)
-            .soLcdDocRefTransactionUuid(DEFAULT_SO_LCD_DOC_REF_TRANSACTION_UUID);
+            .soLcdDocRefTransactionUuid(DEFAULT_SO_LCD_DOC_REF_TRANSACTION_UUID)
+            .itemGroupId(DEFAULT_ITEM_GROUP_ID)
+            .itemGroupName(DEFAULT_ITEM_GROUP_NAME)
+            .coverageCriteriaId(DEFAULT_COVERAGE_CRITERIA_ID);
         return soLcdDocRefTransaction;
     }
 
@@ -146,9 +143,6 @@ class SoLcdDocRefTransactionResourceIT {
     public static SoLcdDocRefTransaction createUpdatedEntity(EntityManager em) {
         SoLcdDocRefTransaction soLcdDocRefTransaction = new SoLcdDocRefTransaction()
             .soId(UPDATED_SO_ID)
-            .itemId(UPDATED_ITEM_ID)
-            .itemName(UPDATED_ITEM_NAME)
-            .hcpcsCode(UPDATED_HCPCS_CODE)
             .checklistId(UPDATED_CHECKLIST_ID)
             .checklistName(UPDATED_CHECKLIST_NAME)
             .docRefId(UPDATED_DOC_REF_ID)
@@ -161,7 +155,10 @@ class SoLcdDocRefTransactionResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .soLcdDocRefTransactionUuid(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID);
+            .soLcdDocRefTransactionUuid(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME)
+            .coverageCriteriaId(UPDATED_COVERAGE_CRITERIA_ID);
         return soLcdDocRefTransaction;
     }
 
@@ -208,9 +205,6 @@ class SoLcdDocRefTransactionResourceIT {
         assertThat(soLcdDocRefTransactionList).hasSize(databaseSizeBeforeCreate + 1);
         SoLcdDocRefTransaction testSoLcdDocRefTransaction = soLcdDocRefTransactionList.get(soLcdDocRefTransactionList.size() - 1);
         assertThat(testSoLcdDocRefTransaction.getSoId()).isEqualTo(DEFAULT_SO_ID);
-        assertThat(testSoLcdDocRefTransaction.getItemId()).isEqualTo(DEFAULT_ITEM_ID);
-        assertThat(testSoLcdDocRefTransaction.getItemName()).isEqualTo(DEFAULT_ITEM_NAME);
-        assertThat(testSoLcdDocRefTransaction.getHcpcsCode()).isEqualTo(DEFAULT_HCPCS_CODE);
         assertThat(testSoLcdDocRefTransaction.getChecklistId()).isEqualTo(DEFAULT_CHECKLIST_ID);
         assertThat(testSoLcdDocRefTransaction.getChecklistName()).isEqualTo(DEFAULT_CHECKLIST_NAME);
         assertThat(testSoLcdDocRefTransaction.getDocRefId()).isEqualTo(DEFAULT_DOC_REF_ID);
@@ -224,6 +218,9 @@ class SoLcdDocRefTransactionResourceIT {
         assertThat(testSoLcdDocRefTransaction.getUpdatedById()).isEqualTo(DEFAULT_UPDATED_BY_ID);
         assertThat(testSoLcdDocRefTransaction.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testSoLcdDocRefTransaction.getSoLcdDocRefTransactionUuid()).isEqualTo(DEFAULT_SO_LCD_DOC_REF_TRANSACTION_UUID);
+        assertThat(testSoLcdDocRefTransaction.getItemGroupId()).isEqualTo(DEFAULT_ITEM_GROUP_ID);
+        assertThat(testSoLcdDocRefTransaction.getItemGroupName()).isEqualTo(DEFAULT_ITEM_GROUP_NAME);
+        assertThat(testSoLcdDocRefTransaction.getCoverageCriteriaId()).isEqualTo(DEFAULT_COVERAGE_CRITERIA_ID);
     }
 
     @Test
@@ -269,12 +266,6 @@ class SoLcdDocRefTransactionResourceIT {
             .value(hasItem(soLcdDocRefTransaction.getSoLcdDocRefId().intValue()))
             .jsonPath("$.[*].soId")
             .value(hasItem(DEFAULT_SO_ID.intValue()))
-            .jsonPath("$.[*].itemId")
-            .value(hasItem(DEFAULT_ITEM_ID.intValue()))
-            .jsonPath("$.[*].itemName")
-            .value(hasItem(DEFAULT_ITEM_NAME))
-            .jsonPath("$.[*].hcpcsCode")
-            .value(hasItem(DEFAULT_HCPCS_CODE))
             .jsonPath("$.[*].checklistId")
             .value(hasItem(DEFAULT_CHECKLIST_ID.intValue()))
             .jsonPath("$.[*].checklistName")
@@ -300,7 +291,13 @@ class SoLcdDocRefTransactionResourceIT {
             .jsonPath("$.[*].updatedByName")
             .value(hasItem(DEFAULT_UPDATED_BY_NAME))
             .jsonPath("$.[*].soLcdDocRefTransactionUuid")
-            .value(hasItem(DEFAULT_SO_LCD_DOC_REF_TRANSACTION_UUID.toString()));
+            .value(hasItem(DEFAULT_SO_LCD_DOC_REF_TRANSACTION_UUID.toString()))
+            .jsonPath("$.[*].itemGroupId")
+            .value(hasItem(DEFAULT_ITEM_GROUP_ID.intValue()))
+            .jsonPath("$.[*].itemGroupName")
+            .value(hasItem(DEFAULT_ITEM_GROUP_NAME))
+            .jsonPath("$.[*].coverageCriteriaId")
+            .value(hasItem(DEFAULT_COVERAGE_CRITERIA_ID.intValue()));
     }
 
     @Test
@@ -323,12 +320,6 @@ class SoLcdDocRefTransactionResourceIT {
             .value(is(soLcdDocRefTransaction.getSoLcdDocRefId().intValue()))
             .jsonPath("$.soId")
             .value(is(DEFAULT_SO_ID.intValue()))
-            .jsonPath("$.itemId")
-            .value(is(DEFAULT_ITEM_ID.intValue()))
-            .jsonPath("$.itemName")
-            .value(is(DEFAULT_ITEM_NAME))
-            .jsonPath("$.hcpcsCode")
-            .value(is(DEFAULT_HCPCS_CODE))
             .jsonPath("$.checklistId")
             .value(is(DEFAULT_CHECKLIST_ID.intValue()))
             .jsonPath("$.checklistName")
@@ -354,7 +345,13 @@ class SoLcdDocRefTransactionResourceIT {
             .jsonPath("$.updatedByName")
             .value(is(DEFAULT_UPDATED_BY_NAME))
             .jsonPath("$.soLcdDocRefTransactionUuid")
-            .value(is(DEFAULT_SO_LCD_DOC_REF_TRANSACTION_UUID.toString()));
+            .value(is(DEFAULT_SO_LCD_DOC_REF_TRANSACTION_UUID.toString()))
+            .jsonPath("$.itemGroupId")
+            .value(is(DEFAULT_ITEM_GROUP_ID.intValue()))
+            .jsonPath("$.itemGroupName")
+            .value(is(DEFAULT_ITEM_GROUP_NAME))
+            .jsonPath("$.coverageCriteriaId")
+            .value(is(DEFAULT_COVERAGE_CRITERIA_ID.intValue()));
     }
 
     @Test
@@ -370,7 +367,7 @@ class SoLcdDocRefTransactionResourceIT {
     }
 
     @Test
-    void putNewSoLcdDocRefTransaction() throws Exception {
+    void putExistingSoLcdDocRefTransaction() throws Exception {
         // Initialize the database
         soLcdDocRefTransactionRepository.save(soLcdDocRefTransaction).block();
 
@@ -382,9 +379,6 @@ class SoLcdDocRefTransactionResourceIT {
             .block();
         updatedSoLcdDocRefTransaction
             .soId(UPDATED_SO_ID)
-            .itemId(UPDATED_ITEM_ID)
-            .itemName(UPDATED_ITEM_NAME)
-            .hcpcsCode(UPDATED_HCPCS_CODE)
             .checklistId(UPDATED_CHECKLIST_ID)
             .checklistName(UPDATED_CHECKLIST_NAME)
             .docRefId(UPDATED_DOC_REF_ID)
@@ -397,7 +391,10 @@ class SoLcdDocRefTransactionResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .soLcdDocRefTransactionUuid(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID);
+            .soLcdDocRefTransactionUuid(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME)
+            .coverageCriteriaId(UPDATED_COVERAGE_CRITERIA_ID);
         SoLcdDocRefTransactionDTO soLcdDocRefTransactionDTO = soLcdDocRefTransactionMapper.toDto(updatedSoLcdDocRefTransaction);
 
         webTestClient
@@ -414,9 +411,6 @@ class SoLcdDocRefTransactionResourceIT {
         assertThat(soLcdDocRefTransactionList).hasSize(databaseSizeBeforeUpdate);
         SoLcdDocRefTransaction testSoLcdDocRefTransaction = soLcdDocRefTransactionList.get(soLcdDocRefTransactionList.size() - 1);
         assertThat(testSoLcdDocRefTransaction.getSoId()).isEqualTo(UPDATED_SO_ID);
-        assertThat(testSoLcdDocRefTransaction.getItemId()).isEqualTo(UPDATED_ITEM_ID);
-        assertThat(testSoLcdDocRefTransaction.getItemName()).isEqualTo(UPDATED_ITEM_NAME);
-        assertThat(testSoLcdDocRefTransaction.getHcpcsCode()).isEqualTo(UPDATED_HCPCS_CODE);
         assertThat(testSoLcdDocRefTransaction.getChecklistId()).isEqualTo(UPDATED_CHECKLIST_ID);
         assertThat(testSoLcdDocRefTransaction.getChecklistName()).isEqualTo(UPDATED_CHECKLIST_NAME);
         assertThat(testSoLcdDocRefTransaction.getDocRefId()).isEqualTo(UPDATED_DOC_REF_ID);
@@ -430,6 +424,9 @@ class SoLcdDocRefTransactionResourceIT {
         assertThat(testSoLcdDocRefTransaction.getUpdatedById()).isEqualTo(UPDATED_UPDATED_BY_ID);
         assertThat(testSoLcdDocRefTransaction.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testSoLcdDocRefTransaction.getSoLcdDocRefTransactionUuid()).isEqualTo(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID);
+        assertThat(testSoLcdDocRefTransaction.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testSoLcdDocRefTransaction.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
+        assertThat(testSoLcdDocRefTransaction.getCoverageCriteriaId()).isEqualTo(UPDATED_COVERAGE_CRITERIA_ID);
     }
 
     @Test
@@ -513,16 +510,16 @@ class SoLcdDocRefTransactionResourceIT {
         partialUpdatedSoLcdDocRefTransaction.setSoLcdDocRefId(soLcdDocRefTransaction.getSoLcdDocRefId());
 
         partialUpdatedSoLcdDocRefTransaction
-            .itemName(UPDATED_ITEM_NAME)
-            .hcpcsCode(UPDATED_HCPCS_CODE)
             .checklistName(UPDATED_CHECKLIST_NAME)
             .docRefId(UPDATED_DOC_REF_ID)
-            .docRefName(UPDATED_DOC_REF_NAME)
             .value(UPDATED_VALUE)
+            .status(UPDATED_STATUS)
             .createdDate(UPDATED_CREATED_DATE)
+            .createdById(UPDATED_CREATED_BY_ID)
             .updatedDate(UPDATED_UPDATED_DATE)
-            .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .soLcdDocRefTransactionUuid(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID);
+            .soLcdDocRefTransactionUuid(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME)
+            .coverageCriteriaId(UPDATED_COVERAGE_CRITERIA_ID);
 
         webTestClient
             .patch()
@@ -538,22 +535,22 @@ class SoLcdDocRefTransactionResourceIT {
         assertThat(soLcdDocRefTransactionList).hasSize(databaseSizeBeforeUpdate);
         SoLcdDocRefTransaction testSoLcdDocRefTransaction = soLcdDocRefTransactionList.get(soLcdDocRefTransactionList.size() - 1);
         assertThat(testSoLcdDocRefTransaction.getSoId()).isEqualTo(DEFAULT_SO_ID);
-        assertThat(testSoLcdDocRefTransaction.getItemId()).isEqualTo(DEFAULT_ITEM_ID);
-        assertThat(testSoLcdDocRefTransaction.getItemName()).isEqualTo(UPDATED_ITEM_NAME);
-        assertThat(testSoLcdDocRefTransaction.getHcpcsCode()).isEqualTo(UPDATED_HCPCS_CODE);
         assertThat(testSoLcdDocRefTransaction.getChecklistId()).isEqualTo(DEFAULT_CHECKLIST_ID);
         assertThat(testSoLcdDocRefTransaction.getChecklistName()).isEqualTo(UPDATED_CHECKLIST_NAME);
         assertThat(testSoLcdDocRefTransaction.getDocRefId()).isEqualTo(UPDATED_DOC_REF_ID);
-        assertThat(testSoLcdDocRefTransaction.getDocRefName()).isEqualTo(UPDATED_DOC_REF_NAME);
+        assertThat(testSoLcdDocRefTransaction.getDocRefName()).isEqualTo(DEFAULT_DOC_REF_NAME);
         assertThat(testSoLcdDocRefTransaction.getValue()).isEqualTo(UPDATED_VALUE);
-        assertThat(testSoLcdDocRefTransaction.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testSoLcdDocRefTransaction.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testSoLcdDocRefTransaction.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
-        assertThat(testSoLcdDocRefTransaction.getCreatedById()).isEqualTo(DEFAULT_CREATED_BY_ID);
+        assertThat(testSoLcdDocRefTransaction.getCreatedById()).isEqualTo(UPDATED_CREATED_BY_ID);
         assertThat(testSoLcdDocRefTransaction.getCreatedByName()).isEqualTo(DEFAULT_CREATED_BY_NAME);
         assertThat(testSoLcdDocRefTransaction.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
         assertThat(testSoLcdDocRefTransaction.getUpdatedById()).isEqualTo(DEFAULT_UPDATED_BY_ID);
-        assertThat(testSoLcdDocRefTransaction.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
+        assertThat(testSoLcdDocRefTransaction.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testSoLcdDocRefTransaction.getSoLcdDocRefTransactionUuid()).isEqualTo(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID);
+        assertThat(testSoLcdDocRefTransaction.getItemGroupId()).isEqualTo(DEFAULT_ITEM_GROUP_ID);
+        assertThat(testSoLcdDocRefTransaction.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
+        assertThat(testSoLcdDocRefTransaction.getCoverageCriteriaId()).isEqualTo(UPDATED_COVERAGE_CRITERIA_ID);
     }
 
     @Test
@@ -569,9 +566,6 @@ class SoLcdDocRefTransactionResourceIT {
 
         partialUpdatedSoLcdDocRefTransaction
             .soId(UPDATED_SO_ID)
-            .itemId(UPDATED_ITEM_ID)
-            .itemName(UPDATED_ITEM_NAME)
-            .hcpcsCode(UPDATED_HCPCS_CODE)
             .checklistId(UPDATED_CHECKLIST_ID)
             .checklistName(UPDATED_CHECKLIST_NAME)
             .docRefId(UPDATED_DOC_REF_ID)
@@ -584,7 +578,10 @@ class SoLcdDocRefTransactionResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .soLcdDocRefTransactionUuid(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID);
+            .soLcdDocRefTransactionUuid(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME)
+            .coverageCriteriaId(UPDATED_COVERAGE_CRITERIA_ID);
 
         webTestClient
             .patch()
@@ -600,9 +597,6 @@ class SoLcdDocRefTransactionResourceIT {
         assertThat(soLcdDocRefTransactionList).hasSize(databaseSizeBeforeUpdate);
         SoLcdDocRefTransaction testSoLcdDocRefTransaction = soLcdDocRefTransactionList.get(soLcdDocRefTransactionList.size() - 1);
         assertThat(testSoLcdDocRefTransaction.getSoId()).isEqualTo(UPDATED_SO_ID);
-        assertThat(testSoLcdDocRefTransaction.getItemId()).isEqualTo(UPDATED_ITEM_ID);
-        assertThat(testSoLcdDocRefTransaction.getItemName()).isEqualTo(UPDATED_ITEM_NAME);
-        assertThat(testSoLcdDocRefTransaction.getHcpcsCode()).isEqualTo(UPDATED_HCPCS_CODE);
         assertThat(testSoLcdDocRefTransaction.getChecklistId()).isEqualTo(UPDATED_CHECKLIST_ID);
         assertThat(testSoLcdDocRefTransaction.getChecklistName()).isEqualTo(UPDATED_CHECKLIST_NAME);
         assertThat(testSoLcdDocRefTransaction.getDocRefId()).isEqualTo(UPDATED_DOC_REF_ID);
@@ -616,6 +610,9 @@ class SoLcdDocRefTransactionResourceIT {
         assertThat(testSoLcdDocRefTransaction.getUpdatedById()).isEqualTo(UPDATED_UPDATED_BY_ID);
         assertThat(testSoLcdDocRefTransaction.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testSoLcdDocRefTransaction.getSoLcdDocRefTransactionUuid()).isEqualTo(UPDATED_SO_LCD_DOC_REF_TRANSACTION_UUID);
+        assertThat(testSoLcdDocRefTransaction.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testSoLcdDocRefTransaction.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
+        assertThat(testSoLcdDocRefTransaction.getCoverageCriteriaId()).isEqualTo(UPDATED_COVERAGE_CRITERIA_ID);
     }
 
     @Test

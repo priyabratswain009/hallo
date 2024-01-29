@@ -126,18 +126,18 @@ public class PriceTableDetailsServiceImpl implements PriceTableDetailsService {
 
             return modifiersFlux.collectList().map(objList -> {
                 if (!objList.isEmpty()) {
-                    responseDTO.setStatus(true);
+                    responseDTO.setOutcome(true);
                     responseDTO.setMessage("Successfully Fetched.");
                     responseDTO.setData(objList);
                 } else {
-                    responseDTO.setStatus(false);
+                    responseDTO.setOutcome(false);
                     responseDTO.setMessage("Data Not Found.");
                     responseDTO.setData(null);
                 }
                 return responseDTO;
             });
         }else{
-            responseDTO.setStatus(false);
+            responseDTO.setOutcome(false);
             responseDTO.setMessage("hcpcsCode and itemNo must be provided.");
             responseDTO.setData(null);
         }

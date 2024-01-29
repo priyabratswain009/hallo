@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A SoRecurringPurchase.
  */
 @Table("t_so_recurring_purchase")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SoRecurringPurchase implements Serializable {
 
     private static final long serialVersionUID = 1L;

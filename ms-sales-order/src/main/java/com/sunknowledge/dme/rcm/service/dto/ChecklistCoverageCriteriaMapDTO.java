@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ChecklistCoverageCriteriaMap} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ChecklistCoverageCriteriaMapDTO implements Serializable {
 
+    @NotNull(message = "must not be null")
     private Long checklistCoverageCriteriaId;
 
     private Long checklistId;
@@ -37,6 +40,10 @@ public class ChecklistCoverageCriteriaMapDTO implements Serializable {
     private UUID checklistCoverageCriteriaMapUuid;
 
     private String coverageCriteriaName;
+
+    private Long itemGroupId;
+
+    private String itemGroupName;
 
     public Long getChecklistCoverageCriteriaId() {
         return checklistCoverageCriteriaId;
@@ -150,6 +157,22 @@ public class ChecklistCoverageCriteriaMapDTO implements Serializable {
         this.coverageCriteriaName = coverageCriteriaName;
     }
 
+    public Long getItemGroupId() {
+        return itemGroupId;
+    }
+
+    public void setItemGroupId(Long itemGroupId) {
+        this.itemGroupId = itemGroupId;
+    }
+
+    public String getItemGroupName() {
+        return itemGroupName;
+    }
+
+    public void setItemGroupName(String itemGroupName) {
+        this.itemGroupName = itemGroupName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -189,6 +212,8 @@ public class ChecklistCoverageCriteriaMapDTO implements Serializable {
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", checklistCoverageCriteriaMapUuid='" + getChecklistCoverageCriteriaMapUuid() + "'" +
             ", coverageCriteriaName='" + getCoverageCriteriaName() + "'" +
+            ", itemGroupId=" + getItemGroupId() +
+            ", itemGroupName='" + getItemGroupName() + "'" +
             "}";
     }
 }

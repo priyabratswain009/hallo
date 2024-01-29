@@ -3,7 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
@@ -53,6 +53,12 @@
             <column name="coverage_criteria_name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="item_group_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_group_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -87,6 +93,8 @@
             <column name="updated_by_name" type="string"/>
             <column name="checklist_coverage_criteria_map_uuid" type="${uuidType}"/>
             <column name="coverage_criteria_name" type="string"/>
+            <column name="item_group_id" type="numeric"/>
+            <column name="item_group_name" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -42,7 +42,7 @@ public class SalesOrderMasterServiceImpl implements SalesOrderMasterService {
 
     @Override
     public Mono<SalesOrderMasterDTO> update(SalesOrderMasterDTO salesOrderMasterDTO) {
-        log.debug("Request to save SalesOrderMaster : {}", salesOrderMasterDTO);
+        log.debug("Request to update SalesOrderMaster : {}", salesOrderMasterDTO);
         return salesOrderMasterRepository.save(salesOrderMasterMapper.toEntity(salesOrderMasterDTO)).map(salesOrderMasterMapper::toDto);
     }
 

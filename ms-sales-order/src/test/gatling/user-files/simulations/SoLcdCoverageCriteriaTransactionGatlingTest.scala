@@ -101,9 +101,6 @@ class SoLcdCoverageCriteriaTransactionGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "soId":"0"
-                , "itemId":"0"
-                , "itemName":"SAMPLE_TEXT"
-                , "hcpcsCode":"SAMPLE_TEXT"
                 , "checklistId":"0"
                 , "checklistName":"SAMPLE_TEXT"
                 , "coverageCriteriaId":"0"
@@ -116,6 +113,9 @@ class SoLcdCoverageCriteriaTransactionGatlingTest extends Simulation {
                 , "updatedById":"0"
                 , "updatedByName":"SAMPLE_TEXT"
                 , "soLcdCoverageCriteriaTransactionUuid":null
+                , "itemGroupId":"0"
+                , "itemGroupName":"SAMPLE_TEXT"
+                , "coverageCriteriaName":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_soLcdCoverageCriteriaTransaction_url"))).exitHereIfFailed

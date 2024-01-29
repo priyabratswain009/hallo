@@ -42,7 +42,7 @@ public class CmnDocumentMasterServiceImpl implements CmnDocumentMasterService {
 
     @Override
     public Mono<CmnDocumentMasterDTO> update(CmnDocumentMasterDTO cmnDocumentMasterDTO) {
-        log.debug("Request to save CmnDocumentMaster : {}", cmnDocumentMasterDTO);
+        log.debug("Request to update CmnDocumentMaster : {}", cmnDocumentMasterDTO);
         return cmnDocumentMasterRepository.save(cmnDocumentMasterMapper.toEntity(cmnDocumentMasterDTO)).map(cmnDocumentMasterMapper::toDto);
     }
 

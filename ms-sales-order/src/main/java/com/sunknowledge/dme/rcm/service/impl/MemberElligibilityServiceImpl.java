@@ -44,7 +44,7 @@ public class MemberElligibilityServiceImpl implements MemberElligibilityService 
 
     @Override
     public Mono<MemberElligibilityDTO> update(MemberElligibilityDTO memberElligibilityDTO) {
-        log.debug("Request to save MemberElligibility : {}", memberElligibilityDTO);
+        log.debug("Request to update MemberElligibility : {}", memberElligibilityDTO);
         return memberElligibilityRepository
             .save(memberElligibilityMapper.toEntity(memberElligibilityDTO))
             .map(memberElligibilityMapper::toDto);

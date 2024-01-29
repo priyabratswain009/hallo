@@ -10,7 +10,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseDTO<T> {
-    Boolean status;
+    Boolean outcome;
     String message;
     T data;
+    Long statusCode;
+
+    public ResponseDTO(Boolean outcome, String message, T data) {
+        this.outcome = outcome;
+        this.message = message;
+        this.data = data;
+    }
 }

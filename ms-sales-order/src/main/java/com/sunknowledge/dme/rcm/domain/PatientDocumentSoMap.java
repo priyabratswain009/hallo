@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A PatientDocumentSoMap.
  */
 @Table("t_patient_document_so_map")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PatientDocumentSoMap implements Serializable {
 
     private static final long serialVersionUID = 1L;

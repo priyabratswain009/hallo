@@ -44,7 +44,7 @@ public class DmeGroupChecklistMasterServiceImpl implements DmeGroupChecklistMast
 
     @Override
     public Mono<DmeGroupChecklistMasterDTO> update(DmeGroupChecklistMasterDTO dmeGroupChecklistMasterDTO) {
-        log.debug("Request to save DmeGroupChecklistMaster : {}", dmeGroupChecklistMasterDTO);
+        log.debug("Request to update DmeGroupChecklistMaster : {}", dmeGroupChecklistMasterDTO);
         return dmeGroupChecklistMasterRepository
             .save(dmeGroupChecklistMasterMapper.toEntity(dmeGroupChecklistMasterDTO))
             .map(dmeGroupChecklistMasterMapper::toDto);

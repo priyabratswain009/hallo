@@ -10,6 +10,7 @@
     {
       "fieldName": "dmeGroupChecklistId",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"],
       "options": {
         "id": true
       }

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +67,7 @@ public class DmeGroupChecklistMasterResource {
      */
     @PostMapping("/dme-group-checklist-masters")
     public Mono<ResponseEntity<DmeGroupChecklistMasterDTO>> createDmeGroupChecklistMaster(
-        @RequestBody DmeGroupChecklistMasterDTO dmeGroupChecklistMasterDTO
+        @Valid @RequestBody DmeGroupChecklistMasterDTO dmeGroupChecklistMasterDTO
     ) throws URISyntaxException {
         log.debug("REST request to save DmeGroupChecklistMaster : {}", dmeGroupChecklistMasterDTO);
         if (dmeGroupChecklistMasterDTO.getDmeGroupChecklistId() != null) {
@@ -105,7 +107,7 @@ public class DmeGroupChecklistMasterResource {
     @PutMapping("/dme-group-checklist-masters/{dmeGroupChecklistId}")
     public Mono<ResponseEntity<DmeGroupChecklistMasterDTO>> updateDmeGroupChecklistMaster(
         @PathVariable(value = "dmeGroupChecklistId", required = false) final Long dmeGroupChecklistId,
-        @RequestBody DmeGroupChecklistMasterDTO dmeGroupChecklistMasterDTO
+        @Valid @RequestBody DmeGroupChecklistMasterDTO dmeGroupChecklistMasterDTO
     ) throws URISyntaxException {
         log.debug("REST request to update DmeGroupChecklistMaster : {}, {}", dmeGroupChecklistId, dmeGroupChecklistMasterDTO);
         if (dmeGroupChecklistMasterDTO.getDmeGroupChecklistId() == null) {
@@ -158,7 +160,7 @@ public class DmeGroupChecklistMasterResource {
     )
     public Mono<ResponseEntity<DmeGroupChecklistMasterDTO>> partialUpdateDmeGroupChecklistMaster(
         @PathVariable(value = "dmeGroupChecklistId", required = false) final Long dmeGroupChecklistId,
-        @RequestBody DmeGroupChecklistMasterDTO dmeGroupChecklistMasterDTO
+        @NotNull @RequestBody DmeGroupChecklistMasterDTO dmeGroupChecklistMasterDTO
     ) throws URISyntaxException {
         log.debug(
             "REST request to partial update DmeGroupChecklistMaster partially : {}, {}",
@@ -248,16 +250,17 @@ public class DmeGroupChecklistMasterResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/dme-group-checklist-masters/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteDmeGroupChecklistMaster(@PathVariable Long id) {
         log.debug("REST request to delete DmeGroupChecklistMaster : {}", id);
         return dmeGroupChecklistMasterService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

@@ -1,5 +1,10 @@
 package com.sunknowledge.dme.rcm.service.soentryandsearch;
 
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.domain.DeliveryAbnData;
 import com.sunknowledge.dme.rcm.domain.ParMaster;
@@ -10,15 +15,13 @@ import com.sunknowledge.dme.rcm.dto.soItemDetailsAndClicnicalAndInsurance.SoItem
 import com.sunknowledge.dme.rcm.service.SalesOrderItemDetailsService;
 import com.sunknowledge.dme.rcm.service.dto.SalesOrderItemDetailsDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
+import com.sunknowledge.dme.rcm.service.dto.par.FaxDocsSoItemDetailsCustomDTO;
 import com.sunknowledge.dme.rcm.service.dto.po.RemoveDropshipParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.salesorder.SOItemInventoryTransactionDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderItemDetailsEntryParameterDTO;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 public interface SalesOrderItemDetailsServiceExtended extends SalesOrderItemDetailsService {
 
@@ -56,5 +59,12 @@ public interface SalesOrderItemDetailsServiceExtended extends SalesOrderItemDeta
     Mono<ServiceOutcome> dLinkForCmnItems(Long cmnId, Long salesOrderId, String salesOrderDetailsItemId) throws ExecutionException, InterruptedException;
 
     Mono<ServiceOutcome> linkForCmnItems(Long cmnId, Long salesOrderId, String salesOrderDetailsItemId) throws ExecutionException, InterruptedException;
+
+    Flux<SalesOrderItemDetailsDTO> getSalesOrderItemDetailsData(Long soId);
+    Mono<FaxDocsSoItemDetailsCustomDTO> getFaxDocsSoItemDetailsPrimaryItemInfo(List<SalesOrderItemDetailsDTO> soItemDetailsList);
+    
+    Mono<ServiceOutcome<List<Map<String, Object>>>> getSORentalItemDetailsBySOID(Long salesOrderID) throws InterruptedException, ExecutionException;
+    
+    Mono<ServiceOutcome> getselectedItemsForSOID(Long salesOrderID, String items) throws InterruptedException, ExecutionException;
 
 }

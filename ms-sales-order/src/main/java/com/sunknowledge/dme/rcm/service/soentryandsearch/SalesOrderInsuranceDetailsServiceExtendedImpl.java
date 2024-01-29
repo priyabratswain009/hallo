@@ -1,15 +1,30 @@
 package com.sunknowledge.dme.rcm.service.soentryandsearch;
 
 import com.dropbox.core.InvalidAccessTokenException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.application.utils.ApplicationConstants;
+import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
 import com.sunknowledge.dme.rcm.domain.SalesOrderInsuranceDetails;
+import com.sunknowledge.dme.rcm.domain.SalesOrderMaster;
+import com.sunknowledge.dme.rcm.domain.ServiceReview.ServiceReviewInput;
+import com.sunknowledge.dme.rcm.domain.elligibility.TokenOutCome;
+import com.sunknowledge.dme.rcm.domain.soelligibility.SOElligibilityInput;
+import com.sunknowledge.dme.rcm.domain.soelligibility.SOElligibilityOutput;
+import com.sunknowledge.dme.rcm.domain.soelligibility.Subscriber;
 import com.sunknowledge.dme.rcm.repository.SalesOrderInsuranceDetailsRepositoryExtended;
 import com.sunknowledge.dme.rcm.securityutil.InternalAccessTokenUtilities;
+import com.sunknowledge.dme.rcm.service.claimssubmissiondata.TokenGenerationService;
 import com.sunknowledge.dme.rcm.service.dto.SalesOrderInsuranceDetailsDTO;
+import com.sunknowledge.dme.rcm.service.dto.SalesOrderMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
+import com.sunknowledge.dme.rcm.service.dto.soelligibility.ElligibilityHealthCheck;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderInsuranceEntryParameterDTO;
 import com.sunknowledge.dme.rcm.service.mapper.SalesOrderInsuranceDetailsMapper;
-import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -35,6 +50,7 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,6 +65,10 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
 
     @Autowired
     SalesOrderInsuranceDetailsMapper salesOrderInsuranceDetailsMapper;
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private TokenGenerationService tokenGenerationService;
 
     @Override
     public Mono<SalesOrderInsuranceDetailsDTO> save(SalesOrderInsuranceDetailsDTO salesOrderInsuranceDetailsDTO) {
@@ -88,13 +108,13 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
     @Override
     @Transactional(readOnly = true)
     public Flux<SalesOrderInsuranceDetails> findBySalesOrderId(Long SOID) {
-        return salesOrderInsuranceDetailsRepositoryExtended.findBySalesOrderId(SOID);
+        return salesOrderInsuranceDetailsRepositoryExtended.findSOInsuranceBySalesOrderId(SOID);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Flux<SalesOrderInsuranceDetails> getSOInsuranceDetailsByInsuranceUUID(UUID sOInsuranceDetailsUUID) {
-        return salesOrderInsuranceDetailsRepositoryExtended.getSOInsuranceDetailsByInsuranceUUID(sOInsuranceDetailsUUID);
+        return salesOrderInsuranceDetailsRepositoryExtended.getSOInsuranceDetailsOnInsuranceUUID(sOInsuranceDetailsUUID);
     }
 
     @Override
@@ -110,6 +130,11 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
     }
 
     @Override
+    public Mono<Long> getIDByUUIDReactive(UUID sOInsuranceDetailsUUID) {
+        return salesOrderInsuranceDetailsRepositoryExtended.getIDByUUID(sOInsuranceDetailsUUID);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Mono<SalesOrderInsuranceDetails> findById(Long id) {
         return salesOrderInsuranceDetailsRepositoryExtended.findById(id);
@@ -120,7 +145,8 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
         String message = "";
         Boolean status = false;
         List<Object> responseList = new ArrayList<>();
-
+        System.out.println("BranchId => "+ branchId);
+        System.out.println("insuranceId => "+ obj.getPrimaryInsurerId());
         try {
 
             if (salesOrderInsuranceEntryParameterDTO.getPrimaryInsurerId() != null &&
@@ -133,6 +159,9 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
 
                 String responseBody = "[]";
                 if (!token.equalsIgnoreCase("NOT_AVAILABLE")) {
+                    CommonUtilities commonUtilitiesObj = new CommonUtilities();
+                    Properties propData = commonUtilitiesObj.readPropertiesFile("/project-properties-files/url_config.properties");
+                    String url = propData.getProperty("branchInsurance_Map_url");
                     branchId = branchId == null ? 0L : branchId;
                     Long insuranceId = obj.getPrimaryInsurerId() == null ? 0L : obj.getPrimaryInsurerId();
                     RestTemplate restTemplateData = new RestTemplate();
@@ -140,7 +169,7 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
                     headersData.add("Authorization", "Bearer " + token);
                     HttpEntity entityData = new HttpEntity<>(headersData);
                     ResponseEntity responseData = restTemplateData.exchange(
-                        "http://localhost:8080/services/settings/api/getBranchInsuranceMapByBranchIdAndInsuranceId" +
+                        url +
                             "?branchId={branchId}&insuranceId={insuranceId}",
                         HttpMethod.GET,
                         entityData,
@@ -177,13 +206,15 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
                     Long tertiaryInsID = obj.getTertiaryInsurerId() == null ? 0L : obj.getTertiaryInsurerId();
                     if (!token.equalsIgnoreCase("NOT_AVAILABLE")) {
                         String insuranceIds = primaryInsID + "," + secondaryInsID + "," + tertiaryInsID;
-
+                        CommonUtilities commonUtilitiesObj = new CommonUtilities();
+                        Properties propData = commonUtilitiesObj.readPropertiesFile("/project-properties-files/url_config.properties");
+                        String url = propData.getProperty("insuranceMaster_url");
                         RestTemplate restTemplateData = new RestTemplate();
                         HttpHeaders headersData = new HttpHeaders();
                         headersData.add("Authorization", "Bearer " + token);
                         HttpEntity entityData = new HttpEntity<>(headersData);
                         ResponseEntity responseData = restTemplateData.exchange(
-                            "http://localhost:8080/services/settings/api/getInsuranceMasterByInsuranceIdList" +
+                            url +
                                 "?insuranceIds={insuranceIds}",
                             HttpMethod.GET,
                             entityData,
@@ -261,10 +292,10 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
                 return salesOrderInsuranceDetailsRepositoryExtended
                     .save(salesOrderInsuranceDetailsMapper.toEntity(obj))
                     .map(salesOrderInsuranceDetailsMapper::toDto).map(
-                        i -> new ResponseDTO(true, "Successfully Saved", List.of(i)));
+                        i -> new ResponseDTO(true, "Successfully Saved", (i)));
             } else {
                 List<SalesOrderInsuranceDetails> salesOrderInsuranceDetailsForUpdate = salesOrderInsuranceDetailsRepositoryExtended.
-                    getSOInsuranceDetailsByInsuranceUUID(obj.getSalesOrderInsuranceDetailsUuid()).collectList().toFuture().get();
+                    getSOInsuranceDetailsOnInsuranceUUID(obj.getSalesOrderInsuranceDetailsUuid()).collectList().toFuture().get();
                 if (salesOrderInsuranceDetailsForUpdate.size() > 0) {
                     SalesOrderInsuranceDetails updateObj = salesOrderInsuranceDetailsForUpdate.get(0);
                     BeanUtils.copyProperties(salesOrderInsuranceEntryParameterDTO, updateObj);
@@ -274,7 +305,7 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
                     return salesOrderInsuranceDetailsRepositoryExtended
                         .save(salesOrderInsuranceDetailsMapper.toEntity(obj))
                         .map(salesOrderInsuranceDetailsMapper::toDto).map(
-                            i -> new ResponseDTO(true, "Successfully Saved", List.of(i)));
+                            i -> new ResponseDTO(true, "Successfully Saved", (i)));
                 } else {
                     message = "Update failed! Sales_Order_Insurance_Details does not exist.";
                     return Mono.just(new ResponseDTO(status, message, responseList));
@@ -350,5 +381,288 @@ public class SalesOrderInsuranceDetailsServiceExtendedImpl implements SalesOrder
                 System.out.println("======Final Updated soInsuranceDetails data::===="+updatedObj);
                 return new ServiceOutcome(updatedObj, true ,"Sales Order Insurance Details Updated.");
             }).switchIfEmpty(Mono.just(new ServiceOutcome(null, false ,"Unable to Update.")));
+    }
+
+    @Override
+    public Mono<SalesOrderInsuranceDetailsDTO> verifySOInsuranceManually(Long soInsuranceId, String insuranceVerificationStatus, String payerLevel) {
+        return salesOrderInsuranceDetailsRepositoryExtended.findById(soInsuranceId)
+            .map(data -> {
+                if(payerLevel.equalsIgnoreCase("primary")){
+                    data.setPrimaryInsurerVerificationStatus(insuranceVerificationStatus);
+                    data.setPrimaryInsurerVerificationDate(LocalDate.now());
+                } else if(payerLevel.equalsIgnoreCase("secondary")) {
+                    data.setSecondaryInsurerVerificationStatus(insuranceVerificationStatus);
+                    data.setSecondaryInsurerVerificationDate(LocalDate.now());
+                } else if(payerLevel.equalsIgnoreCase("tertiary")) {
+                    data.setTertiaryInsurerVerificationStatus(insuranceVerificationStatus);
+                    data.setTertiaryInsurerVerificationDate(LocalDate.now());
+                }
+                return data;
+            }).flatMap(salesOrderInsuranceDetailsRepositoryExtended::save)
+            .map(salesOrderInsuranceDetailsMapper::toDto);
+    }
+
+    @Override
+    public Mono<SalesOrderInsuranceDetails> findBySOId(Long soId) {
+        return salesOrderInsuranceDetailsRepositoryExtended.findSOInsuranceOnSOId(soId);
+    }
+
+    @Override
+    public Mono<SalesOrderInsuranceDetailsDTO> verifySOInsuranceAutomatic(SalesOrderMasterDTO salesOrderMaster, SalesOrderInsuranceDetails salesOrderInsuranceDetails, String payerLevel, String accessToken) {
+
+
+        if(payerLevel.equalsIgnoreCase("primary")){
+            return checkAndHandleUpdateSOElligibility(salesOrderMaster.getPatientFirstName(),
+                salesOrderMaster.getPatientMiddleName(),
+                salesOrderMaster.getPatientLastName(),
+                salesOrderMaster.getPatientGender(),
+                salesOrderMaster.getPatientDob(), salesOrderInsuranceDetails.getPrimaryInsurerPolicyNo(),
+                salesOrderInsuranceDetails.getPrimaryInsurancePayerId(), payerLevel, accessToken)
+                .map(data -> {
+                    salesOrderInsuranceDetails.setPrimaryInsurerVerificationStatus(data);
+                    salesOrderInsuranceDetails.setPrimaryInsurerVerificationDate(LocalDate.now());
+                    return salesOrderInsuranceDetails;
+                }).flatMap(salesOrderInsuranceDetailsRepositoryExtended::save)
+                .map(salesOrderInsuranceDetailsMapper::toDto)
+                .map(data ->{
+                    System.out.println("==========Updated SalesOrderInsuranceDetails data ====== "+ data);
+                    return data;
+                });
+        } else if(payerLevel.equalsIgnoreCase("secondary")) {
+            //salesOrderInsuranceDetails.setSecondaryInsurerVerificationStatus(insuranceVerificationStatus);
+            salesOrderInsuranceDetails.setSecondaryInsurerVerificationDate(LocalDate.now());
+            return null;
+        } else if(payerLevel.equalsIgnoreCase("tertiary")) {
+            //salesOrderInsuranceDetails.setTertiaryInsurerVerificationStatus(insuranceVerificationStatus);
+            salesOrderInsuranceDetails.setTertiaryInsurerVerificationDate(LocalDate.now());
+            return null;
+        }else{
+            return null;
+        }
+    }
+
+    private Mono<String> checkAndHandleUpdateSOElligibility(String patientFirstName, String patientMiddleName,
+                                                                          String patientLastName, String patientGender, LocalDate patientDob,
+                                                                          String primaryInsurerPolicyNo, String primaryInsurancePayerId,
+                                                                          String payerLevel, String accessToken) {
+        String inputEntity = "";
+
+        SOElligibilityOutput soElligibilityOutput = null;
+        String url = ApplicationConstants.ELLIGIBILITY_URL;
+        try {
+
+            SOElligibilityInput objPatientElligibilityInput;
+
+
+            if (checkElligibilityHealth(accessToken)) {
+                objPatientElligibilityInput = getInputData(patientFirstName, patientMiddleName,
+                    patientLastName, patientGender, patientDob,
+                    primaryInsurerPolicyNo, primaryInsurancePayerId);
+
+                System.out.println("===========::objPatientElligibilityInput::==========" + objPatientElligibilityInput);
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Content-Type", "application/json");
+                headers.add("Accept", "application/json");
+                headers.set("Authorization", "Bearer " + accessToken);
+                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                inputEntity = ow.writeValueAsString(objPatientElligibilityInput);
+
+                System.out.println("===inputEntity==="+inputEntity);
+
+
+                HttpEntity<String> inputCriteriaEntity = new HttpEntity<String>(inputEntity, headers);
+                ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, inputCriteriaEntity,
+                    String.class);
+
+                System.out.println("========response========" + response);
+                System.out.println("========response.getBody========" + response.getBody());
+
+                if (response.getStatusCode() == HttpStatus.OK) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    soElligibilityOutput = mapper.readValue(response.getBody(), SOElligibilityOutput.class);
+
+                    System.out.println("============::soElligibilityOutput::===========" + soElligibilityOutput);
+
+                    if (soElligibilityOutput.getErrors() == null) {
+
+                        System.out.println("==============================::Successful::====================================");
+                        return Mono.just("Y");
+                    } else {
+                        System.out.println("===================Errors======================"+response.getBody());
+                        return Mono.just("N");
+                    }
+                } else {
+                    System.out.println("===================Failed======================" + response.getBody());
+                    return Mono.just("N");
+                }
+            } else {
+                System.out.println("URL you're Trying to access is currently  Unavailable");
+                return Mono.just("N");
+            }
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public boolean checkElligibilityHealth(String token) {
+        // TODO Auto-generated method stub
+        ElligibilityHealthCheck healthCheckOutcome = new ElligibilityHealthCheck();
+        boolean status = false;
+
+        try {
+            String URL = ApplicationConstants.ELLIGIBILITY_HEALTHCHECK_URL;
+            HttpHeaders header = new HttpHeaders();
+            token = "Bearer " + token;
+
+            header.add("Content-Type", "application/json");
+            header.add("Accept", "application/json");
+            header.add("Authorization", token);
+
+            HttpEntity<String> request = new HttpEntity<String>(null, header);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, request, String.class);
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                ObjectMapper mapper = new ObjectMapper();
+                healthCheckOutcome = mapper.readValue(responseEntity.getBody(), ElligibilityHealthCheck.class);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (healthCheckOutcome.getVersion().equalsIgnoreCase("v3")
+            && healthCheckOutcome.getStatus().equalsIgnoreCase("ok")) {
+            status = true;
+        } else {
+            status = false;
+        }
+
+        return status;
+    }
+    public static SOElligibilityInput getInputData(String patientFirstName, String patientMiddleName,
+                                                   String patientLastName, String patientGender, LocalDate patientDob,
+                                                   String primaryInsurerPolicyNo, String primaryInsurancePayerId) {
+
+        SOElligibilityInput objPatientElligibilityInput = new SOElligibilityInput();
+        Subscriber objSubscriber = new Subscriber();
+        String fname = "", lname = "";
+
+        /*if (CommonUtilities.isStringNullOrBlank(primaryInsurerPolicyNo)) {
+            objSubscriber.setMemberId(primaryInsurerPolicyNo);
+        }
+        if (CommonUtilities.isStringNullOrBlank(
+            CommonUtilities.mergeName(patientFirstName, patientMiddleName, patientLastName))) {
+            String[] arr = CommonUtilities.mergeName(patientFirstName, patientMiddleName, patientLastName).split(" ");
+            fname = arr[0];
+            lname = arr[arr.length - 1];
+        }
+        if (CommonUtilities.isStringNullOrBlank(fname)) {
+            objSubscriber.setFirstName(fname);
+        }
+        if (CommonUtilities.isStringNullOrBlank(lname)) {
+            objSubscriber.setLastName(lname);
+        }
+        if (CommonUtilities.isStringNullOrBlank(patientGender)) {
+            objSubscriber.setGender(patientGender);
+        }
+        if (CommonUtilities.isStringNullOrBlank(String.valueOf(patientDob))) {
+            objSubscriber.setDateOfBirth(CommonUtilities.datetoStringConverter(String.valueOf(patientDob)));
+        }
+        if (CommonUtilities.isStringNullOrBlank(String.valueOf(primaryInsurerPolicyNo))) {
+            // No control number is available in patient
+            objPatientElligibilityInput.setControlNumber("123456789");
+        }
+        if (CommonUtilities.isStringNullOrBlank(String.valueOf(primaryInsurancePayerId))) {
+            // for sandbox using hard coded value
+            objPatientElligibilityInput.setTradingPartnerServiceId(primaryInsurancePayerId);
+        }*/
+
+        /****Test Data Set Start******/
+        objSubscriber.setMemberId("123456789");
+        objSubscriber.setFirstName("johntwo");
+        objSubscriber.setLastName("doeone");
+        objSubscriber.setGender("M");
+        objSubscriber.setDateOfBirth("18800102");
+        objPatientElligibilityInput.setControlNumber("123456789");
+        objPatientElligibilityInput.setTradingPartnerServiceId("SMNY5");
+        /*{
+            "subscriber" : {
+            "memberId" : "123456789",
+                "firstName" : "johntwo",
+                "lastName" : "doeone",
+                "gender" : "M",
+                "dateOfBirth" : "18800102"
+        },
+            "controlNumber" : "123456789",
+            "tradingPartnerServiceId" : "SMNY5"
+        }*/
+        /****Test Data Set End******/
+        objPatientElligibilityInput.setSubscriber(objSubscriber);
+
+        System.out.println("========Input Data========" + objPatientElligibilityInput);
+        System.out.println("========Input Data:: Subscriber:: MemberId========" + objPatientElligibilityInput.getSubscriber().getMemberId());
+        System.out.println("========Input Data:: Subscriber:: FirstName========" + objPatientElligibilityInput.getSubscriber().getFirstName());
+        System.out.println("========Input Data:: Subscriber:: LastName========" + objPatientElligibilityInput.getSubscriber().getLastName());
+        System.out.println("========Input Data:: Subscriber:: Gender========" + objPatientElligibilityInput.getSubscriber().getGender());
+        System.out.println("========Input Data:: DateOfBirth========" + objPatientElligibilityInput.getSubscriber().getDateOfBirth());
+        System.out.println("========Input Data:: ControlNumber========" + objPatientElligibilityInput.getControlNumber());
+        System.out.println("========Input Data:: Trading Partner Service Id========" + objPatientElligibilityInput.getTradingPartnerServiceId());
+
+
+        return objPatientElligibilityInput;
+    }
+
+    @Override
+    public Mono<ServiceOutcome<String>> getServiceReviewById(long id) {
+        // TODO Auto-generated method stub
+
+        ServiceOutcome<String> outCome = new ServiceOutcome<String>();
+
+        try {
+            String token = tokenGenerationService.getCoverageToken();
+
+            String url = ApplicationConstants.SERVICE_REVIEW_NEW_URL;
+            url = url + "/" + id;
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json");
+            headers.add("Accept", "application/json");
+            headers.add("X-Api-Mock-Scenario-ID", "SR-GetComplete-i");
+            headers.set("Authorization", "Bearer " + token);
+
+            HttpEntity<String> inputCriteriaEntity = new HttpEntity<String>(null, headers);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, inputCriteriaEntity,
+                String.class);
+
+            System.out.println("OUTPUT=======> "+response);
+
+            JSONParser jsonParser = new JSONParser();
+            System.out.println("JSON Data " + jsonParser.parse(response.getBody()));
+            outCome.setData(response.getBody());
+            outCome.setMessage("Data Recieved Successfully");
+            outCome.setOutcome(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Mono.just(outCome);
+    }
+
+    @Override
+    public Mono<SalesOrderInsuranceDetailsDTO> updateCoverageVerificationStatus(Long soInsuranceId, String coverageVerificationStatus) {
+        return salesOrderInsuranceDetailsRepositoryExtended.findById(soInsuranceId)
+            .map(data -> {
+                data.setCoverageVerificationStatus(coverageVerificationStatus);
+                data.setPrimaryInsurerVerificationDate(LocalDate.now());
+                data.setUpdatedById(1l);
+                data.setUpdatedByName("Abhay Api Test");
+                data.setUpdatedDate(LocalDate.now());
+                return data;
+            }).flatMap(salesOrderInsuranceDetailsRepositoryExtended::save)
+            .map(salesOrderInsuranceDetailsMapper::toDto);
     }
 }

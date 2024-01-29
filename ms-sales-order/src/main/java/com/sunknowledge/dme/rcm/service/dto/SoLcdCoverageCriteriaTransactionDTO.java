@@ -4,21 +4,18 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.SoLcdCoverageCriteriaTransaction} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SoLcdCoverageCriteriaTransactionDTO implements Serializable {
 
-    private Long soLcdDocRefId;
+    @NotNull(message = "must not be null")
+    private Long soLcdCoverageCriteriaTransactionId;
 
     private Long soId;
-
-    private Long itemId;
-
-    private String itemName;
-
-    private String hcpcsCode;
 
     private Long checklistId;
 
@@ -44,12 +41,18 @@ public class SoLcdCoverageCriteriaTransactionDTO implements Serializable {
 
     private UUID soLcdCoverageCriteriaTransactionUuid;
 
-    public Long getSoLcdDocRefId() {
-        return soLcdDocRefId;
+    private Long itemGroupId;
+
+    private String itemGroupName;
+
+    private String coverageCriteriaName;
+
+    public Long getSoLcdCoverageCriteriaTransactionId() {
+        return soLcdCoverageCriteriaTransactionId;
     }
 
-    public void setSoLcdDocRefId(Long soLcdDocRefId) {
-        this.soLcdDocRefId = soLcdDocRefId;
+    public void setSoLcdCoverageCriteriaTransactionId(Long soLcdCoverageCriteriaTransactionId) {
+        this.soLcdCoverageCriteriaTransactionId = soLcdCoverageCriteriaTransactionId;
     }
 
     public Long getSoId() {
@@ -58,30 +61,6 @@ public class SoLcdCoverageCriteriaTransactionDTO implements Serializable {
 
     public void setSoId(Long soId) {
         this.soId = soId;
-    }
-
-    public Long getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public String getHcpcsCode() {
-        return hcpcsCode;
-    }
-
-    public void setHcpcsCode(String hcpcsCode) {
-        this.hcpcsCode = hcpcsCode;
     }
 
     public Long getChecklistId() {
@@ -180,6 +159,30 @@ public class SoLcdCoverageCriteriaTransactionDTO implements Serializable {
         this.soLcdCoverageCriteriaTransactionUuid = soLcdCoverageCriteriaTransactionUuid;
     }
 
+    public Long getItemGroupId() {
+        return itemGroupId;
+    }
+
+    public void setItemGroupId(Long itemGroupId) {
+        this.itemGroupId = itemGroupId;
+    }
+
+    public String getItemGroupName() {
+        return itemGroupName;
+    }
+
+    public void setItemGroupName(String itemGroupName) {
+        this.itemGroupName = itemGroupName;
+    }
+
+    public String getCoverageCriteriaName() {
+        return coverageCriteriaName;
+    }
+
+    public void setCoverageCriteriaName(String coverageCriteriaName) {
+        this.coverageCriteriaName = coverageCriteriaName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -190,26 +193,26 @@ public class SoLcdCoverageCriteriaTransactionDTO implements Serializable {
         }
 
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = (SoLcdCoverageCriteriaTransactionDTO) o;
-        if (this.soLcdDocRefId == null) {
+        if (this.soLcdCoverageCriteriaTransactionId == null) {
             return false;
         }
-        return Objects.equals(this.soLcdDocRefId, soLcdCoverageCriteriaTransactionDTO.soLcdDocRefId);
+        return Objects.equals(
+            this.soLcdCoverageCriteriaTransactionId,
+            soLcdCoverageCriteriaTransactionDTO.soLcdCoverageCriteriaTransactionId
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.soLcdDocRefId);
+        return Objects.hash(this.soLcdCoverageCriteriaTransactionId);
     }
 
     // prettier-ignore
     @Override
     public String toString() {
         return "SoLcdCoverageCriteriaTransactionDTO{" +
-            "soLcdDocRefId=" + getSoLcdDocRefId() +
+            "soLcdCoverageCriteriaTransactionId=" + getSoLcdCoverageCriteriaTransactionId() +
             ", soId=" + getSoId() +
-            ", itemId=" + getItemId() +
-            ", itemName='" + getItemName() + "'" +
-            ", hcpcsCode='" + getHcpcsCode() + "'" +
             ", checklistId=" + getChecklistId() +
             ", checklistName='" + getChecklistName() + "'" +
             ", coverageCriteriaId=" + getCoverageCriteriaId() +
@@ -222,6 +225,9 @@ public class SoLcdCoverageCriteriaTransactionDTO implements Serializable {
             ", updatedById=" + getUpdatedById() +
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", soLcdCoverageCriteriaTransactionUuid='" + getSoLcdCoverageCriteriaTransactionUuid() + "'" +
+            ", itemGroupId=" + getItemGroupId() +
+            ", itemGroupName='" + getItemGroupName() + "'" +
+            ", coverageCriteriaName='" + getCoverageCriteriaName() + "'" +
             "}";
     }
 }

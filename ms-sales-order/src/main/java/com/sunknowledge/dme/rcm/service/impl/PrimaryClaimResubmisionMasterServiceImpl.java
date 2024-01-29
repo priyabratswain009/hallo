@@ -44,7 +44,7 @@ public class PrimaryClaimResubmisionMasterServiceImpl implements PrimaryClaimRes
 
     @Override
     public Mono<PrimaryClaimResubmisionMasterDTO> update(PrimaryClaimResubmisionMasterDTO primaryClaimResubmisionMasterDTO) {
-        log.debug("Request to save PrimaryClaimResubmisionMaster : {}", primaryClaimResubmisionMasterDTO);
+        log.debug("Request to update PrimaryClaimResubmisionMaster : {}", primaryClaimResubmisionMasterDTO);
         return primaryClaimResubmisionMasterRepository
             .save(primaryClaimResubmisionMasterMapper.toEntity(primaryClaimResubmisionMasterDTO))
             .map(primaryClaimResubmisionMasterMapper::toDto);

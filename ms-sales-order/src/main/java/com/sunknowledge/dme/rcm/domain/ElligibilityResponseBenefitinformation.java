@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ElligibilityResponseBenefitinformation.
  */
 @Table("t_elligibility_response_benefitinformation")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ElligibilityResponseBenefitinformation implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -9,6 +9,8 @@ import com.sunknowledge.dme.rcm.repository.SalesOrderMasterRepository;
 
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface SalesOrderMasterRepo extends SalesOrderMasterRepository {
 
     @Query("select * from t_sales_order_master where t_sales_order_master.sales_order_id=:salesOrderId")
@@ -26,4 +28,8 @@ public interface SalesOrderMasterRepo extends SalesOrderMasterRepository {
 
     @Query("select max(sales_order_id) from t_sales_order_master tsom where tsom.patient_id_no = :patientidno")
     Mono<Long> getSalesOrderIdFromPatientIdno(@Param("patientIdNo") String patientIdNo);
+
+    @Query("select * from t_sales_order_master tsom where lower(tsom.status) = 'active' " +
+        "and tsom.sales_order_master_uuid = :soUUID")
+    Mono<SalesOrderMaster> getSalesOrderDetailsOnUUID(@Param("soUUID") UUID soUUID);
 }

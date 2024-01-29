@@ -3,6 +3,7 @@ package com.sunknowledge.dme.rcm.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
+import javax.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
@@ -12,10 +13,12 @@ import org.springframework.data.relational.core.mapping.Table;
  * A DmeGroupChecklistMaster.
  */
 @Table("t_dme_group_checklist_master")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class DmeGroupChecklistMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull(message = "must not be null")
     @Id
     @Column("dme_group_checklist_id")
     private Long dmeGroupChecklistId;

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,10 +67,10 @@ public class SoLcdCoverageCriteriaTransactionResource {
      */
     @PostMapping("/so-lcd-coverage-criteria-transactions")
     public Mono<ResponseEntity<SoLcdCoverageCriteriaTransactionDTO>> createSoLcdCoverageCriteriaTransaction(
-        @RequestBody SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO
+        @Valid @RequestBody SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO
     ) throws URISyntaxException {
         log.debug("REST request to save SoLcdCoverageCriteriaTransaction : {}", soLcdCoverageCriteriaTransactionDTO);
-        if (soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId() != null) {
+        if (soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId() != null) {
             throw new BadRequestAlertException("A new soLcdCoverageCriteriaTransaction cannot already have an ID", ENTITY_NAME, "idexists");
         }
         return soLcdCoverageCriteriaTransactionService
@@ -76,9 +78,14 @@ public class SoLcdCoverageCriteriaTransactionResource {
             .map(result -> {
                 try {
                     return ResponseEntity
-                        .created(new URI("/api/so-lcd-coverage-criteria-transactions/" + result.getSoLcdDocRefId()))
+                        .created(new URI("/api/so-lcd-coverage-criteria-transactions/" + result.getSoLcdCoverageCriteriaTransactionId()))
                         .headers(
-                            HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getSoLcdDocRefId().toString())
+                            HeaderUtil.createEntityCreationAlert(
+                                applicationName,
+                                false,
+                                ENTITY_NAME,
+                                result.getSoLcdCoverageCriteriaTransactionId().toString()
+                            )
                         )
                         .body(result);
                 } catch (URISyntaxException e) {
@@ -88,30 +95,36 @@ public class SoLcdCoverageCriteriaTransactionResource {
     }
 
     /**
-     * {@code PUT  /so-lcd-coverage-criteria-transactions/:soLcdDocRefId} : Updates an existing soLcdCoverageCriteriaTransaction.
+     * {@code PUT  /so-lcd-coverage-criteria-transactions/:soLcdCoverageCriteriaTransactionId} : Updates an existing soLcdCoverageCriteriaTransaction.
      *
-     * @param soLcdDocRefId the id of the soLcdCoverageCriteriaTransactionDTO to save.
+     * @param soLcdCoverageCriteriaTransactionId the id of the soLcdCoverageCriteriaTransactionDTO to save.
      * @param soLcdCoverageCriteriaTransactionDTO the soLcdCoverageCriteriaTransactionDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated soLcdCoverageCriteriaTransactionDTO,
      * or with status {@code 400 (Bad Request)} if the soLcdCoverageCriteriaTransactionDTO is not valid,
      * or with status {@code 500 (Internal Server Error)} if the soLcdCoverageCriteriaTransactionDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/so-lcd-coverage-criteria-transactions/{soLcdDocRefId}")
+    @PutMapping("/so-lcd-coverage-criteria-transactions/{soLcdCoverageCriteriaTransactionId}")
     public Mono<ResponseEntity<SoLcdCoverageCriteriaTransactionDTO>> updateSoLcdCoverageCriteriaTransaction(
-        @PathVariable(value = "soLcdDocRefId", required = false) final Long soLcdDocRefId,
-        @RequestBody SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO
+        @PathVariable(value = "soLcdCoverageCriteriaTransactionId", required = false) final Long soLcdCoverageCriteriaTransactionId,
+        @Valid @RequestBody SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update SoLcdCoverageCriteriaTransaction : {}, {}", soLcdDocRefId, soLcdCoverageCriteriaTransactionDTO);
-        if (soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId() == null) {
+        log.debug(
+            "REST request to update SoLcdCoverageCriteriaTransaction : {}, {}",
+            soLcdCoverageCriteriaTransactionId,
+            soLcdCoverageCriteriaTransactionDTO
+        );
+        if (soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(soLcdDocRefId, soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId())) {
+        if (
+            !Objects.equals(soLcdCoverageCriteriaTransactionId, soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId())
+        ) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
         return soLcdCoverageCriteriaTransactionRepository
-            .existsById(soLcdDocRefId)
+            .existsById(soLcdCoverageCriteriaTransactionId)
             .flatMap(exists -> {
                 if (!exists) {
                     return Mono.error(new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound"));
@@ -128,7 +141,7 @@ public class SoLcdCoverageCriteriaTransactionResource {
                                     applicationName,
                                     false,
                                     ENTITY_NAME,
-                                    result.getSoLcdDocRefId().toString()
+                                    result.getSoLcdCoverageCriteriaTransactionId().toString()
                                 )
                             )
                             .body(result)
@@ -137,9 +150,9 @@ public class SoLcdCoverageCriteriaTransactionResource {
     }
 
     /**
-     * {@code PATCH  /so-lcd-coverage-criteria-transactions/:soLcdDocRefId} : Partial updates given fields of an existing soLcdCoverageCriteriaTransaction, field will ignore if it is null
+     * {@code PATCH  /so-lcd-coverage-criteria-transactions/:soLcdCoverageCriteriaTransactionId} : Partial updates given fields of an existing soLcdCoverageCriteriaTransaction, field will ignore if it is null
      *
-     * @param soLcdDocRefId the id of the soLcdCoverageCriteriaTransactionDTO to save.
+     * @param soLcdCoverageCriteriaTransactionId the id of the soLcdCoverageCriteriaTransactionDTO to save.
      * @param soLcdCoverageCriteriaTransactionDTO the soLcdCoverageCriteriaTransactionDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated soLcdCoverageCriteriaTransactionDTO,
      * or with status {@code 400 (Bad Request)} if the soLcdCoverageCriteriaTransactionDTO is not valid,
@@ -148,27 +161,29 @@ public class SoLcdCoverageCriteriaTransactionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(
-        value = "/so-lcd-coverage-criteria-transactions/{soLcdDocRefId}",
+        value = "/so-lcd-coverage-criteria-transactions/{soLcdCoverageCriteriaTransactionId}",
         consumes = { "application/json", "application/merge-patch+json" }
     )
     public Mono<ResponseEntity<SoLcdCoverageCriteriaTransactionDTO>> partialUpdateSoLcdCoverageCriteriaTransaction(
-        @PathVariable(value = "soLcdDocRefId", required = false) final Long soLcdDocRefId,
-        @RequestBody SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO
+        @PathVariable(value = "soLcdCoverageCriteriaTransactionId", required = false) final Long soLcdCoverageCriteriaTransactionId,
+        @NotNull @RequestBody SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO
     ) throws URISyntaxException {
         log.debug(
             "REST request to partial update SoLcdCoverageCriteriaTransaction partially : {}, {}",
-            soLcdDocRefId,
+            soLcdCoverageCriteriaTransactionId,
             soLcdCoverageCriteriaTransactionDTO
         );
-        if (soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId() == null) {
+        if (soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(soLcdDocRefId, soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId())) {
+        if (
+            !Objects.equals(soLcdCoverageCriteriaTransactionId, soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId())
+        ) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
         return soLcdCoverageCriteriaTransactionRepository
-            .existsById(soLcdDocRefId)
+            .existsById(soLcdCoverageCriteriaTransactionId)
             .flatMap(exists -> {
                 if (!exists) {
                     return Mono.error(new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound"));
@@ -184,7 +199,12 @@ public class SoLcdCoverageCriteriaTransactionResource {
                         ResponseEntity
                             .ok()
                             .headers(
-                                HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, res.getSoLcdDocRefId().toString())
+                                HeaderUtil.createEntityUpdateAlert(
+                                    applicationName,
+                                    false,
+                                    ENTITY_NAME,
+                                    res.getSoLcdCoverageCriteriaTransactionId().toString()
+                                )
                             )
                             .body(res)
                     );
@@ -240,16 +260,17 @@ public class SoLcdCoverageCriteriaTransactionResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/so-lcd-coverage-criteria-transactions/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteSoLcdCoverageCriteriaTransaction(@PathVariable Long id) {
         log.debug("REST request to delete SoLcdCoverageCriteriaTransaction : {}", id);
         return soLcdCoverageCriteriaTransactionService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

@@ -39,7 +39,7 @@ public class DeliveryAbnDataServiceImpl implements DeliveryAbnDataService {
 
     @Override
     public Mono<DeliveryAbnDataDTO> update(DeliveryAbnDataDTO deliveryAbnDataDTO) {
-        log.debug("Request to save DeliveryAbnData : {}", deliveryAbnDataDTO);
+        log.debug("Request to update DeliveryAbnData : {}", deliveryAbnDataDTO);
         return deliveryAbnDataRepository.save(deliveryAbnDataMapper.toEntity(deliveryAbnDataDTO)).map(deliveryAbnDataMapper::toDto);
     }
 

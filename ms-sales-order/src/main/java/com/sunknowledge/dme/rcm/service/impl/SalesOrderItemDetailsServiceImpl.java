@@ -44,7 +44,7 @@ public class SalesOrderItemDetailsServiceImpl implements SalesOrderItemDetailsSe
 
     @Override
     public Mono<SalesOrderItemDetailsDTO> update(SalesOrderItemDetailsDTO salesOrderItemDetailsDTO) {
-        log.debug("Request to save SalesOrderItemDetails : {}", salesOrderItemDetailsDTO);
+        log.debug("Request to update SalesOrderItemDetails : {}", salesOrderItemDetailsDTO);
         return salesOrderItemDetailsRepository
             .save(salesOrderItemDetailsMapper.toEntity(salesOrderItemDetailsDTO))
             .map(salesOrderItemDetailsMapper::toDto);

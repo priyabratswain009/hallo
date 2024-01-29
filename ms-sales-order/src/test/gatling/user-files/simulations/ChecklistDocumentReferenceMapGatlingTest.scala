@@ -112,6 +112,8 @@ class ChecklistDocumentReferenceMapGatlingTest extends Simulation {
                 , "updatedById":"0"
                 , "updatedByName":"SAMPLE_TEXT"
                 , "checklistDocumentReferenceMapUuid":null
+                , "itemGroupId":"0"
+                , "itemGroupName":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_checklistDocumentReferenceMap_url"))).exitHereIfFailed

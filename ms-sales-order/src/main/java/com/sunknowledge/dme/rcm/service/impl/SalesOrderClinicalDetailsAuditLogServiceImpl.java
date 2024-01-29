@@ -44,7 +44,7 @@ public class SalesOrderClinicalDetailsAuditLogServiceImpl implements SalesOrderC
 
     @Override
     public Mono<SalesOrderClinicalDetailsAuditLogDTO> update(SalesOrderClinicalDetailsAuditLogDTO salesOrderClinicalDetailsAuditLogDTO) {
-        log.debug("Request to save SalesOrderClinicalDetailsAuditLog : {}", salesOrderClinicalDetailsAuditLogDTO);
+        log.debug("Request to update SalesOrderClinicalDetailsAuditLog : {}", salesOrderClinicalDetailsAuditLogDTO);
         return salesOrderClinicalDetailsAuditLogRepository
             .save(salesOrderClinicalDetailsAuditLogMapper.toEntity(salesOrderClinicalDetailsAuditLogDTO))
             .map(salesOrderClinicalDetailsAuditLogMapper::toDto);

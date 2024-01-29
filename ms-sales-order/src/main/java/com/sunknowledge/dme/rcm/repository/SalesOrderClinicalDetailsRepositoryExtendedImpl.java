@@ -32,14 +32,12 @@ public class SalesOrderClinicalDetailsRepositoryExtendedImpl extends SalesOrderC
 
     @Override
     public Flux<SalesOrderClinicalDetails> findBySalesOrderId(Long SOID) {
-        Comparison whereClause = Conditions.isEqual(entityTable.column("sales_order_id"), Conditions.just(SOID.toString()));
-        return createQuery(null, whereClause).all();
+        return null;
     }
 
     @Override
     public Flux<SalesOrderClinicalDetails> getSOClinicalByUUID(UUID sOClinicalUUID) {
-        Comparison whereClause = Conditions.isEqual(entityTable.column("sales_order_clinical_details_uuid"), Conditions.just(sOClinicalUUID.toString()));
-        return createQuery(null, whereClause).all();
+        return null;
     }
 
     @Override

@@ -25,6 +25,8 @@ public class ChecklistDocumentReferenceMapSqlHelper {
         columns.add(
             Column.aliased("checklist_document_reference_map_uuid", table, columnPrefix + "_checklist_document_reference_map_uuid")
         );
+        columns.add(Column.aliased("item_group_id", table, columnPrefix + "_item_group_id"));
+        columns.add(Column.aliased("item_group_name", table, columnPrefix + "_item_group_name"));
 
         return columns;
     }

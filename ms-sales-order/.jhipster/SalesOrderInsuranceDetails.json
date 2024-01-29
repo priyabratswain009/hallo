@@ -263,8 +263,8 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "workersCompAutoAccidentStateId",
-      "fieldType": "Long"
+      "fieldName": "workersCompAutoAccidentStateCode",
+      "fieldType": "String"
     },
     {
       "fieldName": "workersCompInjuryRelatedToOtherAccidentStatus",
@@ -512,6 +512,94 @@
     },
     {
       "fieldName": "tertiaryClaimProgram",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompInsuredEmployer",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompPayerIdNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompPlanName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompAdditionalDtls",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompClaimFillingCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompTplCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompTplName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompPropertyCasualtyAgencyClaimNo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompCarrierId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerAddressLine1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerAddressLine2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerCountry",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerZip",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerContactNo1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerContactNo2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerFax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerEfax",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompEmployerEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompRelationship",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "workersCompModeOfContact",
       "fieldType": "String"
     }
   ],

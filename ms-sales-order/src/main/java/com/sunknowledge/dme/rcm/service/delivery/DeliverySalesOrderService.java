@@ -13,8 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 public interface DeliverySalesOrderService {
     Mono<ServiceOutcome<ItemInventoryStatusResponse>> createDeliveryTicket(CreateDeliveryTicketParams createDeliveryTicketParams) throws Exception;
-    Mono<ServiceOutcome<ItemInventoryStatusResponse>> createDeliveryTicketNew(CreateDeliveryTicketParams createDeliveryTicketParams) throws Exception;
-    Mono<ServiceOutcome<Boolean>> itemServiceHealthCheck();
+    Mono<ServiceOutcome<ItemInventoryStatusResponse>> createDeliveryTicketNew(CreateDeliveryTicketParams createDeliveryTicketParams);
     Flux<validateDeliveryInitiationSOItemDetailsResponseDTO> getSoItemDetailsList(Long soId);
     Mono<SalesOrderInsuranceDetails> getSoInsuranceDetailsBySOId(Long soId);
     Mono<ServiceOutcome> validateDeliveryInitiation(Long soId, List<validateDeliveryInitiationSOItemDetailsResponseDTO> soItemDetailsList, SalesOrderInsuranceDetails soInsuranceDetails) throws ExecutionException, InterruptedException;

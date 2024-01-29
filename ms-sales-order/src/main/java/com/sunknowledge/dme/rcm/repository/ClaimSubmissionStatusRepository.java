@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Spring Data SQL reactive repository for the ClaimSubmissionStatus entity.
+ * Spring Data R2DBC repository for the ClaimSubmissionStatus entity.
  */
 @SuppressWarnings("unused")
 @Repository

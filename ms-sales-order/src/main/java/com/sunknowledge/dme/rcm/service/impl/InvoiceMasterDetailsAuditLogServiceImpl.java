@@ -44,7 +44,7 @@ public class InvoiceMasterDetailsAuditLogServiceImpl implements InvoiceMasterDet
 
     @Override
     public Mono<InvoiceMasterDetailsAuditLogDTO> update(InvoiceMasterDetailsAuditLogDTO invoiceMasterDetailsAuditLogDTO) {
-        log.debug("Request to save InvoiceMasterDetailsAuditLog : {}", invoiceMasterDetailsAuditLogDTO);
+        log.debug("Request to update InvoiceMasterDetailsAuditLog : {}", invoiceMasterDetailsAuditLogDTO);
         return invoiceMasterDetailsAuditLogRepository
             .save(invoiceMasterDetailsAuditLogMapper.toEntity(invoiceMasterDetailsAuditLogDTO))
             .map(invoiceMasterDetailsAuditLogMapper::toDto);

@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A InvoiceMasterDetails.
  */
 @Table("t_invoice_master_details")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class InvoiceMasterDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;

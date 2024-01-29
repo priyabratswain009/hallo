@@ -1,11 +1,22 @@
 package com.sunknowledge.dme.rcm.web.rest.soentryandsearch;
 
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.domain.BenefitCoverageResponse;
 import com.sunknowledge.dme.rcm.domain.InsurancePricetableMap;
 import com.sunknowledge.dme.rcm.domain.SalesOrderInsuranceDetails;
 import com.sunknowledge.dme.rcm.domain.SalesOrderMaster;
+import com.sunknowledge.dme.rcm.domain.ServiceReview.*;
+import com.sunknowledge.dme.rcm.domain.coverage.CoverageInput;
+import com.sunknowledge.dme.rcm.domain.coverage.CoverageOutput;
+import com.sunknowledge.dme.rcm.domain.elligibility.TokenOutCome;
+import com.sunknowledge.dme.rcm.service.claimssubmissiondata.TokenGenerationService;
+import com.sunknowledge.dme.rcm.service.coverage.BenefitCoverageRequestServiceExtended;
+import com.sunknowledge.dme.rcm.service.coverage.BenefitCoverageResponseServiceExtended;
+import com.sunknowledge.dme.rcm.service.dto.BenefitCoverageResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.SalesOrderInsuranceDetailsDTO;
+import com.sunknowledge.dme.rcm.service.dto.SalesOrderMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
+
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderInsuranceEntryParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderSecondaryInsuranceParameterExtendedDTO;
 import com.sunknowledge.dme.rcm.service.mapper.SalesOrderInsuranceDetailsMapper;
@@ -18,12 +29,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -52,22 +58,34 @@ public class SalesOrderInsuranceDetailsResourceExtended {
     InsurancePricetableMapServiceExtended insurancePricetableMapServiceExtended;
     @Autowired
     SalesOrderInsuranceDetailsMapper mapper;
+    @Autowired
+    TokenGenerationService tokenGenerationService;
+    @Autowired
+    BenefitCoverageRequestServiceExtended benefitCoverageRequestServiceExtended;
+
+    @Autowired
+    BenefitCoverageResponseServiceExtended benefitCoverageResponseServiceExtended;
 
     @GetMapping("/getSOInsuranceDetailsByInsuranceUUID")
-    public Mono<SalesOrderInsuranceDetails> getSOInsuranceDetailsByInsuranceUUID(
+    public Mono<ServiceOutcome> getSOInsuranceDetailsByInsuranceUUID(
         @NotNull(message = "SalesOrder_InsuranceDetails_UUID must be provided")
-        @RequestParam("sOInsuranceDetailsUUID") UUID sOInsuranceDetailsUUID) {
+        @RequestParam("sOInsuranceDetailsUUID") UUID sOInsuranceDetailsUUID) throws ExecutionException, InterruptedException {
         //----- Implementing UUID_To_ID Bridge Method ----------
         Long id = 0L;
         if (sOInsuranceDetailsUUID != null) {
-            id = salesOrderInsuranceDetailsServiceExtended.getIDByUUID(sOInsuranceDetailsUUID);
+            id = salesOrderInsuranceDetailsServiceExtended.getIDByUUIDReactive(sOInsuranceDetailsUUID).toFuture().get();
             id = id != null ? id : 0L;
         }
-        return salesOrderInsuranceDetailsServiceExtended.findById(id);
+        if(id==0l){
+            return Mono.just(new ServiceOutcome(new SalesOrderInsuranceDetailsDTO(),true,"Data Not found.","200"));
+        }
+        return salesOrderInsuranceDetailsServiceExtended.findById(id)
+            .map(data-> new ServiceOutcome(data,true,"","200"))
+            .switchIfEmpty(Mono.just(new ServiceOutcome(new SalesOrderInsuranceDetailsDTO(),true,"Data Not found.","200")));
     }
 
     @GetMapping("/getSOInsuranceDetailsBySOUUID")
-    public Flux<SalesOrderInsuranceDetails> getSOInsuranceDetailsBySOUUID(
+    public Mono<ServiceOutcome> getSOInsuranceDetailsBySOUUID(
         @NotNull(message = "SalesOrder_UUID must be provided")
         @RequestParam("salesOrderUUID") UUID salesOrderUUID) {
         //----- Implementing UUID_To_ID Bridge Method ----------
@@ -82,7 +100,14 @@ public class SalesOrderInsuranceDetailsResourceExtended {
             }
             id = id != null ? id : 0L;
         }
-        return salesOrderInsuranceDetailsServiceExtended.findBySalesOrderId(id);
+        System.out.println("Clinical Data "+ id);
+        return salesOrderInsuranceDetailsServiceExtended.findBySalesOrderId(id)
+            .collectList()
+            .map(data-> {
+                System.out.println("Clinical Data "+ data);
+                return new ServiceOutcome(data.get(0), true, "", "200");
+            })
+            .switchIfEmpty(Mono.just(new ServiceOutcome(new SalesOrderInsuranceDetailsDTO(),true,"Data Not found.","200")));
     }
 
     @GetMapping("/getSOInsuranceDetailsBySOID")
@@ -175,7 +200,8 @@ public class SalesOrderInsuranceDetailsResourceExtended {
             }
             //------------------- Insurance Pricetable Map -------------------------
 
-            return salesOrderInsuranceDetailsServiceExtended.saveSOInsuranceDetails(obj, salesOrderInsuranceEntryParameterDTO, salesOrderMaster.getBranchId());
+            return salesOrderInsuranceDetailsServiceExtended.saveSOInsuranceDetails(obj, salesOrderInsuranceEntryParameterDTO,
+                salesOrderMaster.getBranchId());
         } else {
             String message = "Primary_Insurance_Information or Patient_Pay_Percentage must be provided.";
             return Mono.just(new ResponseDTO(false, message, new ArrayList<>()));
@@ -230,6 +256,178 @@ public class SalesOrderInsuranceDetailsResourceExtended {
             }
         } else {
             return Mono.just(new ServiceOutcome<SalesOrderInsuranceDetailsDTO>(null, false, "Sales Order Id should not be null."));
+        }
+    }
+
+    @PutMapping(value = "verifySOInsuranceManually")
+    public Mono<ServiceOutcome<SalesOrderInsuranceDetailsDTO>> verifySOInsuranceManually(
+        @NotNull(message = "SalesOrder Insurance Details_uuid must be provided")
+        @RequestParam("salesOrderInsuranceDetailsUuid") UUID salesOrderInsuranceDetailsUuid,
+        @NotNull(message = "Insurance Verification Status must be provided")
+        @RequestParam("insuranceVerificationStatus") String insuranceVerificationStatus,
+        @NotNull(message = "Payer Level must be provided")
+        @RequestParam("payerLevel") String payerLevel
+    ){
+        Long soInsuranceId = null;
+        if (salesOrderInsuranceDetailsUuid != null) {
+            try {
+                soInsuranceId = salesOrderInsuranceDetailsServiceExtended.getIDByUUIDReactive(salesOrderInsuranceDetailsUuid).toFuture().get();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+            soInsuranceId = soInsuranceId == null ? 0L : soInsuranceId;
+        }
+        if(soInsuranceId != null && soInsuranceId>0) {
+            return salesOrderInsuranceDetailsServiceExtended.verifySOInsuranceManually(soInsuranceId,insuranceVerificationStatus,payerLevel)
+                .map(data -> {
+                    System.out.println("======SalesOrderInsuranceDetails====== "+data);
+                    return new ServiceOutcome<SalesOrderInsuranceDetailsDTO>(data,Boolean.TRUE,"Data Updated Successfully");
+                });
+        }else{
+            return Mono.just(new ServiceOutcome(null,false,""));
+        }
+    }
+
+    @PutMapping(value = "verifySOInsuranceAutomatic")
+    public Mono<ServiceOutcome<SalesOrderInsuranceDetailsDTO>> verifySOInsuranceAutomatic(
+        @NotNull(message = "SalesOrderId must be provided")
+        @RequestParam("soId") Long soId,
+        @NotNull(message = "Payer Level must be provided")
+        @RequestParam("payerLevel") String payerLevel
+    ){
+        SalesOrderInsuranceDetails salesOrderInsuranceDetails=null;
+        SalesOrderMasterDTO salesOrderMasterDTO = null;
+        String accessToken = null;
+        if (soId != null) {
+            try {
+                salesOrderInsuranceDetails = salesOrderInsuranceDetailsServiceExtended.findBySOId(soId).toFuture().get();
+                ServiceOutcome serviceOutcome = salesOrderMasterServiceExtented.getSOBySoId(soId).toFuture().get();
+                if(serviceOutcome.getOutcome()){
+                    salesOrderMasterDTO = (SalesOrderMasterDTO) serviceOutcome.getData();
+                }
+                TokenOutCome routcome = tokenGenerationService.getTokenMono().toFuture().get();
+
+                if(routcome.getOutcome()){
+                    accessToken = routcome.getTokenResponseOutput().getAccessToken();
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        if(salesOrderInsuranceDetails != null && salesOrderMasterDTO != null) {
+            return salesOrderInsuranceDetailsServiceExtended.verifySOInsuranceAutomatic(salesOrderMasterDTO,salesOrderInsuranceDetails,payerLevel,accessToken)
+                .map(data -> {
+                    System.out.println("======SalesOrderInsuranceDetails====== "+data);
+                    return new ServiceOutcome<SalesOrderInsuranceDetailsDTO>(data,Boolean.TRUE,"Data Updated Successfully");
+                });
+        }else{
+            return Mono.just(new ServiceOutcome(null,false,""));
+        }
+    }
+
+    @PostMapping("/getPatientBenefitCoverage")
+    public Mono<ServiceOutcome<BenefitCoverageResponse>> patientBenefitCoverage(
+        @NotNull(message = "SalesOrderId must be provided")
+        @RequestParam("soId") Long soId) {
+
+        SalesOrderInsuranceDetails salesOrderInsuranceDetails=null;
+        SalesOrderMasterDTO salesOrderMasterDTO = null;
+        if (soId != null) {
+            try {
+                salesOrderInsuranceDetails = salesOrderInsuranceDetailsServiceExtended.findBySOId(soId).toFuture().get();
+                ServiceOutcome serviceOutcome = salesOrderMasterServiceExtented.getSOBySoId(soId).toFuture().get();
+                if(serviceOutcome.getOutcome()){
+                    salesOrderMasterDTO = (SalesOrderMasterDTO) serviceOutcome.getData();
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        Mono<ServiceOutcome<BenefitCoverageResponse>> resultOutcomeJson = null;
+        CoverageInput objCoverageInput = new CoverageInput();
+        objCoverageInput.setPayerId(salesOrderInsuranceDetails.getPrimaryInsurancePayerId());
+        objCoverageInput.setProviderLastName("");
+        objCoverageInput.setProviderType("Billing");
+        objCoverageInput.setProviderNpi(salesOrderMasterDTO.getBillingProviderNpi());
+        objCoverageInput.setProviderCity(salesOrderMasterDTO.getBillingProviderCity());
+        objCoverageInput.setProviderState(salesOrderMasterDTO.getBillingProviderState());
+        objCoverageInput.setProviderZipCode(salesOrderMasterDTO.getBillingProviderZipCode());
+        objCoverageInput.setAsOfDate(String.valueOf(LocalDate.now()));
+        objCoverageInput.setServiceType("DM");
+        objCoverageInput.setMemberId(salesOrderInsuranceDetails.getPrimaryInsurerPolicyNo());
+        objCoverageInput.setPatientLastName(salesOrderMasterDTO.getPatientLastName());
+        objCoverageInput.setPatientFirstName(salesOrderMasterDTO.getPatientFirstName());
+        objCoverageInput.setPatientBirthDate(salesOrderMasterDTO.getPatientDob().toString());
+        objCoverageInput.setPatientGender(salesOrderMasterDTO.getPatientGender());
+        objCoverageInput.setPatientState(salesOrderMasterDTO.getPatientBillingState());
+        objCoverageInput.setSubscriberRelationship(salesOrderMasterDTO.getRelationship());
+        System.out.println("objCoverageInput");
+        try {
+            resultOutcomeJson = benefitCoverageRequestServiceExtended.getSOBenefitCoverage(objCoverageInput);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultOutcomeJson;
+    }
+
+    @GetMapping("/getAllPatientBenefitCoverage")
+    public Mono<ServiceOutcome> getAllPatientBenefitCoverage(){
+        return benefitCoverageResponseServiceExtended.getAllPatientBenefitCoverage().collectList()
+            .map(data -> {
+                return Mono.just(new ServiceOutcome<>(data,true,"Data Fetched Successfully"));
+            }).flatMap(x->x);
+    }
+
+    @GetMapping("/getPatientBenefitCoverageByMemberId")
+    public Mono<ServiceOutcome<List<String>>> getPatientBenefitCoverageByMemberId(
+        @NotNull(message = "MemberId must be provided")
+        @RequestParam("memberId") String memberId
+    ){
+        return benefitCoverageResponseServiceExtended.getPatientBenefitCoverageByMemberId(memberId).collectList()
+            .map(data -> {
+                return Mono.just(new ServiceOutcome<List<String>>(data,true,"Data Fetched Successfully"));
+            }).flatMap(x->x)
+            .switchIfEmpty(Mono.just(new ServiceOutcome<>(null,false,"Data not found")));
+    }
+
+    @PostMapping("/getServiceReviewById")
+    public Mono<ServiceOutcome<String>> getServiceReviewById(@RequestParam("id") Long id) {
+        return salesOrderInsuranceDetailsServiceExtended.getServiceReviewById(id);
+    }
+
+    @PostMapping("/updateCoverageVerificationStatus")
+    public Mono<ServiceOutcome> updateCoverageVerificationStatus(@RequestParam("salesOrderInsuranceDetailsUuid") UUID salesOrderInsuranceDetailsUuid,
+                                                                 @NotNull(message = "Coverage Verification Status must be provided")
+                                                                 @RequestParam("coverageVerificationStatus") String coverageVerificationStatus){
+        Long soInsuranceId = null;
+        if (salesOrderInsuranceDetailsUuid != null) {
+            try {
+                soInsuranceId = salesOrderInsuranceDetailsServiceExtended.getIDByUUIDReactive(salesOrderInsuranceDetailsUuid).toFuture().get();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+            soInsuranceId = soInsuranceId == null ? 0L : soInsuranceId;
+        }
+        if(soInsuranceId != null && soInsuranceId>0) {
+            return salesOrderInsuranceDetailsServiceExtended.updateCoverageVerificationStatus(soInsuranceId,coverageVerificationStatus.toUpperCase().trim())
+                .map(data -> {
+                    System.out.println("======SalesOrderInsuranceDetails====== "+data);
+                    return new ServiceOutcome<SalesOrderInsuranceDetailsDTO>(data,Boolean.TRUE,"Data Updated Successfully");
+                });
+        }else{
+            return Mono.just(new ServiceOutcome(null,false,""));
         }
     }
 }

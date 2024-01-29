@@ -3,7 +3,7 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
@@ -15,15 +15,6 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="so_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="item_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="item_name" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            <column name="hcpcs_code" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="checklist_id" type="bigint">
@@ -65,6 +56,15 @@
             <column name="so_lcd_doc_ref_transaction_uuid" type="${uuidType}">
                 <constraints nullable="true" />
             </column>
+            <column name="item_group_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="item_group_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="coverage_criteria_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -87,9 +87,6 @@
                   usePreparedStatements="true">
             <column name="so_lcd_doc_ref_id" type="numeric"/>
             <column name="so_id" type="numeric"/>
-            <column name="item_id" type="numeric"/>
-            <column name="item_name" type="string"/>
-            <column name="hcpcs_code" type="string"/>
             <column name="checklist_id" type="numeric"/>
             <column name="checklist_name" type="string"/>
             <column name="doc_ref_id" type="numeric"/>
@@ -103,6 +100,9 @@
             <column name="updated_by_id" type="numeric"/>
             <column name="updated_by_name" type="string"/>
             <column name="so_lcd_doc_ref_transaction_uuid" type="${uuidType}"/>
+            <column name="item_group_id" type="numeric"/>
+            <column name="item_group_name" type="string"/>
+            <column name="coverage_criteria_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -1,0 +1,96 @@
+{
+  "applications": "*",
+  "changelogDate": "20231101114050",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_document_reference_file_map",
+  "fields": [
+    {
+      "fieldName": "documentReferenceFileMapId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "checklistId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "checklistName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageCriteriaId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "fileName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentReferenceFileMapUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "fileReference",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentReferenceNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "DocumentReferenceFileMap",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

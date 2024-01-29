@@ -48,7 +48,7 @@ public class ElligibilityResponseBenefitinformationServiceImpl implements Elligi
     public Mono<ElligibilityResponseBenefitinformationDTO> update(
         ElligibilityResponseBenefitinformationDTO elligibilityResponseBenefitinformationDTO
     ) {
-        log.debug("Request to save ElligibilityResponseBenefitinformation : {}", elligibilityResponseBenefitinformationDTO);
+        log.debug("Request to update ElligibilityResponseBenefitinformation : {}", elligibilityResponseBenefitinformationDTO);
         return elligibilityResponseBenefitinformationRepository
             .save(elligibilityResponseBenefitinformationMapper.toEntity(elligibilityResponseBenefitinformationDTO))
             .map(elligibilityResponseBenefitinformationMapper::toDto);

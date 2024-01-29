@@ -1,11 +1,8 @@
 package com.sunknowledge.dme.rcm.web.rest.soentryandsearch;
 
-import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
-import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderCombinedSearchInternalDTO;
-import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderCombinedSearchParameterDTO;
-import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderCommonSearchOutputDTO;
-import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderMasterSearchServiceExtended;
-import com.sunknowledge.dme.rcm.web.rest.SalesOrderMasterResource;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -13,7 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderCombinedSearchInternalDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderCombinedSearchParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderCommonSearchOutputDTO;
+import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderMasterSearchServiceExtended;
+import com.sunknowledge.dme.rcm.web.rest.SalesOrderMasterResource;
+
+import io.swagger.annotations.ApiOperation;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 
 /**
@@ -266,9 +274,29 @@ public class SalesOrderMasterSearchResourceExtented {
         CommonUtilities.dtoTrimmer(salesOrderCombinedSearchInternalDTO);
         BeanUtils.copyProperties(salesOrderCombinedSearchParameterDTO, salesOrderCombinedSearchInternalDTO);
         //==== Should be taken from Login ====
-        salesOrderCombinedSearchInternalDTO.setBranchID(salesOrderCombinedSearchParameterDTO.getBranchID());
+        //salesOrderCombinedSearchInternalDTO.setBranchID(salesOrderCombinedSearchParameterDTO.getBranchID());
 
         return salesOrderMasterSearchService.getSalesOrderDetailsByCombinedParameters(salesOrderCombinedSearchInternalDTO);
     }
+
+    @PostMapping(value = "/getSalesOrderDetailsByPostCombinedParameters")
+    public Flux<SalesOrderCommonSearchOutputDTO> getSalesOrderDetailsByPostCombinedParameters(@RequestBody SalesOrderCombinedSearchParameterDTO salesOrderCombinedSearchParameterDTO) {
+        SalesOrderCombinedSearchInternalDTO salesOrderCombinedSearchInternalDTO =
+            new SalesOrderCombinedSearchInternalDTO();
+        CommonUtilities.dtoTrimmer(salesOrderCombinedSearchInternalDTO);
+        BeanUtils.copyProperties(salesOrderCombinedSearchParameterDTO, salesOrderCombinedSearchInternalDTO);
+        //==== Should be taken from Login ====
+        //salesOrderCombinedSearchInternalDTO.setBranchID(salesOrderCombinedSearchParameterDTO.getBranchID());
+
+        return salesOrderMasterSearchService.getSalesOrderDetailsByCombinedParameters(salesOrderCombinedSearchInternalDTO);
+    }
+
+	@ApiOperation(value = "Get Sales Order Details Data By PatientIdNo")
+	@GetMapping("getSalesOrderDetailsByPatientIdNo")
+	public Mono<ServiceOutcome> getSalesOrderDetailsByPatientIdNo(@RequestParam("patientIdNo") String patientIdNo) throws InterruptedException, ExecutionException{
+
+        return salesOrderMasterSearchService.getSalesOrderDetailsByPatientIdNo(patientIdNo);
+
+	}
 
 }

@@ -167,4 +167,7 @@ public interface SalesOrderMasterSearchRepositoryExtended extends SalesOrderMast
 
     @Query(value = "select sales_order_id as so_id, sales_order_no as so_no from so.t_sales_order_master where CAST(sales_order_master_uuid AS text) =:salesOrderMasterUuid")
     Mono<PatientSoIdAndSoNoOutputExtendedDTO> findSoIdAndSoNoBySoUUID(String salesOrderMasterUuid);
+    
+    @Query(value = "select * from so.t_sales_order_master where patient_id_no=:patientIdNo and lower(order_status) in ('delivered','confirmed','completed')")
+    Flux<SalesOrderMaster> getSalesOrderDetailsByPatientIdNo(@Param("patientIdNo") String patientIdNo);
 }

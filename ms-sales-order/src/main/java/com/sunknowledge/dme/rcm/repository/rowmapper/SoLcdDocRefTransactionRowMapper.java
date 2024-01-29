@@ -28,9 +28,6 @@ public class SoLcdDocRefTransactionRowMapper implements BiFunction<Row, String, 
         SoLcdDocRefTransaction entity = new SoLcdDocRefTransaction();
         entity.setSoLcdDocRefId(converter.fromRow(row, prefix + "_so_lcd_doc_ref_id", Long.class));
         entity.setSoId(converter.fromRow(row, prefix + "_so_id", Long.class));
-        entity.setItemId(converter.fromRow(row, prefix + "_item_id", Long.class));
-        entity.setItemName(converter.fromRow(row, prefix + "_item_name", String.class));
-        entity.setHcpcsCode(converter.fromRow(row, prefix + "_hcpcs_code", String.class));
         entity.setChecklistId(converter.fromRow(row, prefix + "_checklist_id", Long.class));
         entity.setChecklistName(converter.fromRow(row, prefix + "_checklist_name", String.class));
         entity.setDocRefId(converter.fromRow(row, prefix + "_doc_ref_id", Long.class));
@@ -44,6 +41,9 @@ public class SoLcdDocRefTransactionRowMapper implements BiFunction<Row, String, 
         entity.setUpdatedById(converter.fromRow(row, prefix + "_updated_by_id", Long.class));
         entity.setUpdatedByName(converter.fromRow(row, prefix + "_updated_by_name", String.class));
         entity.setSoLcdDocRefTransactionUuid(converter.fromRow(row, prefix + "_so_lcd_doc_ref_transaction_uuid", UUID.class));
+        entity.setItemGroupId(converter.fromRow(row, prefix + "_item_group_id", Long.class));
+        entity.setItemGroupName(converter.fromRow(row, prefix + "_item_group_name", String.class));
+        entity.setCoverageCriteriaId(converter.fromRow(row, prefix + "_coverage_criteria_id", Long.class));
         return entity;
     }
 }

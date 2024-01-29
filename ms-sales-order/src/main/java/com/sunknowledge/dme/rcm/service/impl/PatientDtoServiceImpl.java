@@ -39,7 +39,7 @@ public class PatientDtoServiceImpl implements PatientDtoService {
 
     @Override
     public Mono<PatientDtoDTO> update(PatientDtoDTO patientDtoDTO) {
-        log.debug("Request to save PatientDto : {}", patientDtoDTO);
+        log.debug("Request to update PatientDto : {}", patientDtoDTO);
         return patientDtoRepository.save(patientDtoMapper.toEntity(patientDtoDTO)).map(patientDtoMapper::toDto);
     }
 
