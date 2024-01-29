@@ -67,6 +67,8 @@ public class FileDownloadUtilityService {
                 path = fileUploadConfigProperties.getDeliveryDocumentProperties().getLocation();
             if(moduleName.equalsIgnoreCase("DELIVERY") && filetype.equalsIgnoreCase("signature"))
                 path = fileUploadConfigProperties.getSignatureProperties().getLocation();
+            if(moduleName.equalsIgnoreCase("DELIVERY") && filetype.equalsIgnoreCase("carrier"))
+                path = fileUploadConfigProperties.getDeliveryCarrierProperties().getLocation();
             /*#######################################END - DOWNLOAD DELIVERY DOCUMENTS######################################################*/
 
             Path filePath = Paths.get(path + "/" + filename);

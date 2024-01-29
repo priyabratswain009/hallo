@@ -51,6 +51,22 @@ public class CommonPDFStubs {
         return path;
     }
 
+    public byte[] generateQRCodeByteCode(String qrcodeFileName) throws IOException, WriterException {
+        log.info("===============================SERVICE:create QR Code======================================");
+        String charset = "UTF-8";
+        Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+        hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+
+        BitMatrix matrix = new MultiFormatWriter().encode(new String(qrcodeFileName.getBytes(charset), charset), BarcodeFormat.QR_CODE, 60, 60);
+        System.out.println("QR Document =>");
+
+        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+        MatrixToImageWriter.writeToStream(matrix, "PNG", pngOutputStream);
+        byte[] pngData = pngOutputStream.toByteArray();
+        System.out.println("QR Document Into Byte =>"+ pngData.length);
+        return pngData;
+    }
+
     public byte[] generateQRCodeInAmazon(String qrcodeFileName) throws IOException, WriterException {
         log.info("===============================SERVICE:create QR Code======================================");
         String charset = "UTF-8";
@@ -91,7 +107,21 @@ public class CommonPDFStubs {
             writer.getDirectContent().addImage(image, true);
         }
         catch (IOException | DocumentException e) {
-            e.printStackTrace();
+            log.error("An error occurred while adding qr code to the PDF to S3.", e);
+        }
+    }
+
+    public void addQrCodeByteArrayOnFooter(byte[] qrcodeByte, PdfWriter writer){
+        Image image;
+        try{
+            image = Image.getInstance(qrcodeByte);
+            image.setAlignment(Element.ALIGN_LEFT);
+            image.setAbsolutePosition(30, 10);
+            image.scalePercent(100f, 100f);
+            writer.getDirectContent().addImage(image, true);
+        }
+        catch (IOException | DocumentException e) {
+            log.error("An error occurred while adding qr code to the PDF to S3.", e);
         }
     }
 
@@ -215,5 +245,11 @@ public class CommonPDFStubs {
         contentStream.close();
         document.save(generatedFileName);
         document.close();
+    }
+
+    public void generateBasicPDFDocument(PdfWriter writer, String qrCode) throws IOException, WriterException {
+        byte[] qrCodeBytes = new CommonPDFStubs().generateQRCodeByteCode(qrCode);
+        new CommonPDFStubs().addQrCodeByteArrayOnFooter(qrCodeBytes, writer);
+        new CommonPDFStubs().addPageNumber(writer);
     }
 }

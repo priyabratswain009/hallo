@@ -18,14 +18,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"data", "success", "message"})
-public class ServiceOutcome<T> implements Serializable {
+public class ResponseDTO<T> implements Serializable {
 	private static final long serialVersionUID = 2366194261510551608L;
 	private T data;
 	private Boolean outcome;
 	private String message;
 	private String statusCode;
 
-	public ServiceOutcome(T data, Boolean outcome, String message) {
+	public ResponseDTO(T data, Boolean outcome, String message) {
 		this.data = data;
 		this.outcome = outcome;
 		this.message = message;
