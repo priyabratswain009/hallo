@@ -8,8 +8,9 @@
   "entityTableName": "t_so_lcd_coverage_criteria_transaction",
   "fields": [
     {
-      "fieldName": "soLcdDocRefId",
+      "fieldName": "soLcdCoverageCriteriaTransactionId",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"],
       "options": {
         "id": true
       }
@@ -17,18 +18,6 @@
     {
       "fieldName": "soId",
       "fieldType": "Long"
-    },
-    {
-      "fieldName": "itemId",
-      "fieldType": "Long"
-    },
-    {
-      "fieldName": "itemName",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "hcpcsCode",
-      "fieldType": "String"
     },
     {
       "fieldName": "checklistId",
@@ -77,6 +66,18 @@
     {
       "fieldName": "soLcdCoverageCriteriaTransactionUuid",
       "fieldType": "UUID"
+    },
+    {
+      "fieldName": "itemGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageCriteriaName",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

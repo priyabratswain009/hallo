@@ -14,7 +14,6 @@ import javax.validation.constraints.*;
  */
 @Entity
 @Table(name = "t_item_master")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;

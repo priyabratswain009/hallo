@@ -44,7 +44,7 @@ public class ChecklistCoverageCriteriaMapServiceImpl implements ChecklistCoverag
 
     @Override
     public Mono<ChecklistCoverageCriteriaMapDTO> update(ChecklistCoverageCriteriaMapDTO checklistCoverageCriteriaMapDTO) {
-        log.debug("Request to save ChecklistCoverageCriteriaMap : {}", checklistCoverageCriteriaMapDTO);
+        log.debug("Request to update ChecklistCoverageCriteriaMap : {}", checklistCoverageCriteriaMapDTO);
         return checklistCoverageCriteriaMapRepository
             .save(checklistCoverageCriteriaMapMapper.toEntity(checklistCoverageCriteriaMapDTO))
             .map(checklistCoverageCriteriaMapMapper::toDto);

@@ -1,6 +1,7 @@
 package com.sunknowledge.dme.rcm.service.soentryandsearch;
 
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.domain.InsurancePricetableMap;
 import com.sunknowledge.dme.rcm.domain.SalesOrderItemDetails;
 import com.sunknowledge.dme.rcm.domain.SalesOrderMaster;
 import com.sunknowledge.dme.rcm.service.SalesOrderMasterService;
@@ -9,6 +10,9 @@ import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.delivery.ItemInventoryStatusExtendedDTO;
 import com.sunknowledge.dme.rcm.service.dto.delivery.validateDeliveryInitiationSOItemDetailsResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderEntryParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SoClinicalInsuranceOutputDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.WipQueueDetailsOutputDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.WipStatusUpdateInfoDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import reactor.core.publisher.Flux;
@@ -22,10 +26,11 @@ import java.util.concurrent.ExecutionException;
 
 public interface SalesOrderMasterServiceExtented extends SalesOrderMasterService {
     Flux<SalesOrderMaster> getSOByUUID(UUID salesOrderUUID);
+    Mono<SalesOrderMasterDTO> getSOBySoUUID(UUID salesOrderUUID);
 
     Mono<Long> getIDByUUID(UUID salesOrderUUID);
 
-    Mono<ResponseDTO> saveSOMasterDetails(SalesOrderMasterDTO obj, SalesOrderEntryParameterDTO salesOrderEntryParameterDTO);
+    Mono<ResponseDTO> saveSOMasterDetails(SalesOrderMasterDTO obj, SalesOrderEntryParameterDTO salesOrderEntryParameterDTO, InsurancePricetableMap insurancePricetableMap);
 
     Mono<ServiceOutcome> patientDateOfDeathIncorporation(Long patientId, LocalDate patientDod) throws ExecutionException, InterruptedException;
 
@@ -45,4 +50,14 @@ public interface SalesOrderMasterServiceExtented extends SalesOrderMasterService
 
     Mono<ServiceOutcome<JSONArray>> getSalesOrderNotes(Long soId);
     Mono<ServiceOutcome> updateSalesOrderedStatusAsDelivered(Long salesOrderId,String soNo, Flux<SalesOrderItemDetails> salesOrderItemDetailsFlux);
+
+    Mono<ServiceOutcome> getSOWIPDetails(String taskId, String wipStatusId, Long soId,String objectId);
+
+    Mono<String> getTaskIdByTaskName(String taskName);
+    Mono<String> getWipStatusIdByWipStatusName(String taskName);
+    Mono<String> getObjectIdByObjectName(String taskName);
+    Mono<String> getUserNameByUserId(Long userId);
+
+    Mono<ServiceOutcome<WipQueueDetailsOutputDTO>> updateWIPStatus(WipStatusUpdateInfoDTO obj);
+    Mono<SoClinicalInsuranceOutputDTO> getSalesOrderMasterClinicalInsuranceData(Long soId);
 }

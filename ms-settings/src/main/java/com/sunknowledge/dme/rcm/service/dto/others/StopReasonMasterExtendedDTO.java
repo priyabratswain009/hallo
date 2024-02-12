@@ -15,7 +15,7 @@ public class StopReasonMasterExtendedDTO {
 
     private String stopReasonName;
 
-    private String status;
+    //private String status;
 
     //private Long createdById;
 

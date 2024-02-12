@@ -1,19 +1,18 @@
 package com.sunknowledge.dme.rcm.repository.par;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.data.r2dbc.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import com.sunknowledge.dme.rcm.domain.ParMaster;
 import com.sunknowledge.dme.rcm.dto.RenwalOrExpiringPAR.RenwalOrExpiringPARDTO;
 import com.sunknowledge.dme.rcm.dto.par.ParSearchForCreate;
 import com.sunknowledge.dme.rcm.repository.ParMasterRepository;
-
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.PARCustomOutputDTO;
+import org.springframework.data.r2dbc.repository.Query;
+import org.springframework.data.repository.query.Param;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
 public interface ParMasterRepo extends ParMasterRepository {
     @Query("select * from t_par_master tpm where tpm.patient_id = :patientId")
@@ -117,5 +116,29 @@ public interface ParMasterRepo extends ParMasterRepository {
     )
     Mono<String> isPARRequired(@Param("hcpcsNo") String hcpcsNo,
                                @Param("itemNo") String itemNo, @Param("dos") LocalDate dos,@Param("priceTableId") Long priceTableId);
+
+    @Query(value = "SELECT b.hcpcs_code, b.description, b.item_quantity, a.effective_start_date, a.expiration_date\n" +
+        "FROM so.t_par_master a\n" +
+        "LEFT JOIN so.t_par_details b ON a.par_id = b.par_id\n" +
+        "LEFT JOIN so.t_par_so_map c ON a.par_id =c.par_id\n" +
+        "where c.so_id = :soId\n" +
+        "ORDER BY b.par_details_id;")
+    Flux<PARCustomOutputDTO> getPARDetailsData(@Param("soId") Long soId);
+
+    @Query(value = "select * from so.t_par_master where par_id = :parId and lower(par_status)='active' and lower(status) ='active'")
+    Mono<ParMaster> getParMasterDataByParId(@Param("parId") Long parId);
+
+    @Query(value = "SELECT a.*\n" +
+        "FROM so.t_par_master a\n" +
+        "inner join so.t_par_details b on a.par_id = b.par_id \n" +
+        "inner join so.t_par_so_map c on a.par_id = c.par_id \n" +
+        "where b.hcpcs_code = :hcpcsCode and c.so_id = :soId and lower(a.status) = 'active'")
+    Mono<ParMaster> getParMasterDataByHcpcsCode(@Param("hcpcsCode") String hcpcsCode, @Param("soId") Long soId);
+    
+    @Query("select * from t_par_master tpm where tpm.par_no = :parNo")
+    Mono<ParMaster> getParMasterOnParNo(@Param("parNo") String parNo);
+
+    @Query("select * from t_par_master tpm where tpm.par_id_no = :parIdNno")
+    Mono<ParMaster> getParMasterOnParIdNo(@Param("parIdNno") String parIdNno);
 
 }

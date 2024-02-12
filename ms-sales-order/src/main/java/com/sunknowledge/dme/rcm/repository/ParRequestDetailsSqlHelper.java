@@ -34,6 +34,7 @@ public class ParRequestDetailsSqlHelper {
         columns.add(Column.aliased("updated_by_name", table, columnPrefix + "_updated_by_name"));
         columns.add(Column.aliased("updated_date", table, columnPrefix + "_updated_date"));
         columns.add(Column.aliased("par_request_details_uuid", table, columnPrefix + "_par_request_details_uuid"));
+        columns.add(Column.aliased("fax_response_date", table, columnPrefix + "_fax_response_date"));
 
         return columns;
     }

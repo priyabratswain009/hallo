@@ -3,7 +3,7 @@ package com.sunknowledge.dme.rcm.web.rest.inventory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
 import com.sunknowledge.dme.rcm.service.dto.ItemInventoryStatusDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.inventory.InventoryInputDTO;
@@ -62,8 +62,8 @@ public class ItemInventoryStatusResourceExtended {
         @RequestParam("itemInventoryStatusId") Long itemInventoryStatusId){
         ItemInventoryStatusDTO obj = itemInventoryStatusServiceExtended.getInventoryStatusByItemInventoryStatusId(itemInventoryStatusId);
         return (obj!=null?
-            (new ResponseDTO(true, "Successfully Data Fetched.", List.of(obj))):
-            (new ResponseDTO(false, "Data Not Found.", new ArrayList<>()))
+            (new ResponseDTO(true, "Successfully Data Fetched.", List.of(obj), 200)):
+            (new ResponseDTO(false, "Data Not Found.", new ArrayList<>(), 200))
         );
     }
 
@@ -81,13 +81,13 @@ public class ItemInventoryStatusResourceExtended {
         @RequestParam("itemId") Long itemId){
 
         List<ItemInventoryStatusDTO> obj = itemInventoryStatusServiceExtended.getItemInventoryStatusByItemId(itemId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getAllInventoryStatusData")
     public ResponseDTO getAllInventoryStatusData(){
         List<ItemInventoryStatusDTO> obj = itemInventoryStatusServiceExtended.getAllInventoryStatusData();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getInventoryStatusByStatus")
@@ -96,7 +96,7 @@ public class ItemInventoryStatusResourceExtended {
         @RequestParam("status") String status){
 
         List<ItemInventoryStatusDTO> obj = itemInventoryStatusServiceExtended.getInventoryStatusByStatus(status);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @PutMapping("/setInventoryStatusById/{itemInventoryStatusId}/{status}")
@@ -146,7 +146,7 @@ public class ItemInventoryStatusResourceExtended {
         }else if(operationType.equalsIgnoreCase("Delivered")){
             return itemInventoryStatusServiceExtended.saveInventoryStatusByItemIdAndItemLocationIdForDelivered(inputDTOs);
         }else{
-            return new ServiceOutcome<>(null, false, "Wrong Operation.");
+            return new ServiceOutcome<>(null, false, "Wrong Operation.", 200);
         }
     }
 

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +67,7 @@ public class SoLcdDocRefTransactionResource {
      */
     @PostMapping("/so-lcd-doc-ref-transactions")
     public Mono<ResponseEntity<SoLcdDocRefTransactionDTO>> createSoLcdDocRefTransaction(
-        @RequestBody SoLcdDocRefTransactionDTO soLcdDocRefTransactionDTO
+        @Valid @RequestBody SoLcdDocRefTransactionDTO soLcdDocRefTransactionDTO
     ) throws URISyntaxException {
         log.debug("REST request to save SoLcdDocRefTransaction : {}", soLcdDocRefTransactionDTO);
         if (soLcdDocRefTransactionDTO.getSoLcdDocRefId() != null) {
@@ -100,7 +102,7 @@ public class SoLcdDocRefTransactionResource {
     @PutMapping("/so-lcd-doc-ref-transactions/{soLcdDocRefId}")
     public Mono<ResponseEntity<SoLcdDocRefTransactionDTO>> updateSoLcdDocRefTransaction(
         @PathVariable(value = "soLcdDocRefId", required = false) final Long soLcdDocRefId,
-        @RequestBody SoLcdDocRefTransactionDTO soLcdDocRefTransactionDTO
+        @Valid @RequestBody SoLcdDocRefTransactionDTO soLcdDocRefTransactionDTO
     ) throws URISyntaxException {
         log.debug("REST request to update SoLcdDocRefTransaction : {}, {}", soLcdDocRefId, soLcdDocRefTransactionDTO);
         if (soLcdDocRefTransactionDTO.getSoLcdDocRefId() == null) {
@@ -150,7 +152,7 @@ public class SoLcdDocRefTransactionResource {
     @PatchMapping(value = "/so-lcd-doc-ref-transactions/{soLcdDocRefId}", consumes = { "application/json", "application/merge-patch+json" })
     public Mono<ResponseEntity<SoLcdDocRefTransactionDTO>> partialUpdateSoLcdDocRefTransaction(
         @PathVariable(value = "soLcdDocRefId", required = false) final Long soLcdDocRefId,
-        @RequestBody SoLcdDocRefTransactionDTO soLcdDocRefTransactionDTO
+        @NotNull @RequestBody SoLcdDocRefTransactionDTO soLcdDocRefTransactionDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update SoLcdDocRefTransaction partially : {}, {}", soLcdDocRefId, soLcdDocRefTransactionDTO);
         if (soLcdDocRefTransactionDTO.getSoLcdDocRefId() == null) {
@@ -231,16 +233,17 @@ public class SoLcdDocRefTransactionResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/so-lcd-doc-ref-transactions/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteSoLcdDocRefTransaction(@PathVariable Long id) {
         log.debug("REST request to delete SoLcdDocRefTransaction : {}", id);
         return soLcdDocRefTransactionService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

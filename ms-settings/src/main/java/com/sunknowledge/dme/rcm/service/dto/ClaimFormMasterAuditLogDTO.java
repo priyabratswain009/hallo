@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ClaimFormMasterAuditLog} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ClaimFormMasterAuditLogDTO implements Serializable {
 
     private Long clmFormId;

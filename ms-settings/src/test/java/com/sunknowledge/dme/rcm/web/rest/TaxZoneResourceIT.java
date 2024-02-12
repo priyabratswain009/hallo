@@ -260,7 +260,7 @@ class TaxZoneResourceIT {
 
     @Test
     @Transactional
-    void putNewTaxZone() throws Exception {
+    void putExistingTaxZone() throws Exception {
         // Initialize the database
         taxZoneRepository.saveAndFlush(taxZone);
 

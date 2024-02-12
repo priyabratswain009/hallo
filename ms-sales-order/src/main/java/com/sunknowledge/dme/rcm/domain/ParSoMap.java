@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ParSoMap.
  */
 @Table("t_par_so_map")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ParSoMap implements Serializable {
 
     private static final long serialVersionUID = 1L;

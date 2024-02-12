@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.WipStatusMasterAuditLog} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class WipStatusMasterAuditLogDTO implements Serializable {
 
     private Long wpSttusId;

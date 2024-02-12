@@ -3,6 +3,7 @@ package com.sunknowledge.dme.rcm.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
+import javax.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
@@ -12,25 +13,18 @@ import org.springframework.data.relational.core.mapping.Table;
  * A SoLcdCoverageCriteriaTransaction.
  */
 @Table("t_so_lcd_coverage_criteria_transaction")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SoLcdCoverageCriteriaTransaction implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull(message = "must not be null")
     @Id
-    @Column("so_lcd_doc_ref_id")
-    private Long soLcdDocRefId;
+    @Column("so_lcd_coverage_criteria_transaction_id")
+    private Long soLcdCoverageCriteriaTransactionId;
 
     @Column("so_id")
     private Long soId;
-
-    @Column("item_id")
-    private Long itemId;
-
-    @Column("item_name")
-    private String itemName;
-
-    @Column("hcpcs_code")
-    private String hcpcsCode;
 
     @Column("checklist_id")
     private Long checklistId;
@@ -68,19 +62,28 @@ public class SoLcdCoverageCriteriaTransaction implements Serializable {
     @Column("so_lcd_coverage_criteria_transaction_uuid")
     private UUID soLcdCoverageCriteriaTransactionUuid;
 
+    @Column("item_group_id")
+    private Long itemGroupId;
+
+    @Column("item_group_name")
+    private String itemGroupName;
+
+    @Column("coverage_criteria_name")
+    private String coverageCriteriaName;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getSoLcdDocRefId() {
-        return this.soLcdDocRefId;
+    public Long getSoLcdCoverageCriteriaTransactionId() {
+        return this.soLcdCoverageCriteriaTransactionId;
     }
 
-    public SoLcdCoverageCriteriaTransaction soLcdDocRefId(Long soLcdDocRefId) {
-        this.setSoLcdDocRefId(soLcdDocRefId);
+    public SoLcdCoverageCriteriaTransaction soLcdCoverageCriteriaTransactionId(Long soLcdCoverageCriteriaTransactionId) {
+        this.setSoLcdCoverageCriteriaTransactionId(soLcdCoverageCriteriaTransactionId);
         return this;
     }
 
-    public void setSoLcdDocRefId(Long soLcdDocRefId) {
-        this.soLcdDocRefId = soLcdDocRefId;
+    public void setSoLcdCoverageCriteriaTransactionId(Long soLcdCoverageCriteriaTransactionId) {
+        this.soLcdCoverageCriteriaTransactionId = soLcdCoverageCriteriaTransactionId;
     }
 
     public Long getSoId() {
@@ -94,45 +97,6 @@ public class SoLcdCoverageCriteriaTransaction implements Serializable {
 
     public void setSoId(Long soId) {
         this.soId = soId;
-    }
-
-    public Long getItemId() {
-        return this.itemId;
-    }
-
-    public SoLcdCoverageCriteriaTransaction itemId(Long itemId) {
-        this.setItemId(itemId);
-        return this;
-    }
-
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public String getItemName() {
-        return this.itemName;
-    }
-
-    public SoLcdCoverageCriteriaTransaction itemName(String itemName) {
-        this.setItemName(itemName);
-        return this;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public String getHcpcsCode() {
-        return this.hcpcsCode;
-    }
-
-    public SoLcdCoverageCriteriaTransaction hcpcsCode(String hcpcsCode) {
-        this.setHcpcsCode(hcpcsCode);
-        return this;
-    }
-
-    public void setHcpcsCode(String hcpcsCode) {
-        this.hcpcsCode = hcpcsCode;
     }
 
     public Long getChecklistId() {
@@ -291,6 +255,45 @@ public class SoLcdCoverageCriteriaTransaction implements Serializable {
         this.soLcdCoverageCriteriaTransactionUuid = soLcdCoverageCriteriaTransactionUuid;
     }
 
+    public Long getItemGroupId() {
+        return this.itemGroupId;
+    }
+
+    public SoLcdCoverageCriteriaTransaction itemGroupId(Long itemGroupId) {
+        this.setItemGroupId(itemGroupId);
+        return this;
+    }
+
+    public void setItemGroupId(Long itemGroupId) {
+        this.itemGroupId = itemGroupId;
+    }
+
+    public String getItemGroupName() {
+        return this.itemGroupName;
+    }
+
+    public SoLcdCoverageCriteriaTransaction itemGroupName(String itemGroupName) {
+        this.setItemGroupName(itemGroupName);
+        return this;
+    }
+
+    public void setItemGroupName(String itemGroupName) {
+        this.itemGroupName = itemGroupName;
+    }
+
+    public String getCoverageCriteriaName() {
+        return this.coverageCriteriaName;
+    }
+
+    public SoLcdCoverageCriteriaTransaction coverageCriteriaName(String coverageCriteriaName) {
+        this.setCoverageCriteriaName(coverageCriteriaName);
+        return this;
+    }
+
+    public void setCoverageCriteriaName(String coverageCriteriaName) {
+        this.coverageCriteriaName = coverageCriteriaName;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -301,7 +304,10 @@ public class SoLcdCoverageCriteriaTransaction implements Serializable {
         if (!(o instanceof SoLcdCoverageCriteriaTransaction)) {
             return false;
         }
-        return soLcdDocRefId != null && soLcdDocRefId.equals(((SoLcdCoverageCriteriaTransaction) o).soLcdDocRefId);
+        return (
+            soLcdCoverageCriteriaTransactionId != null &&
+            soLcdCoverageCriteriaTransactionId.equals(((SoLcdCoverageCriteriaTransaction) o).soLcdCoverageCriteriaTransactionId)
+        );
     }
 
     @Override
@@ -314,11 +320,8 @@ public class SoLcdCoverageCriteriaTransaction implements Serializable {
     @Override
     public String toString() {
         return "SoLcdCoverageCriteriaTransaction{" +
-            "soLcdDocRefId=" + getSoLcdDocRefId() +
+            "soLcdCoverageCriteriaTransactionId=" + getSoLcdCoverageCriteriaTransactionId() +
             ", soId=" + getSoId() +
-            ", itemId=" + getItemId() +
-            ", itemName='" + getItemName() + "'" +
-            ", hcpcsCode='" + getHcpcsCode() + "'" +
             ", checklistId=" + getChecklistId() +
             ", checklistName='" + getChecklistName() + "'" +
             ", coverageCriteriaId=" + getCoverageCriteriaId() +
@@ -331,6 +334,9 @@ public class SoLcdCoverageCriteriaTransaction implements Serializable {
             ", updatedById=" + getUpdatedById() +
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", soLcdCoverageCriteriaTransactionUuid='" + getSoLcdCoverageCriteriaTransactionUuid() + "'" +
+            ", itemGroupId=" + getItemGroupId() +
+            ", itemGroupName='" + getItemGroupName() + "'" +
+            ", coverageCriteriaName='" + getCoverageCriteriaName() + "'" +
             "}";
     }
 }

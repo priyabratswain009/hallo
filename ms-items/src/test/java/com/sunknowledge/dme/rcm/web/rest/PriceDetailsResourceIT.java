@@ -564,7 +564,7 @@ class PriceDetailsResourceIT {
 
     @Test
     @Transactional
-    void putExistingPriceDetails() throws Exception {
+    void putNewPriceDetails() throws Exception {
         // Initialize the database
         priceDetailsRepository.saveAndFlush(priceDetails);
 

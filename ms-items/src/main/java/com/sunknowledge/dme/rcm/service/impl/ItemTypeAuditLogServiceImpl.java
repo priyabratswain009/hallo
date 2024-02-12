@@ -44,7 +44,7 @@ public class ItemTypeAuditLogServiceImpl implements ItemTypeAuditLogService {
 
     @Override
     public ItemTypeAuditLogDTO update(ItemTypeAuditLogDTO itemTypeAuditLogDTO) {
-        log.debug("Request to update ItemTypeAuditLog : {}", itemTypeAuditLogDTO);
+        log.debug("Request to save ItemTypeAuditLog : {}", itemTypeAuditLogDTO);
         ItemTypeAuditLog itemTypeAuditLog = itemTypeAuditLogMapper.toEntity(itemTypeAuditLogDTO);
         itemTypeAuditLog = itemTypeAuditLogRepository.save(itemTypeAuditLog);
         return itemTypeAuditLogMapper.toDto(itemTypeAuditLog);

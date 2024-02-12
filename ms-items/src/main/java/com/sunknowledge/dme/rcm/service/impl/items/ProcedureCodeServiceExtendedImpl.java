@@ -64,9 +64,9 @@ public class ProcedureCodeServiceExtendedImpl implements ProcedureCodeMasterServ
                 procedureCodeRepositoryExtended.save(procedureCodeMasterMapper.toEntity(procedureCodeMasterDTO))
             );
             responseList.add(savedProcedureCodeMasterDTO);
-            return new ResponseDTO(true, "Successfully Saved.", responseList);
+            return new ResponseDTO(true, "Successfully Saved.", responseList, 200);
         } catch (Exception e) {
-            return new ResponseDTO(false, "Failed to Save! Data Error.", new ArrayList());
+            return new ResponseDTO(false, "Failed to Save! Data Error.", new ArrayList(), 200);
         }
     }
 
@@ -103,7 +103,7 @@ public class ProcedureCodeServiceExtendedImpl implements ProcedureCodeMasterServ
                 responseBody = (String) responseData.getBody();
             } else {
                 String message = "API Error: API Not Available";
-                return new ResponseDTO(false, message, responseList);
+                return new ResponseDTO(false, message, responseList, 200);
             }
             JSONArray hcpcsJson = (JSONArray) parser.parse(responseBody == null ? "[]" : responseBody);
             if (hcpcsJson.size() > 0) {
@@ -124,14 +124,14 @@ public class ProcedureCodeServiceExtendedImpl implements ProcedureCodeMasterServ
                         procedureCodeRepositoryExtended.save(procedureCodeMasterMapper.toEntity(procedureCodeMasterDTO))
                     );
                     responseList.add(savedProcedureCodeMasterDTO);
-                    return new ResponseDTO(true, "Successfully Saved.", responseList);
+                    return new ResponseDTO(true, "Successfully Saved.", responseList, 200);
                 } else {
                     String message = "HCPCS Code Not Available";
-                    return new ResponseDTO(false, message, responseList);
+                    return new ResponseDTO(false, message, responseList, 200);
                 }
             } else {
                 String message = "API Error: No Response Data Available";
-                return new ResponseDTO(false, message, responseList);
+                return new ResponseDTO(false, message, responseList, 200);
             }
             //=======================================================================================
 

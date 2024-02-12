@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ParMaster.
  */
 @Table("t_par_master")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ParMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;

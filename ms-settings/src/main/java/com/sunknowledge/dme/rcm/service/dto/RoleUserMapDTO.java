@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.RoleUserMap} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class RoleUserMapDTO implements Serializable {
 
     private Long roleUserMapId;

@@ -19,5 +19,5 @@ public class InsuranceGroupMasterExtendedDTO {
 
     private String insuranceGroupMasterNo;
 
-    private String status;
+    //private String status;
 }

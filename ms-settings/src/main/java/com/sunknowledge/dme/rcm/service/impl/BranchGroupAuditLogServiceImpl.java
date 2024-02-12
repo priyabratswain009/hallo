@@ -44,7 +44,7 @@ public class BranchGroupAuditLogServiceImpl implements BranchGroupAuditLogServic
 
     @Override
     public BranchGroupAuditLogDTO update(BranchGroupAuditLogDTO branchGroupAuditLogDTO) {
-        log.debug("Request to save BranchGroupAuditLog : {}", branchGroupAuditLogDTO);
+        log.debug("Request to update BranchGroupAuditLog : {}", branchGroupAuditLogDTO);
         BranchGroupAuditLog branchGroupAuditLog = branchGroupAuditLogMapper.toEntity(branchGroupAuditLogDTO);
         branchGroupAuditLog = branchGroupAuditLogRepository.save(branchGroupAuditLog);
         return branchGroupAuditLogMapper.toDto(branchGroupAuditLog);

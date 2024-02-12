@@ -8,6 +8,7 @@ import com.sunknowledge.dme.rcm.domain.SalesOrderClinicalDetails;
 import com.sunknowledge.dme.rcm.repository.SalesOrderClinicalDetailsRepositoryExtended;
 import com.sunknowledge.dme.rcm.securityutil.InternalAccessTokenUtilities;
 import com.sunknowledge.dme.rcm.service.dto.SalesOrderClinicalDetailsDTO;
+import com.sunknowledge.dme.rcm.service.dto.SalesOrderMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderClinicalEntryParameterDTO;
 import com.sunknowledge.dme.rcm.service.mapper.SalesOrderClinicalDetailsMapper;
@@ -114,289 +115,269 @@ public class SalesOrderClinicalDetailsServiceExtendedImpl implements SalesOrderC
     }
 
     @Override
-    public Mono<ServiceOutcome> saveSOClinicalDetails(SalesOrderClinicalEntryParameterDTO salesOrderClinicalEntryParameterDTO) {
+    public Mono<ServiceOutcome> saveSOClinicalDetails(SalesOrderClinicalEntryParameterDTO salesOrderClinicalEntryParameterDTO, Long soId, SalesOrderMasterDTO salesOrderMasterDTO) {
         SalesOrderClinicalDetailsDTO salesOrderClinicalDetailsDTO = new SalesOrderClinicalDetailsDTO();
         ServiceOutcome serviceOutcome = new ServiceOutcome<>();
         //----- Implementing UUID_To_ID Bridge Method ----------
-        Long soId = 0L;
-        if (salesOrderClinicalEntryParameterDTO.getSalesOrderUUID() != null) {
-            try {
-                soId = salesOrderMasterServiceExtented.getIDByUUID(salesOrderClinicalEntryParameterDTO.getSalesOrderUUID()).toFuture().get();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-            soId = soId != null ? soId : 0L;
-        }
+
         Long soClinicalId = 0L;
+
         if (salesOrderClinicalEntryParameterDTO.getSalesOrderClinicalDetailsUuid() != null) {
             soClinicalId = getIDByUUID(salesOrderClinicalEntryParameterDTO.getSalesOrderClinicalDetailsUuid());
             soClinicalId = soClinicalId != null ? soClinicalId : 0L;
         }
-        salesOrderClinicalDetailsDTO.setSalesOrderId(soId);
-        salesOrderClinicalDetailsDTO.setPatientId(salesOrderClinicalEntryParameterDTO.getPatientId());
-        salesOrderClinicalDetailsDTO.setPatientWeightInLbs(salesOrderClinicalEntryParameterDTO.getPatientWeightInLbs());
-        salesOrderClinicalDetailsDTO.setPatientWeightInKg(Double.parseDouble(decfor.format(salesOrderClinicalEntryParameterDTO.getPatientWeightInLbs()*0.45359237)));
-        salesOrderClinicalDetailsDTO.setHeightInInches(salesOrderClinicalEntryParameterDTO.getHeightInInches());
-        salesOrderClinicalDetailsDTO.setHeightInCm(Double.parseDouble(decfor.format(salesOrderClinicalEntryParameterDTO.getHeightInInches()*2.54)));
-        salesOrderClinicalDetailsDTO.setSalesRepId(salesOrderClinicalEntryParameterDTO.getSalesRepId());
-        salesOrderClinicalDetailsDTO.setSalesRepName(salesOrderClinicalEntryParameterDTO.getSalesRepName());
-        salesOrderClinicalDetailsDTO.setDiagnosisCodeType(salesOrderClinicalEntryParameterDTO.getDiagnosisCodeType());
+        else {
+            salesOrderClinicalDetailsDTO.setSalesOrderId(soId);
+            salesOrderClinicalDetailsDTO.setPatientId(salesOrderClinicalEntryParameterDTO.getPatientId());
+            salesOrderClinicalDetailsDTO.setPatientWeightInLbs(salesOrderClinicalEntryParameterDTO.getPatientWeightInLbs());
+            salesOrderClinicalDetailsDTO.setPatientWeightInKg(Double.parseDouble(decfor.format(salesOrderClinicalEntryParameterDTO.getPatientWeightInLbs() * 0.45359237)));
+            salesOrderClinicalDetailsDTO.setHeightInInches(salesOrderClinicalEntryParameterDTO.getHeightInInches());
+            salesOrderClinicalDetailsDTO.setHeightInCm(Double.parseDouble(decfor.format(salesOrderClinicalEntryParameterDTO.getHeightInInches() * 2.54)));
+            salesOrderClinicalDetailsDTO.setSalesRepId(salesOrderClinicalEntryParameterDTO.getSalesRepId());
+            salesOrderClinicalDetailsDTO.setSalesRepName(salesOrderClinicalEntryParameterDTO.getSalesRepName());
+            salesOrderClinicalDetailsDTO.setDiagnosisCodeType(salesOrderClinicalEntryParameterDTO.getDiagnosisCodeType());
 
-        salesOrderClinicalDetailsDTO.setRenderingProviderFacilityId(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityId());
-        salesOrderClinicalDetailsDTO.setRenderingProviderFacilityName(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityName());
-        salesOrderClinicalDetailsDTO.setReferringProviderFacilityId(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityId());
-        salesOrderClinicalDetailsDTO.setReferringProviderFacilityName(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityName());
-        salesOrderClinicalDetailsDTO.setOrderingProviderFacilityId(salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityId());
-        salesOrderClinicalDetailsDTO.setOrderingProviderFacilityName(salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityName());
+            salesOrderClinicalDetailsDTO.setRenderingProviderFacilityId(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityId());
+            salesOrderClinicalDetailsDTO.setRenderingProviderFacilityName(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityName());
+            salesOrderClinicalDetailsDTO.setReferringProviderFacilityId(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityId());
+            salesOrderClinicalDetailsDTO.setReferringProviderFacilityName(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityName());
+            salesOrderClinicalDetailsDTO.setOrderingProviderFacilityId(salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityId());
+            salesOrderClinicalDetailsDTO.setOrderingProviderFacilityName(salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityName());
 
-        salesOrderClinicalDetailsDTO.setMarketingReferralId(salesOrderClinicalEntryParameterDTO.getMarketingReferralId());
-        salesOrderClinicalDetailsDTO.setMarketingReferralName(salesOrderClinicalEntryParameterDTO.getMarketingReferralName());
-        salesOrderClinicalDetailsDTO.setMarketingReferralTypeId(salesOrderClinicalEntryParameterDTO.getMarketingReferralTypeId());
-        salesOrderClinicalDetailsDTO.setMarketingReferralTypeDescription(salesOrderClinicalEntryParameterDTO.getMarketingReferralTypeDescription());
-        salesOrderClinicalDetailsDTO.setEpsdtCertificationConditionIndicator(salesOrderClinicalEntryParameterDTO.getEpsdtCertificationConditionIndicator());
-        salesOrderClinicalDetailsDTO.setEpsdtCertificationCode(salesOrderClinicalEntryParameterDTO.getEpsdtCertificationCode());
-        salesOrderClinicalDetailsDTO.setRelationship(salesOrderClinicalEntryParameterDTO.getRelationship());
-        salesOrderClinicalDetailsDTO.setModeOfContact(salesOrderClinicalEntryParameterDTO.getModeOfContact());
+            salesOrderClinicalDetailsDTO.setMarketingReferralId(salesOrderClinicalEntryParameterDTO.getMarketingReferralId());
+            salesOrderClinicalDetailsDTO.setMarketingReferralName(salesOrderClinicalEntryParameterDTO.getMarketingReferralName());
+            salesOrderClinicalDetailsDTO.setMarketingReferralTypeId(salesOrderClinicalEntryParameterDTO.getMarketingReferralTypeId());
+            salesOrderClinicalDetailsDTO.setMarketingReferralTypeDescription(salesOrderClinicalEntryParameterDTO.getMarketingReferralTypeDescription());
+            salesOrderClinicalDetailsDTO.setEpsdtCertificationConditionIndicator(salesOrderClinicalEntryParameterDTO.getEpsdtCertificationConditionIndicator());
+            salesOrderClinicalDetailsDTO.setEpsdtCertificationCode(salesOrderClinicalEntryParameterDTO.getEpsdtCertificationCode());
+            salesOrderClinicalDetailsDTO.setRelationship(salesOrderClinicalEntryParameterDTO.getRelationship());
+            salesOrderClinicalDetailsDTO.setModeOfContact(salesOrderClinicalEntryParameterDTO.getModeOfContact());
 
 
-        String providerFacilityNPIsComaSeparated = "";
-        List<String> npiCodeList = new ArrayList<>();
-        if(salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI() > 0){
-            providerFacilityNPIsComaSeparated += salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI().toString();
-            npiCodeList.add(salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI().toString());
-        }
-        if(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI() > 0){
-            providerFacilityNPIsComaSeparated += ","+salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI().toString();
-            npiCodeList.add(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI().toString());
-        }
-        if(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI() > 0){
-            providerFacilityNPIsComaSeparated += ","+salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI().toString();
-            npiCodeList.add(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI().toString());
-        }
+            String providerFacilityNPIsComaSeparated = "";
+            List<String> npiCodeList = new ArrayList<>();
+            if (salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI() > 0) {
+                providerFacilityNPIsComaSeparated += salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI().toString();
+                npiCodeList.add(salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI().toString());
+            }
+            if (salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI() > 0) {
+                providerFacilityNPIsComaSeparated += "," + salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI().toString();
+                npiCodeList.add(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI().toString());
+            }
+            if (salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI() > 0) {
+                providerFacilityNPIsComaSeparated += "," + salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI().toString();
+                npiCodeList.add(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI().toString());
+            }
 
-        String orderingProviderFacilityNPI = salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI().toString();
-        String renderingProviderFacilityNPI = salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI().toString();
-        String referringProviderFacilityNPI = salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI().toString();
+            String orderingProviderFacilityNPI = salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI().toString();
+            String renderingProviderFacilityNPI = salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI().toString();
+            String referringProviderFacilityNPI = salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI().toString();
 
-        if(providerFacilityNPIsComaSeparated!="") {
+            if (providerFacilityNPIsComaSeparated != "") {
 
-            ResponseDTO responseDTO_NPI = getDoctorMasterDataFromPatient(salesOrderClinicalEntryParameterDTO.getPatientId(), providerFacilityNPIsComaSeparated);
-            log.info("responseDTO_NPI " + responseDTO_NPI.getData());
-            //System.out.println("npiCodeList "+ npiCodeList);
-            List doctorDataList = (List) responseDTO_NPI.getData();
-            if (responseDTO_NPI.getStatus()) {
-                for (Object doctorObj : doctorDataList) {
-                    LinkedHashMap doctorMap = (LinkedHashMap) doctorObj;
-                    System.out.println("doctorMap " + doctorMap);
-                    System.out.println("doctorNpiNumber " + doctorMap.get("doctorNpiNumber"));
+                ResponseDTO responseDTO_NPI = getDoctorMasterDataFromPatient(salesOrderClinicalEntryParameterDTO.getPatientId(), providerFacilityNPIsComaSeparated);
+                log.info("responseDTO_NPI " + responseDTO_NPI.getData());
+                //System.out.println("npiCodeList "+ npiCodeList);
+                List doctorDataList = (List) responseDTO_NPI.getData();
+                if (responseDTO_NPI.getOutcome()) {
+                    for (Object doctorObj : doctorDataList) {
+                        LinkedHashMap doctorMap = (LinkedHashMap) doctorObj;
+                        System.out.println("doctorMap " + doctorMap);
+                        System.out.println("doctorNpiNumber " + doctorMap.get("doctorNpiNumber"));
 
-                    if (salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI() > 0 &&
-                        orderingProviderFacilityNPI.equals(doctorMap.get("doctorNpiNumber"))) {
+                        if (salesOrderClinicalEntryParameterDTO.getOrderingProviderFacilityNPI() > 0 &&
+                            orderingProviderFacilityNPI.equals(doctorMap.get("doctorNpiNumber"))) {
 
-                        salesOrderClinicalDetailsDTO.setOrderingProviderNpi(orderingProviderFacilityNPI);
-                        salesOrderClinicalDetailsDTO.setOrderingProviderDea(salesOrderClinicalEntryParameterDTO.getOrderingProviderDea());
-                        salesOrderClinicalDetailsDTO.setOrderingProviderType((String) doctorMap.get("doctorTaxonomyDescription"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderId(doctorMap.get("doctorId")!=null?Long.parseLong(((Integer) doctorMap.get("doctorId")).toString()):0l);
-                        salesOrderClinicalDetailsDTO.setOrderingProviderFirstName((String) doctorMap.get("doctorFirstName"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderMiddleName((String) doctorMap.get("doctorMiddleName"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderLastName((String) doctorMap.get("doctorLastName"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderAddressLine1((String) doctorMap.get("doctorAddressLineI"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderAddressLine2((String) doctorMap.get("doctorAddressLineIi"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderEmail((String) doctorMap.get("doctorEmail"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderZip((String) doctorMap.get("doctorAddressZip"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderFax((String) doctorMap.get("doctorFax"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderCity((String) doctorMap.get("doctorAddressCity"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderState((String) doctorMap.get("doctorAddressState"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderCountry((String) doctorMap.get("doctorAddressCountry"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderContactNo1((String) doctorMap.get("doctorContactI"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderContactNo2((String) doctorMap.get("doctorContactIi"));
-                        salesOrderClinicalDetailsDTO.setOrderingProviderEfax((String) doctorMap.get("doctorEfax"));
-                        npiCodeList.remove(doctorMap.get("doctorNpiNumber"));
-                    }
-                    if (salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI() > 0 &&
-                        renderingProviderFacilityNPI.equals(doctorMap.get("doctorNpiNumber"))) {
+                            salesOrderClinicalDetailsDTO.setOrderingProviderNpi(orderingProviderFacilityNPI);
+                            salesOrderClinicalDetailsDTO.setOrderingProviderDea(salesOrderClinicalEntryParameterDTO.getOrderingProviderDea());
+                            salesOrderClinicalDetailsDTO.setOrderingProviderType((String) doctorMap.get("doctorTaxonomyDescription"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderId(doctorMap.get("doctorId") != null ? Long.parseLong(((Integer) doctorMap.get("doctorId")).toString()) : 0l);
+                            salesOrderClinicalDetailsDTO.setOrderingProviderFirstName((String) doctorMap.get("doctorFirstName"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderMiddleName((String) doctorMap.get("doctorMiddleName"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderLastName((String) doctorMap.get("doctorLastName"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderAddressLine1((String) doctorMap.get("doctorAddressLineI"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderAddressLine2((String) doctorMap.get("doctorAddressLineIi"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderEmail((String) doctorMap.get("doctorEmail"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderZip((String) doctorMap.get("doctorAddressZip"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderFax((String) doctorMap.get("doctorFax"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderCity((String) doctorMap.get("doctorAddressCity"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderState((String) doctorMap.get("doctorAddressState"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderCountry((String) doctorMap.get("doctorAddressCountry"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderContactNo1((String) doctorMap.get("doctorContactI"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderContactNo2((String) doctorMap.get("doctorContactIi"));
+                            salesOrderClinicalDetailsDTO.setOrderingProviderEfax((String) doctorMap.get("doctorEfax"));
+                            npiCodeList.remove(doctorMap.get("doctorNpiNumber"));
+                        }
+                        if (salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI() > 0 &&
+                            renderingProviderFacilityNPI.equals(doctorMap.get("doctorNpiNumber"))) {
 
-                        salesOrderClinicalDetailsDTO.setRenderingProviderDea(salesOrderClinicalEntryParameterDTO.getRenderingProviderDea());
-                        salesOrderClinicalDetailsDTO.setRenderingProviderNpi(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI().toString());
-                        //salesOrderClinicalDetailsDTO.setRenderingProviderFacilityId();
-                        //salesOrderClinicalDetailsDTO.setRenderingProviderFacilityName();
-                        salesOrderClinicalDetailsDTO.setRenderingProviderId(Long.parseLong(((Integer) doctorMap.get("doctorId")).toString()));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderType((String) doctorMap.get("doctorTaxonomyDescription"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderFirstName((String) doctorMap.get("doctorFirstName"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderMiddleName((String) doctorMap.get("doctorMiddleName"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderLastName((String) doctorMap.get("doctorLastName"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderAddressLine1((String) doctorMap.get("doctorAddressLineI"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderAddressLine2((String) doctorMap.get("doctorAddressLineIi"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderEmail((String) doctorMap.get("doctorEmail"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderFax((String) doctorMap.get("doctorFax"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderZip((String) doctorMap.get("doctorAddressZip"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderCity((String) doctorMap.get("doctorAddressCity"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderState((String) doctorMap.get("doctorAddressState"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderCountry((String) doctorMap.get("doctorAddressCountry"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderContactNo1((String) doctorMap.get("doctorContactI"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderContactNo2((String) doctorMap.get("doctorContactIi"));
-                        salesOrderClinicalDetailsDTO.setRenderingProviderEfax((String) doctorMap.get("doctorEfax"));
-                        npiCodeList.remove(doctorMap.get("doctorNpiNumber"));
-                    }
-                    if (salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI() > 0 &&
-                        referringProviderFacilityNPI.equals(doctorMap.get("doctorNpiNumber"))) {
+                            salesOrderClinicalDetailsDTO.setRenderingProviderDea(salesOrderClinicalEntryParameterDTO.getRenderingProviderDea());
+                            salesOrderClinicalDetailsDTO.setRenderingProviderNpi(salesOrderClinicalEntryParameterDTO.getRenderingProviderFacilityNPI().toString());
+                            //salesOrderClinicalDetailsDTO.setRenderingProviderFacilityId();
+                            //salesOrderClinicalDetailsDTO.setRenderingProviderFacilityName();
+                            salesOrderClinicalDetailsDTO.setRenderingProviderId(Long.parseLong(((Integer) doctorMap.get("doctorId")).toString()));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderType((String) doctorMap.get("doctorTaxonomyDescription"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderFirstName((String) doctorMap.get("doctorFirstName"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderMiddleName((String) doctorMap.get("doctorMiddleName"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderLastName((String) doctorMap.get("doctorLastName"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderAddressLine1((String) doctorMap.get("doctorAddressLineI"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderAddressLine2((String) doctorMap.get("doctorAddressLineIi"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderEmail((String) doctorMap.get("doctorEmail"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderFax((String) doctorMap.get("doctorFax"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderZip((String) doctorMap.get("doctorAddressZip"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderCity((String) doctorMap.get("doctorAddressCity"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderState((String) doctorMap.get("doctorAddressState"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderCountry((String) doctorMap.get("doctorAddressCountry"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderContactNo1((String) doctorMap.get("doctorContactI"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderContactNo2((String) doctorMap.get("doctorContactIi"));
+                            salesOrderClinicalDetailsDTO.setRenderingProviderEfax((String) doctorMap.get("doctorEfax"));
+                            npiCodeList.remove(doctorMap.get("doctorNpiNumber"));
+                        }
+                        if (salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI() > 0 &&
+                            referringProviderFacilityNPI.equals(doctorMap.get("doctorNpiNumber"))) {
 
-                        salesOrderClinicalDetailsDTO.setReferringProviderDea(salesOrderClinicalEntryParameterDTO.getReferringProviderDea());
-                        salesOrderClinicalDetailsDTO.setReferringProviderNpi(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI().toString());
-                        salesOrderClinicalDetailsDTO.setReferringProviderId(Long.parseLong(((Integer) doctorMap.get("doctorId")).toString()));
-                        salesOrderClinicalDetailsDTO.setReferringProviderType((String) doctorMap.get("doctorTaxonomyDescription"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderFirstName((String) doctorMap.get("doctorFirstName"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderMiddleName((String) doctorMap.get("doctorMiddleName"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderLastName((String) doctorMap.get("doctorLastName"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderAddressLine1((String) doctorMap.get("doctorAddressLineI"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderAddressLine2((String) doctorMap.get("doctorAddressLineIi"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderEmail((String) doctorMap.get("doctorEmail"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderFax((String) doctorMap.get("doctorFax"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderZip((String) doctorMap.get("doctorAddressZip"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderCity((String) doctorMap.get("doctorAddressCity"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderState((String) doctorMap.get("doctorAddressState"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderCountry((String) doctorMap.get("doctorAddressCountry"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderContactNo1((String) doctorMap.get("doctorContactI"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderContactNo2((String) doctorMap.get("doctorContactIi"));
-                        salesOrderClinicalDetailsDTO.setReferringProviderEfax((String) doctorMap.get("doctorEfax"));
-                        npiCodeList.remove(doctorMap.get("doctorNpiNumber"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderDea(salesOrderClinicalEntryParameterDTO.getReferringProviderDea());
+                            salesOrderClinicalDetailsDTO.setReferringProviderNpi(salesOrderClinicalEntryParameterDTO.getReferringProviderFacilityNPI().toString());
+                            salesOrderClinicalDetailsDTO.setReferringProviderId(Long.parseLong(((Integer) doctorMap.get("doctorId")).toString()));
+                            salesOrderClinicalDetailsDTO.setReferringProviderType((String) doctorMap.get("doctorTaxonomyDescription"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderFirstName((String) doctorMap.get("doctorFirstName"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderMiddleName((String) doctorMap.get("doctorMiddleName"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderLastName((String) doctorMap.get("doctorLastName"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderAddressLine1((String) doctorMap.get("doctorAddressLineI"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderAddressLine2((String) doctorMap.get("doctorAddressLineIi"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderEmail((String) doctorMap.get("doctorEmail"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderFax((String) doctorMap.get("doctorFax"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderZip((String) doctorMap.get("doctorAddressZip"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderCity((String) doctorMap.get("doctorAddressCity"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderState((String) doctorMap.get("doctorAddressState"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderCountry((String) doctorMap.get("doctorAddressCountry"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderContactNo1((String) doctorMap.get("doctorContactI"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderContactNo2((String) doctorMap.get("doctorContactIi"));
+                            salesOrderClinicalDetailsDTO.setReferringProviderEfax((String) doctorMap.get("doctorEfax"));
+                            npiCodeList.remove(doctorMap.get("doctorNpiNumber"));
+                        }
                     }
                 }
-            }
-            //System.out.println("npiCodeList 2"+ npiCodeList);
-            if (npiCodeList.size() > 0) {
-                String message = "";
-                System.out.println("wrong Npi " + npiCodeList.toString());
-                message = "(" + npiCodeList.toString() + ") NPI/s are invalid.";
-                serviceOutcome.setOutcome(false);
-                serviceOutcome.setMessage(message);
-                serviceOutcome.setData(null);
-                return Mono.just(serviceOutcome);
-            }
-        }
-        else{
-            log.info("NPI is not given.");
-        }
-        String icdCodes = getICDCodes(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode1()+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode2())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode3())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode4())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode5())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode6())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode7())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode8())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode9())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode10())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode11())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode12())+","+
-            StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getPrimaryDiagnosis()));
-
-        if(icdCodes!=""){
-            String icdCodeType = salesOrderClinicalEntryParameterDTO.getDiagnosisCodeType();
-            System.out.println("icdCodes "+icdCodes);
-            ResponseDTO responseDTO_ICD = getICDCodeMasterDataFromUtility(icdCodes,icdCodeType);
-            log.info("responseDTO_ICD "+ responseDTO_ICD.getData());
-            List arrayListICDs = (List) responseDTO_ICD.getData();
-            List<String> icdCodeList = Arrays.stream(icdCodes.split(","))
-                .collect(Collectors.toList());//"A01.01,A01.02,A01,A02"
-    //        System.out.println("calling Icd Length" +icdCodes.split(",").length);
-    //        System.out.println("Result Icd Length" +arrayListICDs.size());
-
-            for(Object icdData : arrayListICDs) {
-                //System.out.println("Inside");
-                LinkedHashMap icdObj = (LinkedHashMap) icdData;
-                if (icdCodes.split(",").length == arrayListICDs.size()) {
-                    if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode1()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode1().trim()!="" &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode1().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode1((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode2()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode2().trim()!="" &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode2().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode2((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode3()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode3().trim()!="" &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode3().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode3((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode4()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode4().trim()!="" &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode4().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode4((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode5()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode5().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode5().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode5((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode6()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode6().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode6().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode6((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode7()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode7().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode7().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode7((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode8()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode8().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode8().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode8((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode9()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode9().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode9().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode9((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode10()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode10().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode10().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode10((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode11()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode11().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode11().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode11((String) icdObj.get("icdCode"));
-                    }
-                    else if(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode12()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode12().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode12().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode12((String) icdObj.get("icdCode"));
-                    }
-
-                    if(salesOrderClinicalEntryParameterDTO.getPrimaryDiagnosis()!=null &&
-                        salesOrderClinicalEntryParameterDTO.getPrimaryDiagnosis().trim()!=""&&
-                        salesOrderClinicalEntryParameterDTO.getPrimaryDiagnosis().trim().equals(((String) icdObj.get("icdCode")))){
-                        salesOrderClinicalDetailsDTO.setPrimaryDiagnosis((String) icdObj.get("icdCode"));
-                    }
-
-                    //System.out.println("Icd Master Id " + icdObj.get("icdCode"));
-                    icdCodeList.remove((String) icdObj.get("icdCode"));
+                //System.out.println("npiCodeList 2"+ npiCodeList);
+                if (npiCodeList.size() > 0) {
+                    String message = "";
+                    System.out.println("wrong Npi " + npiCodeList.toString());
+                    message = "(" + npiCodeList.toString() + ") NPI/s are invalid.";
+                    serviceOutcome.setOutcome(false);
+                    serviceOutcome.setMessage(message);
+                    serviceOutcome.setData(null);
+                    return Mono.just(serviceOutcome);
                 }
-                else{
-                    System.out.println("icdCodeList For "+icdCodeList);
-                    System.out.println("icdObj.get(icdCode) For "+icdObj.get("icdCode"));
-                    if(icdCodeList.contains((String) icdObj.get("icdCode"))){
+            } else {
+                log.info("NPI is not given.");
+            }
+            String icdCodes = getICDCodes(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode1() + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode2()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode3()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode4()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode5()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode6()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode7()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode8()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode9()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode10()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode11()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode12()) + "," +
+                StringUtils.defaultString(salesOrderClinicalEntryParameterDTO.getPrimaryDiagnosis()));
+
+            if (icdCodes != "") {
+                String icdCodeType = salesOrderClinicalEntryParameterDTO.getDiagnosisCodeType();
+                System.out.println("icdCodes " + icdCodes);
+                ResponseDTO responseDTO_ICD = getICDCodeMasterDataFromUtility(icdCodes, icdCodeType);
+                log.info("responseDTO_ICD " + responseDTO_ICD.getData());
+                List arrayListICDs = (List) responseDTO_ICD.getData();
+                List<String> icdCodeList = Arrays.stream(icdCodes.split(","))
+                    .collect(Collectors.toList());//"A01.01,A01.02,A01,A02"
+                //        System.out.println("calling Icd Length" +icdCodes.split(",").length);
+                //        System.out.println("Result Icd Length" +arrayListICDs.size());
+
+                for (Object icdData : arrayListICDs) {
+                    //System.out.println("Inside");
+                    LinkedHashMap icdObj = (LinkedHashMap) icdData;
+                    if (icdCodes.split(",").length == arrayListICDs.size()) {
+                        if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode1() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode1().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode1().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode1((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode2() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode2().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode2().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode2((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode3() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode3().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode3().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode3((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode4() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode4().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode4().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode4((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode5() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode5().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode5().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode5((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode6() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode6().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode6().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode6((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode7() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode7().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode7().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode7((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode8() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode8().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode8().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode8((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode9() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode9().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode9().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode9((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode10() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode10().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode10().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode10((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode11() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode11().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode11().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode11((String) icdObj.get("icdCode"));
+                        } else if (salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode12() != null &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode12().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getIcd10DiagnosisCode12().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setIcd10DiagnosisCode12((String) icdObj.get("icdCode"));
+                        }
+
+                        if (salesOrderClinicalEntryParameterDTO.getPrimaryDiagnosis() != null &&
+                            salesOrderClinicalEntryParameterDTO.getPrimaryDiagnosis().trim() != "" &&
+                            salesOrderClinicalEntryParameterDTO.getPrimaryDiagnosis().trim().equals(((String) icdObj.get("icdCode")))) {
+                            salesOrderClinicalDetailsDTO.setPrimaryDiagnosis((String) icdObj.get("icdCode"));
+                        }
+
+                        //System.out.println("Icd Master Id " + icdObj.get("icdCode"));
                         icdCodeList.remove((String) icdObj.get("icdCode"));
+                    } else {
+                        System.out.println("icdCodeList For " + icdCodeList);
+                        System.out.println("icdObj.get(icdCode) For " + icdObj.get("icdCode"));
+                        if (icdCodeList.contains((String) icdObj.get("icdCode"))) {
+                            icdCodeList.remove((String) icdObj.get("icdCode"));
+                        }
+                        System.out.println("icdCodeList For " + icdCodeList);
                     }
-                    System.out.println("icdCodeList For "+icdCodeList);
                 }
-            }
 
-            if(icdCodeList.size()>0){
-                //return wrong ICD codes and data will not save.
-                String message="";
-                //System.out.println("wrongICDCode "+ icdCodeList.toString());
-                message = "("+icdCodeList.toString()+") ICD_Code/s are invalid.";
-                serviceOutcome.setOutcome(false);
-                serviceOutcome.setMessage(message);
-                serviceOutcome.setData(null);
-                return Mono.just(serviceOutcome);
+                if (icdCodeList.size() > 0) {
+                    //return wrong ICD codes and data will not save.
+                    String message = "";
+                    //System.out.println("wrongICDCode "+ icdCodeList.toString());
+                    message = "(" + icdCodeList.toString() + ") ICD_Code/s are invalid.";
+                    serviceOutcome.setOutcome(false);
+                    serviceOutcome.setMessage(message);
+                    serviceOutcome.setData(null);
+                    return Mono.just(serviceOutcome);
+                }
             }
         }
         //save the soclinical object
@@ -405,43 +386,50 @@ public class SalesOrderClinicalDetailsServiceExtendedImpl implements SalesOrderC
             salesOrderClinicalDetailsDTO.setCreatedById(1l);
             salesOrderClinicalDetailsDTO.setCreatedByName("Abhay Testing");
             salesOrderClinicalDetailsDTO.setCreatedDate(LocalDate.now());
+            return salesOrderClinicalDetailsRepositoryExtended
+                .save(salesOrderClinicalDetailsMapper.toEntity(salesOrderClinicalDetailsDTO))
+                .map(savedData -> {
+                    return new ServiceOutcome<>(savedData,true,"Data Saved Successfully","200");
+                });
         }else if(soClinicalId>0){
-            try {
-                System.out.println("soClinicalId "+ soClinicalId);
-                SalesOrderClinicalDetails salesOrderClinicalDetails = salesOrderClinicalDetailsRepositoryExtended.findById(soClinicalId).toFuture().get();
-                //BeanUtils.copyProperties(salesOrderClinicalDetails,salesOrderClinicalDetailsDTO);
-                salesOrderClinicalDetailsDTO.setCreatedDate(salesOrderClinicalDetails.getCreatedDate());
-                salesOrderClinicalDetailsDTO.setStatus(salesOrderClinicalDetails.getStatus());
-                salesOrderClinicalDetailsDTO.setCreatedById(salesOrderClinicalDetails.getCreatedById());
-                salesOrderClinicalDetailsDTO.setCreatedByName(salesOrderClinicalDetails.getCreatedByName());
-                salesOrderClinicalDetailsDTO.setSalesOrderClinicalDetailsUuid(salesOrderClinicalDetails.getSalesOrderClinicalDetailsUuid());
-                salesOrderClinicalDetailsDTO.setSalesOrderClinicalDetailsId(soClinicalId);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            } catch (ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-            salesOrderClinicalDetailsDTO.setUpdatedById(1l);
-            salesOrderClinicalDetailsDTO.setUpdatedByName("Active");
-            salesOrderClinicalDetailsDTO.setUpdatedDate(LocalDate.now());
+            System.out.println("soClinicalId "+ soClinicalId);
+            Long finalSoClinicalId = soClinicalId;
+            SalesOrderClinicalDetailsDTO updtaedSalesOrderClinicalDetailsDTO = new SalesOrderClinicalDetailsDTO();
+            return salesOrderClinicalDetailsRepositoryExtended.findById(soClinicalId)
+                .map(salesOrderClinicalDetails -> {
+                    if(salesOrderMasterDTO.getOrderStatus().equalsIgnoreCase("delivered")){
+                        BeanUtils.copyProperties(salesOrderClinicalDetails,updtaedSalesOrderClinicalDetailsDTO);
+                        updtaedSalesOrderClinicalDetailsDTO.setSalesRepId(salesOrderClinicalEntryParameterDTO.getSalesRepId());
+                        updtaedSalesOrderClinicalDetailsDTO.setSalesRepName(salesOrderClinicalEntryParameterDTO.getSalesRepName());
+                        updtaedSalesOrderClinicalDetailsDTO.setMarketingReferralTypeId(salesOrderClinicalEntryParameterDTO.getMarketingReferralTypeId());
+                        updtaedSalesOrderClinicalDetailsDTO.setMarketingReferralTypeDescription(salesOrderClinicalEntryParameterDTO.getMarketingReferralTypeDescription());
+                        updtaedSalesOrderClinicalDetailsDTO.setMarketingReferralId(salesOrderClinicalEntryParameterDTO.getMarketingReferralId());
+                        updtaedSalesOrderClinicalDetailsDTO.setMarketingReferralName(salesOrderClinicalEntryParameterDTO.getMarketingReferralName());
+                    }else{
+                        BeanUtils.copyProperties(salesOrderClinicalDetailsDTO,updtaedSalesOrderClinicalDetailsDTO);
+                    }
+                    updtaedSalesOrderClinicalDetailsDTO.setCreatedDate(salesOrderClinicalDetails.getCreatedDate());
+                    updtaedSalesOrderClinicalDetailsDTO.setStatus(salesOrderClinicalDetails.getStatus());
+                    updtaedSalesOrderClinicalDetailsDTO.setCreatedById(salesOrderClinicalDetails.getCreatedById());
+                    updtaedSalesOrderClinicalDetailsDTO.setCreatedByName(salesOrderClinicalDetails.getCreatedByName());
+                    updtaedSalesOrderClinicalDetailsDTO.setSalesOrderClinicalDetailsUuid(salesOrderClinicalDetails.getSalesOrderClinicalDetailsUuid());
+                    updtaedSalesOrderClinicalDetailsDTO.setSalesOrderClinicalDetailsId(finalSoClinicalId);
+                    updtaedSalesOrderClinicalDetailsDTO.setUpdatedById(1l);
+                    updtaedSalesOrderClinicalDetailsDTO.setUpdatedByName("Active");
+                    updtaedSalesOrderClinicalDetailsDTO.setUpdatedDate(LocalDate.now());
+                    return salesOrderClinicalDetails;
+                }).flatMap(salesOrderClinicalDetails -> {
+                    return salesOrderClinicalDetailsRepositoryExtended
+                        .save(salesOrderClinicalDetailsMapper.toEntity(updtaedSalesOrderClinicalDetailsDTO))
+                        .map(savedData -> {
+                            return new ServiceOutcome<>(savedData,true,"Data Saved Successfully","200");
+                        });
+                });
         }else{
             serviceOutcome.setOutcome(false);
             serviceOutcome.setMessage("SOClinicalDetailsUUID should be null or give correct UUID");
             return Mono.just(serviceOutcome);
         }
-        System.out.println("salesOrderClinicalDetailsDTO "+ salesOrderClinicalDetailsDTO);
-        Mono<SalesOrderClinicalDetails> salesOrderClinicalDetails = salesOrderClinicalDetailsRepositoryExtended.save(salesOrderClinicalDetailsMapper.toEntity(salesOrderClinicalDetailsDTO));
-        serviceOutcome.setOutcome(true);
-        serviceOutcome.setMessage("Data Saved Successfully");
-        try {
-            serviceOutcome.setData(salesOrderClinicalDetails.toFuture().get());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-
-        return Mono.just(serviceOutcome);
     }
 
     private String getICDCodes(String icdCodes) {
@@ -496,12 +484,12 @@ public class SalesOrderClinicalDetailsServiceExtendedImpl implements SalesOrderC
                     serviceOutcome = mapper.convertValue(responseData.getBody(), ServiceOutcome.class);
                     System.out.println("responseBody " +serviceOutcome);
                 } else {
-                    responseBody.setStatus(false);
+                    responseBody.setOutcome(false);
                     responseBody.setMessage("API Error: No Response Data Available");
                     responseBody.setData(new JSONArray());
                 }
             } else {
-                responseBody.setStatus(false);
+                responseBody.setOutcome(false);
                 responseBody.setMessage("Missing Access Token");
                 responseBody.setData(new JSONArray());
             }
@@ -544,10 +532,10 @@ public class SalesOrderClinicalDetailsServiceExtendedImpl implements SalesOrderC
         if (serviceOutcome.getOutcome()) {
             System.out.println("ICD Data "+ serviceOutcome.getData());
             responseBody.setData((ArrayList) serviceOutcome.getData());
-            responseBody.setStatus(true);
+            responseBody.setOutcome(true);
             return responseBody;
         } else {
-            responseBody.setStatus(false);
+            responseBody.setOutcome(false);
             responseBody.setMessage("Data not fetched.");
             responseBody.setData(null);
             return responseBody;
@@ -590,6 +578,13 @@ public class SalesOrderClinicalDetailsServiceExtendedImpl implements SalesOrderC
     }
 
     @Override
+    public Mono<ServiceOutcome> getSOClinicalBySOID(Long salesOrderID) {
+        return salesOrderClinicalDetailsRepositoryExtended.findBySalesOrderId(salesOrderID).collectList()
+            .map(data -> new ServiceOutcome(data.size()>0?data.get(0):null, data.size()>0?true:false, data.size()>0?"Data Found Successfully":"Data Not Found" ))
+            .switchIfEmpty(Mono.just(new ServiceOutcome(null, false, "Data Not Found" )));
+    }
+
+    @Override
     public ResponseDTO getDoctorMasterDataFromPatient(Long patientId, String npiIds) {
         ObjectMapper mapper = new ObjectMapper();
         ResponseDTO responseBody = new ResponseDTO();
@@ -626,12 +621,12 @@ public class SalesOrderClinicalDetailsServiceExtendedImpl implements SalesOrderC
                     responseBody = mapper.convertValue(responseData.getBody(), ResponseDTO.class);
                     System.out.println("responseBody " +responseBody);
                 } else {
-                    responseBody.setStatus(false);
+                    responseBody.setOutcome(false);
                     responseBody.setMessage("API Error: No Response Data Available");
                     responseBody.setData(new JSONArray());
                 }
             } else {
-                responseBody.setStatus(false);
+                responseBody.setOutcome(false);
                 responseBody.setMessage("Missing Access Token");
                 responseBody.setData(new JSONArray());
             }
@@ -671,12 +666,12 @@ public class SalesOrderClinicalDetailsServiceExtendedImpl implements SalesOrderC
             // Any other exception
             throw new RuntimeException(e);
         }
-        if (responseBody.getStatus()) {
+        if (responseBody.getOutcome()) {
             System.out.println("Npi Data Received from Utility " +responseBody.getData());
             responseBody.setData(responseBody.getData());
             return responseBody;
         } else {
-            responseBody.setStatus(false);
+            responseBody.setOutcome(false);
             responseBody.setMessage("Data not fetched.");
             responseBody.setData(null);
             return responseBody;

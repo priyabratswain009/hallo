@@ -44,7 +44,7 @@ public class StockTransferAuditLogServiceImpl implements StockTransferAuditLogSe
 
     @Override
     public StockTransferAuditLogDTO update(StockTransferAuditLogDTO stockTransferAuditLogDTO) {
-        log.debug("Request to update StockTransferAuditLog : {}", stockTransferAuditLogDTO);
+        log.debug("Request to save StockTransferAuditLog : {}", stockTransferAuditLogDTO);
         StockTransferAuditLog stockTransferAuditLog = stockTransferAuditLogMapper.toEntity(stockTransferAuditLogDTO);
         stockTransferAuditLog = stockTransferAuditLogRepository.save(stockTransferAuditLog);
         return stockTransferAuditLogMapper.toDto(stockTransferAuditLog);

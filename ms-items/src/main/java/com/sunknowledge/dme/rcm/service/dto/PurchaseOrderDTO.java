@@ -8,7 +8,6 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.PurchaseOrder} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PurchaseOrderDTO implements Serializable {
 
     private Long poId;
@@ -92,6 +91,26 @@ public class PurchaseOrderDTO implements Serializable {
     private Long branchId;
 
     private String branchName;
+
+    private String vendorFaxNo;
+
+    private String vendorEmail;
+
+    private String vendorFaxRequestStatus;
+
+    private String vendorEmailRequestStatus;
+
+    private String poRequestDocumentName;
+
+    private String poRequestAckReceivedStatus;
+
+    private String po850EdiString;
+
+    private String po855EdiString;
+
+    private LocalDate poRequestSendDatetime;
+
+    private LocalDate poAckReceivedDatetime;
 
     public Long getPoId() {
         return poId;
@@ -421,6 +440,86 @@ public class PurchaseOrderDTO implements Serializable {
         this.branchName = branchName;
     }
 
+    public String getVendorFaxNo() {
+        return vendorFaxNo;
+    }
+
+    public void setVendorFaxNo(String vendorFaxNo) {
+        this.vendorFaxNo = vendorFaxNo;
+    }
+
+    public String getVendorEmail() {
+        return vendorEmail;
+    }
+
+    public void setVendorEmail(String vendorEmail) {
+        this.vendorEmail = vendorEmail;
+    }
+
+    public String getVendorFaxRequestStatus() {
+        return vendorFaxRequestStatus;
+    }
+
+    public void setVendorFaxRequestStatus(String vendorFaxRequestStatus) {
+        this.vendorFaxRequestStatus = vendorFaxRequestStatus;
+    }
+
+    public String getVendorEmailRequestStatus() {
+        return vendorEmailRequestStatus;
+    }
+
+    public void setVendorEmailRequestStatus(String vendorEmailRequestStatus) {
+        this.vendorEmailRequestStatus = vendorEmailRequestStatus;
+    }
+
+    public String getPoRequestDocumentName() {
+        return poRequestDocumentName;
+    }
+
+    public void setPoRequestDocumentName(String poRequestDocumentName) {
+        this.poRequestDocumentName = poRequestDocumentName;
+    }
+
+    public String getPoRequestAckReceivedStatus() {
+        return poRequestAckReceivedStatus;
+    }
+
+    public void setPoRequestAckReceivedStatus(String poRequestAckReceivedStatus) {
+        this.poRequestAckReceivedStatus = poRequestAckReceivedStatus;
+    }
+
+    public String getPo850EdiString() {
+        return po850EdiString;
+    }
+
+    public void setPo850EdiString(String po850EdiString) {
+        this.po850EdiString = po850EdiString;
+    }
+
+    public String getPo855EdiString() {
+        return po855EdiString;
+    }
+
+    public void setPo855EdiString(String po855EdiString) {
+        this.po855EdiString = po855EdiString;
+    }
+
+    public LocalDate getPoRequestSendDatetime() {
+        return poRequestSendDatetime;
+    }
+
+    public void setPoRequestSendDatetime(LocalDate poRequestSendDatetime) {
+        this.poRequestSendDatetime = poRequestSendDatetime;
+    }
+
+    public LocalDate getPoAckReceivedDatetime() {
+        return poAckReceivedDatetime;
+    }
+
+    public void setPoAckReceivedDatetime(LocalDate poAckReceivedDatetime) {
+        this.poAckReceivedDatetime = poAckReceivedDatetime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -487,6 +586,16 @@ public class PurchaseOrderDTO implements Serializable {
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", branchId=" + getBranchId() +
             ", branchName='" + getBranchName() + "'" +
+            ", vendorFaxNo='" + getVendorFaxNo() + "'" +
+            ", vendorEmail='" + getVendorEmail() + "'" +
+            ", vendorFaxRequestStatus='" + getVendorFaxRequestStatus() + "'" +
+            ", vendorEmailRequestStatus='" + getVendorEmailRequestStatus() + "'" +
+            ", poRequestDocumentName='" + getPoRequestDocumentName() + "'" +
+            ", poRequestAckReceivedStatus='" + getPoRequestAckReceivedStatus() + "'" +
+            ", po850EdiString='" + getPo850EdiString() + "'" +
+            ", po855EdiString='" + getPo855EdiString() + "'" +
+            ", poRequestSendDatetime='" + getPoRequestSendDatetime() + "'" +
+            ", poAckReceivedDatetime='" + getPoAckReceivedDatetime() + "'" +
             "}";
     }
 }

@@ -252,7 +252,7 @@ class RoleFunctionalityMapResourceIT {
 
     @Test
     @Transactional
-    void putNewRoleFunctionalityMap() throws Exception {
+    void putExistingRoleFunctionalityMap() throws Exception {
         // Initialize the database
         roleFunctionalityMapRepository.saveAndFlush(roleFunctionalityMap);
 

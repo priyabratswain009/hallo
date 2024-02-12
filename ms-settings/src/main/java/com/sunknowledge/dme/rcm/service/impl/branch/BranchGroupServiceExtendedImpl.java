@@ -6,6 +6,7 @@ import com.sunknowledge.dme.rcm.exception.BranchNotFoundException;
 import com.sunknowledge.dme.rcm.repository.branch.BranchGroupRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.branch.BranchGroupServiceExtended;
 import com.sunknowledge.dme.rcm.service.dto.BranchGroupDTO;
+import com.sunknowledge.dme.rcm.service.dto.branch.BranchGroupExtendedDTO;
 import com.sunknowledge.dme.rcm.service.dto.branch.BranchGroupParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.branch.BranchGroupRejectedDTO;
 import com.sunknowledge.dme.rcm.service.dto.branch.BranchGroupResponseDTO;
@@ -83,7 +84,7 @@ public class BranchGroupServiceExtendedImpl implements BranchGroupServiceExtende
             if(skipped > 0){
                 message += " and Skipped " + skipped + " Rows";
             }
-            return (new ResponseDTO(Boolean.TRUE,message,List.of(branchGroupBothData.get("SkippedBranchGroupDTO"))));
+            return (new ResponseDTO(Boolean.TRUE,message,List.of(branchGroupBothData.get("SkippedBranchGroupDTO")),200));
         } catch (IOException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException("Fail to store csv data: " + e.getMessage());
@@ -94,16 +95,20 @@ public class BranchGroupServiceExtendedImpl implements BranchGroupServiceExtende
     public ResponseDTO saveBranchGroup(BranchGroupParameterDTO branchGroupParameterDTO) {
         Set uniqueBranchGroupNameSet = branchGroupRepositoryExtended.findAll().stream().map(x -> x.getBranchGroupName()).collect(Collectors.toSet());
         Set uniqueBranchGroupIdSet = branchGroupRepositoryExtended.findAll().stream().map(x -> x.getBranchGroupId()).collect(Collectors.toSet());
+        String message = "";
         try {
             if (branchGroupParameterDTO.getBranchGroupName() == null) {
-                throw new InvalidAttributeValueException("Invalid Attribute (Branch_Group_Name)");
+                message = ("Invalid Attribute (Branch_Group_Name)");
             } else if (branchGroupParameterDTO.getBranchGroupName().trim() == "") {
-                throw new BranchNotFoundException("Branch_Group_Name must be provided");
-            } else if(branchGroupParameterDTO.getBranchGroupId() == 0 && uniqueBranchGroupNameSet.contains(branchGroupParameterDTO.getBranchGroupName())){
-                throw new InputMismatchException("("+ branchGroupParameterDTO.getBranchGroupName() +") "+"Branch_Group_Name already exist");
+                message = ("Branch_Group_Name must be provided");
+            } else if((branchGroupParameterDTO.getBranchGroupId() == null || branchGroupParameterDTO.getBranchGroupId() == 0) && uniqueBranchGroupNameSet.contains(branchGroupParameterDTO.getBranchGroupName())){
+                message = "("+ branchGroupParameterDTO.getBranchGroupName() +") "+"Branch_Group_Name already exist";
             } else if (!uniqueBranchGroupIdSet.contains(branchGroupParameterDTO.getBranchGroupId()) &&
                 uniqueBranchGroupNameSet.contains(branchGroupParameterDTO.getBranchGroupName())){
-                throw new InputMismatchException("Branch_Group_Name already exist");
+                message = ("Branch_Group_Name already exist");
+            }
+            if(!message.equalsIgnoreCase("")){
+                return (new ResponseDTO(Boolean.FALSE,message,null,200));
             }
             BranchGroupDTO branchGroupDTO = (branchGroupParameterDTO.getBranchGroupId() == null ||
                 branchGroupParameterDTO.getBranchGroupId() == 0) ? new BranchGroupDTO() :
@@ -129,11 +134,8 @@ public class BranchGroupServiceExtendedImpl implements BranchGroupServiceExtende
                 branchGroupRepositoryExtended.save(branchGroupMapper.toEntity(branchGroupDTO))
             );
 
-            return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",List.of(savedBranchGroupDTO)));
-        }catch (InvalidAttributeValueException e) {
-            log.error("=====>> Error : "+e);
-            throw new RuntimeException(e);
-        }catch (BranchNotFoundException e) {
+            return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",savedBranchGroupDTO,200));
+        } catch (BranchNotFoundException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException(e);
         }catch (InputMismatchException e) {
@@ -164,15 +166,15 @@ public class BranchGroupServiceExtendedImpl implements BranchGroupServiceExtende
     }
 
     @Override
-    public List<BranchGroupDTO> getAllBranchGroupData() {
-        List<BranchGroup> branchGroupList = branchGroupRepositoryExtended.findByStatusIgnoreCase("active");
-        return branchGroupMapper.toDto(branchGroupList);
+    public List<BranchGroupExtendedDTO> getAllBranchGroupData() {
+        List<BranchGroupExtendedDTO> branchGroupList = branchGroupRepositoryExtended.findByStatusIgnoreCase("active");
+        return branchGroupList;
     }
 
     @Override
-    public List<BranchGroupDTO> getBranchGroupByStatus(String status) {
-        List<BranchGroup> branchGroupList = branchGroupRepositoryExtended.findByStatusIgnoreCase(status);
-        return branchGroupMapper.toDto(branchGroupList);
+    public List<BranchGroupExtendedDTO> getBranchGroupByStatus(String status) {
+        List<BranchGroupExtendedDTO> branchGroupList = branchGroupRepositoryExtended.findByStatusIgnoreCase(status);
+        return branchGroupList;
     }
 
     @Override
@@ -186,22 +188,41 @@ public class BranchGroupServiceExtendedImpl implements BranchGroupServiceExtende
     }
 
     @Override
-    public ResponseDTO setBranchGroupStatusById(Long id,String status) {
+    public ResponseDTO setBranchGroupStatusByUUID(UUID uuid,String status) {
         if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
             try{
-                BranchGroup branchGroup = branchGroupRepositoryExtended.findByBranchGroupId(id);
-                branchGroup.setStatus(status);
-                branchGroup.setUpdatedById(1l);
-                branchGroup.setUpdatedByName("Updated Test");
-                branchGroup.setUpdatedDate(LocalDate.now());
-                branchGroupRepositoryExtended.save(branchGroup);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", branchGroup));
+                Optional<BranchGroup> obj = branchGroupRepositoryExtended.findByBranchGroupUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    branchGroupRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
         }
+    }
+
+    public List<Map<String, Object>> getBranchGroupForDropdown() {
+        List<BranchGroupExtendedDTO> posMasterList = getAllBranchGroupData();
+        if (posMasterList.size() > 0) {
+            return posMasterList.stream().map(p -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", p.getBranchGroupId());
+                map.put("title", p.getBranchGroupName());
+                return map;
+            }).collect(Collectors.toList());
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 }

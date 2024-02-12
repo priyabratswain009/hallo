@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
+import com.sunknowledge.dme.rcm.domain.StopReasonMaster;
 import com.sunknowledge.dme.rcm.domain.TaxZone;
 import com.sunknowledge.dme.rcm.repository.others.TaxZoneRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.dto.TaxZoneDTO;
@@ -70,17 +71,17 @@ public class TaxZoneServiceExtendedImpl implements TaxZoneServiceExtended {
             case "StateName":
                 dataList = param.trim() != "" ? taxZoneMapper.toDto(taxZoneRepositoryExtended.
                     findByStateNameLikeIgnoreCaseAndStatusIgnoreCase("%"+param.trim()+"%", "active")) : new ArrayList<>();
-                return (new ResponseDTO(dataList.size() > 0 ? true : false, dataList.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", dataList));
+                return (new ResponseDTO(dataList.size() > 0 ? true : false, dataList.size() > 0 ? "" : "Data Not Found.", dataList,200));
             case "StateCodeId":
                 data = taxZoneMapper.toDto(taxZoneRepositoryExtended.
                     findByStateCodeIdAndStatusIgnoreCase(Long.valueOf(param), "active"));
-                return (new ResponseDTO(data!=null ? true : false, data!=null ? "Successfully Data Fetched." : "Data Not Found.", data));
+                return (new ResponseDTO(data!=null ? true : false, data!=null ? "" : "Data Not Found.", data,200));
             case "StateCode":
                 data = taxZoneMapper.toDto(taxZoneRepositoryExtended.
                     findByStateCodeIgnoreCaseAndStatusIgnoreCase(param, "active"));
-                return (new ResponseDTO(data!=null ? true : false, data!=null ? "Successfully Data Fetched." : "Data Not Found.", data));
+                return (new ResponseDTO(data!=null ? true : false, data!=null ? "" : "Data Not Found.", data,200));
             default:
-                return (new ResponseDTO(false, "Operation Type not valid.", null));
+                return (new ResponseDTO(false, "Operation Type not valid.", null,200));
         }
     }
 
@@ -95,13 +96,13 @@ public class TaxZoneServiceExtendedImpl implements TaxZoneServiceExtended {
         Set uniqueStateCodeSet = taxZoneRepositoryExtended.findAll().stream().map(x -> x.getStateCode()).collect(Collectors.toSet());
         Set uniqueTaxZoneIdSet = taxZoneRepositoryExtended.findAll().stream().map(x -> x.getTaxZoneId()).collect(Collectors.toSet());
         if (taxZoneParameterDTO.getStateName() == null) {
-            return new ResponseDTO(false, "Invalid Attribute (State_Name)", null);
+            return new ResponseDTO(false, "Invalid Attribute (State_Name)", null,200);
             //throw new InvalidAttributeValueException("Invalid Attribute (State_Name)");
         } else if (taxZoneParameterDTO.getStateName().trim() == "") {
-            return new ResponseDTO(false, "State_Name must be provided", null);
+            return new ResponseDTO(false, "State_Name must be provided", null,200);
             //throw new InputMismatchException("State_Name must be provided");
         } else if (taxZoneParameterDTO.getStateCode().trim() == "") {
-            return new ResponseDTO(false, "State_Code must be provided", null);
+            return new ResponseDTO(false, "State_Code must be provided", null,200);
             //throw new InputMismatchException("State_Code must be provided");
         } /*else if (taxZoneParameterDTO.getStateCodeId() == null) {
             throw new InputMismatchException("State_Code_Id must be provided");
@@ -109,14 +110,14 @@ public class TaxZoneServiceExtendedImpl implements TaxZoneServiceExtended {
             throw new InputMismatchException("(" + taxZoneParameterDTO.getStateCodeId() + ") " + "State_Code_Id already exist");*/
         //}
         else if ((taxZoneParameterDTO.getTaxZoneId() == null || taxZoneParameterDTO.getTaxZoneId() == 0) && dataStateCode!=null) {
-            return new ResponseDTO(false, "(" + taxZoneParameterDTO.getStateCode() + ") " + "State_Code already exist", null);
+            return new ResponseDTO(false, "(" + taxZoneParameterDTO.getStateCode() + ") " + "State_Code already exist", null,200);
            // throw new InputMismatchException("(" + taxZoneParameterDTO.getStateCode() + ") " + "State_Code already exist");
         } else if ((taxZoneParameterDTO.getTaxZoneId() == null || taxZoneParameterDTO.getTaxZoneId() == 0) && dataListStateName.size() > 0) {
-            return new ResponseDTO(false, "(" + taxZoneParameterDTO.getStateName() + ") " + "State_Name already exist", null);
+            return new ResponseDTO(false, "(" + taxZoneParameterDTO.getStateName() + ") " + "State_Name already exist", null,200);
             //throw new InputMismatchException("(" + taxZoneParameterDTO.getStateName() + ") " + "State_Name already exist");
         }else if(!uniqueTaxZoneIdSet.contains(taxZoneParameterDTO.getTaxZoneId()) &&
             uniqueStateCodeSet.contains(taxZoneParameterDTO.getStateCode())){
-            return new ResponseDTO(false, "("+ taxZoneParameterDTO.getStateCode() +") "+"State_Code already exist", null);
+            return new ResponseDTO(false, "("+ taxZoneParameterDTO.getStateCode() +") "+"State_Code already exist", null,200);
             //throw new InputMismatchException("("+ taxZoneParameterDTO.getStateCode() +") "+"State_Code already exist");
         }
 
@@ -143,7 +144,7 @@ public class TaxZoneServiceExtendedImpl implements TaxZoneServiceExtended {
         TaxZoneDTO savedTaxZoneDTO = taxZoneMapper.toDto(
             taxZoneRepositoryExtended.save(taxZoneMapper.toEntity(taxZoneDTO))
         );
-        return new ResponseDTO(true, "Successfully Saved.", savedTaxZoneDTO);
+        return new ResponseDTO(true, "Successfully Saved.", savedTaxZoneDTO,200);
     }
 
     @Override
@@ -155,17 +156,41 @@ public class TaxZoneServiceExtendedImpl implements TaxZoneServiceExtended {
 
     @Override
     public TaxZoneDTO getTaxZoneInfoByID(Long taxZoneId) {
-        TaxZone data = taxZoneRepositoryExtended.findBytaxZoneId(taxZoneId);
-        if (Objects.nonNull(data)) {
-            return taxZoneMapper.toDto(data);
+        Optional<TaxZone> data = taxZoneRepositoryExtended.findBytaxZoneIdAndStatusIgnoreCase(taxZoneId,"active");
+        if (data.isPresent()) {
+            return taxZoneMapper.toDto(data.get());
         } else return new TaxZoneDTO();
     }
 
     @Override
     public ResponseDTO getTaxZoneForDropdown() {
         List<TaxZoneDTO> taxZoneDtoList = getAllTaxZoneInfo();
-        List<TaxZoneExtendedResponseDto> responseDtos = taxZoneDtoList.stream().map(row -> new TaxZoneExtendedResponseDto(row.getTaxZoneId(), row.getStateName(), row.getStateCode()))
+        List<TaxZoneExtendedResponseDto> responseDtos = taxZoneDtoList.stream().map(row -> new TaxZoneExtendedResponseDto(row.getTaxZoneId(), row.getStateName(), row.getStateCode(), row.getTaxRate()))
             .collect(Collectors.toList());
-        return (new ResponseDTO(responseDtos.size() > 0 ? true : false, responseDtos.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", responseDtos));
+        return (new ResponseDTO(responseDtos.size() > 0 ? true : false, responseDtos.size() > 0 ? "" : "Data Not Found.", responseDtos,200));
+    }
+
+    @Override
+    public ResponseDTO setTaxZoneStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<TaxZone> obj = taxZoneRepositoryExtended.findByTaxZoneUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    taxZoneRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
     }
 }

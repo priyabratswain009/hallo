@@ -3,6 +3,7 @@ package com.sunknowledge.dme.rcm.service.invoice;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sunknowledge.dme.rcm.application.applicationstatus.DefineStatus;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.commonutil.AccessTokenUtilities;
 import com.sunknowledge.dme.rcm.domain.*;
 import com.sunknowledge.dme.rcm.pojo.invoice.*;
 import com.sunknowledge.dme.rcm.pojo.salesorder.SalesOrderCombinedSearchParameterDTO;
@@ -160,7 +161,7 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                                 System.out.println("===###########===writeOffAmount===>>>>>>>" + claimPostedAmounts.getWRITEOFFAmount());
                                 System.out.println("===###########===BTAmount===>>>>>>>" + claimPostedAmounts.getBTAmount());
 
-                                invoicePosting(invoiceLineItemDetails.get(), "Payment", claimsCOB835Detail.getProviderPaymentAmount(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                invoicePosting(invoiceLineItemDetails.get(), "Payment", claimsCOB835Detail.getProviderPaymentAmount(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                 //CO CODE
                                 if(claimPostedAmounts.getWRITEOFFAmount() == totalCOAmount.get()){
                                     System.out.println("===###########===EQUAL WRITEOFFAmount===>>>>>>>");
@@ -169,7 +170,7 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                                     System.out.println("===###########===NOT EQUAL WRITEOFFAmount===>>>>>>>");
                                     AtomicInteger check = new AtomicInteger(0);
                                     if(coCount.get() == 0)
-                                        invoicePosting(invoiceLineItemDetails.get(), "WriteOff(CO-45)", totalCOAmount.get(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                        invoicePosting(invoiceLineItemDetails.get(), "WriteOff(CO-45)", totalCOAmount.get(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                     else{
                                         coAmountList.stream().forEach(inv -> {
                                             if(inv != null && inv > 0) {
@@ -180,13 +181,13 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                                                 }
                                                 System.out.println("===###########===check.get()===>>>>>>>"+check.get());
                                                 if(check.get() == 0)
-                                                    invoicePosting(invoiceLineItemDetails.get(), "WriteOff(CO-45)", inv, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                                    invoicePosting(invoiceLineItemDetails.get(), "WriteOff(CO-45)", inv, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                                 check.set(0);
                                             }
                                         });
                                     }
                                     if(check.get() == 1)
-                                        invoicePosting(invoiceLineItemDetails.get(), "WriteOff Adjustment", (-1) * claimPostedAmounts.getWRITEOFFAmount(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                        invoicePosting(invoiceLineItemDetails.get(), "WriteOff Adjustment", (-1) * claimPostedAmounts.getWRITEOFFAmount(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                 }
                                 //PR CODE
                                 if(claimPostedAmounts.getBTAmount() == totalPRAmount.get()){
@@ -195,14 +196,14 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                                 else {
                                     System.out.println("===###########===NOT EQUAL BTAmount===>>>>>>>");
                                     if (prCount.get() == 0)
-                                        invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", totalPRAmount.get(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                        invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", totalPRAmount.get(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                     else {
                                         prAmountList.stream().forEach(inv -> {
                                             if(inv != null && inv > 0)
-                                                invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", inv, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                                invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", inv, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                         });
                                     }
-                                    invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", (-1) * claimPostedAmounts.getBTAmount(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                    invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", (-1) * claimPostedAmounts.getBTAmount(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                     invoicePrefix.set(prefix);
                                     contraEntryNextLevelPrimaryBalanceTransfer(claimPostedAmounts.getBTAmount(), prCount, prAmountList, totalPRAmount.get(), invoiceLineItemDetails.get(), invoiceMasterDetails, invoicePrefix.get(), claimsCOB835Master.get());
                                 }
@@ -212,7 +213,7 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                                 if(autoAdjustmentAmount <= thresholdValue && autoAdjustmentAmount < 0 && prefix.equalsIgnoreCase("IVM")){
                                     System.out.println("===###########===autoAdjustmentAmount <= thresholdValue===>>>>>>>");
                                     invoicePrefix.set("IVP");
-                                    invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", autoAdjustmentAmount, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                    invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", autoAdjustmentAmount, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                 }
                             }
                             System.out.println("=============================END=====================================");
@@ -281,17 +282,17 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                                 double autoAdjustmentAmount = Double.valueOf(df.format(claimPostedAmounts.getBTAmount() + totalAmount));
                                 System.out.println("===###########===autoAdjustmentAmount===>>>>>>>" + autoAdjustmentAmount);
 
-                                invoicePosting(invoiceLineItemDetails.get(), "Payment", claimsCOB835Detail.getProviderPaymentAmount(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                invoicePosting(invoiceLineItemDetails.get(), "Payment", claimsCOB835Detail.getProviderPaymentAmount(), invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                 //CO CODE
                                 coAmountList.stream().forEach(inv -> {
                                     if(inv != null && inv > 0)
-                                        invoicePosting(invoiceLineItemDetails.get(), "WriteOff(CO-45)", inv, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                        invoicePosting(invoiceLineItemDetails.get(), "WriteOff(CO-45)", inv, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                 });
 
                                 //PR CODE
                                 prAmountList.stream().forEach(inv -> {
                                     if(inv != null && inv > 0)
-                                        invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", inv, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                        invoicePosting(invoiceLineItemDetails.get(), "Balance Transfer", inv, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                 });
                                 invoicePrefix.set(prefix);
                                 contraEntryNextLevelSecondaryBalanceTransfer(prAmountList, totalPRAmount.get(), invoiceLineItemDetails.get(), invoiceMasterDetails, invoicePrefix.get(), claimsCOB835Master.get());
@@ -305,7 +306,7 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                                 if(autoAdjustmentAmount <= thresholdValue && autoAdjustmentAmount < 0 && prefix.equalsIgnoreCase("IVM")){
                                     System.out.println("===###########===autoAdjustmentAmount <= thresholdValue===>>>>>>>");
                                     invoicePrefix.set("IVS");
-                                    invoicePosting(invoiceLineItemDetails.get(), "Auto Adjustment", (-1) * autoAdjustmentAmount, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null);
+                                    invoicePosting(invoiceLineItemDetails.get(), "Auto Adjustment", (-1) * autoAdjustmentAmount, invoicePrefix.get(), invoiceMasterDetails, claimsCOB835Master.get(), 0, null, "S");
                                 }
                             }
                             System.out.println("=============================END=====================================");
@@ -339,14 +340,14 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                                                             String invoicePrefix, ClaimsCOB835Master claimsCOB835Master) {
         System.out.println("====================contraEntryForBalanceTransfer=================>"+BTAmount+"===>"+totalPRAmount);
         if (prCount.get() == 1)
-            invoicePosting(invoiceLineItemDetails, "Balance Transfer", (-1) * totalPRAmount, invoicePrefix, invoiceMasterDetails, claimsCOB835Master, 0, null);
+            invoicePosting(invoiceLineItemDetails, "Balance Transfer", (-1) * totalPRAmount, invoicePrefix, invoiceMasterDetails, claimsCOB835Master, 0, null, "S");
         else {
             prAmountList.stream().forEach(inv -> {
                 if(inv != null && inv > 0)
-                    invoicePosting(invoiceLineItemDetails, "Balance Transfer", (-1) * inv, invoicePrefix, invoiceMasterDetails, claimsCOB835Master, 0, null);
+                    invoicePosting(invoiceLineItemDetails, "Balance Transfer", (-1) * inv, invoicePrefix, invoiceMasterDetails, claimsCOB835Master, 0, null, "S");
             });
         }
-        invoicePosting(invoiceLineItemDetails, "Balance Transfer", BTAmount, invoicePrefix, invoiceMasterDetails, claimsCOB835Master, 0, null);
+        invoicePosting(invoiceLineItemDetails, "Balance Transfer", BTAmount, invoicePrefix, invoiceMasterDetails, claimsCOB835Master, 0, null, "S");
     }
 
     private void contraEntryNextLevelSecondaryBalanceTransfer(List<Double> prAmountList, Double totalPRAmount, InvoiceLineItemDetails invoiceLineItemDetails,
@@ -354,13 +355,13 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
         System.out.println("====================contraEntryForBalanceTransfer=================>"+"===>"+totalPRAmount);
         prAmountList.stream().forEach(inv -> {
             if(inv != null && inv > 0)
-                invoicePosting(invoiceLineItemDetails, "Balance Transfer", (-1) * inv, invoicePrefix, invoiceMasterDetails, claimsCOB835Master, 0, null);
+                invoicePosting(invoiceLineItemDetails, "Balance Transfer", (-1) * inv, invoicePrefix, invoiceMasterDetails, claimsCOB835Master, 0, null, "S");
         });
     }
 
     public InvoicePostingDetails invoicePosting(InvoiceLineItemDetails invoiceLineItemDetails, String narration,
                                Double postingAmount, String nextLevel, InvoiceMasterDetails invoiceMasterDetails, ClaimsCOB835Master claimsCOB835Master, int type,
-                                                ManualInvoiceEntryInputParameters manualInvoiceEntryInputParameters) {
+                                                ManualInvoiceEntryInputParameters manualInvoiceEntryInputParameters, String postingType) {
         System.out.println("====================START=================>");
         InvoicePostingDetails invoicePostingDetails = new InvoicePostingDetails();
         Optional<DepositMasterDetails> depositMasterDetails = Optional.ofNullable(depositMasterDetailsRepository.getDepositeDetailsOnClaimCOB835Master(claimsCOB835Master.getClaimCob835MasterId()));
@@ -399,6 +400,10 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
             invoicePostingDetails.setPostingDate(LocalDate.parse(manualInvoiceEntryInputParameters.getEntryDate()));
         }
 
+        if(postingType.equalsIgnoreCase("M"))
+            invoicePostingDetails.setIsManualPosting(true);
+        else
+            invoicePostingDetails.setIsManualPosting(false);
         invoicePostingDetails.setHcpcsCode(invoiceLineItemDetails.getHcpcsCode());
         invoicePostingDetails.setPostingNo(invoicePostingDetailsRepository.getPostingNumber());
         invoicePostingDetails.setInvoicePostingDetailsUuid(UUID.randomUUID());
@@ -417,8 +422,8 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
 
     @Override
     public ServiceOutcome<List<SalesOrderCommonSearchOutputDTO>> searchSalesOrderListOnSearchCriteria(SalesOrderCombinedSearchParameterDTO salesOrderCombinedSearchParameterDTO) throws ExecutionException, InterruptedException, JsonProcessingException {
-//        String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
-        String token = "abbbb";
+        String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
+//        String token = "abbbb";
         String url = "/salesorder/api/getSalesOrderDetailsByCombinedParameters";
         log.info("=================url=====================================>"+url);
         List<SalesOrderCommonSearchOutputDTO> salesOrderListOutcome = null;
@@ -637,7 +642,7 @@ public class InvoicePostingServiceImpl implements InvoicePostingService {
                     .getPrimaryInvoiceLineItemDetailsOnInvoiceNoAndProcCode(invoiceMasterDetails.getInvoiceNo(), manualInvoiceEntryInputParameters.getHcpcsCode()));
 
                 InvoicePostingDetailsDTO invoicePostingDetailsDTO = invoicePostingDetailsMapper.toDto(invoicePosting(invoiceLineItemDetails.get(), manualInvoiceEntryInputParameters.getPostType(), manualInvoiceEntryInputParameters.getEntryAmount(),
-                    prefixInvoiceNo, invoiceMasterDetails, claimsCOB835Master.get(), 1, manualInvoiceEntryInputParameters));
+                    prefixInvoiceNo, invoiceMasterDetails, claimsCOB835Master.get(), 1, manualInvoiceEntryInputParameters, "M"));
                 ManualInvoiceEntryOutputParameters outputParameters = convertingToManualInvoiceEntryOutput(invoicePostingDetailsDTO);
                 return new ServiceOutcome<>(outputParameters, true, "Manual invoice entry is done successfully!");
             }

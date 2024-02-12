@@ -1,6 +1,7 @@
 package com.sunknowledge.dme.rcm.service.impl.insurance;
 
 import com.sunknowledge.dme.rcm.domain.BranchInsuranceMap;
+import com.sunknowledge.dme.rcm.domain.TaxonomyDetails;
 import com.sunknowledge.dme.rcm.repository.insurance.BranchInsuranceMapRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.branch.BranchOfficeServiceExtended;
 import com.sunknowledge.dme.rcm.service.dto.BranchInsuranceMapDTO;
@@ -181,7 +182,7 @@ public class BranchInsuranceMapServiceExtendedImpl implements BranchInsuranceMap
             List<BranchInsuranceMapDTO> savedBranchInsuranceMapDTOs = branchInsuranceMapMapper.toDto(
                 branchInsuranceMapRepositoryExtended.saveAll(branchInsuranceMapMapper.toEntity(branchInsuranceMapDTOs))
             );
-            return (new ResponseDTO(isDataSaved,isDataSaved?"Successfully Saved":"Data already exist.", List.of(savedBranchInsuranceMapDTOs)));
+            return (new ResponseDTO(isDataSaved,isDataSaved?"Successfully Saved":"Data already exist.", (savedBranchInsuranceMapDTOs),200));
         }catch (InvalidAttributeValueException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException(e);
@@ -281,7 +282,7 @@ public class BranchInsuranceMapServiceExtendedImpl implements BranchInsuranceMap
                 branchInsuranceMapDTO.setSubmitterContact1(branchInsuranceMapExtendedForUpdateDTO.getSubmitterContact1());
                 branchInsuranceMapDTO.setSubmitterContact2(branchInsuranceMapExtendedForUpdateDTO.getSubmitterContact2());
                 branchInsuranceMapDTO.setStatus("active");
-                if (branchInsuranceMapDTO.getBranchInsuranceMapId() == 0 || branchInsuranceMapDTO.getBranchInsuranceMapId() == null) {
+                if (branchInsuranceMapDTO.getBranchInsuranceMapId() == null || branchInsuranceMapDTO.getBranchInsuranceMapId() == 0 ) {
                     branchInsuranceMapDTO.setBranchInsuranceMapId(null);
                     branchInsuranceMapDTO.setCreatedDate(LocalDate.now());
                     branchInsuranceMapDTO.setCreatedById(1L);
@@ -295,9 +296,9 @@ public class BranchInsuranceMapServiceExtendedImpl implements BranchInsuranceMap
                 BranchInsuranceMapDTO savedBranchInsuranceMapDTO = branchInsuranceMapMapper.toDto(
                     branchInsuranceMapRepositoryExtended.save(branchInsuranceMapMapper.toEntity(branchInsuranceMapDTO))
                 );
-                return (new ResponseDTO(Boolean.TRUE,"Successfully Saved", List.of(savedBranchInsuranceMapDTO)));
+                return (new ResponseDTO(Boolean.TRUE,"Successfully Saved", savedBranchInsuranceMapDTO,200));
             }else {
-                return (new ResponseDTO(Boolean.FALSE,"Failed to Save data", new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE,"Failed to Save data", null,200));
             }
         }catch (InvalidAttributeValueException e) {
             log.error("=====>> Error : "+e);
@@ -324,19 +325,26 @@ public class BranchInsuranceMapServiceExtendedImpl implements BranchInsuranceMap
     }
 
     @Override
-    public ResponseDTO setBranchInsurancemapStatusById(Long id, String status) {
+    public ResponseDTO setBranchInsurancemapStatusByUuid(UUID uuid, String status) {
         if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
             try{
-                BranchInsuranceMap branchInsuranceMap = branchInsuranceMapRepositoryExtended.findByBranchInsuranceMapId(id);
-                branchInsuranceMap.setStatus(status);
-                branchInsuranceMapRepositoryExtended.save(branchInsuranceMap);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(branchInsuranceMap)));
+                Optional<BranchInsuranceMap> obj = branchInsuranceMapRepositoryExtended.findByBranchInsuranceMapUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    branchInsuranceMapRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
         }
     }
 

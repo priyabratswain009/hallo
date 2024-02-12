@@ -5,6 +5,7 @@ import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.others.FunctionalityMasterParameterDTO;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface FunctionalityMasterServiceExtended extends FunctionalityMasterService {
@@ -15,4 +16,10 @@ public interface FunctionalityMasterServiceExtended extends FunctionalityMasterS
     Long getIDByUUID(UUID d);
 
     List<Long> getActiveIDsByUUIDs(List<UUID> functionalityUUIDs);
+
+    ResponseDTO setFunctionalityMasterStatusByUuid(UUID uuid, String status);
+
+    ResponseDTO getAllFunctionalityMasterData();
+
+    List<Map<String, Object>> getFunctionalityMasterForDropdown();
 }

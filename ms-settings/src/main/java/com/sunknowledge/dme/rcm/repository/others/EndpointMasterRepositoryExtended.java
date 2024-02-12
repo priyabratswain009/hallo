@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface EndpointMasterRepositoryExtended extends EndpointMasterRepository {
@@ -23,4 +24,8 @@ public interface EndpointMasterRepositoryExtended extends EndpointMasterReposito
     Long getIDByUUID(@Param("endpointMasterUuid") UUID endpointMasterUuid);
 
     List<EndpointMaster> findByEndpointMasterUuidInAndStatusIgnoreCase(List<UUID> endpointUUIDs, String active);
+
+    List<EndpointMaster> findByStatusIgnoreCase(String active);
+
+    Optional<EndpointMaster> findByEndpointMasterUuid(UUID uuid);
 }

@@ -143,6 +143,107 @@ public class InventoryServiceImpl implements InventoryService {
         return serviceOutcome;
     }
 
+    /*@Override
+    public ServiceOutcome<ItemInventoryStatusResponse> updateItemInventoryStatusByItemAndLocation(ItemInventoryStatusInputRequest itemInventoryStatusInputRequest){
+        log.info("=====================updateItemInventoryStatusByItemAndLocation Service============================>");
+        ItemInventoryStatusResponse itemInventoryStatusResponse = new ItemInventoryStatusResponse();
+        AtomicReference<Boolean> status = new AtomicReference<>(false);
+        ServiceOutcome<ItemInventoryStatusResponse> serviceOutcome = new ServiceOutcome<>();
+        log.info("=====itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size()=>"+itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size());
+        if(itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size() > 0) {
+            log.info("======================Inside Size > 0====================");
+            itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().stream()
+                .map(itemInventoryInputParams -> {
+                    log.info("=====================Outer============================>");
+                    log.info("=====>" + itemInventoryInputParams.getItemLocationId());
+                    log.info("=====>" + itemInventoryInputParams.getDeliveryTicketNo());
+                    log.info("=====>" + itemInventoryInputParams.getDeliveryTicketId());
+                    itemInventoryInputParams.getDeliveryItemData().stream()
+                        .map(deliveryItem -> {
+                            log.info("=====================Inner============================>");
+                            log.info("=====>" + deliveryItem.getItemNumber());
+                            ItemInventoryStatus itemInventoryStatus = itemInventoryStatusRepository.getItemInventoryStatusByItemLocationId(deliveryItem.getItemId(), itemInventoryInputParams.getItemLocationId());
+                            if (itemInventoryStatus != null) {
+                                if (itemInventoryInputParams.getServiceType().equalsIgnoreCase("SALESORDER")) {
+                                    itemInventoryStatus.setInorderQty(itemInventoryStatus.getInorderQty() - 1);
+                                    itemInventoryStatus.setComittedQty(itemInventoryStatus.getComittedQty() + 1);
+                                    if (itemInventoryInputParams.getDeliveryType().equalsIgnoreCase("Dropship"))
+                                        itemInventoryStatus.setOnBackorder(itemInventoryStatus.getOnBackorder() - deliveryItem.getItemQuantity());
+                                    itemInventoryStatusRepository.save(itemInventoryStatus);
+                                    status.set(true);
+                                } else if (itemInventoryInputParams.getServiceType().equalsIgnoreCase("DELIVERY")) {
+                                    ItemSerialNumber itemSerialNumber;
+                                    itemInventoryStatus.setComittedQty(itemInventoryStatus.getComittedQty() - 1);
+                                    itemInventoryStatus.setOnhandQty(itemInventoryStatus.getOnhandQty() - 1);
+                                    if (deliveryItem.getItemSaleType().equalsIgnoreCase("Rental"))
+                                        itemInventoryStatus.setOnrentQty(itemInventoryStatus.getOnrentQty() + 1);
+                                    if (itemInventoryInputParams.getDeliveryType().equalsIgnoreCase("Dropship")) {
+                                        itemInventoryStatus.setOnBackorder(itemInventoryStatus.getOnBackorder() - deliveryItem.getItemQuantity());
+                                        itemSerialNumber = saveUpdateItemSerialNumber(itemInventoryStatus, deliveryItem);
+                                    }
+                                    itemInventoryStatusRepository.save(itemInventoryStatus);
+                                    saveUpdateSoItemTransactionDetails(itemInventoryStatus, itemInventoryInputParams, deliveryItem, itemInventoryInputParams.getSoNumber(), deliveryItem.getItemSerialNumber());
+                                    status.set(true);
+                                }
+                            }
+                            return deliveryItem;
+                        }).collect(Collectors.toList());
+                    return new ServiceOutcome<ItemInventoryStatusResponse>(null, true, "Success");
+                });
+        }
+        if(status.get()){
+            itemInventoryStatusResponse.setItemInventoryStatusInputParamsList(itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList());
+            serviceOutcome.setOutcome(true);
+            serviceOutcome.setMessage("Successfully created the delivery ticket and updated item inventory status!!!");
+            serviceOutcome.setData(itemInventoryStatusResponse);
+        }
+        else{
+            serviceOutcome.setOutcome(false);
+            serviceOutcome.setMessage("Failed to create the delivery ticket!!!");
+            serviceOutcome.setData(itemInventoryStatusResponse);
+        }
+        return serviceOutcome;
+    }*/
+
+    /*@Override
+    public ServiceOutcome<ItemInventoryStatusResponse> updateItemInventoryStatusByItemAndLocation(ItemInventoryStatusInputRequest itemInventoryStatusInputRequest){
+        log.info("=====================updateItemInventoryStatusByItemAndLocation Service============================>");
+        log.info("=====itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size()=>"+itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size());
+        itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().stream()
+            .map(itemInventoryInputParams -> {
+                ServiceOutcome<ItemInventoryStatusResponse> serviceOutcome = new ServiceOutcome<>();
+
+
+                return serviceOutcome;
+            });
+        return null;
+    }*/
+
+    /*public ServiceOutcome<ItemInventoryStatusResponse> updateItemInventory(ItemInventoryStatusInputRequest itemInventoryStatusInputRequest){
+        log.info("=====================updateItemInventoryStatusByItemAndLocation Service============================>");
+        log.info("=====itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size()=>"+itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size());
+        ItemInventoryStatusResponse serviceOutcome = new ItemInventoryStatusResponse();
+        ServiceOutcome<ItemInventoryStatusResponse> result = itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().stream()
+            .flatMap(itemInventoryInputParams -> {
+
+                return itemInventoryInputParams;
+            });
+        return result;
+    }*/
+
+    /*public Optional<ItemInventoryStatusResponse> updateItemInventory(ItemInventoryStatusInputRequest itemInventoryStatusInputRequest){
+        log.info("=====================updateItemInventoryStatusByItemAndLocation Service============================>");
+        log.info("=====itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size()=>"+itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().size());
+        ItemInventoryStatusResponse serviceOutcome = new ItemInventoryStatusResponse();
+        Optional<ItemInventoryStatusResponse> result = itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().stream()
+            .map(itemInventoryInputParams -> {
+
+                return serviceOutcome;
+            }).findFirst();
+        return result;
+    }*/
+
+
     public ItemSerialNumber saveUpdateItemSerialNumber(ItemInventoryStatus itemInventoryStatus, DeliveryItemData deliveryItem){
         ItemSerialNumber itemSerialNumber = itemSerialNumberRepository.getItemSerialNumberOnItemNSerialNo(itemInventoryStatus.getItemId(), deliveryItem.getItemSerialNumber());
         if(itemSerialNumber != null){

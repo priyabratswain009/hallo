@@ -11,7 +11,7 @@ public class SalesOrderCombinedSearchParameterDTO {
     //    @NotNull(message = "SO_UUID must be provided")
 //    @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
 //        message = "Provide only valid SO_UUID")
-    String branchID;
+    //String branchID;
     String branchName;
     String salesOrderUUID;
     String patientIDNo;

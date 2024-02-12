@@ -41,7 +41,7 @@ public class EndpointMasterServiceImpl implements EndpointMasterService {
 
     @Override
     public EndpointMasterDTO update(EndpointMasterDTO endpointMasterDTO) {
-        log.debug("Request to save EndpointMaster : {}", endpointMasterDTO);
+        log.debug("Request to update EndpointMaster : {}", endpointMasterDTO);
         EndpointMaster endpointMaster = endpointMasterMapper.toEntity(endpointMasterDTO);
         endpointMaster = endpointMasterRepository.save(endpointMaster);
         return endpointMasterMapper.toDto(endpointMaster);

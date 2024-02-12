@@ -9,7 +9,6 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ItemVendorMapping} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemVendorMappingDTO implements Serializable {
 
     private Long itemVendorId;

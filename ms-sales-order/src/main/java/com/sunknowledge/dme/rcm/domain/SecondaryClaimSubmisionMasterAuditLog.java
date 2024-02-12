@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A SecondaryClaimSubmisionMasterAuditLog.
  */
 @Table("t_secondary_claim_submision_master_audit_log")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SecondaryClaimSubmisionMasterAuditLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

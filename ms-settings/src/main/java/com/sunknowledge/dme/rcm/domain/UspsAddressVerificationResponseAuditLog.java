@@ -12,6 +12,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "t_usps_address_verification_response_audit_log")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class UspsAddressVerificationResponseAuditLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

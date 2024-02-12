@@ -44,7 +44,7 @@ public class TaskReasonMasterAuditLogServiceImpl implements TaskReasonMasterAudi
 
     @Override
     public TaskReasonMasterAuditLogDTO update(TaskReasonMasterAuditLogDTO taskReasonMasterAuditLogDTO) {
-        log.debug("Request to save TaskReasonMasterAuditLog : {}", taskReasonMasterAuditLogDTO);
+        log.debug("Request to update TaskReasonMasterAuditLog : {}", taskReasonMasterAuditLogDTO);
         TaskReasonMasterAuditLog taskReasonMasterAuditLog = taskReasonMasterAuditLogMapper.toEntity(taskReasonMasterAuditLogDTO);
         taskReasonMasterAuditLog = taskReasonMasterAuditLogRepository.save(taskReasonMasterAuditLog);
         return taskReasonMasterAuditLogMapper.toDto(taskReasonMasterAuditLog);

@@ -44,7 +44,7 @@ public class ElligibilityResponseStatusServiceImpl implements ElligibilityRespon
 
     @Override
     public Mono<ElligibilityResponseStatusDTO> update(ElligibilityResponseStatusDTO elligibilityResponseStatusDTO) {
-        log.debug("Request to save ElligibilityResponseStatus : {}", elligibilityResponseStatusDTO);
+        log.debug("Request to update ElligibilityResponseStatus : {}", elligibilityResponseStatusDTO);
         return elligibilityResponseStatusRepository
             .save(elligibilityResponseStatusMapper.toEntity(elligibilityResponseStatusDTO))
             .map(elligibilityResponseStatusMapper::toDto);

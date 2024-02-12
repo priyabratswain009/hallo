@@ -2,6 +2,7 @@ package com.sunknowledge.dme.rcm.service.branch;
 
 import com.sunknowledge.dme.rcm.service.BranchOfficeService;
 import com.sunknowledge.dme.rcm.service.dto.BranchOfficeDTO;
+import com.sunknowledge.dme.rcm.service.dto.branch.BranchOfficeExtendedDTO;
 import com.sunknowledge.dme.rcm.service.dto.branch.BranchOfficeParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
@@ -23,7 +24,7 @@ public interface BranchOfficeServiceExtended extends BranchOfficeService {
 
     List<BranchOfficeDTO> getBranchOfficeByBranchNo(String branchNo);
 
-    List<BranchOfficeDTO> getAllBranchOfficeData();
+    List<BranchOfficeExtendedDTO> getAllBranchOfficeData();
 
     List<BranchOfficeDTO> getBranchOfficeByNpi(String npi);
 
@@ -35,7 +36,7 @@ public interface BranchOfficeServiceExtended extends BranchOfficeService {
 
     BranchOfficeDTO getActiveBranchOfficeById(Long branchId);
 
-    ResponseDTO setBranchOfficeStatusById(Long id, String status);
+    ResponseDTO setBranchOfficeStatusByUuid(UUID uuid, String status);
 
     List<Map> getBranchDetailsByUserUUIDorUserName(String param, String optVal);
 

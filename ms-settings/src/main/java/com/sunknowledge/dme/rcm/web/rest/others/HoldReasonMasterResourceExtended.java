@@ -32,7 +32,7 @@ public class HoldReasonMasterResourceExtended {
     @GetMapping("/getAllHoldReasonDetails")
     public ResponseDTO getAllHoldReasonDetails(){
         List<HoldReasonMasterDTO> obj = holdReasonMasterServiceExtended.getAllHoldReasonDetails();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getHoldReasonDetailsByUUID")
@@ -40,7 +40,13 @@ public class HoldReasonMasterResourceExtended {
         @NotBlank(message = "Hold Reason UUID must be provided")
         @RequestParam("uuid") UUID uuid){
 
-        List<HoldReasonMasterDTO> obj = holdReasonMasterServiceExtended.getHoldReasonDetailsByUUID(uuid);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        HoldReasonMasterDTO obj = holdReasonMasterServiceExtended.getHoldReasonDetailsByUUID(uuid);
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "": "Data Not Found.", obj,200));
+    }
+
+    @PutMapping(value = "/setHoldReasonDetailsStatusByUuid")
+    public ResponseDTO setHoldReasonDetailsStatusByUuid(@RequestParam("uuid") UUID uuid,
+                                                        @RequestParam("status") String status){
+        return holdReasonMasterServiceExtended.setHoldReasonDetailsStatusByUuid(uuid,status);
     }
 }

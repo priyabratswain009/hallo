@@ -44,7 +44,7 @@ public class BranchInsuranceMapAuditLogServiceImpl implements BranchInsuranceMap
 
     @Override
     public BranchInsuranceMapAuditLogDTO update(BranchInsuranceMapAuditLogDTO branchInsuranceMapAuditLogDTO) {
-        log.debug("Request to save BranchInsuranceMapAuditLog : {}", branchInsuranceMapAuditLogDTO);
+        log.debug("Request to update BranchInsuranceMapAuditLog : {}", branchInsuranceMapAuditLogDTO);
         BranchInsuranceMapAuditLog branchInsuranceMapAuditLog = branchInsuranceMapAuditLogMapper.toEntity(branchInsuranceMapAuditLogDTO);
         branchInsuranceMapAuditLog = branchInsuranceMapAuditLogRepository.save(branchInsuranceMapAuditLog);
         return branchInsuranceMapAuditLogMapper.toDto(branchInsuranceMapAuditLog);

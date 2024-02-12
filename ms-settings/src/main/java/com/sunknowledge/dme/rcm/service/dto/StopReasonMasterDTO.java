@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.StopReasonMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class StopReasonMasterDTO implements Serializable {
 
     private Long stopReasonId;

@@ -44,7 +44,7 @@ public class ItemLocationAuditLogServiceImpl implements ItemLocationAuditLogServ
 
     @Override
     public ItemLocationAuditLogDTO update(ItemLocationAuditLogDTO itemLocationAuditLogDTO) {
-        log.debug("Request to save ItemLocationAuditLog : {}", itemLocationAuditLogDTO);
+        log.debug("Request to update ItemLocationAuditLog : {}", itemLocationAuditLogDTO);
         ItemLocationAuditLog itemLocationAuditLog = itemLocationAuditLogMapper.toEntity(itemLocationAuditLogDTO);
         itemLocationAuditLog = itemLocationAuditLogRepository.save(itemLocationAuditLog);
         return itemLocationAuditLogMapper.toDto(itemLocationAuditLog);

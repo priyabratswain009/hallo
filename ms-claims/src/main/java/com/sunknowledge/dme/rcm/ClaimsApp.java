@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm;
 
+import com.sunknowledge.dme.rcm.application.properties.ApplicationPropertiesSetup;
 import com.sunknowledge.dme.rcm.config.ApplicationProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
+@EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationPropertiesSetup.class })
 public class ClaimsApp {
 
     private static final Logger log = LoggerFactory.getLogger(ClaimsApp.class);

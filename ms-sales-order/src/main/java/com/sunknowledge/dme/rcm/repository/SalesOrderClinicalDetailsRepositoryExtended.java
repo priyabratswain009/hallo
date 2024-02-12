@@ -11,9 +11,12 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 public interface SalesOrderClinicalDetailsRepositoryExtended extends SalesOrderClinicalDetailsRepository{
-    Flux<SalesOrderClinicalDetails> findBySalesOrderId(Long SOID);
 
-    Flux<SalesOrderClinicalDetails> getSOClinicalByUUID(UUID sOClinicalUUID);
+    @Query(value = "select * from so.t_sales_order_clinical_details tsocd where tsocd.sales_order_id  = :SOID and lower(tsocd.status)='active'")
+    Flux<SalesOrderClinicalDetails> findBySalesOrderId(@Param("SOID") Long SOID);
+
+    @Query(value = "select * from so.t_sales_order_clinical_details tsocd where tsocd.sales_order_clinical_details_uuid  = :sOClinicalUUID and lower(tsocd.status)='active'")
+    Flux<SalesOrderClinicalDetails> getSOClinicalByUUID(@Param("sOClinicalUUID") UUID sOClinicalUUID);
 
     @Query(value="select so.get_t_sales_order_clinical_details_id_by_uuid(:sOClinicalUUID)")
     Mono<Long> getIDByUUID(@Param("sOClinicalUUID") UUID sOClinicalUUID);

@@ -30,6 +30,7 @@ import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Validated
 @RestController
@@ -69,15 +70,15 @@ public class InsuranceMasterResourceExtended {
         @NotBlank(message = "Insurance_Id(s) must be provided")
         @RequestParam("insuranceIds") String insuranceIds) {
         List<InsuranceMasterDTO> obj = insuranceMasterServiceExtended.getInsuranceMasterByInsuranceIdList(insuranceIds);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getInsuranceMasterById")
     public ResponseDTO getInsuranceMasterById(
         @Min(value = 1, message = "Insurance_Id must be greater than or equal to 1")
         @RequestParam("insuranceId") Long insuranceId) {
-        List<InsuranceMasterDTO> obj = insuranceMasterServiceExtended.getInsuranceMasterById(insuranceId);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        InsuranceMasterDTO obj = insuranceMasterServiceExtended.getInsuranceMasterById(insuranceId);
+        return (new ResponseDTO(obj!=null? true : false, obj!=null ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getInsuranceMasterByInsuranceName")
@@ -86,7 +87,7 @@ public class InsuranceMasterResourceExtended {
         @RequestParam("insuranceName") String insuranceName) {
         List<InsuranceMasterDTO> obj = insuranceName.trim() != "" ?
             insuranceMasterServiceExtended.getInsuranceMasterByInsuranceName(insuranceName.trim()) : new ArrayList<>();
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getInsuranceMasterByInsuranceIdNo")
@@ -94,7 +95,7 @@ public class InsuranceMasterResourceExtended {
         @NotBlank(message = "Insurance_Id_No must be provided")
         @RequestParam("insuranceIdNo") String insuranceIdNo) {
         List<InsuranceMasterDTO> obj = insuranceMasterServiceExtended.getInsuranceMasterByInsuranceIdNo(insuranceIdNo);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/fetchInsuranceByCmsCrossoverInsuranceIdNo")
@@ -103,13 +104,13 @@ public class InsuranceMasterResourceExtended {
         @RequestParam("cmsCrossoverInsuranceIdNo") String cmsCrossoverInsuranceIdNo) {
         List<InsuranceMasterDTO> obj = insuranceMasterServiceExtended.fetchInsuranceByCmsCrossoverInsuranceIdNo(cmsCrossoverInsuranceIdNo);
 //        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj.size() > 0 ? obj.get(0) : null));
-        return (new ServiceOutcome<InsuranceMasterDTO>(obj.size() > 0 ? obj.get(0) : null, obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found."));
+        return (new ServiceOutcome<InsuranceMasterDTO>(obj.size() > 0 ? obj.get(0) : null, obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.",200));
     }
 
     @GetMapping("/getAllInsuranceMasterData")
     public ResponseDTO getAllInsuranceMasterData() {
         List<InsuranceMasterDTO> obj = insuranceMasterServiceExtended.getAllInsuranceMasterData();
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getInsuranceMasterByStatus")
@@ -118,16 +119,16 @@ public class InsuranceMasterResourceExtended {
         @RequestParam("status") String status) {
 
         List<InsuranceMasterDTO> obj = insuranceMasterServiceExtended.getInsuranceMasterByStatus(status);
-        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "Successfully Data Fetched." : "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size() > 0 ? true : false, obj.size() > 0 ? "" : "Data Not Found.", obj,200));
     }
 
-    @PutMapping("/setInsuranceMasterStatus/{insuranceId}/{status}")
-    public ResponseDTO setInsuranceMasterStatus(
-        @PathVariable("insuranceId") Long insuranceId,
+    @PutMapping("/setInsuranceMasterStatusByUuid")
+    public ResponseDTO setInsuranceMasterStatusByUuid(
+        @RequestParam("uuid") UUID uuid,
         @NotBlank(message = "Status must be provided")
-        @PathVariable("status") String status) {
+        @RequestParam("status") String status) {
 
-        return insuranceMasterServiceExtended.setInsuranceMasterStatus(insuranceId, status);
+        return insuranceMasterServiceExtended.setInsuranceMasterStatus(uuid, status);
     }
 
     /**

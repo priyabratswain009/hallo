@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.NoteTypeMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class NoteTypeMasterDTO implements Serializable {
 
     private Long noteTypeId;

@@ -41,7 +41,7 @@ public class StockTransferServiceImpl implements StockTransferService {
 
     @Override
     public StockTransferDTO update(StockTransferDTO stockTransferDTO) {
-        log.debug("Request to update StockTransfer : {}", stockTransferDTO);
+        log.debug("Request to save StockTransfer : {}", stockTransferDTO);
         StockTransfer stockTransfer = stockTransferMapper.toEntity(stockTransferDTO);
         stockTransfer = stockTransferRepository.save(stockTransfer);
         return stockTransferMapper.toDto(stockTransfer);

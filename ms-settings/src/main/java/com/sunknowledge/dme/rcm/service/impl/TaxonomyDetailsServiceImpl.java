@@ -41,7 +41,7 @@ public class TaxonomyDetailsServiceImpl implements TaxonomyDetailsService {
 
     @Override
     public TaxonomyDetailsDTO update(TaxonomyDetailsDTO taxonomyDetailsDTO) {
-        log.debug("Request to save TaxonomyDetails : {}", taxonomyDetailsDTO);
+        log.debug("Request to update TaxonomyDetails : {}", taxonomyDetailsDTO);
         TaxonomyDetails taxonomyDetails = taxonomyDetailsMapper.toEntity(taxonomyDetailsDTO);
         taxonomyDetails = taxonomyDetailsRepository.save(taxonomyDetails);
         return taxonomyDetailsMapper.toDto(taxonomyDetails);

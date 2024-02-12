@@ -24,6 +24,8 @@ public class ChecklistCoverageCriteriaMapSqlHelper {
         columns.add(Column.aliased("updated_by_name", table, columnPrefix + "_updated_by_name"));
         columns.add(Column.aliased("checklist_coverage_criteria_map_uuid", table, columnPrefix + "_checklist_coverage_criteria_map_uuid"));
         columns.add(Column.aliased("coverage_criteria_name", table, columnPrefix + "_coverage_criteria_name"));
+        columns.add(Column.aliased("item_group_id", table, columnPrefix + "_item_group_id"));
+        columns.add(Column.aliased("item_group_name", table, columnPrefix + "_item_group_name"));
 
         return columns;
     }

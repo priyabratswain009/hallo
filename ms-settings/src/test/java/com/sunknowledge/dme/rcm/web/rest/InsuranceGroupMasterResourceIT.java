@@ -252,7 +252,7 @@ class InsuranceGroupMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewInsuranceGroupMaster() throws Exception {
+    void putExistingInsuranceGroupMaster() throws Exception {
         // Initialize the database
         insuranceGroupMasterRepository.saveAndFlush(insuranceGroupMaster);
 

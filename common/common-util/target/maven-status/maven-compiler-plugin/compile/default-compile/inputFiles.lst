@@ -1,17 +1,49 @@
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\CommonPDFStubs.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\CommonPdfTableStubs.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\FileDownloadUtilityService.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonconstant\RegexConstant.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\DateUtilities.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\dto\TokenResponse.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\dto\DownloadFileInputs.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\FileConfigUtility.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\securityutil\InternalAccessTokenUtilities.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\FileUploadProperties.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\FileUploadConfigProperties.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\audittrailutil\AuditLogDTO.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\AccessTokenUtilities.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\CommonUtilities.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\ApplicationConstants.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\audittrailutil\AuditLogReportDTO.java
-D:\SKProject\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\audittrailutil\AuditTrailUtil.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\DiscoveryClient.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\DiscoveryComposite.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\mail\MailConfig.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\ServiceDetails.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\service\MicroserviceHealthCheck.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\RefreshScope.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\FileDownloadUtilityService.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\Ping.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\FileUploadProperties.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\ReadinessState.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\ApplicationPropertiesSetup.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\service\MicroserviceHealthCheckImpl.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\Db.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\ApplicationConfig.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\audittrailutil\AuditLogReportDTO.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\ClientConfigServer.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\FileUploadConfigProperties.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\mail\MailServiceImpl.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\ApplicationConstants.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\MicroserviceApplications.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\DiskSpace.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\DiscoveryComponents.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\HealthCheckMain.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\Components.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\ReactiveDiscoveryClients.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\securityutil\InternalAccessTokenUtilities.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\Eureka.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\LivenessState.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\DbDetails.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\DateUtilities.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\CommonPDFStubs.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\audittrailutil\AuditTrailUtil.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\ReactiveDiscoveryComponents.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\Hystrix.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\SpringCloudEurekaReactiveDiscoveryClient.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\DiskSpaceDetails.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\SimpleReactiveDiscoveryClient.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\PropertySourceDetails.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\dto\DownloadFileInputs.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\AccessTokenUtilities.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonconstant\RegexConstant.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\audittrailutil\AuditLogDTO.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\CommonUtilities.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\FileConfigUtility.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\mail\MailService.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\mshealthcheck\pojo\ApplicationDetails.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\dto\TokenResponse.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\application\properties\AsyncConfigurationSetup.java
+D:\SK-Projects\SK-DME-RCM CLONE-DEV - RECENT\sk-dme-rcm\common\common-util\src\main\java\com\sunknowledge\dme\rcm\commonutil\CommonPdfTableStubs.java

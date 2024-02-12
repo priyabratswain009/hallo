@@ -267,7 +267,7 @@ class FunctionalityEndpointMappingResourceIT {
 
     @Test
     @Transactional
-    void putNewFunctionalityEndpointMapping() throws Exception {
+    void putExistingFunctionalityEndpointMapping() throws Exception {
         // Initialize the database
         functionalityEndpointMappingRepository.saveAndFlush(functionalityEndpointMapping);
 

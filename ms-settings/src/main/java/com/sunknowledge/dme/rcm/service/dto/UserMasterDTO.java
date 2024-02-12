@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.UserMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class UserMasterDTO implements Serializable {
 
     private Long userId;
@@ -65,6 +66,12 @@ public class UserMasterDTO implements Serializable {
     private String jobTitle;
 
     private String modeOfContact;
+
+    private Boolean isDeactivate;
+
+    private String username;
+
+    private String password;
 
     public Long getUserId() {
         return userId;
@@ -290,6 +297,30 @@ public class UserMasterDTO implements Serializable {
         this.modeOfContact = modeOfContact;
     }
 
+    public Boolean getIsDeactivate() {
+        return isDeactivate;
+    }
+
+    public void setIsDeactivate(Boolean isDeactivate) {
+        this.isDeactivate = isDeactivate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -343,6 +374,9 @@ public class UserMasterDTO implements Serializable {
             ", email='" + getEmail() + "'" +
             ", jobTitle='" + getJobTitle() + "'" +
             ", modeOfContact='" + getModeOfContact() + "'" +
+            ", isDeactivate='" + getIsDeactivate() + "'" +
+            ", username='" + getUsername() + "'" +
+            ", password='" + getPassword() + "'" +
             "}";
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A SalesOrderMasterAuditLog.
  */
 @Table("t_sales_order_master_audit_log")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SalesOrderMasterAuditLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

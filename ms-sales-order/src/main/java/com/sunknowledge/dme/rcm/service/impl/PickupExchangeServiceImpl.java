@@ -39,7 +39,7 @@ public class PickupExchangeServiceImpl implements PickupExchangeService {
 
     @Override
     public Mono<PickupExchangeDTO> update(PickupExchangeDTO pickupExchangeDTO) {
-        log.debug("Request to save PickupExchange : {}", pickupExchangeDTO);
+        log.debug("Request to update PickupExchange : {}", pickupExchangeDTO);
         return pickupExchangeRepository.save(pickupExchangeMapper.toEntity(pickupExchangeDTO)).map(pickupExchangeMapper::toDto);
     }
 

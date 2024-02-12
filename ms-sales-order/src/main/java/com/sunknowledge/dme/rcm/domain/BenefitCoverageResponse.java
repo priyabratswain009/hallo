@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A BenefitCoverageResponse.
  */
 @Table("t_benefit_coverage_response")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BenefitCoverageResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,58 +22,76 @@ public class BenefitCoverageResponse implements Serializable {
     private Long benefitCoverageResponseId;
 
     @Column("benefit_coverage_request_id")
-    private String benefitCoverageRequestId;
+    private Long benefitCoverageRequestId;
 
-    @Column("created_date")
-    private LocalDate createdDate;
+    @Column("request_control_number_ext")
+    private String requestControlNumberExt;
 
-    @Column("updated_date")
-    private LocalDate updatedDate;
-
-    @Column("expiration_date")
-    private LocalDate expirationDate;
-
-    @Column("requested_date")
-    private LocalDate requestedDate;
-
-    @Column("response_date")
-    private LocalDate responseDate;
+    @Column("as_on_date")
+    private LocalDate asOnDate;
 
     @Column("service_type")
     private String serviceType;
 
+    @Column("member_first_name")
+    private String memberFirstName;
+
+    @Column("member_last_name")
+    private String memberLastName;
+
     @Column("subscriber_member_id")
     private String subscriberMemberId;
+
+    @Column("member_gender")
+    private String memberGender;
+
+    @Column("patient_first_name")
+    private String patientFirstName;
+
+    @Column("patient_last_name")
+    private String patientLastName;
+
+    @Column("patient_gender")
+    private String patientGender;
+
+    @Column("payer_name")
+    private String payerName;
 
     @Column("patient_relationship_code")
     private String patientRelationshipCode;
 
-    @Column("payer_id")
-    private String payerId;
+    @Column("patient_state")
+    private String patientState;
 
-    @Column("provider_npi")
-    private String providerNpi;
+    @Column("coverage_status")
+    private String coverageStatus;
 
-    @Column("plans_status_code")
-    private String plansStatusCode;
+    @Column("payer_group_number")
+    private String payerGroupNumber;
 
-    @Column("plans_status")
-    private String plansStatus;
+    @Column("service_date")
+    private LocalDate serviceDate;
 
-    @Column("primary_response")
-    private String primaryResponse;
+    @Column("plan_start_date")
+    private LocalDate planStartDate;
 
-    @Column("secondary_response")
-    private String secondaryResponse;
+    @Column("response_json_text")
+    private String responseJsonText;
 
     @Column("status")
     private String status;
+
+    @Column("created_date")
+    private LocalDate createdDate;
 
     @Column("created_by_id")
     private Long createdById;
 
     @Column("created_by_name")
     private String createdByName;
+
+    @Column("updated_date")
+    private LocalDate updatedDate;
 
     @Column("updated_by_id")
     private Long updatedById;
@@ -82,15 +101,6 @@ public class BenefitCoverageResponse implements Serializable {
 
     @Column("benefit_coverage_response_uuid")
     private UUID benefitCoverageResponseUuid;
-
-    @Column("patient_state")
-    private String patientState;
-
-    @Column("subscriber_relationship")
-    private String subscriberRelationship;
-
-    @Column("member_id")
-    private String memberId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -107,82 +117,43 @@ public class BenefitCoverageResponse implements Serializable {
         this.benefitCoverageResponseId = benefitCoverageResponseId;
     }
 
-    public String getBenefitCoverageRequestId() {
+    public Long getBenefitCoverageRequestId() {
         return this.benefitCoverageRequestId;
     }
 
-    public BenefitCoverageResponse benefitCoverageRequestId(String benefitCoverageRequestId) {
+    public BenefitCoverageResponse benefitCoverageRequestId(Long benefitCoverageRequestId) {
         this.setBenefitCoverageRequestId(benefitCoverageRequestId);
         return this;
     }
 
-    public void setBenefitCoverageRequestId(String benefitCoverageRequestId) {
+    public void setBenefitCoverageRequestId(Long benefitCoverageRequestId) {
         this.benefitCoverageRequestId = benefitCoverageRequestId;
     }
 
-    public LocalDate getCreatedDate() {
-        return this.createdDate;
+    public String getRequestControlNumberExt() {
+        return this.requestControlNumberExt;
     }
 
-    public BenefitCoverageResponse createdDate(LocalDate createdDate) {
-        this.setCreatedDate(createdDate);
+    public BenefitCoverageResponse requestControlNumberExt(String requestControlNumberExt) {
+        this.setRequestControlNumberExt(requestControlNumberExt);
         return this;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    public void setRequestControlNumberExt(String requestControlNumberExt) {
+        this.requestControlNumberExt = requestControlNumberExt;
     }
 
-    public LocalDate getUpdatedDate() {
-        return this.updatedDate;
+    public LocalDate getAsOnDate() {
+        return this.asOnDate;
     }
 
-    public BenefitCoverageResponse updatedDate(LocalDate updatedDate) {
-        this.setUpdatedDate(updatedDate);
+    public BenefitCoverageResponse asOnDate(LocalDate asOnDate) {
+        this.setAsOnDate(asOnDate);
         return this;
     }
 
-    public void setUpdatedDate(LocalDate updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public LocalDate getExpirationDate() {
-        return this.expirationDate;
-    }
-
-    public BenefitCoverageResponse expirationDate(LocalDate expirationDate) {
-        this.setExpirationDate(expirationDate);
-        return this;
-    }
-
-    public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public LocalDate getRequestedDate() {
-        return this.requestedDate;
-    }
-
-    public BenefitCoverageResponse requestedDate(LocalDate requestedDate) {
-        this.setRequestedDate(requestedDate);
-        return this;
-    }
-
-    public void setRequestedDate(LocalDate requestedDate) {
-        this.requestedDate = requestedDate;
-    }
-
-    public LocalDate getResponseDate() {
-        return this.responseDate;
-    }
-
-    public BenefitCoverageResponse responseDate(LocalDate responseDate) {
-        this.setResponseDate(responseDate);
-        return this;
-    }
-
-    public void setResponseDate(LocalDate responseDate) {
-        this.responseDate = responseDate;
+    public void setAsOnDate(LocalDate asOnDate) {
+        this.asOnDate = asOnDate;
     }
 
     public String getServiceType() {
@@ -198,6 +169,32 @@ public class BenefitCoverageResponse implements Serializable {
         this.serviceType = serviceType;
     }
 
+    public String getMemberFirstName() {
+        return this.memberFirstName;
+    }
+
+    public BenefitCoverageResponse memberFirstName(String memberFirstName) {
+        this.setMemberFirstName(memberFirstName);
+        return this;
+    }
+
+    public void setMemberFirstName(String memberFirstName) {
+        this.memberFirstName = memberFirstName;
+    }
+
+    public String getMemberLastName() {
+        return this.memberLastName;
+    }
+
+    public BenefitCoverageResponse memberLastName(String memberLastName) {
+        this.setMemberLastName(memberLastName);
+        return this;
+    }
+
+    public void setMemberLastName(String memberLastName) {
+        this.memberLastName = memberLastName;
+    }
+
     public String getSubscriberMemberId() {
         return this.subscriberMemberId;
     }
@@ -209,6 +206,71 @@ public class BenefitCoverageResponse implements Serializable {
 
     public void setSubscriberMemberId(String subscriberMemberId) {
         this.subscriberMemberId = subscriberMemberId;
+    }
+
+    public String getMemberGender() {
+        return this.memberGender;
+    }
+
+    public BenefitCoverageResponse memberGender(String memberGender) {
+        this.setMemberGender(memberGender);
+        return this;
+    }
+
+    public void setMemberGender(String memberGender) {
+        this.memberGender = memberGender;
+    }
+
+    public String getPatientFirstName() {
+        return this.patientFirstName;
+    }
+
+    public BenefitCoverageResponse patientFirstName(String patientFirstName) {
+        this.setPatientFirstName(patientFirstName);
+        return this;
+    }
+
+    public void setPatientFirstName(String patientFirstName) {
+        this.patientFirstName = patientFirstName;
+    }
+
+    public String getPatientLastName() {
+        return this.patientLastName;
+    }
+
+    public BenefitCoverageResponse patientLastName(String patientLastName) {
+        this.setPatientLastName(patientLastName);
+        return this;
+    }
+
+    public void setPatientLastName(String patientLastName) {
+        this.patientLastName = patientLastName;
+    }
+
+    public String getPatientGender() {
+        return this.patientGender;
+    }
+
+    public BenefitCoverageResponse patientGender(String patientGender) {
+        this.setPatientGender(patientGender);
+        return this;
+    }
+
+    public void setPatientGender(String patientGender) {
+        this.patientGender = patientGender;
+    }
+
+    public String getPayerName() {
+        return this.payerName;
+    }
+
+    public BenefitCoverageResponse payerName(String payerName) {
+        this.setPayerName(payerName);
+        return this;
+    }
+
+    public void setPayerName(String payerName) {
+        this.payerName = payerName;
     }
 
     public String getPatientRelationshipCode() {
@@ -224,82 +286,82 @@ public class BenefitCoverageResponse implements Serializable {
         this.patientRelationshipCode = patientRelationshipCode;
     }
 
-    public String getPayerId() {
-        return this.payerId;
+    public String getPatientState() {
+        return this.patientState;
     }
 
-    public BenefitCoverageResponse payerId(String payerId) {
-        this.setPayerId(payerId);
+    public BenefitCoverageResponse patientState(String patientState) {
+        this.setPatientState(patientState);
         return this;
     }
 
-    public void setPayerId(String payerId) {
-        this.payerId = payerId;
+    public void setPatientState(String patientState) {
+        this.patientState = patientState;
     }
 
-    public String getProviderNpi() {
-        return this.providerNpi;
+    public String getCoverageStatus() {
+        return this.coverageStatus;
     }
 
-    public BenefitCoverageResponse providerNpi(String providerNpi) {
-        this.setProviderNpi(providerNpi);
+    public BenefitCoverageResponse coverageStatus(String coverageStatus) {
+        this.setCoverageStatus(coverageStatus);
         return this;
     }
 
-    public void setProviderNpi(String providerNpi) {
-        this.providerNpi = providerNpi;
+    public void setCoverageStatus(String coverageStatus) {
+        this.coverageStatus = coverageStatus;
     }
 
-    public String getPlansStatusCode() {
-        return this.plansStatusCode;
+    public String getPayerGroupNumber() {
+        return this.payerGroupNumber;
     }
 
-    public BenefitCoverageResponse plansStatusCode(String plansStatusCode) {
-        this.setPlansStatusCode(plansStatusCode);
+    public BenefitCoverageResponse payerGroupNumber(String payerGroupNumber) {
+        this.setPayerGroupNumber(payerGroupNumber);
         return this;
     }
 
-    public void setPlansStatusCode(String plansStatusCode) {
-        this.plansStatusCode = plansStatusCode;
+    public void setPayerGroupNumber(String payerGroupNumber) {
+        this.payerGroupNumber = payerGroupNumber;
     }
 
-    public String getPlansStatus() {
-        return this.plansStatus;
+    public LocalDate getServiceDate() {
+        return this.serviceDate;
     }
 
-    public BenefitCoverageResponse plansStatus(String plansStatus) {
-        this.setPlansStatus(plansStatus);
+    public BenefitCoverageResponse serviceDate(LocalDate serviceDate) {
+        this.setServiceDate(serviceDate);
         return this;
     }
 
-    public void setPlansStatus(String plansStatus) {
-        this.plansStatus = plansStatus;
+    public void setServiceDate(LocalDate serviceDate) {
+        this.serviceDate = serviceDate;
     }
 
-    public String getPrimaryResponse() {
-        return this.primaryResponse;
+    public LocalDate getPlanStartDate() {
+        return this.planStartDate;
     }
 
-    public BenefitCoverageResponse primaryResponse(String primaryResponse) {
-        this.setPrimaryResponse(primaryResponse);
+    public BenefitCoverageResponse planStartDate(LocalDate planStartDate) {
+        this.setPlanStartDate(planStartDate);
         return this;
     }
 
-    public void setPrimaryResponse(String primaryResponse) {
-        this.primaryResponse = primaryResponse;
+    public void setPlanStartDate(LocalDate planStartDate) {
+        this.planStartDate = planStartDate;
     }
 
-    public String getSecondaryResponse() {
-        return this.secondaryResponse;
+    public String getResponseJsonText() {
+        return this.responseJsonText;
     }
 
-    public BenefitCoverageResponse secondaryResponse(String secondaryResponse) {
-        this.setSecondaryResponse(secondaryResponse);
+    public BenefitCoverageResponse responseJsonText(String responseJsonText) {
+        this.setResponseJsonText(responseJsonText);
         return this;
     }
 
-    public void setSecondaryResponse(String secondaryResponse) {
-        this.secondaryResponse = secondaryResponse;
+    public void setResponseJsonText(String responseJsonText) {
+        this.responseJsonText = responseJsonText;
     }
 
     public String getStatus() {
@@ -313,6 +375,19 @@ public class BenefitCoverageResponse implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public BenefitCoverageResponse createdDate(LocalDate createdDate) {
+        this.setCreatedDate(createdDate);
+        return this;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Long getCreatedById() {
@@ -339,6 +414,19 @@ public class BenefitCoverageResponse implements Serializable {
 
     public void setCreatedByName(String createdByName) {
         this.createdByName = createdByName;
+    }
+
+    public LocalDate getUpdatedDate() {
+        return this.updatedDate;
+    }
+
+    public BenefitCoverageResponse updatedDate(LocalDate updatedDate) {
+        this.setUpdatedDate(updatedDate);
+        return this;
+    }
+
+    public void setUpdatedDate(LocalDate updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public Long getUpdatedById() {
@@ -380,45 +468,6 @@ public class BenefitCoverageResponse implements Serializable {
         this.benefitCoverageResponseUuid = benefitCoverageResponseUuid;
     }
 
-    public String getPatientState() {
-        return this.patientState;
-    }
-
-    public BenefitCoverageResponse patientState(String patientState) {
-        this.setPatientState(patientState);
-        return this;
-    }
-
-    public void setPatientState(String patientState) {
-        this.patientState = patientState;
-    }
-
-    public String getSubscriberRelationship() {
-        return this.subscriberRelationship;
-    }
-
-    public BenefitCoverageResponse subscriberRelationship(String subscriberRelationship) {
-        this.setSubscriberRelationship(subscriberRelationship);
-        return this;
-    }
-
-    public void setSubscriberRelationship(String subscriberRelationship) {
-        this.subscriberRelationship = subscriberRelationship;
-    }
-
-    public String getMemberId() {
-        return this.memberId;
-    }
-
-    public BenefitCoverageResponse memberId(String memberId) {
-        this.setMemberId(memberId);
-        return this;
-    }
-
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -445,30 +494,33 @@ public class BenefitCoverageResponse implements Serializable {
     public String toString() {
         return "BenefitCoverageResponse{" +
             "benefitCoverageResponseId=" + getBenefitCoverageResponseId() +
-            ", benefitCoverageRequestId='" + getBenefitCoverageRequestId() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", expirationDate='" + getExpirationDate() + "'" +
-            ", requestedDate='" + getRequestedDate() + "'" +
-            ", responseDate='" + getResponseDate() + "'" +
+            ", benefitCoverageRequestId=" + getBenefitCoverageRequestId() +
+            ", requestControlNumberExt='" + getRequestControlNumberExt() + "'" +
+            ", asOnDate='" + getAsOnDate() + "'" +
             ", serviceType='" + getServiceType() + "'" +
+            ", memberFirstName='" + getMemberFirstName() + "'" +
+            ", memberLastName='" + getMemberLastName() + "'" +
             ", subscriberMemberId='" + getSubscriberMemberId() + "'" +
+            ", memberGender='" + getMemberGender() + "'" +
+            ", patientFirstName='" + getPatientFirstName() + "'" +
+            ", patientLastName='" + getPatientLastName() + "'" +
+            ", patientGender='" + getPatientGender() + "'" +
+            ", payerName='" + getPayerName() + "'" +
             ", patientRelationshipCode='" + getPatientRelationshipCode() + "'" +
-            ", payerId='" + getPayerId() + "'" +
-            ", providerNpi='" + getProviderNpi() + "'" +
-            ", plansStatusCode='" + getPlansStatusCode() + "'" +
-            ", plansStatus='" + getPlansStatus() + "'" +
-            ", primaryResponse='" + getPrimaryResponse() + "'" +
-            ", secondaryResponse='" + getSecondaryResponse() + "'" +
+            ", patientState='" + getPatientState() + "'" +
+            ", coverageStatus='" + getCoverageStatus() + "'" +
+            ", payerGroupNumber='" + getPayerGroupNumber() + "'" +
+            ", serviceDate='" + getServiceDate() + "'" +
+            ", planStartDate='" + getPlanStartDate() + "'" +
+            ", responseJsonText='" + getResponseJsonText() + "'" +
             ", status='" + getStatus() + "'" +
+            ", createdDate='" + getCreatedDate() + "'" +
             ", createdById=" + getCreatedById() +
             ", createdByName='" + getCreatedByName() + "'" +
+            ", updatedDate='" + getUpdatedDate() + "'" +
             ", updatedById=" + getUpdatedById() +
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", benefitCoverageResponseUuid='" + getBenefitCoverageResponseUuid() + "'" +
-            ", patientState='" + getPatientState() + "'" +
-            ", subscriberRelationship='" + getSubscriberRelationship() + "'" +
-            ", memberId='" + getMemberId() + "'" +
             "}";
     }
 }

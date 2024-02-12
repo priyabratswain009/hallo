@@ -41,20 +41,20 @@ public class ItemGroupResourceExtended {
     public ResponseDTO getItemGroupById(
         @RequestParam("itemGroupId") Long itemGroupId){
         ItemGroupDTO obj = itemGroupServiceExtended.getItemGroupById(itemGroupId);
-        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", List.of(obj)));
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", List.of(obj), 200));
     }
 
     @GetMapping("/getItemGroupByName")
     public ResponseDTO getItemGroupByName(
         @RequestParam("itemGroupName") String itemGroupName){
         List<ItemGroupDTO> obj = itemGroupName.trim()!=""?itemGroupServiceExtended.getItemGroupByName(itemGroupName.trim()):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getAllItemGroup")
     public ResponseDTO getAllItemGroup(){
         List<ItemGroupDTO> obj = itemGroupServiceExtended.getAllItemGroup();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @PutMapping("/setItemGroupStatusById/{itemGroupId}/{status}")

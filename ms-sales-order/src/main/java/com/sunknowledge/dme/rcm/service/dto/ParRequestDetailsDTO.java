@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ParRequestDetails} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ParRequestDetailsDTO implements Serializable {
 
     @NotNull(message = "must not be null")
@@ -60,6 +61,8 @@ public class ParRequestDetailsDTO implements Serializable {
     private LocalDate updatedDate;
 
     private UUID parRequestDetailsUuid;
+
+    private LocalDate faxResponseDate;
 
     public Long getParRequestDetailsId() {
         return parRequestDetailsId;
@@ -253,6 +256,14 @@ public class ParRequestDetailsDTO implements Serializable {
         this.parRequestDetailsUuid = parRequestDetailsUuid;
     }
 
+    public LocalDate getFaxResponseDate() {
+        return faxResponseDate;
+    }
+
+    public void setFaxResponseDate(LocalDate faxResponseDate) {
+        this.faxResponseDate = faxResponseDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -302,6 +313,7 @@ public class ParRequestDetailsDTO implements Serializable {
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", updatedDate='" + getUpdatedDate() + "'" +
             ", parRequestDetailsUuid='" + getParRequestDetailsUuid() + "'" +
+            ", faxResponseDate='" + getFaxResponseDate() + "'" +
             "}";
     }
 }

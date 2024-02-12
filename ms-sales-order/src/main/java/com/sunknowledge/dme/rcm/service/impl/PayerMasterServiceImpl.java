@@ -39,7 +39,7 @@ public class PayerMasterServiceImpl implements PayerMasterService {
 
     @Override
     public Mono<PayerMasterDTO> update(PayerMasterDTO payerMasterDTO) {
-        log.debug("Request to save PayerMaster : {}", payerMasterDTO);
+        log.debug("Request to update PayerMaster : {}", payerMasterDTO);
         return payerMasterRepository.save(payerMasterMapper.toEntity(payerMasterDTO)).map(payerMasterMapper::toDto);
     }
 

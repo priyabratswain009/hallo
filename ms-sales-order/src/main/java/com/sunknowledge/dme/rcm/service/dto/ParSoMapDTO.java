@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ParSoMap} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ParSoMapDTO implements Serializable {
 
     @NotNull(message = "must not be null")

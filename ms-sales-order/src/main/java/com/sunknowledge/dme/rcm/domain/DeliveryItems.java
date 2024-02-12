@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A DeliveryItems.
  */
 @Table("t_delivery_items")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class DeliveryItems implements Serializable {
 
     private static final long serialVersionUID = 1L;

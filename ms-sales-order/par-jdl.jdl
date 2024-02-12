@@ -111,11 +111,88 @@ entity ParRequestDetails(t_par_request_details) {
   	updatedByName String
   	updatedDate LocalDate
   	parRequestDetailsUuid UUID
+	faxResponseDate LocalDate
 }
 
+entity EparRequest(t_epar_request) {
+    @Id eparRequestId Long required
+    soId Long
+    soNo String
+    parId Long
+    parNo String
+	requestDatetime LocalDate
+	responseStatus String
+	responseUrl String
+	requestJson String
+
+    status String
+  	createdById Long
+  	createdByName String
+  	createdDate LocalDate
+  	epaRequestUuid UUID
+}
+
+entity EparResponse(t_epar_response) {
+    @Id eparResponseId Long required
+    eparRequestId Long
+    parId Long
+    parNo String
+    payerIdNo String
+	payerName String
+	patientFirstName String
+	patientLastName String
+	subscriberRelationship String
+	certificationEffectiveDate LocalDate
+	certificationExpirationDate LocalDate
+	requestType String
+	placeOfService String
+	serviceLevel String
+	quantity String
+	quantityType String
+	responseCreateDate LocalDate
+	responseResponseDate LocalDate
+	jsonData String
+
+    status String
+  	createdById Long
+  	createdByName String
+  	createdDate LocalDate
+  	updatedById Long
+  	updatedByName String
+  	updatedDate LocalDate
+  	eParResponseUuid UUID
+}
+
+entity EfaxResponse(t_efax_response) {
+	@Id efaxResponseId Long required
+	efaxReceivedDate LocalDate
+	senderEmail String
+	emailSubjectLine String
+	attachmentName String
+	isQrDecoded Boolean
+	qrValue String
+	isCmn Boolean
+	isPar Boolean
+	patientIdNo String
+	patientFirstName String
+	patientLastName String
+	cmnIdNo String
+	parIdNo String
+	soId Long
+	soNo String
+	isManuallyTagged Boolean
+	isPatientRecord Boolean
+	efaxNumber String
+	isPoAck Boolean
+	documentRenameTo String
+	
+	createdById Long
+	createdDate LocalDate
+	createdByName String
+	updatedById Long
+	updatedDate LocalDate
+	updatedByName String
+	status String
+	efaxResponseUuid UUID
+}
 use mapstruct, serviceImpl, pagination for all
-
-
-
-
-

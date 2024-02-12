@@ -1,21 +1,15 @@
 package com.sunknowledge.dme.rcm.service.impl.stocktransfer;
 
 import com.sunknowledge.dme.rcm.repository.itemothers.StockTransferRepositoryExtended;
-import com.sunknowledge.dme.rcm.service.ItemInventoryStatusService;
 import com.sunknowledge.dme.rcm.service.dto.ItemInventoryStatusDTO;
-import com.sunknowledge.dme.rcm.service.dto.ItemItemlocationMapDTO;
-import com.sunknowledge.dme.rcm.service.dto.ItemVendorMappingDTO;
-import com.sunknowledge.dme.rcm.service.dto.PurchaseOrderDTO;
-import com.sunknowledge.dme.rcm.service.dto.PurchaseOrderItemsDTO;
-import com.sunknowledge.dme.rcm.service.dto.PurchaseOrderItemsReceivedDTO;
 import com.sunknowledge.dme.rcm.service.dto.StockTransferDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.po.StockTransferCompleteParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.po.StockTransferInitiateParameterDTO;
 import com.sunknowledge.dme.rcm.service.impl.po.PurchaseOrderServiceExtendedImpl;
 import com.sunknowledge.dme.rcm.service.items.ItemInventoryStatusServiceExtended;
-import com.sunknowledge.dme.rcm.service.stocktransfer.StockTransferServiceExtended;
 import com.sunknowledge.dme.rcm.service.mapper.StockTransferMapper;
+import com.sunknowledge.dme.rcm.service.stocktransfer.StockTransferServiceExtended;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Primary
 @Service
@@ -97,20 +88,20 @@ public class StockTransferServiceExtendedImpl<T> implements StockTransferService
 
             if (list.size() > 0 && (list.get(0).getOnhandQty() - itemQty) > 0) {
                 if (whetherSerialised.equals("Y") && serialNos.split(",").length != itemQty) {
-                    return new ResponseDTO(false, "No sufficient serialised item(s).", new ArrayList());
+                    return new ResponseDTO(false, "No sufficient serialised item(s).", new ArrayList(), 200);
                 }
                 else {
                     stockTransferRepositoryExtended.initiateStockTransfer(itemId, sourceLocationId, targetLocationId,branchId,
                         branchName, itemQty,
                         whetherSerialised, serialNos, userId, userName);
-                    return new ResponseDTO(true, "Successfully Initiated", new ArrayList());
+                    return new ResponseDTO(true, "Successfully Initiated", new ArrayList(), 200);
                 }
             } else {
-                return new ResponseDTO(false, "[On_Hand_Qty - Item_Qty] must be greater than 0 (zero)", new ArrayList());
+                return new ResponseDTO(false, "[On_Hand_Qty - Item_Qty] must be greater than 0 (zero)", new ArrayList(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Initiate :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Initiate :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -148,20 +139,20 @@ public class StockTransferServiceExtendedImpl<T> implements StockTransferService
                     if (whetherSerialised.equals("Y") && matchedSlnoStat == true) {
                         stockTransferRepositoryExtended.completeStockTransfer(itemId, transferId, itemQty,
                             whetherSerialised, serialNos, userId, userName);
-                        return new ResponseDTO(true, "Successfully Accepted", new ArrayList());
+                        return new ResponseDTO(true, "Successfully Accepted", new ArrayList(), 200);
                     } else {
-                        return new ResponseDTO(false, "Miss-match Serial Nos", new ArrayList());
+                        return new ResponseDTO(false, "Miss-match Serial Nos", new ArrayList(), 200);
                     }
                 } else {
-                    return new ResponseDTO(false, "Failed! Stock_Transfer has already been Completed/Canceled", new ArrayList());
+                    return new ResponseDTO(false, "Failed! Stock_Transfer has already been Completed/Canceled", new ArrayList(), 200);
                 }
             } else {
-                return new ResponseDTO(false, "No sufficient serialised item(s)", new ArrayList());
+                return new ResponseDTO(false, "No sufficient serialised item(s)", new ArrayList(), 200);
             }
 
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Accept :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Accept :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -175,13 +166,13 @@ public class StockTransferServiceExtendedImpl<T> implements StockTransferService
 
             if (list.size() > 0 && list.get(0).getTransferStatus().equals("Initiated")) {
                 stockTransferRepositoryExtended.cancelStockTransfer(transferId, userId, userName);
-                return new ResponseDTO(true, "Successfully Canceled", new ArrayList());
+                return new ResponseDTO(true, "Successfully Canceled", new ArrayList(), 200);
             } else {
-                return new ResponseDTO(false, "Failed! Stock_Transfer has already been Completed/Canceled", new ArrayList());
+                return new ResponseDTO(false, "Failed! Stock_Transfer has already been Completed/Canceled", new ArrayList(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Cancel :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Cancel :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -196,14 +187,14 @@ public class StockTransferServiceExtendedImpl<T> implements StockTransferService
                 List<T> list = (List<T>) listPO;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("StockTransferByLocationId")) {
                 List<StockTransferDTO> dataObj = stockTransferMapper.toDto(
                     stockTransferRepositoryExtended.findBySourceLoactionIdAndStatusIgnoreCase(Long.valueOf(param), "active"));
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("StockTransferByFromDateAndToDateOrStockTransferStatus")) {
                 String params[] = param.split(",");
 //
@@ -216,21 +207,21 @@ public class StockTransferServiceExtendedImpl<T> implements StockTransferService
                     List<T> list = (List<T>) dataObj;
                     return new ResponseDTO((list.size() > 0) ? true : false,
                         (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                        list);
+                        list, 200);
                 } else {
                     return new ResponseDTO(false, "Proper From_Date(yyyy-mm-dd), To_Date(yyyy-mm-dd) and Stock_Transfer_Status must be provided.",
-                        new ArrayList());
+                        new ArrayList(), 200);
                 }
             } else {
                 return new ResponseDTO(false,
                     "No Data Available",
-                    new ArrayList<>());
+                    new ArrayList<>(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
             return new ResponseDTO(false,
                 "Data Not Found Data :: Data Error",
-                new ArrayList<>());
+                new ArrayList<>(), 200);
         }
     }
 }

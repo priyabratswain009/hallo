@@ -133,7 +133,9 @@ public class SalesOrderInsuranceDetailsSqlHelper {
                 columnPrefix + "_workers_comp_injury_related_auto_accident_status"
             )
         );
-        columns.add(Column.aliased("workers_comp_auto_accident_state_id", table, columnPrefix + "_workers_comp_auto_accident_state_id"));
+        columns.add(
+            Column.aliased("workers_comp_auto_accident_state_code", table, columnPrefix + "_workers_comp_auto_accident_state_code")
+        );
         columns.add(
             Column.aliased(
                 "workers_comp_injury_related_to_other_accident_status",
@@ -202,6 +204,34 @@ public class SalesOrderInsuranceDetailsSqlHelper {
         columns.add(Column.aliased("primary_claim_program", table, columnPrefix + "_primary_claim_program"));
         columns.add(Column.aliased("secondary_claim_program", table, columnPrefix + "_secondary_claim_program"));
         columns.add(Column.aliased("tertiary_claim_program", table, columnPrefix + "_tertiary_claim_program"));
+        columns.add(Column.aliased("workers_comp_insured_employer", table, columnPrefix + "_workers_comp_insured_employer"));
+        columns.add(Column.aliased("workers_comp_payer_id_number", table, columnPrefix + "_workers_comp_payer_id_number"));
+        columns.add(Column.aliased("workers_comp_plan_name", table, columnPrefix + "_workers_comp_plan_name"));
+        columns.add(Column.aliased("workers_comp_additional_dtls", table, columnPrefix + "_workers_comp_additional_dtls"));
+        columns.add(Column.aliased("workers_comp_claim_filling_code", table, columnPrefix + "_workers_comp_claim_filling_code"));
+        columns.add(Column.aliased("workers_comp_tpl_code", table, columnPrefix + "_workers_comp_tpl_code"));
+        columns.add(Column.aliased("workers_comp_tpl_name", table, columnPrefix + "_workers_comp_tpl_name"));
+        columns.add(
+            Column.aliased(
+                "workers_comp_property_casualty_agency_claim_no",
+                table,
+                columnPrefix + "_workers_comp_property_casualty_agency_claim_no"
+            )
+        );
+        columns.add(Column.aliased("workers_comp_carrier_id", table, columnPrefix + "_workers_comp_carrier_id"));
+        columns.add(Column.aliased("workers_comp_employer_address_line_1", table, columnPrefix + "_workers_comp_employer_address_line_1"));
+        columns.add(Column.aliased("workers_comp_employer_address_line_2", table, columnPrefix + "_workers_comp_employer_address_line_2"));
+        columns.add(Column.aliased("workers_comp_employer_city", table, columnPrefix + "_workers_comp_employer_city"));
+        columns.add(Column.aliased("workers_comp_employer_state", table, columnPrefix + "_workers_comp_employer_state"));
+        columns.add(Column.aliased("workers_comp_employer_country", table, columnPrefix + "_workers_comp_employer_country"));
+        columns.add(Column.aliased("workers_comp_employer_zip", table, columnPrefix + "_workers_comp_employer_zip"));
+        columns.add(Column.aliased("workers_comp_employer_contact_no_1", table, columnPrefix + "_workers_comp_employer_contact_no_1"));
+        columns.add(Column.aliased("workers_comp_employer_contact_no_2", table, columnPrefix + "_workers_comp_employer_contact_no_2"));
+        columns.add(Column.aliased("workers_comp_employer_fax", table, columnPrefix + "_workers_comp_employer_fax"));
+        columns.add(Column.aliased("workers_comp_employer_efax", table, columnPrefix + "_workers_comp_employer_efax"));
+        columns.add(Column.aliased("workers_comp_employer_email", table, columnPrefix + "_workers_comp_employer_email"));
+        columns.add(Column.aliased("workers_comp_relationship", table, columnPrefix + "_workers_comp_relationship"));
+        columns.add(Column.aliased("workers_comp_mode_of_contact", table, columnPrefix + "_workers_comp_mode_of_contact"));
 
         return columns;
     }

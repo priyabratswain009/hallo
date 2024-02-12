@@ -44,7 +44,7 @@ public class PurchaseOrderAuditLogServiceImpl implements PurchaseOrderAuditLogSe
 
     @Override
     public PurchaseOrderAuditLogDTO update(PurchaseOrderAuditLogDTO purchaseOrderAuditLogDTO) {
-        log.debug("Request to update PurchaseOrderAuditLog : {}", purchaseOrderAuditLogDTO);
+        log.debug("Request to save PurchaseOrderAuditLog : {}", purchaseOrderAuditLogDTO);
         PurchaseOrderAuditLog purchaseOrderAuditLog = purchaseOrderAuditLogMapper.toEntity(purchaseOrderAuditLogDTO);
         purchaseOrderAuditLog = purchaseOrderAuditLogRepository.save(purchaseOrderAuditLog);
         return purchaseOrderAuditLogMapper.toDto(purchaseOrderAuditLog);

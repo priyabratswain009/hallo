@@ -252,7 +252,7 @@ class FunctionalityMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewFunctionalityMaster() throws Exception {
+    void putExistingFunctionalityMaster() throws Exception {
         // Initialize the database
         functionalityMasterRepository.saveAndFlush(functionalityMaster);
 

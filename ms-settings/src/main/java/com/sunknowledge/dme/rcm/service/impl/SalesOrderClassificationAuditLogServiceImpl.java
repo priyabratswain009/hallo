@@ -46,7 +46,7 @@ public class SalesOrderClassificationAuditLogServiceImpl implements SalesOrderCl
 
     @Override
     public SalesOrderClassificationAuditLogDTO update(SalesOrderClassificationAuditLogDTO salesOrderClassificationAuditLogDTO) {
-        log.debug("Request to save SalesOrderClassificationAuditLog : {}", salesOrderClassificationAuditLogDTO);
+        log.debug("Request to update SalesOrderClassificationAuditLog : {}", salesOrderClassificationAuditLogDTO);
         SalesOrderClassificationAuditLog salesOrderClassificationAuditLog = salesOrderClassificationAuditLogMapper.toEntity(
             salesOrderClassificationAuditLogDTO
         );

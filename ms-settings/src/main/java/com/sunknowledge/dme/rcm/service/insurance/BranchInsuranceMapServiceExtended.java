@@ -8,6 +8,7 @@ import com.sunknowledge.dme.rcm.service.dto.insurance.BranchInsuranceMapExtended
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface BranchInsuranceMapServiceExtended extends BranchInsuranceMapService {
     Object bulkUploadForBranchInsurance(MultipartFile documentFile);
@@ -30,7 +31,7 @@ public interface BranchInsuranceMapServiceExtended extends BranchInsuranceMapSer
 
     BranchInsuranceMapDTO getBranchInsuranceMapByBranchInsuranceMapId(Long branchInsuranceMapId);
 
-    ResponseDTO setBranchInsurancemapStatusById(Long id, String status);
+    ResponseDTO setBranchInsurancemapStatusByUuid(UUID uuid, String status);
 
     List<BranchInsuranceMapDTO> getBranchInsuranceMapByBranchIdAndInsuranceId(Long branchId, Long insuranceId);
 }

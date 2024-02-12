@@ -3,6 +3,7 @@ package com.sunknowledge.dme.rcm.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
+import javax.validation.constraints.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
@@ -12,25 +13,18 @@ import org.springframework.data.relational.core.mapping.Table;
  * A SoLcdDocRefTransaction.
  */
 @Table("t_so_lcd_doc_ref_transaction")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SoLcdDocRefTransaction implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull(message = "must not be null")
     @Id
     @Column("so_lcd_doc_ref_id")
     private Long soLcdDocRefId;
 
     @Column("so_id")
     private Long soId;
-
-    @Column("item_id")
-    private Long itemId;
-
-    @Column("item_name")
-    private String itemName;
-
-    @Column("hcpcs_code")
-    private String hcpcsCode;
 
     @Column("checklist_id")
     private Long checklistId;
@@ -71,6 +65,15 @@ public class SoLcdDocRefTransaction implements Serializable {
     @Column("so_lcd_doc_ref_transaction_uuid")
     private UUID soLcdDocRefTransactionUuid;
 
+    @Column("item_group_id")
+    private Long itemGroupId;
+
+    @Column("item_group_name")
+    private String itemGroupName;
+
+    @Column("coverage_criteria_id")
+    private Long coverageCriteriaId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getSoLcdDocRefId() {
@@ -97,45 +100,6 @@ public class SoLcdDocRefTransaction implements Serializable {
 
     public void setSoId(Long soId) {
         this.soId = soId;
-    }
-
-    public Long getItemId() {
-        return this.itemId;
-    }
-
-    public SoLcdDocRefTransaction itemId(Long itemId) {
-        this.setItemId(itemId);
-        return this;
-    }
-
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public String getItemName() {
-        return this.itemName;
-    }
-
-    public SoLcdDocRefTransaction itemName(String itemName) {
-        this.setItemName(itemName);
-        return this;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public String getHcpcsCode() {
-        return this.hcpcsCode;
-    }
-
-    public SoLcdDocRefTransaction hcpcsCode(String hcpcsCode) {
-        this.setHcpcsCode(hcpcsCode);
-        return this;
-    }
-
-    public void setHcpcsCode(String hcpcsCode) {
-        this.hcpcsCode = hcpcsCode;
     }
 
     public Long getChecklistId() {
@@ -307,6 +271,45 @@ public class SoLcdDocRefTransaction implements Serializable {
         this.soLcdDocRefTransactionUuid = soLcdDocRefTransactionUuid;
     }
 
+    public Long getItemGroupId() {
+        return this.itemGroupId;
+    }
+
+    public SoLcdDocRefTransaction itemGroupId(Long itemGroupId) {
+        this.setItemGroupId(itemGroupId);
+        return this;
+    }
+
+    public void setItemGroupId(Long itemGroupId) {
+        this.itemGroupId = itemGroupId;
+    }
+
+    public String getItemGroupName() {
+        return this.itemGroupName;
+    }
+
+    public SoLcdDocRefTransaction itemGroupName(String itemGroupName) {
+        this.setItemGroupName(itemGroupName);
+        return this;
+    }
+
+    public void setItemGroupName(String itemGroupName) {
+        this.itemGroupName = itemGroupName;
+    }
+
+    public Long getCoverageCriteriaId() {
+        return this.coverageCriteriaId;
+    }
+
+    public SoLcdDocRefTransaction coverageCriteriaId(Long coverageCriteriaId) {
+        this.setCoverageCriteriaId(coverageCriteriaId);
+        return this;
+    }
+
+    public void setCoverageCriteriaId(Long coverageCriteriaId) {
+        this.coverageCriteriaId = coverageCriteriaId;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -332,9 +335,6 @@ public class SoLcdDocRefTransaction implements Serializable {
         return "SoLcdDocRefTransaction{" +
             "soLcdDocRefId=" + getSoLcdDocRefId() +
             ", soId=" + getSoId() +
-            ", itemId=" + getItemId() +
-            ", itemName='" + getItemName() + "'" +
-            ", hcpcsCode='" + getHcpcsCode() + "'" +
             ", checklistId=" + getChecklistId() +
             ", checklistName='" + getChecklistName() + "'" +
             ", docRefId=" + getDocRefId() +
@@ -348,6 +348,9 @@ public class SoLcdDocRefTransaction implements Serializable {
             ", updatedById=" + getUpdatedById() +
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", soLcdDocRefTransactionUuid='" + getSoLcdDocRefTransactionUuid() + "'" +
+            ", itemGroupId=" + getItemGroupId() +
+            ", itemGroupName='" + getItemGroupName() + "'" +
+            ", coverageCriteriaId=" + getCoverageCriteriaId() +
             "}";
     }
 }

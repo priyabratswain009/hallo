@@ -548,7 +548,7 @@ class ItemMasterResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemMaster() throws Exception {
+    void putNewItemMaster() throws Exception {
         // Initialize the database
         itemMasterRepository.saveAndFlush(itemMaster);
 

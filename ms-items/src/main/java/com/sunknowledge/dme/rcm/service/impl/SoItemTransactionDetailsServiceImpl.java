@@ -44,7 +44,7 @@ public class SoItemTransactionDetailsServiceImpl implements SoItemTransactionDet
 
     @Override
     public SoItemTransactionDetailsDTO update(SoItemTransactionDetailsDTO soItemTransactionDetailsDTO) {
-        log.debug("Request to update SoItemTransactionDetails : {}", soItemTransactionDetailsDTO);
+        log.debug("Request to save SoItemTransactionDetails : {}", soItemTransactionDetailsDTO);
         SoItemTransactionDetails soItemTransactionDetails = soItemTransactionDetailsMapper.toEntity(soItemTransactionDetailsDTO);
         soItemTransactionDetails = soItemTransactionDetailsRepository.save(soItemTransactionDetails);
         return soItemTransactionDetailsMapper.toDto(soItemTransactionDetails);

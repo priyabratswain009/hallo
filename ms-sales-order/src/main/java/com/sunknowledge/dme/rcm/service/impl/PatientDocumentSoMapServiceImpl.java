@@ -44,7 +44,7 @@ public class PatientDocumentSoMapServiceImpl implements PatientDocumentSoMapServ
 
     @Override
     public Mono<PatientDocumentSoMapDTO> update(PatientDocumentSoMapDTO patientDocumentSoMapDTO) {
-        log.debug("Request to save PatientDocumentSoMap : {}", patientDocumentSoMapDTO);
+        log.debug("Request to update PatientDocumentSoMap : {}", patientDocumentSoMapDTO);
         return patientDocumentSoMapRepository
             .save(patientDocumentSoMapMapper.toEntity(patientDocumentSoMapDTO))
             .map(patientDocumentSoMapMapper::toDto);

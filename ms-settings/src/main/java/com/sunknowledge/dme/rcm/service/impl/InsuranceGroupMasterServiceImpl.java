@@ -44,7 +44,7 @@ public class InsuranceGroupMasterServiceImpl implements InsuranceGroupMasterServ
 
     @Override
     public InsuranceGroupMasterDTO update(InsuranceGroupMasterDTO insuranceGroupMasterDTO) {
-        log.debug("Request to save InsuranceGroupMaster : {}", insuranceGroupMasterDTO);
+        log.debug("Request to update InsuranceGroupMaster : {}", insuranceGroupMasterDTO);
         InsuranceGroupMaster insuranceGroupMaster = insuranceGroupMasterMapper.toEntity(insuranceGroupMasterDTO);
         insuranceGroupMaster = insuranceGroupMasterRepository.save(insuranceGroupMaster);
         return insuranceGroupMasterMapper.toDto(insuranceGroupMaster);

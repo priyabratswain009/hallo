@@ -217,7 +217,7 @@ class UspsAddressVerificationResponseAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewUspsAddressVerificationResponseAuditLog() throws Exception {
+    void putExistingUspsAddressVerificationResponseAuditLog() throws Exception {
         // Initialize the database
         uspsAddressVerificationResponseAuditLogRepository.saveAndFlush(uspsAddressVerificationResponseAuditLog);
 

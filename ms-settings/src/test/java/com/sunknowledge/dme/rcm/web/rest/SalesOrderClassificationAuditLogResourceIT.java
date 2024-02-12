@@ -217,7 +217,7 @@ class SalesOrderClassificationAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewSalesOrderClassificationAuditLog() throws Exception {
+    void putExistingSalesOrderClassificationAuditLog() throws Exception {
         // Initialize the database
         salesOrderClassificationAuditLogRepository.saveAndFlush(salesOrderClassificationAuditLog);
 

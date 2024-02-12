@@ -217,7 +217,7 @@ class InsuranceGroupMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewInsuranceGroupMasterAuditLog() throws Exception {
+    void putExistingInsuranceGroupMasterAuditLog() throws Exception {
         // Initialize the database
         insuranceGroupMasterAuditLogRepository.saveAndFlush(insuranceGroupMasterAuditLog);
 

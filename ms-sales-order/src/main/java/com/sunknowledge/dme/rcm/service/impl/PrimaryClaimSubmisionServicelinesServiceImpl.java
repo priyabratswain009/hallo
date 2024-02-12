@@ -44,7 +44,7 @@ public class PrimaryClaimSubmisionServicelinesServiceImpl implements PrimaryClai
 
     @Override
     public Mono<PrimaryClaimSubmisionServicelinesDTO> update(PrimaryClaimSubmisionServicelinesDTO primaryClaimSubmisionServicelinesDTO) {
-        log.debug("Request to save PrimaryClaimSubmisionServicelines : {}", primaryClaimSubmisionServicelinesDTO);
+        log.debug("Request to update PrimaryClaimSubmisionServicelines : {}", primaryClaimSubmisionServicelinesDTO);
         return primaryClaimSubmisionServicelinesRepository
             .save(primaryClaimSubmisionServicelinesMapper.toEntity(primaryClaimSubmisionServicelinesDTO))
             .map(primaryClaimSubmisionServicelinesMapper::toDto);

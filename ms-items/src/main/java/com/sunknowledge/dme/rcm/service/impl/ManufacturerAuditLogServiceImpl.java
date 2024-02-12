@@ -44,7 +44,7 @@ public class ManufacturerAuditLogServiceImpl implements ManufacturerAuditLogServ
 
     @Override
     public ManufacturerAuditLogDTO update(ManufacturerAuditLogDTO manufacturerAuditLogDTO) {
-        log.debug("Request to update ManufacturerAuditLog : {}", manufacturerAuditLogDTO);
+        log.debug("Request to save ManufacturerAuditLog : {}", manufacturerAuditLogDTO);
         ManufacturerAuditLog manufacturerAuditLog = manufacturerAuditLogMapper.toEntity(manufacturerAuditLogDTO);
         manufacturerAuditLog = manufacturerAuditLogRepository.save(manufacturerAuditLog);
         return manufacturerAuditLogMapper.toDto(manufacturerAuditLog);

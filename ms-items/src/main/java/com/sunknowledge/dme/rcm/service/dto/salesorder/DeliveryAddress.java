@@ -15,4 +15,5 @@ public class DeliveryAddress {
     private String deliveryZipCode;
     private String deliveryPhoneNo_1;
     private String deliveryPhoneNo_2;
+    private String poRequestDocumentName;
 }

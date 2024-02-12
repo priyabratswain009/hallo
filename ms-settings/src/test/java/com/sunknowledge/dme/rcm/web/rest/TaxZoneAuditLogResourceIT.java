@@ -211,7 +211,7 @@ class TaxZoneAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewTaxZoneAuditLog() throws Exception {
+    void putExistingTaxZoneAuditLog() throws Exception {
         // Initialize the database
         taxZoneAuditLogRepository.saveAndFlush(taxZoneAuditLog);
 

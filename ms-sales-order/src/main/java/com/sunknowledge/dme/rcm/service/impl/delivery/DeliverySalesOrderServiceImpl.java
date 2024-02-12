@@ -1,16 +1,11 @@
 package com.sunknowledge.dme.rcm.service.impl.delivery;
 
 import com.dropbox.core.InvalidAccessTokenException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.commonutil.AccessTokenUtilities;
 import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
-import com.sunknowledge.dme.rcm.domain.Cmn;
-import com.sunknowledge.dme.rcm.domain.DeliveryItems;
-import com.sunknowledge.dme.rcm.domain.DeliveryTicket;
-import com.sunknowledge.dme.rcm.domain.SalesOrderInsuranceDetails;
-import com.sunknowledge.dme.rcm.domain.SalesOrderMaster;
+import com.sunknowledge.dme.rcm.domain.*;
 import com.sunknowledge.dme.rcm.repository.SalesOrderInsuranceDetailsRepositoryExtended;
 import com.sunknowledge.dme.rcm.repository.cmn.CmnRepo;
 import com.sunknowledge.dme.rcm.repository.delivery.DeliveryItemsRepo;
@@ -18,13 +13,7 @@ import com.sunknowledge.dme.rcm.repository.delivery.DeliveryTicketRepo;
 import com.sunknowledge.dme.rcm.repository.pricetabledata.SalesOrderMasterRepo;
 import com.sunknowledge.dme.rcm.securityutil.InternalAccessTokenUtilities;
 import com.sunknowledge.dme.rcm.service.delivery.DeliverySalesOrderService;
-import com.sunknowledge.dme.rcm.service.dto.delivery.CreateDeliveryTicketParams;
-import com.sunknowledge.dme.rcm.service.dto.delivery.DeliveryItemData;
-import com.sunknowledge.dme.rcm.service.dto.delivery.ItemInventoryStatusInputParams;
-import com.sunknowledge.dme.rcm.service.dto.delivery.ItemInventoryStatusInputRequest;
-import com.sunknowledge.dme.rcm.service.dto.delivery.ItemInventoryStatusResponse;
-import com.sunknowledge.dme.rcm.service.dto.delivery.validateDeliveryInitiationSOItemDetailsResponseDTO;
-import com.sunknowledge.dme.rcm.service.mapper.DeliveryTicketMapper;
+import com.sunknowledge.dme.rcm.service.dto.delivery.*;
 import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderInsuranceDetailsServiceExtended;
 import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderMasterServiceExtented;
 import lombok.extern.slf4j.Slf4j;
@@ -33,12 +22,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -53,11 +37,9 @@ import reactor.core.publisher.Mono;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -67,11 +49,7 @@ public class DeliverySalesOrderServiceImpl implements DeliverySalesOrderService 
     @Autowired
     private WebClient.Builder webClientBuilder;
     @Autowired
-    private RestTemplate restTemplate;
-    @Autowired
     private DeliveryTicketRepo deliveryTicketRepository;
-    @Autowired
-    private DeliveryTicketMapper deliveryTicketMapper;
     @Autowired
     private SalesOrderMasterRepo salesOrderMasterRepository;
     @Autowired
@@ -93,6 +71,7 @@ public class DeliverySalesOrderServiceImpl implements DeliverySalesOrderService 
         Mono<ServiceOutcome<ItemInventoryStatusResponse>> externalServiceOutcome = null;
         List<ItemInventoryStatusInputParams> itemInventoryStatusInputParamsList = new ArrayList<>();
         if(cmn != null){
+            log.info("=================CMN======================="+cmn.getCmnNumber());
             if(cmn.getCmnLoggedBy() != null && cmn.getCmnLoggedDate() != null) {
                 SalesOrderMaster salesOrderMaster = salesOrderMasterRepository.findById(createDeliveryTicketParams.getSalesOrderId()).toFuture().get();
                 if (salesOrderMaster != null) {
@@ -149,7 +128,7 @@ public class DeliverySalesOrderServiceImpl implements DeliverySalesOrderService 
                             }
                         });
                         itemInventoryStatusInputRequest.setItemInventoryStatusInputParamsList(itemInventoryStatusInputParamsList);
-                        if(itemInventoryStatusInputRequest != null){
+                        /*if(itemInventoryStatusInputRequest != null){
                             log.info("================>ItemInventoryStatusResponse===================="+itemInventoryStatusInputRequest.getItemInventoryStatusInputParamsList().get(0).getDeliveryTicketNo());
                             ObjectMapper mapper = new ObjectMapper();
                             String formJsonData = null;
@@ -173,7 +152,7 @@ public class DeliverySalesOrderServiceImpl implements DeliverySalesOrderService 
                             } catch (JsonProcessingException e) {
                                 throw new RuntimeException(e);
                             }
-                        }
+                        }*/
                     }//First IF
                 } else {
                     outcome = false;
@@ -193,102 +172,96 @@ public class DeliverySalesOrderServiceImpl implements DeliverySalesOrderService 
     }
 
     @Override
-    public Mono<ServiceOutcome<Boolean>> itemServiceHealthCheck(){
-        Mono<ServiceOutcome<Boolean>> status = null;
-        try {
-            String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
-            String url = "http://localhost:8080/services/items/api/item/healthcheck/itemServiceHealthCheck";
-            status = webClientBuilder.build().post()
-                .uri(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer "+token)
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<>() {
-                });
-            status.subscribe(System.out::println).dispose();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return status;
-    }
-
-    @Override
-    public Mono<ServiceOutcome<ItemInventoryStatusResponse>> createDeliveryTicketNew(CreateDeliveryTicketParams createDeliveryTicketParams) throws Exception {
+    public Mono<ServiceOutcome<ItemInventoryStatusResponse>> createDeliveryTicketNew(CreateDeliveryTicketParams createDeliveryTicketParams) {
         log.info("=====================Service================================"+createDeliveryTicketParams.getSalesOrderId());
-        Mono<Cmn> cmnMono = cmnRepository.getCmnDetailsOnSalesOrder(createDeliveryTicketParams.getSalesOrderId());
-        ItemInventoryStatusInputRequest itemInventoryStatusInputRequest = new ItemInventoryStatusInputRequest();
-        cmnMono.filter(cmn -> cmn.getCmnId() > 0)
-            .map(cmn -> {
-                log.info("======================CMN======================>"+cmn.getCmnNumber());
-                Mono<SalesOrderMaster> salesOrderMaster = salesOrderMasterRepository.findById(createDeliveryTicketParams.getSalesOrderId());
-                salesOrderMaster.filter(so -> so.getSalesOrderId() > 0)
-                    .map(so -> {
-                        Flux<DeliveryTicket> deliveryTicketList = deliveryTicketRepository.getDeliveryTicketOnSalesOrderUserIdNCurrentDate(createDeliveryTicketParams.getSalesOrderId(), createDeliveryTicketParams.getUserId(), dateFormat.format(new Date()));
-                        return deliveryTicketList.collectList().map(list -> {
-                            log.info("=============Delivery Ticket SIZE================>"+list.size());
-                            List<ItemInventoryStatusInputParams> itemInventoryStatusInputParamsList = new ArrayList<>();
-                            for(DeliveryTicket deliveryTicket : list){
-                                log.info("==================>"+deliveryTicket.getDeliveryTicketNo());
-                                log.info("==================>"+deliveryTicket.getDeliveryTicketId());
-                                Flux<DeliveryItems> deliveryItemsList = deliveryItemsRepository.getDeliveryItemsListOnDeliveryTicket(deliveryTicket.getDeliveryTicketId());
+        return cmnRepository.getCmnDetailsOnSalesOrder(createDeliveryTicketParams.getSalesOrderId())
+            .flatMap(cmn -> {
+                ItemInventoryStatusInputRequest itemInventoryStatusInputRequest = new ItemInventoryStatusInputRequest();
+                ItemInventoryStatusResponse itemInventoryStatusResponse = new ItemInventoryStatusResponse();
+                return salesOrderMasterRepository.findById(createDeliveryTicketParams.getSalesOrderId())
+                    .flatMap(salesOrderMaster ->{
+                        log.info("===========salesorder==============Not null================");
+                        List<ItemInventoryStatusInputParams> itemInventoryStatusInputParamsList = new ArrayList<>();
+                        String date = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(LocalDateTime.now());
+                        return deliveryTicketRepository.callToCreateDeliveryTicket(
+                                createDeliveryTicketParams.getSalesOrderId(),
+                                createDeliveryTicketParams.getDeliveryType(), createDeliveryTicketParams.getSetupMethod(),
+                                createDeliveryTicketParams.getUserId(), createDeliveryTicketParams.getUserName(), date)
+                            .log("=========Date:"+date)
+                            .log("=========Ticket ID:"+createDeliveryTicketParams.getSalesOrderId())
+                            .flatMapSequential(deliveryTicket -> {
+                                log.info("==================>" + deliveryTicket.getDeliveryticketno());
+                                log.info("==================>" + deliveryTicket.getDeliveryticketid());
+                                log.info("========================================================================");
                                 ItemInventoryStatusInputParams itemInventoryStatusInputParams = new ItemInventoryStatusInputParams();
-                                itemInventoryStatusInputParams.setDeliveryTicketId(deliveryTicket.getDeliveryTicketId());
-                                itemInventoryStatusInputParams.setDeliveryTicketNo(deliveryTicket.getDeliveryTicketNo());
-                                itemInventoryStatusInputParams.setItemLocationId(deliveryTicket.getInventoryLocationId());
-                                itemInventoryStatusInputParams.setSoId(deliveryTicket.getSoId());
-                                log.info("===================XXXXXXXXXXXXXXXXXXXXXXXX=================>");
+                                itemInventoryStatusInputParams.setDeliveryTicketId(deliveryTicket.getDeliveryticketid());
+                                itemInventoryStatusInputParams.setDeliveryTicketNo(deliveryTicket.getDeliveryticketno());
+                                itemInventoryStatusInputParams.setItemLocationId(deliveryTicket.getInventorylocationid());
+                                itemInventoryStatusInputParams.setSoId(deliveryTicket.getSalesorderid());
+                                itemInventoryStatusInputParams.setSoNumber(deliveryTicket.getSalesorderno());
+                                itemInventoryStatusInputParams.setDeliveryType(deliveryTicket.getDeliverytypee());
+                                itemInventoryStatusInputParams.setServiceType("SALESORDER");
+                                itemInventoryStatusInputParams.setDeliveryTicketUuid(deliveryTicket.getDeliveryticketuuid().toString());
+
                                 List<DeliveryItemData> deliveryItemDataList = new ArrayList<>();
-                                log.info("============Item List not null===================");
-                                deliveryItemsList.collectList().doOnNext(items -> {
-                                    items.stream().forEach(a -> {
-                                        log.info("==================Item No=============================="+a.getItemNo());
+                                return deliveryItemsRepository.getDeliveryItemsListOnDeliveryTicket(deliveryTicket.getDeliveryticketid())
+                                    .flatMapIterable(deliveryItem -> {
+                                        log.info("===================XXXXXXXXXXXXXXXXXXXXXXXX=================>");
+                                        log.info("==================Item No==============================" + deliveryItem.getItemNo());
                                         log.info("============>Add Items================");
                                         DeliveryItemData deliveryItemData = new DeliveryItemData();
-                                        deliveryItemData.setDeliveryItemId(a.getDeliveryItemId());
-                                        deliveryItemData.setItemId(a.getItemId());
-                                        deliveryItemData.setItemNumber(a.getItemNo());
-                                        deliveryItemData.setItemName(a.getItemName());
-                                        deliveryItemData.setHcpcsCode(a.getHcpcsCode());
-                                        deliveryItemData.setItemQuantity(a.getItemQuantity());
-                                        deliveryItemData.setItemSerialNumber(a.getItemSerial());
-                                        deliveryItemData.setItemSaleType(a.getSoSaleType());
-                                        deliveryItemData.setIsDropship(a.getIsDropship());
-                                        deliveryItemData.setPoNumber(a.getPoNumber());
-                                        deliveryItemData.setDeliveryItemsUuid(a.getDeliveryItemsUuid().toString());
+                                        deliveryItemData.setDeliveryItemId(deliveryItem.getDeliveryItemId());
+                                        deliveryItemData.setItemId(deliveryItem.getItemId());
+                                        deliveryItemData.setItemNumber(deliveryItem.getItemNo());
+                                        deliveryItemData.setItemName(deliveryItem.getItemName());
+                                        deliveryItemData.setHcpcsCode(deliveryItem.getHcpcsCode());
+                                        deliveryItemData.setItemQuantity(deliveryItem.getItemQuantity());
+                                        deliveryItemData.setItemSerialNumber(deliveryItem.getItemSerial());
+                                        deliveryItemData.setItemSaleType(deliveryItem.getSoSaleType());
+                                        deliveryItemData.setIsDropship(deliveryItem.getIsDropship());
+                                        deliveryItemData.setPoNumber(deliveryItem.getPoNumber());
+                                        deliveryItemData.setDeliveryItemsUuid(deliveryItem.getDeliveryItemsUuid().toString());
                                         deliveryItemDataList.add(deliveryItemData);
                                         log.info("=====================YYYYYYYYYYYYYYY==========================");
+                                        return deliveryItemDataList;
+                                    }).collectList()
+                                    .map(data -> {
+                                        itemInventoryStatusInputParams.setDeliveryItemData(deliveryItemDataList);
+                                        itemInventoryStatusInputParamsList.add(itemInventoryStatusInputParams);
+                                        itemInventoryStatusInputRequest.setItemInventoryStatusInputParamsList(itemInventoryStatusInputParamsList);
+                                        itemInventoryStatusResponse.setItemInventoryStatusInputParamsList(itemInventoryStatusInputParamsList);
+                                        return itemInventoryStatusResponse;
                                     });
-                                    itemInventoryStatusInputParams.setDeliveryItemData(deliveryItemDataList);
-                                    itemInventoryStatusInputParamsList.add(itemInventoryStatusInputParams);
-                                });
-                                itemInventoryStatusInputRequest.setItemInventoryStatusInputParamsList(itemInventoryStatusInputParamsList);
-                            }
-                            return Flux.fromIterable(list);
-                        }).map(z -> {
-                            ObjectMapper mapper = new ObjectMapper();
-                            String formJsonData = null;
-                            try {
-                                formJsonData = mapper.writeValueAsString(itemInventoryStatusInputRequest);
-                                System.out.println("====JSON FORMATTED DATA=====>" + formJsonData);
-                                String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
-                                log.info("============><=============" + token);
-                            }
-                            catch(Exception e){
-                                e.printStackTrace();
-                            }
-                            return z;
-                        }).subscribe();
-                    }).subscribe();
-                return Mono.just(cmn);
-            }).subscribe();
-        return Mono.justOrEmpty(new ServiceOutcome<>(null, false, "Failure"));
-    }
+                            }).collectList()
+                            .flatMap(z -> {
+                                ObjectMapper mapper = new ObjectMapper();
+                                String formJsonData;
+                                Mono<ServiceOutcome<ItemInventoryStatusResponse>> externalServiceOutcome = null;
+                                try {
+                                    formJsonData = mapper.writeValueAsString(itemInventoryStatusResponse);
+                                    System.out.println("====JSON FORMATTED DATA=====>" + formJsonData);
+                                    String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
+                                    log.info("============><=============" + token);
+                                    MultiValueMap<String, ItemInventoryStatusInputRequest> formData = new LinkedMultiValueMap<>();
+                                    formData.add("itemInventoryStatusInputRequest", itemInventoryStatusInputRequest);
 
-    private static Mono<ItemInventoryStatusInputParams> asyncProcess(ItemInventoryStatusInputParams itemInventoryStatusInputParams){
-        itemInventoryStatusInputParams.getDeliveryItemData().stream().forEach(a -> {
-            log.info("=======Async Process==========="+a.getItemNumber());
-        });
-        return Mono.delay(Duration.ofMillis(100)).thenReturn(itemInventoryStatusInputParams);
+                                    String url = "http://localhost:8080/services/items/api/inventory/updateItemInventoryStatusByItemAndLocation";
+                                    externalServiceOutcome = webClientBuilder.build().post()
+                                        .uri(url)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .header("Authorization", "Bearer "+token)
+                                        .body(Mono.just(itemInventoryStatusInputRequest), ItemInventoryStatusInputRequest.class)
+                                        .retrieve()
+                                        .bodyToMono(new ParameterizedTypeReference<>() {});
+                                }
+                                catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                                log.info("============Response=============>>>>>>>>>"+z);
+                                return externalServiceOutcome;
+                            });
+                        });
+            });
     }
 
     private Mono<ItemInventoryStatusInputParams> createItemInventory(DeliveryTicket deliveryTicket) {
@@ -342,7 +315,7 @@ public class DeliverySalesOrderServiceImpl implements DeliverySalesOrderService 
     }
 
     public Mono<SalesOrderInsuranceDetails> getSoInsuranceDetailsBySOId(Long soId){
-        return salesOrderInsuranceDetailsRepositoryExtended.findBySOId(soId);
+        return salesOrderInsuranceDetailsRepositoryExtended.findSOInsuranceOnSOId(soId);
     }
 
     public Mono<ServiceOutcome> validateDeliveryInitiation(Long soId, List<validateDeliveryInitiationSOItemDetailsResponseDTO> soItemDetailsList, SalesOrderInsuranceDetails soInsuranceDetails) throws ExecutionException, InterruptedException {
@@ -398,10 +371,6 @@ public class DeliverySalesOrderServiceImpl implements DeliverySalesOrderService 
                 return Mono.justOrEmpty(new ServiceOutcome<>(null, false, "Sales Order Details Dos To should not be null/empty."));
             }else if(eachObj.getSalesOrderDetailsTaxRate() == null){
                 return Mono.justOrEmpty(new ServiceOutcome<>(null, false, "Sales Order Details Tax Rate should not be null/empty."));
-            }else if(eachObj.getDropshipStatus() != null && eachObj.getDropshipStatus().trim().equals("Y")){
-                if(eachObj.getSalesOrderDetailsSaleType()!= null && !eachObj.getSalesOrderDetailsSaleType().trim().equalsIgnoreCase("Purchase")){
-                    return Mono.justOrEmpty(new ServiceOutcome<>(null, false, "Dropship only allow for Purchase."));
-                }
             }
             else{
                 //Further Steps Execution
@@ -431,6 +400,9 @@ public class DeliverySalesOrderServiceImpl implements DeliverySalesOrderService 
             String tertiaryInsurerVerificationStatus = null;
 
             boolean insuranceVerificationStatusFlag = false;
+            if(soInsuranceDetailsDataObj.getCoverageVerificationStatus() != null && !soInsuranceDetailsDataObj.getCoverageVerificationStatus().equals("Y")){
+                return Mono.justOrEmpty(new ServiceOutcome<>(null, false, "Inappropriate Sales Order Insurance Details Coverage Verification Status."));
+            }
 
             if(primaryInsurerId!=null && primaryInsurerId > 0){
                 primaryInsurerVerificationStatus = (soInsuranceDetailsDataObj.getPrimaryInsurerVerificationStatus()!=null && soInsuranceDetailsDataObj.getPrimaryInsurerVerificationStatus().trim().equals("Y")) ? "Y" : "N";

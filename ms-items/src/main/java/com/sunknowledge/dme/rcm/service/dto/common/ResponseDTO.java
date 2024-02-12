@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseDTO<T> {
-    Boolean status;
+    Boolean outcome;
     String message;
-    List<T> data;
+    T data;
+    Integer statusCode;
 }

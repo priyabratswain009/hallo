@@ -11,14 +11,16 @@ class SoLcdCoverageCriteriaTransactionDTOTest {
     void dtoEqualsVerifier() throws Exception {
         TestUtil.equalsVerifier(SoLcdCoverageCriteriaTransactionDTO.class);
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO1 = new SoLcdCoverageCriteriaTransactionDTO();
-        soLcdCoverageCriteriaTransactionDTO1.setSoLcdDocRefId(1L);
+        soLcdCoverageCriteriaTransactionDTO1.setSoLcdCoverageCriteriaTransactionId(1L);
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO2 = new SoLcdCoverageCriteriaTransactionDTO();
         assertThat(soLcdCoverageCriteriaTransactionDTO1).isNotEqualTo(soLcdCoverageCriteriaTransactionDTO2);
-        soLcdCoverageCriteriaTransactionDTO2.setSoLcdDocRefId(soLcdCoverageCriteriaTransactionDTO1.getSoLcdDocRefId());
+        soLcdCoverageCriteriaTransactionDTO2.setSoLcdCoverageCriteriaTransactionId(
+            soLcdCoverageCriteriaTransactionDTO1.getSoLcdCoverageCriteriaTransactionId()
+        );
         assertThat(soLcdCoverageCriteriaTransactionDTO1).isEqualTo(soLcdCoverageCriteriaTransactionDTO2);
-        soLcdCoverageCriteriaTransactionDTO2.setSoLcdDocRefId(2L);
+        soLcdCoverageCriteriaTransactionDTO2.setSoLcdCoverageCriteriaTransactionId(2L);
         assertThat(soLcdCoverageCriteriaTransactionDTO1).isNotEqualTo(soLcdCoverageCriteriaTransactionDTO2);
-        soLcdCoverageCriteriaTransactionDTO1.setSoLcdDocRefId(null);
+        soLcdCoverageCriteriaTransactionDTO1.setSoLcdCoverageCriteriaTransactionId(null);
         assertThat(soLcdCoverageCriteriaTransactionDTO1).isNotEqualTo(soLcdCoverageCriteriaTransactionDTO2);
     }
 }

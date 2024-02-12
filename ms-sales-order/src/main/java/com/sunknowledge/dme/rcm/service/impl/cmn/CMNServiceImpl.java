@@ -1,7 +1,15 @@
 package com.sunknowledge.dme.rcm.service.impl.cmn;
 
-import com.itextpdf.text.*;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.sunknowledge.dme.rcm.amazon.BucketName;
+import com.sunknowledge.dme.rcm.amazon.FileStore;
 import com.sunknowledge.dme.rcm.application.applicationstatus.DefineStatus;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.application.exceptions.MyFileNotFoundException;
@@ -9,12 +17,23 @@ import com.sunknowledge.dme.rcm.application.properties.FileUploadConfigPropertie
 import com.sunknowledge.dme.rcm.commonutil.CommonPDFStubs;
 import com.sunknowledge.dme.rcm.documentutil.CloseCondition;
 import com.sunknowledge.dme.rcm.documentutil.HeaderFooterPageEvent;
+import com.sunknowledge.dme.rcm.documentutil.HeaderFooterPageEventForAWS;
 import com.sunknowledge.dme.rcm.documentutil.OrderConfirmationTableBuilder;
 import com.sunknowledge.dme.rcm.domain.Cmn;
 import com.sunknowledge.dme.rcm.domain.CmnDocumentMaster;
 import com.sunknowledge.dme.rcm.domain.SalesOrderItemDetails;
 import com.sunknowledge.dme.rcm.domain.SalesOrderMaster;
-import com.sunknowledge.dme.rcm.dto.cmn.*;
+import com.sunknowledge.dme.rcm.dto.cmn.CMNWrittenOrderOutputDTO;
+import com.sunknowledge.dme.rcm.dto.cmn.CmnDataDocumentDetails;
+import com.sunknowledge.dme.rcm.dto.cmn.CmnFaxDetails;
+import com.sunknowledge.dme.rcm.dto.cmn.CmnResponseDetails;
+import com.sunknowledge.dme.rcm.dto.cmn.CmnResponseDocumentDetails;
+import com.sunknowledge.dme.rcm.dto.cmn.CmnSearchResponse;
+import com.sunknowledge.dme.rcm.dto.cmn.Diagnosis;
+import com.sunknowledge.dme.rcm.dto.cmn.EquipmentDetailsDTO;
+import com.sunknowledge.dme.rcm.dto.cmn.EquipmentDetailsForCMNDTO;
+import com.sunknowledge.dme.rcm.dto.cmn.SWODataDTO;
+import com.sunknowledge.dme.rcm.dto.cmn.SearchCMNInputParameters;
 import com.sunknowledge.dme.rcm.repository.cmn.CmnDocumentMasterRepo;
 import com.sunknowledge.dme.rcm.repository.cmn.CmnRepo;
 import com.sunknowledge.dme.rcm.repository.pricetabledata.SalesOrderMasterRepo;
@@ -38,6 +57,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,8 +71,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.*;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -75,6 +98,8 @@ public class CMNServiceImpl implements CMNService {
     private SalesOrderMasterRepo salesOrderMasterRepository;
     @Autowired
     private SalesOrderItemDetailsRepo salesOrderItemDetailsRepository;
+    @Autowired
+    FileStore fileStore;
 
     @Override
     public Mono<ServiceOutcome<CmnResponseDetails>> prepareAndPrintCMNReportOnCmn(Long cmnId) {
@@ -192,7 +217,7 @@ public class CMNServiceImpl implements CMNService {
             cmnDocumentMaster.setUpdatedById(1L);
             cmnDocumentMaster.setUpdatedByName("Bimal");
             cmnDocumentMaster.setUpdatedDate(LocalDate.now());
-            if (updateType.equals(updateType.equals("External/Uploaded")))
+            if (updateType.equals("External/Uploaded"))
                 cmnDocumentMaster.setInitialDocumentName(fileName);
             else
                 cmnDocumentMaster.setInitialDocumentName(null);
@@ -1081,4 +1106,183 @@ public class CMNServiceImpl implements CMNService {
         }).flatMap(cmnRepository::save);
     }
     //============================= CMN Sub-routines For Sales Order Item Details Integration ==========
+
+    @Override
+    public Mono<ServiceOutcome<CmnResponseDetails>> prepareAndPrintCMNReportOnCmnForAwsS3(CmnDTO cmnDTO, SWODataDTO swoDataDTO, List<EquipmentDetailsDTO> equipmentDetailsDTO,
+                                                                                          CmnDocumentMaster cmnDocumentMaster, CmnDocumentMasterDTO cmnDocumentMasterDTO,
+                                                                                          String updateType) {
+        ServiceOutcome<CmnResponseDetails> serviceOutcome = new ServiceOutcome<>();
+        String eTag = "";
+        try {
+            log.info("==========1. cmnDTO========="+cmnDTO);
+            log.info("==========2. swoDataDTO==========="+swoDataDTO);
+            String fileName = cmnDTO.getCmnNumber() + ".pdf";
+            String bucketName = BucketName.BUCKET_NAME.getSoServiceBucket(); // Replace with your S3 bucket name
+            String s3Key = "cmnDocuments/" + fileName; // Specify the path in your S3 bucket
+
+            CommonPDFStubs commonPDFStubs = new CommonPDFStubs();
+            byte[] qrCodeBytes = commonPDFStubs.generateQRCodeInAmazon(cmnDTO.getCmnNumber());
+
+            Document document = new Document(PageSize.A4, 35, 35, 50, 65);
+            //Mono<CmnDocumentMasterDTO> cmnDocumentMasterDTO = saveCmnDocumentInReactive(cmnDTO, fileName, "First", cmnDocumentMaster); //Need To be Reactive (Pending)
+
+            //CmnResponseDetails updateCMNDetails = updateCMNDetails(cmnDTO, "PRINT", fileName);  // Need To Be Reactive (Pending)
+            //log.info("==========updateCMNDetails========="+updateCMNDetails);
+            //updateCMNDetails.setCmnDocumentMasterDTO(cmnDocumentMasterDTO);
+
+            //PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileUploadConfigProperties.getCmnGeneratedDocumentProperties().getLocation() + "/" + fileName));
+            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+                PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+
+                Rectangle rect = new Rectangle(70, 20, 480, 810);
+                writer.setBoxSize("cmn", rect);
+                HeaderFooterPageEventForAWS event = new HeaderFooterPageEventForAWS(qrCodeBytes);
+                writer.setPageEvent(event);
+                document.open();
+
+                if(swoDataDTO != null) {
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainBodyTitle());
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainBodyProviderPatientDetails(swoDataDTO, cmnDocumentMasterDTO));
+
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainBodyPhysicianOrderHeader());
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainBodyPhysicianDetailsFirst(swoDataDTO, cmnDTO));
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainBodyPhysicianDetailsSecond(swoDataDTO, cmnDTO));
+
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainBodyDiagnosis());
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainBodyDiagnosisHead());
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainBodyDiagnosisHeadData(swoDataDTO));
+
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainTitleEquipment());
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainTitleEquipmentTitle());
+
+                    //List<EquipmentDetailsDTO> equipmentDetailsDTO = getEquipmentDetailsOnSalesOrder(cmnDTO.getSalesOrderId()); // Need to be in Reactive Way
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainTitleEquipmentData(equipmentDetailsDTO, writer, 1));
+
+                    String docInfo = "Dear Physician,\n" +
+                        "This information was provided to our office as part of the order intake process. Please review, correct, " +
+                        "and provide additional. information If required. Please sign, and mail/fax the reviewed form back to our office.\n" +
+                        "Thank you\n";
+                    Chunk chunk = new Chunk(docInfo);
+                    Font font = new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL, BaseColor.BLACK);
+                    Paragraph paragraph = new Paragraph(String.valueOf(chunk), font);
+                    paragraph.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainWofHeader());
+                    document.add(paragraph);
+
+                    document.add(OrderConfirmationTableBuilder.createOrderConfirmationMainAdditionalNoteHeader());
+                    document.add(new Paragraph("\n\n\n\n"));
+                    OrderConfirmationTableBuilder.createOrderConfirmationMainTitleSignature(document, writer, swoDataDTO);
+
+                    //PriorAuthReportBuilder.addQrCodeOnFooterInAwsBucket(document, qrCodeBytes, qrCodeImage);
+                    //document.add(qrCodeImage);
+                }
+
+                CmnResponseDetails cmnResponseDetails = new CmnResponseDetails();
+                if (updateType.equals("PRINT")) {
+                    cmnDTO.setPrintCmnOption("printed");
+                    cmnDTO.setCmnPrintedBy(1L);
+                    cmnDTO.setCmnPrintedDate(LocalDate.now());
+                }
+                if (updateType.equals("External/Uploaded")) {
+                    cmnDTO.setCmnType("External/Uploaded");
+                    //cmnDocumentMasterDTO = saveCmnDocument(cmnDTO, fileName, updateType);
+                }
+                if (updateType.equals("Generic/Uploaded")) {
+                    //cmnDocumentMasterDTO = saveCmnDocument(cmnDTO, fileName, updateType);
+                }
+
+                cmnRepository.save(cmnMapper.toEntity(cmnDTO)).map(cmnMapper::toDto); //Update t_cmn
+                cmnResponseDetails.setCmnDTO(cmnDTO);
+                cmnResponseDetails.setCmnDocumentMasterDTO(cmnDocumentMasterDTO);
+                log.info("=======>>>CMN ID========>" + cmnDTO.getCmnId() + "<====>" + cmnDTO.getCmnNumber());
+
+                serviceOutcome.setData(cmnResponseDetails);
+                serviceOutcome.setOutcome(true);
+                serviceOutcome.setMessage("Success");
+                document.close();
+
+                // Get the document bytes
+                byte[] documentBytes = outputStream.toByteArray();
+                // Upload the document to S3
+                eTag = fileStore.uploadToS3(bucketName, s3Key, documentBytes);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }catch (Exception e) {
+            // Handle IOException
+            e.printStackTrace();
+            return Mono.just(new ServiceOutcome<>(null, false, "Error generating Fax Cover Document."));
+        }
+        if(eTag!=null && !eTag.equals("")) {
+            return Mono.justOrEmpty(serviceOutcome);
+        }else{
+            return Mono.just(new ServiceOutcome<>(null, false, "Error In generating CMN Document."));
+        }
+    }
+
+    @Override
+    public Mono<CmnDTO> getCMNMasterData(Long soId) {
+        return cmnRepository.getCMNMasterData(soId).map(cmnMapper::toDto);
+    }
+
+    @Override
+    public Mono<SWODataDTO> getSWODataOnSalesOrderReactive(Long salesOrderId) throws Exception {
+        return cmnRepository.getSWODataOnSalesOrder(salesOrderId);
+    }
+
+    @Override
+    public Mono<CmnDTO> getCMNMasterDataByCmnId(Long cmnId) {
+        return cmnRepository.findById(cmnId).map(cmnMapper::toDto);
+    }
+
+    @Override
+    public Flux<EquipmentDetailsDTO> getEquipmentDetailsOnSalesOrderReactive(Long salesOrderId) throws Exception {
+        return cmnRepository.getEquipmentDetailsOnSalesOrder(salesOrderId);
+    }
+
+    @Override
+    public Mono<CmnDocumentMaster> getCmnDocumentByCmnId(Long cmnId) throws Exception {
+        return cmnDocumentMasterRepository.getCmnDocumentOnCmn(cmnId);
+    }
+
+    @Override
+    public Mono<CmnDocumentMasterDTO> saveCmnDocumentInReactive(CmnDTO cmnDTO, String fileName, String updateType, CmnDocumentMaster cmnDocumentMaster) throws Exception {
+        //CmnDocumentMasterDTO cmnDocumentMasterDTO;
+        //CmnDocumentMaster cmnDocumentMaster = cmnDocumentMasterRepository.getCmnDocumentOnCmn(cmnDTO.getCmnId()).toFuture().get();
+        log.info("========File Name>>>>>>><<<<<<<<<<============>>>" + fileName);
+        if (cmnDocumentMaster != null) {
+            cmnDocumentMaster.setUpdatedById(1L);
+            cmnDocumentMaster.setUpdatedByName("Bimal");
+            cmnDocumentMaster.setUpdatedDate(LocalDate.now());
+            if (updateType.equals("External/Uploaded"))
+                cmnDocumentMaster.setInitialDocumentName(fileName);
+            else
+                cmnDocumentMaster.setInitialDocumentName(null);
+            if (updateType.equals("Generic/Uploaded")) {
+                cmnDocumentMaster.setReturnDocumentName(fileName.split(".pdf")[0] + "_in.pdf");
+            }
+            if (updateType.equals("External/Uploaded")) {
+                cmnDocumentMaster.setReturnDocumentName(fileName.split(".pdf")[0] + ".pdf");
+            }
+        } else {
+            cmnDocumentMaster = new CmnDocumentMaster();
+            cmnDocumentMaster.setCmnId(cmnDTO.getCmnId());
+            cmnDocumentMaster.setCmnNo(cmnDTO.getCmnNumber());
+            cmnDocumentMaster.setGenerationDate(LocalDate.now());
+            cmnDocumentMaster.setInitialDocumentName(fileName);
+            cmnDocumentMaster.setCreatedById(0L);
+            cmnDocumentMaster.setCreatedByName("System");
+            cmnDocumentMaster.setCreatedDate(LocalDate.now());
+            cmnDocumentMaster.setStatus(DefineStatus.Active.name());
+            if (updateType.equals("External/Uploaded") || updateType.equals("Generic/Uploaded")) {
+                cmnDocumentMaster.setReturnDocumentName(fileName.split(".pdf")[0] + "_in.pdf");
+            }
+        }
+        return cmnDocumentMasterRepository.save(cmnDocumentMaster).map(obj->{
+            return cmnDocumentMasterMapper.toDto(obj);
+        });
+        //cmnDocumentMasterDTO = cmnDocumentMasterMapper.toDto(cmnDocumentMaster);
+        //return cmnDocumentMasterDTO;
+    }
 }

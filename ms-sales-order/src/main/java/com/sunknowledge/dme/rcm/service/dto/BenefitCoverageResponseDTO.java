@@ -8,57 +8,64 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.BenefitCoverageResponse} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BenefitCoverageResponseDTO implements Serializable {
 
     private Long benefitCoverageResponseId;
 
-    private String benefitCoverageRequestId;
+    private Long benefitCoverageRequestId;
 
-    private LocalDate createdDate;
+    private String requestControlNumberExt;
 
-    private LocalDate updatedDate;
-
-    private LocalDate expirationDate;
-
-    private LocalDate requestedDate;
-
-    private LocalDate responseDate;
+    private LocalDate asOnDate;
 
     private String serviceType;
 
+    private String memberFirstName;
+
+    private String memberLastName;
+
     private String subscriberMemberId;
+
+    private String memberGender;
+
+    private String patientFirstName;
+
+    private String patientLastName;
+
+    private String patientGender;
+
+    private String payerName;
 
     private String patientRelationshipCode;
 
-    private String payerId;
+    private String patientState;
 
-    private String providerNpi;
+    private String coverageStatus;
 
-    private String plansStatusCode;
+    private String payerGroupNumber;
 
-    private String plansStatus;
+    private LocalDate serviceDate;
 
-    private String primaryResponse;
+    private LocalDate planStartDate;
 
-    private String secondaryResponse;
+    private String responseJsonText;
 
     private String status;
+
+    private LocalDate createdDate;
 
     private Long createdById;
 
     private String createdByName;
+
+    private LocalDate updatedDate;
 
     private Long updatedById;
 
     private String updatedByName;
 
     private UUID benefitCoverageResponseUuid;
-
-    private String patientState;
-
-    private String subscriberRelationship;
-
-    private String memberId;
 
     public Long getBenefitCoverageResponseId() {
         return benefitCoverageResponseId;
@@ -68,52 +75,28 @@ public class BenefitCoverageResponseDTO implements Serializable {
         this.benefitCoverageResponseId = benefitCoverageResponseId;
     }
 
-    public String getBenefitCoverageRequestId() {
+    public Long getBenefitCoverageRequestId() {
         return benefitCoverageRequestId;
     }
 
-    public void setBenefitCoverageRequestId(String benefitCoverageRequestId) {
+    public void setBenefitCoverageRequestId(Long benefitCoverageRequestId) {
         this.benefitCoverageRequestId = benefitCoverageRequestId;
     }
 
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    public String getRequestControlNumberExt() {
+        return requestControlNumberExt;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
+    public void setRequestControlNumberExt(String requestControlNumberExt) {
+        this.requestControlNumberExt = requestControlNumberExt;
     }
 
-    public LocalDate getUpdatedDate() {
-        return updatedDate;
+    public LocalDate getAsOnDate() {
+        return asOnDate;
     }
 
-    public void setUpdatedDate(LocalDate updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public LocalDate getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public LocalDate getRequestedDate() {
-        return requestedDate;
-    }
-
-    public void setRequestedDate(LocalDate requestedDate) {
-        this.requestedDate = requestedDate;
-    }
-
-    public LocalDate getResponseDate() {
-        return responseDate;
-    }
-
-    public void setResponseDate(LocalDate responseDate) {
-        this.responseDate = responseDate;
+    public void setAsOnDate(LocalDate asOnDate) {
+        this.asOnDate = asOnDate;
     }
 
     public String getServiceType() {
@@ -124,12 +107,68 @@ public class BenefitCoverageResponseDTO implements Serializable {
         this.serviceType = serviceType;
     }
 
+    public String getMemberFirstName() {
+        return memberFirstName;
+    }
+
+    public void setMemberFirstName(String memberFirstName) {
+        this.memberFirstName = memberFirstName;
+    }
+
+    public String getMemberLastName() {
+        return memberLastName;
+    }
+
+    public void setMemberLastName(String memberLastName) {
+        this.memberLastName = memberLastName;
+    }
+
     public String getSubscriberMemberId() {
         return subscriberMemberId;
     }
 
     public void setSubscriberMemberId(String subscriberMemberId) {
         this.subscriberMemberId = subscriberMemberId;
+    }
+
+    public String getMemberGender() {
+        return memberGender;
+    }
+
+    public void setMemberGender(String memberGender) {
+        this.memberGender = memberGender;
+    }
+
+    public String getPatientFirstName() {
+        return patientFirstName;
+    }
+
+    public void setPatientFirstName(String patientFirstName) {
+        this.patientFirstName = patientFirstName;
+    }
+
+    public String getPatientLastName() {
+        return patientLastName;
+    }
+
+    public void setPatientLastName(String patientLastName) {
+        this.patientLastName = patientLastName;
+    }
+
+    public String getPatientGender() {
+        return patientGender;
+    }
+
+    public void setPatientGender(String patientGender) {
+        this.patientGender = patientGender;
+    }
+
+    public String getPayerName() {
+        return payerName;
+    }
+
+    public void setPayerName(String payerName) {
+        this.payerName = payerName;
     }
 
     public String getPatientRelationshipCode() {
@@ -140,52 +179,52 @@ public class BenefitCoverageResponseDTO implements Serializable {
         this.patientRelationshipCode = patientRelationshipCode;
     }
 
-    public String getPayerId() {
-        return payerId;
+    public String getPatientState() {
+        return patientState;
     }
 
-    public void setPayerId(String payerId) {
-        this.payerId = payerId;
+    public void setPatientState(String patientState) {
+        this.patientState = patientState;
     }
 
-    public String getProviderNpi() {
-        return providerNpi;
+    public String getCoverageStatus() {
+        return coverageStatus;
     }
 
-    public void setProviderNpi(String providerNpi) {
-        this.providerNpi = providerNpi;
+    public void setCoverageStatus(String coverageStatus) {
+        this.coverageStatus = coverageStatus;
     }
 
-    public String getPlansStatusCode() {
-        return plansStatusCode;
+    public String getPayerGroupNumber() {
+        return payerGroupNumber;
     }
 
-    public void setPlansStatusCode(String plansStatusCode) {
-        this.plansStatusCode = plansStatusCode;
+    public void setPayerGroupNumber(String payerGroupNumber) {
+        this.payerGroupNumber = payerGroupNumber;
     }
 
-    public String getPlansStatus() {
-        return plansStatus;
+    public LocalDate getServiceDate() {
+        return serviceDate;
     }
 
-    public void setPlansStatus(String plansStatus) {
-        this.plansStatus = plansStatus;
+    public void setServiceDate(LocalDate serviceDate) {
+        this.serviceDate = serviceDate;
     }
 
-    public String getPrimaryResponse() {
-        return primaryResponse;
+    public LocalDate getPlanStartDate() {
+        return planStartDate;
     }
 
-    public void setPrimaryResponse(String primaryResponse) {
-        this.primaryResponse = primaryResponse;
+    public void setPlanStartDate(LocalDate planStartDate) {
+        this.planStartDate = planStartDate;
     }
 
-    public String getSecondaryResponse() {
-        return secondaryResponse;
+    public String getResponseJsonText() {
+        return responseJsonText;
     }
 
-    public void setSecondaryResponse(String secondaryResponse) {
-        this.secondaryResponse = secondaryResponse;
+    public void setResponseJsonText(String responseJsonText) {
+        this.responseJsonText = responseJsonText;
     }
 
     public String getStatus() {
@@ -194,6 +233,14 @@ public class BenefitCoverageResponseDTO implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Long getCreatedById() {
@@ -210,6 +257,14 @@ public class BenefitCoverageResponseDTO implements Serializable {
 
     public void setCreatedByName(String createdByName) {
         this.createdByName = createdByName;
+    }
+
+    public LocalDate getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(LocalDate updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public Long getUpdatedById() {
@@ -234,30 +289,6 @@ public class BenefitCoverageResponseDTO implements Serializable {
 
     public void setBenefitCoverageResponseUuid(UUID benefitCoverageResponseUuid) {
         this.benefitCoverageResponseUuid = benefitCoverageResponseUuid;
-    }
-
-    public String getPatientState() {
-        return patientState;
-    }
-
-    public void setPatientState(String patientState) {
-        this.patientState = patientState;
-    }
-
-    public String getSubscriberRelationship() {
-        return subscriberRelationship;
-    }
-
-    public void setSubscriberRelationship(String subscriberRelationship) {
-        this.subscriberRelationship = subscriberRelationship;
-    }
-
-    public String getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
     }
 
     @Override
@@ -286,30 +317,33 @@ public class BenefitCoverageResponseDTO implements Serializable {
     public String toString() {
         return "BenefitCoverageResponseDTO{" +
             "benefitCoverageResponseId=" + getBenefitCoverageResponseId() +
-            ", benefitCoverageRequestId='" + getBenefitCoverageRequestId() + "'" +
-            ", createdDate='" + getCreatedDate() + "'" +
-            ", updatedDate='" + getUpdatedDate() + "'" +
-            ", expirationDate='" + getExpirationDate() + "'" +
-            ", requestedDate='" + getRequestedDate() + "'" +
-            ", responseDate='" + getResponseDate() + "'" +
+            ", benefitCoverageRequestId=" + getBenefitCoverageRequestId() +
+            ", requestControlNumberExt='" + getRequestControlNumberExt() + "'" +
+            ", asOnDate='" + getAsOnDate() + "'" +
             ", serviceType='" + getServiceType() + "'" +
+            ", memberFirstName='" + getMemberFirstName() + "'" +
+            ", memberLastName='" + getMemberLastName() + "'" +
             ", subscriberMemberId='" + getSubscriberMemberId() + "'" +
+            ", memberGender='" + getMemberGender() + "'" +
+            ", patientFirstName='" + getPatientFirstName() + "'" +
+            ", patientLastName='" + getPatientLastName() + "'" +
+            ", patientGender='" + getPatientGender() + "'" +
+            ", payerName='" + getPayerName() + "'" +
             ", patientRelationshipCode='" + getPatientRelationshipCode() + "'" +
-            ", payerId='" + getPayerId() + "'" +
-            ", providerNpi='" + getProviderNpi() + "'" +
-            ", plansStatusCode='" + getPlansStatusCode() + "'" +
-            ", plansStatus='" + getPlansStatus() + "'" +
-            ", primaryResponse='" + getPrimaryResponse() + "'" +
-            ", secondaryResponse='" + getSecondaryResponse() + "'" +
+            ", patientState='" + getPatientState() + "'" +
+            ", coverageStatus='" + getCoverageStatus() + "'" +
+            ", payerGroupNumber='" + getPayerGroupNumber() + "'" +
+            ", serviceDate='" + getServiceDate() + "'" +
+            ", planStartDate='" + getPlanStartDate() + "'" +
+            ", responseJsonText='" + getResponseJsonText() + "'" +
             ", status='" + getStatus() + "'" +
+            ", createdDate='" + getCreatedDate() + "'" +
             ", createdById=" + getCreatedById() +
             ", createdByName='" + getCreatedByName() + "'" +
+            ", updatedDate='" + getUpdatedDate() + "'" +
             ", updatedById=" + getUpdatedById() +
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", benefitCoverageResponseUuid='" + getBenefitCoverageResponseUuid() + "'" +
-            ", patientState='" + getPatientState() + "'" +
-            ", subscriberRelationship='" + getSubscriberRelationship() + "'" +
-            ", memberId='" + getMemberId() + "'" +
             "}";
     }
 }

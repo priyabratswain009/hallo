@@ -260,16 +260,17 @@ public class SecondaryClaimSubmisionMasterAuditLogResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/secondary-claim-submision-master-audit-logs/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteSecondaryClaimSubmisionMasterAuditLog(@PathVariable Long id) {
         log.debug("REST request to delete SecondaryClaimSubmisionMasterAuditLog : {}", id);
         return secondaryClaimSubmisionMasterAuditLogService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

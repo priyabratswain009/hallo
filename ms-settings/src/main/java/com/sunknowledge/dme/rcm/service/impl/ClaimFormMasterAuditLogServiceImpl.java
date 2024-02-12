@@ -44,7 +44,7 @@ public class ClaimFormMasterAuditLogServiceImpl implements ClaimFormMasterAuditL
 
     @Override
     public ClaimFormMasterAuditLogDTO update(ClaimFormMasterAuditLogDTO claimFormMasterAuditLogDTO) {
-        log.debug("Request to save ClaimFormMasterAuditLog : {}", claimFormMasterAuditLogDTO);
+        log.debug("Request to update ClaimFormMasterAuditLog : {}", claimFormMasterAuditLogDTO);
         ClaimFormMasterAuditLog claimFormMasterAuditLog = claimFormMasterAuditLogMapper.toEntity(claimFormMasterAuditLogDTO);
         claimFormMasterAuditLog = claimFormMasterAuditLogRepository.save(claimFormMasterAuditLog);
         return claimFormMasterAuditLogMapper.toDto(claimFormMasterAuditLog);

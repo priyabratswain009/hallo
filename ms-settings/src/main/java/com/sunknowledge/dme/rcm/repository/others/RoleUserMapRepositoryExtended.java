@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface RoleUserMapRepositoryExtended extends RoleUserMapRepository {
@@ -86,4 +87,8 @@ public interface RoleUserMapRepositoryExtended extends RoleUserMapRepository {
         " where LOWER(rUMap.status) = 'active' and LOWER(uMas.status) = 'active' and LOWER(rMas.status) = 'active' and  uMas.user_master_uuid = :userUUID and \n" +
         " uMas.user_id = rUMap.user_id and rUMap.role_id = rMas.role_id",nativeQuery = true)
     List<Map> getRoleUserDetailsByUserUUID(@Param("userUUID") UUID userUUID);
+
+    Optional<RoleUserMap> findByRoleUserMapIdAndStatusIgnoreCase(long id, String active);
+
+    Optional<RoleUserMap> findByRoleUserMapUuid(UUID uuid);
 }

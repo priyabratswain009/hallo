@@ -48,7 +48,7 @@ public class SecondaryClaimSubmisionMasterAuditLogServiceImpl implements Seconda
     public Mono<SecondaryClaimSubmisionMasterAuditLogDTO> update(
         SecondaryClaimSubmisionMasterAuditLogDTO secondaryClaimSubmisionMasterAuditLogDTO
     ) {
-        log.debug("Request to save SecondaryClaimSubmisionMasterAuditLog : {}", secondaryClaimSubmisionMasterAuditLogDTO);
+        log.debug("Request to update SecondaryClaimSubmisionMasterAuditLog : {}", secondaryClaimSubmisionMasterAuditLogDTO);
         return secondaryClaimSubmisionMasterAuditLogRepository
             .save(secondaryClaimSubmisionMasterAuditLogMapper.toEntity(secondaryClaimSubmisionMasterAuditLogDTO))
             .map(secondaryClaimSubmisionMasterAuditLogMapper::toDto);

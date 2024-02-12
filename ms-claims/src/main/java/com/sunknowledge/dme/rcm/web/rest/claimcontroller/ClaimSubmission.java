@@ -2,6 +2,7 @@ package com.sunknowledge.dme.rcm.web.rest.claimcontroller;
 
 import java.util.List;
 
+import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.sunknowledge.dme.rcm.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.domain.ClaimSubmissionStatus;
 import com.sunknowledge.dme.rcm.pojo.common.ResultClaimSubmissionOutcome;
 import com.sunknowledge.dme.rcm.service.claimservice.ClaimSubmissionService;

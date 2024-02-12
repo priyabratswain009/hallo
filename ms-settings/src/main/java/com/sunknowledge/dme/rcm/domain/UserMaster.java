@@ -13,6 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "t_user_master")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class UserMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -103,6 +104,15 @@ public class UserMaster implements Serializable {
 
     @Column(name = "mode_of_contact")
     private String modeOfContact;
+
+    @Column(name = "is_deactivate")
+    private Boolean isDeactivate;
+
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -470,6 +480,45 @@ public class UserMaster implements Serializable {
         this.modeOfContact = modeOfContact;
     }
 
+    public Boolean getIsDeactivate() {
+        return this.isDeactivate;
+    }
+
+    public UserMaster isDeactivate(Boolean isDeactivate) {
+        this.setIsDeactivate(isDeactivate);
+        return this;
+    }
+
+    public void setIsDeactivate(Boolean isDeactivate) {
+        this.isDeactivate = isDeactivate;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public UserMaster username(String username) {
+        this.setUsername(username);
+        return this;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public UserMaster password(String password) {
+        this.setPassword(password);
+        return this;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -521,6 +570,9 @@ public class UserMaster implements Serializable {
             ", email='" + getEmail() + "'" +
             ", jobTitle='" + getJobTitle() + "'" +
             ", modeOfContact='" + getModeOfContact() + "'" +
+            ", isDeactivate='" + getIsDeactivate() + "'" +
+            ", username='" + getUsername() + "'" +
+            ", password='" + getPassword() + "'" +
             "}";
     }
 }

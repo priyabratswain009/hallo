@@ -244,7 +244,7 @@ class ProcedureCodeMasterResourceIT {
 
     @Test
     @Transactional
-    void putExistingProcedureCodeMaster() throws Exception {
+    void putNewProcedureCodeMaster() throws Exception {
         // Initialize the database
         procedureCodeMasterRepository.saveAndFlush(procedureCodeMaster);
 

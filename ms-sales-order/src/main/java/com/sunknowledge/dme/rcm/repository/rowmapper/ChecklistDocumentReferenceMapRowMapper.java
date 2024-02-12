@@ -39,6 +39,8 @@ public class ChecklistDocumentReferenceMapRowMapper implements BiFunction<Row, S
         entity.setUpdatedById(converter.fromRow(row, prefix + "_updated_by_id", Long.class));
         entity.setUpdatedByName(converter.fromRow(row, prefix + "_updated_by_name", String.class));
         entity.setChecklistDocumentReferenceMapUuid(converter.fromRow(row, prefix + "_checklist_document_reference_map_uuid", UUID.class));
+        entity.setItemGroupId(converter.fromRow(row, prefix + "_item_group_id", Long.class));
+        entity.setItemGroupName(converter.fromRow(row, prefix + "_item_group_name", String.class));
         return entity;
     }
 }

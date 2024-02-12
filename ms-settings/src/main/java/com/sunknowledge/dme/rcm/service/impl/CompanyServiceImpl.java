@@ -41,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyDTO update(CompanyDTO companyDTO) {
-        log.debug("Request to save Company : {}", companyDTO);
+        log.debug("Request to update Company : {}", companyDTO);
         Company company = companyMapper.toEntity(companyDTO);
         company = companyRepository.save(company);
         return companyMapper.toDto(company);

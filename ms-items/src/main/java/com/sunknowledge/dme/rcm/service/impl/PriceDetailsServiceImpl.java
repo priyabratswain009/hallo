@@ -41,7 +41,7 @@ public class PriceDetailsServiceImpl implements PriceDetailsService {
 
     @Override
     public PriceDetailsDTO update(PriceDetailsDTO priceDetailsDTO) {
-        log.debug("Request to update PriceDetails : {}", priceDetailsDTO);
+        log.debug("Request to save PriceDetails : {}", priceDetailsDTO);
         PriceDetails priceDetails = priceDetailsMapper.toEntity(priceDetailsDTO);
         priceDetails = priceDetailsRepository.save(priceDetails);
         return priceDetailsMapper.toDto(priceDetails);

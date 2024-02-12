@@ -13,7 +13,7 @@ import java.util.UUID;
 public class RoleUserMapParameterDTO {
     @NotNull(message = "Role_UUID must be provided.")
     private UUID roleUUID;
-    @NotNull(message = "User_UUID must be provided.")
+    @NotNull(message = "User UUID must be provided.")
     private UUID userUUID;
     private String description;
 }

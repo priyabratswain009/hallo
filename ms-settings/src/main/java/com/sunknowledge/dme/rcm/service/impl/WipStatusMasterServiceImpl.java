@@ -41,7 +41,7 @@ public class WipStatusMasterServiceImpl implements WipStatusMasterService {
 
     @Override
     public WipStatusMasterDTO update(WipStatusMasterDTO wipStatusMasterDTO) {
-        log.debug("Request to save WipStatusMaster : {}", wipStatusMasterDTO);
+        log.debug("Request to update WipStatusMaster : {}", wipStatusMasterDTO);
         WipStatusMaster wipStatusMaster = wipStatusMasterMapper.toEntity(wipStatusMasterDTO);
         wipStatusMaster = wipStatusMasterRepository.save(wipStatusMaster);
         return wipStatusMasterMapper.toDto(wipStatusMaster);

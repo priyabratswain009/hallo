@@ -1,5 +1,36 @@
 package com.sunknowledge.dme.rcm.service.soentryandsearch;
 
+import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+
+import org.apache.http.conn.ConnectTimeoutException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.dropbox.core.InvalidAccessTokenException;
 import com.sunknowledge.dme.rcm.application.applicationstatus.DefineStatus;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
@@ -20,9 +51,12 @@ import com.sunknowledge.dme.rcm.service.abn.AbnDataDeliveryService;
 import com.sunknowledge.dme.rcm.service.cmn.CMNService;
 import com.sunknowledge.dme.rcm.service.dto.SalesOrderItemDetailsDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
+import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTOMicroservice;
+import com.sunknowledge.dme.rcm.service.dto.par.FaxDocsSoItemDetailsCustomDTO;
 import com.sunknowledge.dme.rcm.service.dto.po.DropshipPurchaseOrderParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.po.RemoveDropshipParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.salesorder.SOItemInventoryTransactionDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.GetselectedItemsForSOID;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderItemDetailsEntryParameterDTO;
 import com.sunknowledge.dme.rcm.service.mapper.SalesOrderItemDetailsMapper;
 import com.sunknowledge.dme.rcm.service.par.PriorAuthorizationService;
@@ -474,52 +508,46 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
                                                             if (k.getParIdNo() != null) {
                                                                 j.setParNo(k.getParIdNo());
                                                                 j.setSalesOrderDetailsCmnparParId(String.valueOf(k.getParId()));
-                                                                return new ResponseDTO(true, "Successfully Saved with CMN and PAR Linked.", List.of(j));
+                                                                return new ResponseDTO(true, "Successfully Saved with CMN and PAR Linked.", j, 200L);
                                                             } else {
-                                                                return new ResponseDTO(true, "Successfully Saved with CMN Linked. But PAR is not associated with this item.", List.of(j));
+                                                                return new ResponseDTO(true, "Successfully Saved with CMN Linked. But PAR is not associated with this item.", j, 200L);
                                                             }
-                                                        }).switchIfEmpty(Mono.just(new ResponseDTO(true, "Successfully Saved with CMN Linked. But PAR is not associated with this item.", List.of(j))));
+                                                        }).switchIfEmpty(Mono.just(new ResponseDTO(true, "Successfully Saved with CMN Linked. But PAR is not associated with this item.", j, 200L)));
                                                         //============= PAR Integration ==============================
                                                     })
                                                     .flatMap(obj1 -> obj1)
-                                                    .switchIfEmpty(Mono.just(new ResponseDTO(true, "Successfully Saved. But CMN is not associated with this item.", List.of(i))));
+                                                    .switchIfEmpty(Mono.just(new ResponseDTO(true, "Successfully Saved. But CMN is not associated with this item.", i, 200L)));
                                                 //============= CMN Integration ==============================
                                             } else {
-                                                return Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new ArrayList<>()));
+                                                return Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new SalesOrderItemDetailsDTO(), 203L));
                                             }
                                         })
-                                        .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new ArrayList<>())));
+                                        .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new SalesOrderItemDetailsDTO(), 203L)));
                                 })
-                            .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new ArrayList<>())));
+                            .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new SalesOrderItemDetailsDTO(), 203L)));
 
                     } else {
                         System.out.println("====== Inside the Update Section (Sales Order Item Details) =====");
-                        List<SalesOrderItemDetails> salesOrderItemDetailsForUpdate = salesOrderItemDetailsRepositoryExtended.
-                            getSOItemDetailsBySOItemDetailsUUID(obj.getSalesOrderItemDetailsUuid()).collectList().toFuture().get();
-                        if (salesOrderItemDetailsForUpdate.size() > 0) {
-                            SalesOrderItemDetails updateObj = salesOrderItemDetailsForUpdate.get(0);
-                            BeanUtils.copyProperties(salesOrderItemDetailsEntryParameterDTO, updateObj);
-                            updateObj.setUpdatedDate(LocalDate.now());
-                            updateObj.setUpdatedById(1L);      //----- Data taken from login user service
-                            updateObj.setUpdatedByName("Abhijit Chowdhury");   //----- Data taken from login user service
-                            return salesOrderItemDetailsRepositoryExtended
-                                .save(salesOrderItemDetailsMapper.toEntity(obj))
-                                .map(salesOrderItemDetailsMapper::toDto).map(
-                                    i -> new ResponseDTO(true, "Successfully Saved", List.of(i)))
-                                .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new ArrayList<>())));
-                        } else {
-                            message = "Update failed! Sales Order Item does not exist.";
-                            return Mono.just(new ResponseDTO(status, message, responseList));
-                        }
+                        return salesOrderItemDetailsRepositoryExtended.findById(obj.getSalesOrderItemDetailsId())
+                            .map(soItemObj -> {
+                                BeanUtils.copyProperties(salesOrderItemDetailsEntryParameterDTO, soItemObj);
+                                soItemObj.setUpdatedDate(LocalDate.now());
+                                soItemObj.setUpdatedById(1L);      //----- Data taken from login user service
+                                soItemObj.setUpdatedByName("Abhijit Chowdhury");   //----- Data taken from login user service
+                                return soItemObj;
+                            })
+                            .flatMap(salesOrderItemDetailsRepositoryExtended::save)
+                            .map(data -> new ResponseDTO(true, "Successfully Saved.", data, 200L))
+                            .switchIfEmpty(Mono.just(new ResponseDTO(false, "Sales Order Item not Found.", new SalesOrderItemDetails(), 204L)));
                     }
                     //-----------------------------Saving Data----------------------------------------------
                 } else {
                     message = "Sales Order Not Found.";
-                    return Mono.just(new ResponseDTO(status, message, responseList));
+                    return Mono.just(new ResponseDTO(status, message, new SalesOrderItemDetails(), 204L));
                 }
             } else {
                 message = "Insufficient Quantity.";
-                return Mono.just(new ResponseDTO(status, message, responseList));
+                return Mono.just(new ResponseDTO(status, message, new SalesOrderItemDetails(), 203L));
             }
 
         } catch (Exception e) {
@@ -574,7 +602,10 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
                 }
 
                 ResponseDTO responseBody = callDropshipPOinItem(dropshipPurchaseOrderParameterDTOMap);
-                if (responseBody.getStatus()) {
+                System.out.println("responseBody=" + responseBody);
+
+                if (responseBody.getOutcome()) {
+                    System.out.println("Drop-ship Creation Status=" + responseBody.getOutcome());
                     return salesOrderItemDetailsRepositoryExtended.getSavedPurchaseOrder(fetchMasterClinicalIns.getSales_order_id(),
                             salesOrderItemDetailsEntryParameterDTO.getVendorId(),
                             obj.getSalesOrderDetailsItemId(),
@@ -703,23 +734,23 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
                                                                         if (k.getParIdNo() != null) {
                                                                             j.setParNo(k.getParIdNo());
                                                                             j.setSalesOrderDetailsCmnparParId(String.valueOf(k.getParId()));
-                                                                            return new ResponseDTO(true, "Successfully Saved with CMN and PAR Linked.", List.of(j));
+                                                                            return new ResponseDTO(true, "Successfully Saved with CMN and PAR Linked.", j, 200L);
                                                                         } else {
-                                                                            return new ResponseDTO(true, "Successfully Saved with CMN Linked. But PAR is not associated with this item.", List.of(j));
+                                                                            return new ResponseDTO(true, "Successfully Saved with CMN Linked. But PAR is not associated with this item.", j, 200L);
                                                                         }
-                                                                    }).switchIfEmpty(Mono.just(new ResponseDTO(true, "Successfully Saved with CMN Linked. But PAR is not associated with this item.", List.of(j))));
+                                                                    }).switchIfEmpty(Mono.just(new ResponseDTO(true, "Successfully Saved with CMN Linked. But PAR is not associated with this item.", j, 200L)));
                                                                     //============= PAR Integration ==============================
                                                                 })
                                                                 .flatMap(obj1 -> obj1)
-                                                                .switchIfEmpty(Mono.just(new ResponseDTO(true, "Successfully Saved. But CMN is not associated with this item.", List.of(i))));
+                                                                .switchIfEmpty(Mono.just(new ResponseDTO(true, "Successfully Saved. But CMN is not associated with this item.", i, 200L)));
                                                             //============= CMN Integration ==============================
                                                         } else {
-                                                            return Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new ArrayList<>()));
+                                                            return Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new SalesOrderItemDetails(), 203L));
                                                         }
                                                     })
-                                                    .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new ArrayList<>())));
+                                                    .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new SalesOrderItemDetails(), 203L)));
                                             })
-                                        .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new ArrayList<>())));
+                                        .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Save. Data Error.", new SalesOrderItemDetails(), 203L)));
 
                                 } else {
                                     System.out.println("====== Inside the Update Section (Sales Order Item Details) =====");
@@ -730,32 +761,27 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
                                             soItemObj.setUpdatedById(1L);      //----- Data taken from login user service
                                             soItemObj.setUpdatedByName("Abhijit Chowdhury");   //----- Data taken from login user service
                                             return soItemObj;
-//                                        return salesOrderItemDetailsRepositoryExtended
-//                                            .save(salesOrderItemDetailsMapper.toEntity(obj))
-//                                            .map(salesOrderItemDetailsMapper::toDto).map(
-//                                                i -> new ResponseDTO(true, "Successfully Saved", List.of(i)))
-//                                            .switchIfEmpty(Mono.just(new ResponseDTO(false, "Failed to Saved: Data Error.", new ArrayList<>())));
                                         })
                                         .flatMap(salesOrderItemDetailsRepositoryExtended::save)
-                                        .map(data -> new ResponseDTO(true, "Successfully Saved.", List.of(data)))
-                                        .switchIfEmpty(Mono.just(new ResponseDTO(false, "Sales Order Item not Found.", new ArrayList<>())));
+                                        .map(data -> new ResponseDTO(true, "Successfully Saved.", data, 200L))
+                                        .switchIfEmpty(Mono.just(new ResponseDTO(false, "Sales Order Item not Found.", new SalesOrderItemDetails(), 204L)));
                                 }
                                 //-----------------------------Saving Data----------------------------------------------
                             } else {
                                 message = "Sales Order Not Found.";
-                                return Mono.just(new ResponseDTO(status, message, responseList));
+                                return Mono.just(new ResponseDTO(status, message, new SalesOrderItemDetails(), 204L));
                             }
 
                             //======================= Adding Drop-ship Item =====================================
 
                         })
 //                    .flatMap(obj1 -> obj1)
-                        .switchIfEmpty(Mono.just(new ResponseDTO(false, "Data Error: Failed to Create Drop-ship PO", new ArrayList())));
+                        .switchIfEmpty(Mono.just(new ResponseDTO(false, "Data Error: Failed to Create Drop-ship PO", new SalesOrderItemDetails(), 203L)));
                 } else {
-                    return Mono.just(new ResponseDTO(false, "Data Error: Failed to Create Drop-ship PO", new ArrayList()));
+                    return Mono.just(new ResponseDTO(false, "Data Error: Failed to Create Drop-ship PO", new SalesOrderItemDetails(), 203L));
                 }
             } else {
-                return Mono.just(new ResponseDTO(false, "Drop-ship PO is not allowed as On_Hand_Qty > 0.", new ArrayList()));
+                return Mono.just(new ResponseDTO(false, "Drop-ship PO is not allowed as On_Hand_Qty > 0.", new SalesOrderItemDetails(), 203L));
             }
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
@@ -877,7 +903,7 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
     }
 
     private ResponseDTO callDropshipPOinItem(Map dropshipPurchaseOrderParameterDTO) {
-        ResponseDTO responseBody = new ResponseDTO();
+        ResponseDTOMicroservice responseBody = new ResponseDTOMicroservice();
         try {
             //==================== Get the access token ====================
             String accessToken = InternalAccessTokenUtilities.getAccessToken();
@@ -899,23 +925,23 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
                 headersData.add("Content-Type", "application/json;charset=utf-8");
                 //=====Parsing set of parameters(input DTO) for Entry MicroService
                 HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(dropshipPurchaseOrderParameterDTO, headersData);
-                ResponseEntity<ResponseDTO> responseData = restTemplateData.exchange(
+                ResponseEntity<ResponseDTOMicroservice> responseData = restTemplateData.exchange(
                     completeUrl,
                     HttpMethod.POST,
                     requestEntity,
-                    ResponseDTO.class
+                    ResponseDTOMicroservice.class
                 );
                 if (responseData.getStatusCode() == HttpStatus.OK) {
-                    responseBody = (ResponseDTO) responseData.getBody();
+                    responseBody = responseData.getBody();
                 } else {
-                    responseBody.setStatus(false);
+                    responseBody.setOutcome(false);
                     responseBody.setMessage("API Error: No Response Data Available");
-                    responseBody.setData(new JSONArray());
+                    responseBody.setData(null);
                 }
             } else {
-                responseBody.setStatus(false);
+                responseBody.setOutcome(false);
                 responseBody.setMessage("Missing Access Token");
-                responseBody.setData(new JSONArray());
+                responseBody.setData(null);
             }
         } catch (HttpClientErrorException e) {
             // Client-side errors (4xx)
@@ -953,15 +979,9 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
             // Any other exception
             throw new RuntimeException(e);
         }
-        JSONParser parser = new JSONParser();
-        Boolean isDropshipSaved = responseBody.getStatus();
-        if (isDropshipSaved) {
-            System.out.println("Dropship " + responseBody.getData());
-            System.out.println("isDropshipSaved " + isDropshipSaved);
-            return responseBody;
-        } else {
-            return responseBody;
-        }
+//        JSONParser parser = new JSONParser();
+//        Boolean isDropshipSaved = responseBody.getOutcome();
+        return new ResponseDTO(responseBody.getOutcome(), responseBody.getMessage(), responseBody.getData(), Long.valueOf(responseBody.getStatusCode()));
     }
 
     private ResponseDTO cancelDropshipPurchaseOrder(String poNumber) {
@@ -997,12 +1017,12 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
                 if (responseData.getStatusCode() == HttpStatus.OK) {
                     responseBody = (ResponseDTO) responseData.getBody();
                 } else {
-                    responseBody.setStatus(false);
+                    responseBody.setOutcome(false);
                     responseBody.setMessage("API Error: No Response Data Available");
                     responseBody.setData(new JSONArray());
                 }
             } else {
-                responseBody.setStatus(false);
+                responseBody.setOutcome(false);
                 responseBody.setMessage("Missing Access Token");
                 responseBody.setData(new JSONArray());
             }
@@ -1043,7 +1063,7 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
             throw new RuntimeException(e);
         }
         JSONParser parser = new JSONParser();
-        Boolean isDropshipSaved = responseBody.getStatus();
+        Boolean isDropshipSaved = responseBody.getOutcome();
         if (isDropshipSaved) {
             System.out.println("Dropship " + responseBody.getData());
             System.out.println("isDropshipSaved " + isDropshipSaved);
@@ -1084,4 +1104,125 @@ public class SalesOrderItemDetailsServiceExtendedImpl implements SalesOrderItemD
 
             });
     }
+
+    @Override
+    public Flux<SalesOrderItemDetailsDTO> getSalesOrderItemDetailsData(Long soId) {
+        return salesOrderItemDetailsRepositoryExtended.getSalesOrderItemDetailsData(soId)
+            .map(salesOrderItemDetailsMapper::toDto);
+    }
+
+    @Override
+    public Mono<FaxDocsSoItemDetailsCustomDTO> getFaxDocsSoItemDetailsPrimaryItemInfo(List<SalesOrderItemDetailsDTO> soItemDetailsList) {
+        FaxDocsSoItemDetailsCustomDTO faxDocsSoItemDetailsCustomDTO = new FaxDocsSoItemDetailsCustomDTO();
+        Long itemId = 0L;
+        Long parId = 0L;
+        String parNo = "";
+        String soDetailsSaleType = "";
+        String primaryHcpcsCode = "";
+        boolean isPrimaryItemAvailable = false;
+        //When Primary Item is available
+        for(SalesOrderItemDetailsDTO eachSoItemDetails : soItemDetailsList){
+            if(eachSoItemDetails.getIsResupplyType()!=null && eachSoItemDetails.getIsResupplyType().trim().equals("Y")){
+                isPrimaryItemAvailable = true;
+                itemId = eachSoItemDetails.getSalesOrderDetailsItemId() != null ? eachSoItemDetails.getSalesOrderDetailsItemId() : 0L;
+                parId = eachSoItemDetails.getSalesOrderDetailsCmnparParId() != null ? Long.valueOf(eachSoItemDetails.getSalesOrderDetailsCmnparParId()) : 0L;
+                parNo = eachSoItemDetails.getParNo() != null && !eachSoItemDetails.getParNo().equals("") ? eachSoItemDetails.getParNo().trim() : "";
+                //eachSoItemDetails.getPa
+                soDetailsSaleType = eachSoItemDetails.getSalesOrderDetailsSaleType() != null && !eachSoItemDetails.getSalesOrderDetailsSaleType().equals("") ? eachSoItemDetails.getSalesOrderDetailsSaleType().trim() : "";
+                primaryHcpcsCode = eachSoItemDetails.getSalesOrderDetailsProcCode() != null && !eachSoItemDetails.getSalesOrderDetailsProcCode().equals("") ? eachSoItemDetails.getSalesOrderDetailsProcCode().trim() : "";
+                break;
+            }
+        }
+        System.out.println("isPrimaryItemAvailable::" + isPrimaryItemAvailable + ", itemId:: " + itemId + " ,parNo:: " + parNo + " ,soDetailsSaleType:: " + soDetailsSaleType + " ,primaryHcpcsCode:: " + primaryHcpcsCode);
+        //When Primary Item is not available but PAR NO is available, Anyone will be primaryHcpcsCode
+        boolean isParNoAvailable = false;
+        if (!isPrimaryItemAvailable) {
+            for (SalesOrderItemDetailsDTO eachSoItemDetails : soItemDetailsList) {
+                if (eachSoItemDetails.getParNo() != null && !eachSoItemDetails.getParNo().equals("")) {
+                    isParNoAvailable = true;
+                    itemId = eachSoItemDetails.getSalesOrderDetailsItemId() != null ? eachSoItemDetails.getSalesOrderDetailsItemId() : 0L;
+                    parId = eachSoItemDetails.getSalesOrderDetailsCmnparParId() != null ? Long.valueOf(eachSoItemDetails.getSalesOrderDetailsCmnparParId()) : 0L;
+                    parNo = eachSoItemDetails.getParNo() != null && !eachSoItemDetails.getParNo().equals("") ? eachSoItemDetails.getParNo().trim() : "";
+                    soDetailsSaleType = eachSoItemDetails.getSalesOrderDetailsSaleType() != null && !eachSoItemDetails.getSalesOrderDetailsSaleType().equals("") ? eachSoItemDetails.getSalesOrderDetailsSaleType().trim() : "";
+                    primaryHcpcsCode = eachSoItemDetails.getSalesOrderDetailsProcCode() != null && !eachSoItemDetails.getSalesOrderDetailsProcCode().equals("") ? eachSoItemDetails.getSalesOrderDetailsProcCode().trim() : "";
+                    break;
+                }
+            }
+        }
+        System.out.println("isParNoAvailable::" + isParNoAvailable + ", itemId:: " + itemId + " ,parNo:: " + parNo + " ,soDetailsSaleType:: " + soDetailsSaleType + " ,primaryHcpcsCode:: " + primaryHcpcsCode);
+
+        //When Primary Item is not available, PAR NO is not available but Sales Order Details Proc Code is available, Anyone will be primaryHcpcsCode
+        if (!isPrimaryItemAvailable && !isParNoAvailable) {
+            for (SalesOrderItemDetailsDTO eachSoItemDetails : soItemDetailsList) {
+                if (eachSoItemDetails.getSalesOrderDetailsProcCode() != null && !eachSoItemDetails.getSalesOrderDetailsProcCode().equals("")) {
+                    itemId = eachSoItemDetails.getSalesOrderDetailsItemId() != null ? eachSoItemDetails.getSalesOrderDetailsItemId() : 0L;
+                    parId = eachSoItemDetails.getSalesOrderDetailsCmnparParId() != null ? Long.valueOf(eachSoItemDetails.getSalesOrderDetailsCmnparParId()) : 0L;
+                    parNo = eachSoItemDetails.getParNo() != null && !eachSoItemDetails.getParNo().equals("") ? eachSoItemDetails.getParNo().trim() : "";
+                    soDetailsSaleType = eachSoItemDetails.getSalesOrderDetailsSaleType() != null && !eachSoItemDetails.getSalesOrderDetailsSaleType().equals("") ? eachSoItemDetails.getSalesOrderDetailsSaleType().trim() : "";
+                    primaryHcpcsCode = eachSoItemDetails.getSalesOrderDetailsProcCode() != null && !eachSoItemDetails.getSalesOrderDetailsProcCode().equals("") ? eachSoItemDetails.getSalesOrderDetailsProcCode().trim() : "";
+                    break;
+                }
+            }
+        }
+
+        faxDocsSoItemDetailsCustomDTO.setItemId(itemId);
+        faxDocsSoItemDetailsCustomDTO.setParId(parId);
+        faxDocsSoItemDetailsCustomDTO.setParNo(parNo);
+        faxDocsSoItemDetailsCustomDTO.setSoDetailsSaleType(soDetailsSaleType);
+        faxDocsSoItemDetailsCustomDTO.setPrimaryHcpcsCode(primaryHcpcsCode);
+        return Mono.just(faxDocsSoItemDetailsCustomDTO);
+    }
+
+	@Override
+	public Mono<ServiceOutcome<List<Map<String, Object>>>> getSORentalItemDetailsBySOID(Long salesOrderID) throws InterruptedException, ExecutionException {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> mapList = new ArrayList<>();
+		ServiceOutcome<List<Map<String, Object>>> outCome = new ServiceOutcome<List<Map<String, Object>>>();
+
+		List<SalesOrderItemDetails> salesOrderItemDetailsDTO = salesOrderItemDetailsRepositoryExtended.getSORentalItemDetailsBySOID(salesOrderID).collectList().toFuture().get();
+
+		if(salesOrderItemDetailsDTO.size()>0) {
+			for(SalesOrderItemDetails obj : salesOrderItemDetailsDTO) {
+				Map<String, Object> data = new HashMap<>();
+				String title = obj.getSalesOrderDetailsItemName()+"("+obj.getSalesOrderDetailsProcCode()+")";
+				data.put("id", obj.getSalesOrderDetailsItemId());
+				data.put("title", title);
+				mapList.add(data);
+			}
+			outCome.setMessage("");
+			outCome.setOutcome(true);
+			outCome.setStatusCode("200");
+		}else {
+			outCome.setMessage("Data not Found");
+			outCome.setOutcome(false);
+			outCome.setStatusCode("204");
+		}
+		outCome.setData(mapList);
+
+
+		return Mono.just(outCome);
+	}
+
+	@Override
+	public Mono<ServiceOutcome> getselectedItemsForSOID(Long salesOrderID, String items)
+			throws InterruptedException, ExecutionException {
+		// TODO Auto-generated method stub
+		ServiceOutcome outCome = new ServiceOutcome();
+		List<GetselectedItemsForSOID> getselectedItemsForSOIDList = salesOrderItemDetailsRepositoryExtended
+				.getselectedItemsForSOID(salesOrderID, items).collectList().toFuture().get();
+
+		if (getselectedItemsForSOIDList.size() > 0) {
+			outCome.setData(getselectedItemsForSOIDList);
+			outCome.setMessage("");
+			outCome.setOutcome(true);
+			outCome.setStatusCode("200");
+		} else {
+			outCome.setData(new ArrayList<>());
+			outCome.setMessage("Data not Found");
+			outCome.setOutcome(false);
+			outCome.setStatusCode("204");
+		}
+
+		return Mono.just(outCome);
+	}
 }

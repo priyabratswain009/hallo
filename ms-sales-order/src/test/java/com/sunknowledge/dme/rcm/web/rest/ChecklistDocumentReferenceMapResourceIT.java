@@ -21,9 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -74,6 +71,12 @@ class ChecklistDocumentReferenceMapResourceIT {
     private static final UUID DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID = UUID.randomUUID();
     private static final UUID UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID = UUID.randomUUID();
 
+    private static final Long DEFAULT_ITEM_GROUP_ID = 1L;
+    private static final Long UPDATED_ITEM_GROUP_ID = 2L;
+
+    private static final String DEFAULT_ITEM_GROUP_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_ITEM_GROUP_NAME = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/checklist-document-reference-maps";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{checklistDocumentReferenceId}";
 
@@ -113,7 +116,9 @@ class ChecklistDocumentReferenceMapResourceIT {
             .updatedDate(DEFAULT_UPDATED_DATE)
             .updatedById(DEFAULT_UPDATED_BY_ID)
             .updatedByName(DEFAULT_UPDATED_BY_NAME)
-            .checklistDocumentReferenceMapUuid(DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID);
+            .checklistDocumentReferenceMapUuid(DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID)
+            .itemGroupId(DEFAULT_ITEM_GROUP_ID)
+            .itemGroupName(DEFAULT_ITEM_GROUP_NAME);
         return checklistDocumentReferenceMap;
     }
 
@@ -136,7 +141,9 @@ class ChecklistDocumentReferenceMapResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .checklistDocumentReferenceMapUuid(UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID);
+            .checklistDocumentReferenceMapUuid(UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME);
         return checklistDocumentReferenceMap;
     }
 
@@ -202,6 +209,8 @@ class ChecklistDocumentReferenceMapResourceIT {
         assertThat(testChecklistDocumentReferenceMap.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testChecklistDocumentReferenceMap.getChecklistDocumentReferenceMapUuid())
             .isEqualTo(DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID);
+        assertThat(testChecklistDocumentReferenceMap.getItemGroupId()).isEqualTo(DEFAULT_ITEM_GROUP_ID);
+        assertThat(testChecklistDocumentReferenceMap.getItemGroupName()).isEqualTo(DEFAULT_ITEM_GROUP_NAME);
     }
 
     @Test
@@ -273,7 +282,11 @@ class ChecklistDocumentReferenceMapResourceIT {
             .jsonPath("$.[*].updatedByName")
             .value(hasItem(DEFAULT_UPDATED_BY_NAME))
             .jsonPath("$.[*].checklistDocumentReferenceMapUuid")
-            .value(hasItem(DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID.toString()));
+            .value(hasItem(DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID.toString()))
+            .jsonPath("$.[*].itemGroupId")
+            .value(hasItem(DEFAULT_ITEM_GROUP_ID.intValue()))
+            .jsonPath("$.[*].itemGroupName")
+            .value(hasItem(DEFAULT_ITEM_GROUP_NAME));
     }
 
     @Test
@@ -317,7 +330,11 @@ class ChecklistDocumentReferenceMapResourceIT {
             .jsonPath("$.updatedByName")
             .value(is(DEFAULT_UPDATED_BY_NAME))
             .jsonPath("$.checklistDocumentReferenceMapUuid")
-            .value(is(DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID.toString()));
+            .value(is(DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID.toString()))
+            .jsonPath("$.itemGroupId")
+            .value(is(DEFAULT_ITEM_GROUP_ID.intValue()))
+            .jsonPath("$.itemGroupName")
+            .value(is(DEFAULT_ITEM_GROUP_NAME));
     }
 
     @Test
@@ -333,7 +350,7 @@ class ChecklistDocumentReferenceMapResourceIT {
     }
 
     @Test
-    void putNewChecklistDocumentReferenceMap() throws Exception {
+    void putExistingChecklistDocumentReferenceMap() throws Exception {
         // Initialize the database
         checklistDocumentReferenceMapRepository.save(checklistDocumentReferenceMap).block();
 
@@ -355,7 +372,9 @@ class ChecklistDocumentReferenceMapResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .checklistDocumentReferenceMapUuid(UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID);
+            .checklistDocumentReferenceMapUuid(UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME);
         ChecklistDocumentReferenceMapDTO checklistDocumentReferenceMapDTO = checklistDocumentReferenceMapMapper.toDto(
             updatedChecklistDocumentReferenceMap
         );
@@ -391,6 +410,8 @@ class ChecklistDocumentReferenceMapResourceIT {
         assertThat(testChecklistDocumentReferenceMap.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testChecklistDocumentReferenceMap.getChecklistDocumentReferenceMapUuid())
             .isEqualTo(UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID);
+        assertThat(testChecklistDocumentReferenceMap.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testChecklistDocumentReferenceMap.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
     }
 
     @Test
@@ -498,7 +519,8 @@ class ChecklistDocumentReferenceMapResourceIT {
             .createdByName(UPDATED_CREATED_BY_NAME)
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
-            .updatedByName(UPDATED_UPDATED_BY_NAME);
+            .updatedByName(UPDATED_UPDATED_BY_NAME)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID);
 
         webTestClient
             .patch()
@@ -531,6 +553,8 @@ class ChecklistDocumentReferenceMapResourceIT {
         assertThat(testChecklistDocumentReferenceMap.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testChecklistDocumentReferenceMap.getChecklistDocumentReferenceMapUuid())
             .isEqualTo(DEFAULT_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID);
+        assertThat(testChecklistDocumentReferenceMap.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testChecklistDocumentReferenceMap.getItemGroupName()).isEqualTo(DEFAULT_ITEM_GROUP_NAME);
     }
 
     @Test
@@ -558,7 +582,9 @@ class ChecklistDocumentReferenceMapResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .checklistDocumentReferenceMapUuid(UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID);
+            .checklistDocumentReferenceMapUuid(UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME);
 
         webTestClient
             .patch()
@@ -591,6 +617,8 @@ class ChecklistDocumentReferenceMapResourceIT {
         assertThat(testChecklistDocumentReferenceMap.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testChecklistDocumentReferenceMap.getChecklistDocumentReferenceMapUuid())
             .isEqualTo(UPDATED_CHECKLIST_DOCUMENT_REFERENCE_MAP_UUID);
+        assertThat(testChecklistDocumentReferenceMap.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testChecklistDocumentReferenceMap.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
     }
 
     @Test

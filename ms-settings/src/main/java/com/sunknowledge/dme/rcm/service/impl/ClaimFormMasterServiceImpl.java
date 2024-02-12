@@ -41,7 +41,7 @@ public class ClaimFormMasterServiceImpl implements ClaimFormMasterService {
 
     @Override
     public ClaimFormMasterDTO update(ClaimFormMasterDTO claimFormMasterDTO) {
-        log.debug("Request to save ClaimFormMaster : {}", claimFormMasterDTO);
+        log.debug("Request to update ClaimFormMaster : {}", claimFormMasterDTO);
         ClaimFormMaster claimFormMaster = claimFormMasterMapper.toEntity(claimFormMasterDTO);
         claimFormMaster = claimFormMasterRepository.save(claimFormMaster);
         return claimFormMasterMapper.toDto(claimFormMaster);

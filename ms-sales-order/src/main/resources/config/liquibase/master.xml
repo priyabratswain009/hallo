@@ -83,6 +83,11 @@
     <include file="config/liquibase/changelog/20230628143637_added_entity_ParSoMap.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230713120340_added_entity_PatientDocumentSoMap.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230717153113_added_entity_InsurancePricetableMap.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231101114049_added_entity_CoverageCriteriaFileMap.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231101114050_added_entity_DocumentReferenceFileMap.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231130124320_added_entity_EparRequest.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231130124321_added_entity_EparResponse.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20231204113029_added_entity_EfaxResponse.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20220823190357_added_entity_constraints_SalesOrderMaster.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220823190400_added_entity_constraints_SalesOrderInsuranceDetails.xml" relativeToChangelogFile="false"/>

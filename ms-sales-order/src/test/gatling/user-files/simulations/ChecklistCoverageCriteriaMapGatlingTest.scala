@@ -113,6 +113,8 @@ class ChecklistCoverageCriteriaMapGatlingTest extends Simulation {
                 , "updatedByName":"SAMPLE_TEXT"
                 , "checklistCoverageCriteriaMapUuid":null
                 , "coverageCriteriaName":"SAMPLE_TEXT"
+                , "itemGroupId":"0"
+                , "itemGroupName":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_checklistCoverageCriteriaMap_url"))).exitHereIfFailed

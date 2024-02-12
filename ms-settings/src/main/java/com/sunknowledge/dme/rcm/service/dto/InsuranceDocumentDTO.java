@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.InsuranceDocument} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class InsuranceDocumentDTO implements Serializable {
 
     private Long insuranceDocumentId;

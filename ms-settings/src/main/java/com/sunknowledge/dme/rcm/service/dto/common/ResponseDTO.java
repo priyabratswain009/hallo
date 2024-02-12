@@ -10,7 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseDTO<T> {
-    Boolean status;
-    String message;
-    T data;
+    private Boolean outcome;
+    private String message;
+    private T data;
+    private int statusCode;
 }

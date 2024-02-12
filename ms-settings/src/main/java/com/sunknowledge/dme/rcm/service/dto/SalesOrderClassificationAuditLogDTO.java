@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.SalesOrderClassificationAuditLog} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SalesOrderClassificationAuditLogDTO implements Serializable {
 
     private Long orderClaficationId;

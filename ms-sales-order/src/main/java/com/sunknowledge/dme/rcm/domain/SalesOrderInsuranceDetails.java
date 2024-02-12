@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A SalesOrderInsuranceDetails.
  */
 @Table("t_sales_order_insurance_details")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SalesOrderInsuranceDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -206,8 +207,8 @@ public class SalesOrderInsuranceDetails implements Serializable {
     @Column("workers_comp_injury_related_auto_accident_status")
     private String workersCompInjuryRelatedAutoAccidentStatus;
 
-    @Column("workers_comp_auto_accident_state_id")
-    private Long workersCompAutoAccidentStateId;
+    @Column("workers_comp_auto_accident_state_code")
+    private String workersCompAutoAccidentStateCode;
 
     @Column("workers_comp_injury_related_to_other_accident_status")
     private String workersCompInjuryRelatedToOtherAccidentStatus;
@@ -394,6 +395,72 @@ public class SalesOrderInsuranceDetails implements Serializable {
 
     @Column("tertiary_claim_program")
     private String tertiaryClaimProgram;
+
+    @Column("workers_comp_insured_employer")
+    private String workersCompInsuredEmployer;
+
+    @Column("workers_comp_payer_id_number")
+    private String workersCompPayerIdNumber;
+
+    @Column("workers_comp_plan_name")
+    private String workersCompPlanName;
+
+    @Column("workers_comp_additional_dtls")
+    private String workersCompAdditionalDtls;
+
+    @Column("workers_comp_claim_filling_code")
+    private String workersCompClaimFillingCode;
+
+    @Column("workers_comp_tpl_code")
+    private String workersCompTplCode;
+
+    @Column("workers_comp_tpl_name")
+    private String workersCompTplName;
+
+    @Column("workers_comp_property_casualty_agency_claim_no")
+    private String workersCompPropertyCasualtyAgencyClaimNo;
+
+    @Column("workers_comp_carrier_id")
+    private String workersCompCarrierId;
+
+    @Column("workers_comp_employer_address_line_1")
+    private String workersCompEmployerAddressLine1;
+
+    @Column("workers_comp_employer_address_line_2")
+    private String workersCompEmployerAddressLine2;
+
+    @Column("workers_comp_employer_city")
+    private String workersCompEmployerCity;
+
+    @Column("workers_comp_employer_state")
+    private String workersCompEmployerState;
+
+    @Column("workers_comp_employer_country")
+    private String workersCompEmployerCountry;
+
+    @Column("workers_comp_employer_zip")
+    private String workersCompEmployerZip;
+
+    @Column("workers_comp_employer_contact_no_1")
+    private String workersCompEmployerContactNo1;
+
+    @Column("workers_comp_employer_contact_no_2")
+    private String workersCompEmployerContactNo2;
+
+    @Column("workers_comp_employer_fax")
+    private String workersCompEmployerFax;
+
+    @Column("workers_comp_employer_efax")
+    private String workersCompEmployerEfax;
+
+    @Column("workers_comp_employer_email")
+    private String workersCompEmployerEmail;
+
+    @Column("workers_comp_relationship")
+    private String workersCompRelationship;
+
+    @Column("workers_comp_mode_of_contact")
+    private String workersCompModeOfContact;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -1220,17 +1287,17 @@ public class SalesOrderInsuranceDetails implements Serializable {
         this.workersCompInjuryRelatedAutoAccidentStatus = workersCompInjuryRelatedAutoAccidentStatus;
     }
 
-    public Long getWorkersCompAutoAccidentStateId() {
-        return this.workersCompAutoAccidentStateId;
+    public String getWorkersCompAutoAccidentStateCode() {
+        return this.workersCompAutoAccidentStateCode;
     }
 
-    public SalesOrderInsuranceDetails workersCompAutoAccidentStateId(Long workersCompAutoAccidentStateId) {
-        this.setWorkersCompAutoAccidentStateId(workersCompAutoAccidentStateId);
+    public SalesOrderInsuranceDetails workersCompAutoAccidentStateCode(String workersCompAutoAccidentStateCode) {
+        this.setWorkersCompAutoAccidentStateCode(workersCompAutoAccidentStateCode);
         return this;
     }
 
-    public void setWorkersCompAutoAccidentStateId(Long workersCompAutoAccidentStateId) {
-        this.workersCompAutoAccidentStateId = workersCompAutoAccidentStateId;
+    public void setWorkersCompAutoAccidentStateCode(String workersCompAutoAccidentStateCode) {
+        this.workersCompAutoAccidentStateCode = workersCompAutoAccidentStateCode;
     }
 
     public String getWorkersCompInjuryRelatedToOtherAccidentStatus() {
@@ -2039,6 +2106,292 @@ public class SalesOrderInsuranceDetails implements Serializable {
         this.tertiaryClaimProgram = tertiaryClaimProgram;
     }
 
+    public String getWorkersCompInsuredEmployer() {
+        return this.workersCompInsuredEmployer;
+    }
+
+    public SalesOrderInsuranceDetails workersCompInsuredEmployer(String workersCompInsuredEmployer) {
+        this.setWorkersCompInsuredEmployer(workersCompInsuredEmployer);
+        return this;
+    }
+
+    public void setWorkersCompInsuredEmployer(String workersCompInsuredEmployer) {
+        this.workersCompInsuredEmployer = workersCompInsuredEmployer;
+    }
+
+    public String getWorkersCompPayerIdNumber() {
+        return this.workersCompPayerIdNumber;
+    }
+
+    public SalesOrderInsuranceDetails workersCompPayerIdNumber(String workersCompPayerIdNumber) {
+        this.setWorkersCompPayerIdNumber(workersCompPayerIdNumber);
+        return this;
+    }
+
+    public void setWorkersCompPayerIdNumber(String workersCompPayerIdNumber) {
+        this.workersCompPayerIdNumber = workersCompPayerIdNumber;
+    }
+
+    public String getWorkersCompPlanName() {
+        return this.workersCompPlanName;
+    }
+
+    public SalesOrderInsuranceDetails workersCompPlanName(String workersCompPlanName) {
+        this.setWorkersCompPlanName(workersCompPlanName);
+        return this;
+    }
+
+    public void setWorkersCompPlanName(String workersCompPlanName) {
+        this.workersCompPlanName = workersCompPlanName;
+    }
+
+    public String getWorkersCompAdditionalDtls() {
+        return this.workersCompAdditionalDtls;
+    }
+
+    public SalesOrderInsuranceDetails workersCompAdditionalDtls(String workersCompAdditionalDtls) {
+        this.setWorkersCompAdditionalDtls(workersCompAdditionalDtls);
+        return this;
+    }
+
+    public void setWorkersCompAdditionalDtls(String workersCompAdditionalDtls) {
+        this.workersCompAdditionalDtls = workersCompAdditionalDtls;
+    }
+
+    public String getWorkersCompClaimFillingCode() {
+        return this.workersCompClaimFillingCode;
+    }
+
+    public SalesOrderInsuranceDetails workersCompClaimFillingCode(String workersCompClaimFillingCode) {
+        this.setWorkersCompClaimFillingCode(workersCompClaimFillingCode);
+        return this;
+    }
+
+    public void setWorkersCompClaimFillingCode(String workersCompClaimFillingCode) {
+        this.workersCompClaimFillingCode = workersCompClaimFillingCode;
+    }
+
+    public String getWorkersCompTplCode() {
+        return this.workersCompTplCode;
+    }
+
+    public SalesOrderInsuranceDetails workersCompTplCode(String workersCompTplCode) {
+        this.setWorkersCompTplCode(workersCompTplCode);
+        return this;
+    }
+
+    public void setWorkersCompTplCode(String workersCompTplCode) {
+        this.workersCompTplCode = workersCompTplCode;
+    }
+
+    public String getWorkersCompTplName() {
+        return this.workersCompTplName;
+    }
+
+    public SalesOrderInsuranceDetails workersCompTplName(String workersCompTplName) {
+        this.setWorkersCompTplName(workersCompTplName);
+        return this;
+    }
+
+    public void setWorkersCompTplName(String workersCompTplName) {
+        this.workersCompTplName = workersCompTplName;
+    }
+
+    public String getWorkersCompPropertyCasualtyAgencyClaimNo() {
+        return this.workersCompPropertyCasualtyAgencyClaimNo;
+    }
+
+    public SalesOrderInsuranceDetails workersCompPropertyCasualtyAgencyClaimNo(String workersCompPropertyCasualtyAgencyClaimNo) {
+        this.setWorkersCompPropertyCasualtyAgencyClaimNo(workersCompPropertyCasualtyAgencyClaimNo);
+        return this;
+    }
+
+    public void setWorkersCompPropertyCasualtyAgencyClaimNo(String workersCompPropertyCasualtyAgencyClaimNo) {
+        this.workersCompPropertyCasualtyAgencyClaimNo = workersCompPropertyCasualtyAgencyClaimNo;
+    }
+
+    public String getWorkersCompCarrierId() {
+        return this.workersCompCarrierId;
+    }
+
+    public SalesOrderInsuranceDetails workersCompCarrierId(String workersCompCarrierId) {
+        this.setWorkersCompCarrierId(workersCompCarrierId);
+        return this;
+    }
+
+    public void setWorkersCompCarrierId(String workersCompCarrierId) {
+        this.workersCompCarrierId = workersCompCarrierId;
+    }
+
+    public String getWorkersCompEmployerAddressLine1() {
+        return this.workersCompEmployerAddressLine1;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerAddressLine1(String workersCompEmployerAddressLine1) {
+        this.setWorkersCompEmployerAddressLine1(workersCompEmployerAddressLine1);
+        return this;
+    }
+
+    public void setWorkersCompEmployerAddressLine1(String workersCompEmployerAddressLine1) {
+        this.workersCompEmployerAddressLine1 = workersCompEmployerAddressLine1;
+    }
+
+    public String getWorkersCompEmployerAddressLine2() {
+        return this.workersCompEmployerAddressLine2;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerAddressLine2(String workersCompEmployerAddressLine2) {
+        this.setWorkersCompEmployerAddressLine2(workersCompEmployerAddressLine2);
+        return this;
+    }
+
+    public void setWorkersCompEmployerAddressLine2(String workersCompEmployerAddressLine2) {
+        this.workersCompEmployerAddressLine2 = workersCompEmployerAddressLine2;
+    }
+
+    public String getWorkersCompEmployerCity() {
+        return this.workersCompEmployerCity;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerCity(String workersCompEmployerCity) {
+        this.setWorkersCompEmployerCity(workersCompEmployerCity);
+        return this;
+    }
+
+    public void setWorkersCompEmployerCity(String workersCompEmployerCity) {
+        this.workersCompEmployerCity = workersCompEmployerCity;
+    }
+
+    public String getWorkersCompEmployerState() {
+        return this.workersCompEmployerState;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerState(String workersCompEmployerState) {
+        this.setWorkersCompEmployerState(workersCompEmployerState);
+        return this;
+    }
+
+    public void setWorkersCompEmployerState(String workersCompEmployerState) {
+        this.workersCompEmployerState = workersCompEmployerState;
+    }
+
+    public String getWorkersCompEmployerCountry() {
+        return this.workersCompEmployerCountry;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerCountry(String workersCompEmployerCountry) {
+        this.setWorkersCompEmployerCountry(workersCompEmployerCountry);
+        return this;
+    }
+
+    public void setWorkersCompEmployerCountry(String workersCompEmployerCountry) {
+        this.workersCompEmployerCountry = workersCompEmployerCountry;
+    }
+
+    public String getWorkersCompEmployerZip() {
+        return this.workersCompEmployerZip;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerZip(String workersCompEmployerZip) {
+        this.setWorkersCompEmployerZip(workersCompEmployerZip);
+        return this;
+    }
+
+    public void setWorkersCompEmployerZip(String workersCompEmployerZip) {
+        this.workersCompEmployerZip = workersCompEmployerZip;
+    }
+
+    public String getWorkersCompEmployerContactNo1() {
+        return this.workersCompEmployerContactNo1;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerContactNo1(String workersCompEmployerContactNo1) {
+        this.setWorkersCompEmployerContactNo1(workersCompEmployerContactNo1);
+        return this;
+    }
+
+    public void setWorkersCompEmployerContactNo1(String workersCompEmployerContactNo1) {
+        this.workersCompEmployerContactNo1 = workersCompEmployerContactNo1;
+    }
+
+    public String getWorkersCompEmployerContactNo2() {
+        return this.workersCompEmployerContactNo2;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerContactNo2(String workersCompEmployerContactNo2) {
+        this.setWorkersCompEmployerContactNo2(workersCompEmployerContactNo2);
+        return this;
+    }
+
+    public void setWorkersCompEmployerContactNo2(String workersCompEmployerContactNo2) {
+        this.workersCompEmployerContactNo2 = workersCompEmployerContactNo2;
+    }
+
+    public String getWorkersCompEmployerFax() {
+        return this.workersCompEmployerFax;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerFax(String workersCompEmployerFax) {
+        this.setWorkersCompEmployerFax(workersCompEmployerFax);
+        return this;
+    }
+
+    public void setWorkersCompEmployerFax(String workersCompEmployerFax) {
+        this.workersCompEmployerFax = workersCompEmployerFax;
+    }
+
+    public String getWorkersCompEmployerEfax() {
+        return this.workersCompEmployerEfax;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerEfax(String workersCompEmployerEfax) {
+        this.setWorkersCompEmployerEfax(workersCompEmployerEfax);
+        return this;
+    }
+
+    public void setWorkersCompEmployerEfax(String workersCompEmployerEfax) {
+        this.workersCompEmployerEfax = workersCompEmployerEfax;
+    }
+
+    public String getWorkersCompEmployerEmail() {
+        return this.workersCompEmployerEmail;
+    }
+
+    public SalesOrderInsuranceDetails workersCompEmployerEmail(String workersCompEmployerEmail) {
+        this.setWorkersCompEmployerEmail(workersCompEmployerEmail);
+        return this;
+    }
+
+    public void setWorkersCompEmployerEmail(String workersCompEmployerEmail) {
+        this.workersCompEmployerEmail = workersCompEmployerEmail;
+    }
+
+    public String getWorkersCompRelationship() {
+        return this.workersCompRelationship;
+    }
+
+    public SalesOrderInsuranceDetails workersCompRelationship(String workersCompRelationship) {
+        this.setWorkersCompRelationship(workersCompRelationship);
+        return this;
+    }
+
+    public void setWorkersCompRelationship(String workersCompRelationship) {
+        this.workersCompRelationship = workersCompRelationship;
+    }
+
+    public String getWorkersCompModeOfContact() {
+        return this.workersCompModeOfContact;
+    }
+
+    public SalesOrderInsuranceDetails workersCompModeOfContact(String workersCompModeOfContact) {
+        this.setWorkersCompModeOfContact(workersCompModeOfContact);
+        return this;
+    }
+
+    public void setWorkersCompModeOfContact(String workersCompModeOfContact) {
+        this.workersCompModeOfContact = workersCompModeOfContact;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -2128,7 +2481,7 @@ public class SalesOrderInsuranceDetails implements Serializable {
             ", workersCompDateOfOnset='" + getWorkersCompDateOfOnset() + "'" +
             ", workersCompInjuryRelatedEmploymentStatus='" + getWorkersCompInjuryRelatedEmploymentStatus() + "'" +
             ", workersCompInjuryRelatedAutoAccidentStatus='" + getWorkersCompInjuryRelatedAutoAccidentStatus() + "'" +
-            ", workersCompAutoAccidentStateId=" + getWorkersCompAutoAccidentStateId() +
+            ", workersCompAutoAccidentStateCode='" + getWorkersCompAutoAccidentStateCode() + "'" +
             ", workersCompInjuryRelatedToOtherAccidentStatus='" + getWorkersCompInjuryRelatedToOtherAccidentStatus() + "'" +
             ", eclaimsAttachmentStatus='" + getEclaimsAttachmentStatus() + "'" +
             ", attachmentNumber=" + getAttachmentNumber() +
@@ -2191,6 +2544,28 @@ public class SalesOrderInsuranceDetails implements Serializable {
             ", primaryClaimProgram='" + getPrimaryClaimProgram() + "'" +
             ", secondaryClaimProgram='" + getSecondaryClaimProgram() + "'" +
             ", tertiaryClaimProgram='" + getTertiaryClaimProgram() + "'" +
+            ", workersCompInsuredEmployer='" + getWorkersCompInsuredEmployer() + "'" +
+            ", workersCompPayerIdNumber='" + getWorkersCompPayerIdNumber() + "'" +
+            ", workersCompPlanName='" + getWorkersCompPlanName() + "'" +
+            ", workersCompAdditionalDtls='" + getWorkersCompAdditionalDtls() + "'" +
+            ", workersCompClaimFillingCode='" + getWorkersCompClaimFillingCode() + "'" +
+            ", workersCompTplCode='" + getWorkersCompTplCode() + "'" +
+            ", workersCompTplName='" + getWorkersCompTplName() + "'" +
+            ", workersCompPropertyCasualtyAgencyClaimNo='" + getWorkersCompPropertyCasualtyAgencyClaimNo() + "'" +
+            ", workersCompCarrierId='" + getWorkersCompCarrierId() + "'" +
+            ", workersCompEmployerAddressLine1='" + getWorkersCompEmployerAddressLine1() + "'" +
+            ", workersCompEmployerAddressLine2='" + getWorkersCompEmployerAddressLine2() + "'" +
+            ", workersCompEmployerCity='" + getWorkersCompEmployerCity() + "'" +
+            ", workersCompEmployerState='" + getWorkersCompEmployerState() + "'" +
+            ", workersCompEmployerCountry='" + getWorkersCompEmployerCountry() + "'" +
+            ", workersCompEmployerZip='" + getWorkersCompEmployerZip() + "'" +
+            ", workersCompEmployerContactNo1='" + getWorkersCompEmployerContactNo1() + "'" +
+            ", workersCompEmployerContactNo2='" + getWorkersCompEmployerContactNo2() + "'" +
+            ", workersCompEmployerFax='" + getWorkersCompEmployerFax() + "'" +
+            ", workersCompEmployerEfax='" + getWorkersCompEmployerEfax() + "'" +
+            ", workersCompEmployerEmail='" + getWorkersCompEmployerEmail() + "'" +
+            ", workersCompRelationship='" + getWorkersCompRelationship() + "'" +
+            ", workersCompModeOfContact='" + getWorkersCompModeOfContact() + "'" +
             "}";
     }
 }

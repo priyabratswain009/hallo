@@ -44,7 +44,7 @@ public class DepreciationMethodServiceImpl implements DepreciationMethodService 
 
     @Override
     public DepreciationMethodDTO update(DepreciationMethodDTO depreciationMethodDTO) {
-        log.debug("Request to update DepreciationMethod : {}", depreciationMethodDTO);
+        log.debug("Request to save DepreciationMethod : {}", depreciationMethodDTO);
         DepreciationMethod depreciationMethod = depreciationMethodMapper.toEntity(depreciationMethodDTO);
         depreciationMethod = depreciationMethodRepository.save(depreciationMethod);
         return depreciationMethodMapper.toDto(depreciationMethod);

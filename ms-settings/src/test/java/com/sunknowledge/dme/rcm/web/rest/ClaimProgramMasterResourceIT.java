@@ -244,7 +244,7 @@ class ClaimProgramMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewClaimProgramMaster() throws Exception {
+    void putExistingClaimProgramMaster() throws Exception {
         // Initialize the database
         claimProgramMasterRepository.saveAndFlush(claimProgramMaster);
 

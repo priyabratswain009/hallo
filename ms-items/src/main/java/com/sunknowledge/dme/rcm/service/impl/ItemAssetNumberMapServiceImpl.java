@@ -44,7 +44,7 @@ public class ItemAssetNumberMapServiceImpl implements ItemAssetNumberMapService 
 
     @Override
     public ItemAssetNumberMapDTO update(ItemAssetNumberMapDTO itemAssetNumberMapDTO) {
-        log.debug("Request to update ItemAssetNumberMap : {}", itemAssetNumberMapDTO);
+        log.debug("Request to save ItemAssetNumberMap : {}", itemAssetNumberMapDTO);
         ItemAssetNumberMap itemAssetNumberMap = itemAssetNumberMapMapper.toEntity(itemAssetNumberMapDTO);
         itemAssetNumberMap = itemAssetNumberMapRepository.save(itemAssetNumberMap);
         return itemAssetNumberMapMapper.toDto(itemAssetNumberMap);

@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.SecondaryClaimSubmisionMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SecondaryClaimSubmisionMasterDTO implements Serializable {
 
     private Long changeHealthSecondarySubmisionMasterId;

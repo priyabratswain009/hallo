@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.soentryandsearch;
 
+import com.beust.jcommander.Strings;
 import com.dropbox.core.InvalidAccessTokenException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sunknowledge.dme.rcm.amazon.BucketName;
@@ -306,12 +307,12 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
 
                 if (responseData.getStatusCode() == HttpStatus.OK) {
                     responseBody = mapper.convertValue(responseData.getBody(), ResponseDTO.class);
-                    responseBody.setStatus(true);
+                    responseBody.setOutcome(true);
                     responseBody.setMessage("Successfully Fetched.");
                     responseBody.setData(responseBody.getData());
 
                 } else {
-                    responseBody.setStatus(false);
+                    responseBody.setOutcome(false);
                     responseBody.setMessage("API Error: No Response Data Available");
                     responseBody.setData(new JSONArray());
                 }
@@ -383,9 +384,10 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
                         InputStream targetStream = new ByteArrayInputStream(dataBuffer.asByteBuffer().array());
                         if(isCloudStorage) {
                             Map<String, String> metadata = new HashMap<>();
-                            String path = String.format("%s/%s", BucketName.BUCKET_NAME.getPatientServiceBucket(), "qrCode");
+                            String path = String.format("%s/%s", BucketName.BUCKET_NAME.getPatientServiceBucket(), "patientDocuments");
                             return fileStore.upload(path, uuid + ".pdf", Optional.of(metadata), targetStream);
-                        }else {
+                        }
+                        else {
                             String tempPatientDocumentFile = patientDocumentFile + "/" + uuid.toString() + ".pdf";
                             CountDownLatch countDownLatch = new CountDownLatch(1);
                             countDownLatch.countDown();
@@ -403,43 +405,52 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
                     });
             }).buffer()
             .flatMap(dataBufferStrList->{
-                System.out.println("documentNameList "+documentNameList);
-                ResponseDTO<List<PatientDocumentCopyDTO>> obj = (uploadPatientDocumentFromSO(documentNameList.toString(), patientUUID,
-                    patientDocumentStatus, description, documentType,isCloudStorage, "Upload"));
-                System.out.println(" Returned value of patient ==== "+ obj.getData());
+                return uploadPatientDocumentFromSOAndSaveInMap(documentNameList.toString(),patientUUID,patientDocumentStatus, description,
+                    documentType,isCloudStorage, "Upload",soId,soNo, "patientDocuments");
+            });
+    }
+    @Override
+    public Flux<PatientDocumentSoMap> uploadPatientDocumentFromSOAndSaveInMap(String documentNameList, UUID patientUUID, String patientDocumentStatus,
+                                                         String description, String documentType, boolean isCloudStorage, String oprationType,
+                                                         Long soId, String soNo, String folderName) {
+        System.out.println("documentNameList "+documentNameList);
+        com.sunknowledge.dme.rcm.application.core.ResponseDTO<List<PatientDocumentCopyDTO>> obj = (uploadPatientDocumentFromSO(documentNameList, patientUUID,
+            patientDocumentStatus, description, documentType,isCloudStorage, oprationType,folderName));
+        System.out.println(" Returned value of patient ==== "+ obj.getData());
 
-                PatientDocumentSoMapDTO savedPatientDocumentSoMapDTO = new PatientDocumentSoMapDTO();
-                if (obj != null) {
-                    Flux patientDocumentCopyDTOFlux = Mono.just(obj.getData()).flatMapMany(Flux::fromIterable);
-                    //Flux fluxData = Flux.fromIterable(obj.getData());
-                    return patientDocumentCopyDTOFlux.flatMapSequential(data ->{
-                        LinkedHashMap patientDocumentData = (LinkedHashMap) data;
-                        //PatientDocumentCopyDTO patientDocumentData = data;
-                        if (patientDocumentData != null) {
-                            PatientDocumentSoMapDTO patientDocumentSoMapDTO = new PatientDocumentSoMapDTO();
-                            patientDocumentSoMapDTO.setPatientDocumentId(Long.valueOf((Integer) patientDocumentData.get("patientDocumentId")));
-                            patientDocumentSoMapDTO.setPatientId(Long.valueOf((Integer) patientDocumentData.get("patientId")));
-                            patientDocumentSoMapDTO.setPatientIdNo((String) patientDocumentData.get("patientIdNo"));
-                            patientDocumentSoMapDTO.setPatientDocumentNo((String) patientDocumentData.get("patientDocumentNo"));
-                            patientDocumentSoMapDTO.setSoId(soId);
-                            patientDocumentSoMapDTO.setSoNo(soNo);
+        PatientDocumentSoMapDTO savedPatientDocumentSoMapDTO = new PatientDocumentSoMapDTO();
+        if (obj != null) {
+            Flux patientDocumentCopyDTOFlux = Mono.just(obj.getData()).flatMapMany(Flux::fromIterable);
+            //Flux fluxData = Flux.fromIterable(obj.getData());
+            return patientDocumentCopyDTOFlux.flatMapSequential(data ->{
+                LinkedHashMap patientDocumentData = (LinkedHashMap) data;
+                //PatientDocumentCopyDTO patientDocumentData = data;
+                if (patientDocumentData != null) {
+                    PatientDocumentSoMapDTO patientDocumentSoMapDTO = new PatientDocumentSoMapDTO();
+                    patientDocumentSoMapDTO.setPatientDocumentId(Long.valueOf((Integer) patientDocumentData.get("patientDocumentId")));
+                    patientDocumentSoMapDTO.setPatientId(Long.valueOf((Integer) patientDocumentData.get("patientId")));
+                    patientDocumentSoMapDTO.setPatientIdNo((String) patientDocumentData.get("patientIdNo"));
+                    patientDocumentSoMapDTO.setPatientDocumentNo((String) patientDocumentData.get("patientDocumentNo"));
+                    patientDocumentSoMapDTO.setSoId(soId);
+                    patientDocumentSoMapDTO.setSoNo(soNo);
 
-                            patientDocumentSoMapDTO.setStatus("Active");
-                            patientDocumentSoMapDTO.setUploadedById(1L);
-                            patientDocumentSoMapDTO.setUploadedByName("Abhay Api Test");
-                            patientDocumentSoMapDTO.setUploadedDate(LocalDate.now());
-                            return patientDocumentSoMapRepositoryExtended.save(patientDocumentSoMapMapper.toEntity(patientDocumentSoMapDTO))
-                                .map(patientDocument -> patientDocument)
-                                .switchIfEmpty(Mono.just(new PatientDocumentSoMap()));
-                        }else{
-                            return null;
-                        }
-                    });
+                    patientDocumentSoMapDTO.setStatus("Active");
+                    patientDocumentSoMapDTO.setUploadedById(1L);
+                    patientDocumentSoMapDTO.setUploadedByName("Abhay Api Test");
+                    patientDocumentSoMapDTO.setUploadedDate(LocalDate.now());
+                    return patientDocumentSoMapRepositoryExtended.save(patientDocumentSoMapMapper.toEntity(patientDocumentSoMapDTO))
+                        .map(patientDocument -> patientDocument)
+                        .switchIfEmpty(Mono.just(new PatientDocumentSoMap()));
                 }else{
                     return null;
                 }
             });
+        }else{
+            return null;
+        }
     }
+
+
     @Override
     public Flux<String> getFileWithPathByPatientDocumentUuid(List<UUID> patientDocumentUuid) {
         return patientDocumentSoMapRepositoryExtended.getFileWithPathByPatientDocumentUuid(patientDocumentUuid);
@@ -487,10 +498,11 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
 
     }
 
-    private ResponseDTO uploadPatientDocumentFromSO(String documentNameList, UUID patientUUID, String patientDocumentStatus,
-                                                    String description, String documentType,boolean isCloudStorage, String operationType) {
+    private com.sunknowledge.dme.rcm.application.core.ResponseDTO uploadPatientDocumentFromSO(String documentNameList, UUID patientUUID, String patientDocumentStatus,
+                                                    String description, String documentType,boolean isCloudStorage, String operationType,
+                                                    String folderName) {
         ObjectMapper mapper = new ObjectMapper();
-        ResponseDTO responseBody = new ResponseDTO();
+        com.sunknowledge.dme.rcm.application.core.ResponseDTO responseBody = new com.sunknowledge.dme.rcm.application.core.ResponseDTO();
         try {
             //==================== Get the access token ====================
             String accessToken = InternalAccessTokenUtilities.getAccessToken();
@@ -503,9 +515,10 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
                 Properties propData = commonUtilitiesObj.readPropertiesFile("/project-properties-files/url_config.properties");
 
                 String url = propData.getProperty("patient_url");
-                String param = "/{documentNames}/{patientUUID}/{patientDocumentStatus}/{description}/{documentType}/{isCloudStorage}/{operationType}";
+                String param = "/{documentNames}/{patientUUID}/{patientDocumentStatus}/{description}/{documentType}/{isCloudStorage}/{operationType}/{folderName}";
                 String paramValue = "?documentNames=" + documentNameList + "&patientUUID=" + patientUUID + "&patientDocumentStatus="
-                    + patientDocumentStatus + "&description=" + description + "&documentType=" + documentType + "&isCloudStorage=" + isCloudStorage+ "&operationType=" + operationType;
+                    + patientDocumentStatus + "&description=" + description + "&documentType=" + documentType + "&isCloudStorage="
+                    + isCloudStorage+ "&operationType=" + operationType+ "&folderName="+ folderName;
                 String completeUrl = url + param + paramValue;
                 System.out.println("completeUrl " + completeUrl);
 
@@ -524,16 +537,17 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
                     description,
                     documentType,
                     isCloudStorage,
-                    operationType);
+                    operationType,
+                    folderName);
                 if (responseData.getStatusCode() == HttpStatus.OK) {
-                    responseBody = mapper.convertValue(responseData.getBody(), ResponseDTO.class);
+                    responseBody = mapper.convertValue(responseData.getBody(), com.sunknowledge.dme.rcm.application.core.ResponseDTO.class);
                 } else {
-                    responseBody.setStatus(false);
+                    responseBody.setOutcome(false);
                     responseBody.setMessage("API Error: No Response Data Available");
                     responseBody.setData(new JSONArray());
                 }
             } else {
-                responseBody.setStatus(false);
+                responseBody.setOutcome(false);
                 responseBody.setMessage("Missing Access Token");
                 responseBody.setData(new JSONArray());
             }
@@ -573,7 +587,7 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
             // Any other exception
             throw new RuntimeException(e);
         }
-        if (responseBody.getStatus()) {
+        if (responseBody.getOutcome()) {
             return responseBody;
         } else {
             return null;
@@ -624,11 +638,11 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
             */
         }
         if(fileDetailsList!= null && fileDetailsList.size() > 0){
-            responseDTO.setStatus(true);
+            responseDTO.setOutcome(true);
             responseDTO.setMessage("Successfully Fetched.");
             responseDTO.setData(fileDetailsList);
         }else{
-            responseDTO.setStatus(false);
+            responseDTO.setOutcome(false);
             responseDTO.setMessage("Failed to Attach.");
             responseDTO.setData(fileDetailsList);
         }
@@ -646,7 +660,7 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
         System.out.println("==========patientSoIdAndSoNoOutputExtendedDTO==========="+patientSoIdAndSoNoOutputExtendedDTO);
         if(patientSoIdAndSoNoOutputExtendedDTO.getSoNo()!=null){
             if(!patientDocumentDetailsInputExtendedDTO.getSoNo().equals(patientSoIdAndSoNoOutputExtendedDTO.getSoNo())){
-                responseDTO.setStatus(false);
+                responseDTO.setOutcome(false);
                 responseDTO.setMessage("soNo mismatch with respected soUuid.");
                 responseDTO.setData(null);
                 return Mono.just(responseDTO);
@@ -671,7 +685,7 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
                 File source = new File(fileUploadConfigProperties.getDmePatientDocuments().getLocation()+ "/" + documentName+".pdf");
                 File destination = new File(fileUploadConfigProperties.getPatientDocumentsPDDorPIDorPMRProperties().getLocation()+ "/" + documentName+".pdf");
                 if (!source.exists()) {
-                    responseDTO.setStatus(false);
+                    responseDTO.setOutcome(false);
                     responseDTO.setMessage("The file does not exist at the source location.");
                     responseDTO.setData(null);
                     return Mono.just(responseDTO);
@@ -685,8 +699,8 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
 
         //ResponseDTO obj = uploadPatientDocumentFromSO(patientDocumentDetailsInputExtendedDTO.getDocumentNames(), patientUUID, patientDocumentStatus, description, documentType,isCloudStorage, patientDocumentDetailsInputExtendedDTO.getOperationType());
 
-        ResponseDTO<List<PatientDocumentCopyDTO>> obj = (uploadPatientDocumentFromSO(patientDocumentDetailsInputExtendedDTO.getDocumentNames(), patientUUID,
-            patientDocumentStatus, description, documentType,isCloudStorage, patientDocumentDetailsInputExtendedDTO.getOperationType()));
+        com.sunknowledge.dme.rcm.application.core.ResponseDTO<List<PatientDocumentCopyDTO>> obj = (uploadPatientDocumentFromSO(patientDocumentDetailsInputExtendedDTO.getDocumentNames(),
+            patientUUID,patientDocumentStatus, description, documentType,isCloudStorage, patientDocumentDetailsInputExtendedDTO.getOperationType(),""));
 
         System.out.println("======obj======"+obj);
         System.out.println(" Returned value of patient ==== "+ obj.getData());
@@ -708,19 +722,19 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
                 }else{
                     log.info("***File moved, QR code added, file renamed according to document type and data is saved into t_patient_document and soUUID is not there" +
                             "which is not mandatory. Therefore, return successful msg with data***");
-                    responseDTO.setStatus(true);
+                    responseDTO.setOutcome(true);
                     responseDTO.setMessage("Document Successfully moved.");
                     responseDTO.setData(obj.getData());
                 }
             }
         }else{
-            responseDTO.setStatus(false);
+            responseDTO.setOutcome(false);
             responseDTO.setMessage("Error Occurred.");
             responseDTO.setData(null);
         }
         return Mono.just(responseDTO);
     }
-    private Flux<PatientDocumentSoMap> savePatientDocumentSoMapData(ResponseDTO<List<PatientDocumentCopyDTO>> obj, PatientSoIdAndSoNoOutputExtendedDTO patientSoIdAndSoNoOutputExtendedDTO){
+    private Flux<PatientDocumentSoMap> savePatientDocumentSoMapData(com.sunknowledge.dme.rcm.application.core.ResponseDTO<List<PatientDocumentCopyDTO>> obj, PatientSoIdAndSoNoOutputExtendedDTO patientSoIdAndSoNoOutputExtendedDTO){
         //PatientDocumentSoMapDTO savedPatientDocumentSoMapDTO = new PatientDocumentSoMapDTO();
 
         if (obj != null) {
@@ -793,5 +807,12 @@ public class PatientDocumentSoMapServiceExtendedImpl implements PatientDocumentS
     @Override
     public Flux<PatientDocumentSoMap> findPatientDocumentsSoDataByPatientIdNo(String patientIdNo) {
         return patientDocumentSoMapRepositoryExtended.findPatientDocumentsSoDataByPatientIdNo(patientIdNo);
+    }
+
+    @Override
+    public Mono<PatientDocumentSoMapDTO> savePatientSoDocumentMap(PatientDocumentSoMapDTO patientDocumentSoMapDTO) {
+        return patientDocumentSoMapRepositoryExtended.save(patientDocumentSoMapMapper.toEntity(patientDocumentSoMapDTO))
+            .map(patientDocumentSoMapMapper::toDto)
+            .switchIfEmpty(Mono.just(new PatientDocumentSoMapDTO()));
     }
 }

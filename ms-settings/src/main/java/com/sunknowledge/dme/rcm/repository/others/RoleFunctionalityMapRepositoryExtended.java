@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface RoleFunctionalityMapRepositoryExtended extends RoleFunctionalityMapRepository {
@@ -64,4 +65,8 @@ public interface RoleFunctionalityMapRepositoryExtended extends RoleFunctionalit
     List<Map> getRoleFunctionalityDetailsByFunctionalityUUID(@Param("functionalityUUID") UUID functionalityUUID);
 
     RoleFunctionalityMap findByRoleIdAndFunctionalityId(Long roleId, Long funcId);
+
+    Optional<RoleFunctionalityMap> findByRoleFunctionalityMapIdAndStatusIgnoreCase(long id, String active);
+
+    Optional<RoleFunctionalityMap> findByRoleFunctionalityMapUuid(UUID uuid);
 }

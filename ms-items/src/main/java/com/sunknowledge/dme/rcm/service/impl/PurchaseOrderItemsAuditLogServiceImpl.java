@@ -44,7 +44,7 @@ public class PurchaseOrderItemsAuditLogServiceImpl implements PurchaseOrderItems
 
     @Override
     public PurchaseOrderItemsAuditLogDTO update(PurchaseOrderItemsAuditLogDTO purchaseOrderItemsAuditLogDTO) {
-        log.debug("Request to update PurchaseOrderItemsAuditLog : {}", purchaseOrderItemsAuditLogDTO);
+        log.debug("Request to save PurchaseOrderItemsAuditLog : {}", purchaseOrderItemsAuditLogDTO);
         PurchaseOrderItemsAuditLog purchaseOrderItemsAuditLog = purchaseOrderItemsAuditLogMapper.toEntity(purchaseOrderItemsAuditLogDTO);
         purchaseOrderItemsAuditLog = purchaseOrderItemsAuditLogRepository.save(purchaseOrderItemsAuditLog);
         return purchaseOrderItemsAuditLogMapper.toDto(purchaseOrderItemsAuditLog);

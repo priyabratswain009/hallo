@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.DocumentTypeMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class DocumentTypeMasterDTO implements Serializable {
 
     private Long documentTypeId;

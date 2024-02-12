@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface FunctionalityEndpointMappingRepositoryExtended extends FunctionalityEndpointMappingRepository {
     List<FunctionalityEndpointMapping> findByFunctionalityIdAndStatusIgnoreCase(Long aLong, String active);
@@ -58,4 +60,8 @@ public interface FunctionalityEndpointMappingRepositoryExtended extends Function
         " eMas.endpoint_id = :endpointId and  \n" +
         " fMas.functionality_id = fEMap.functionality_id and fEMap.endpoint_id = eMas.endpoint_id",nativeQuery = true)
     List<Map> getFunctionalityDetailsByEndpointId(@Param("endpointId") Long endpointId);
+
+    List<FunctionalityEndpointMapping> findByStatusIgnoreCase(String active);
+
+    Optional<FunctionalityEndpointMapping> findByFunctionalityEndpointMappingUuid(UUID uuid);
 }

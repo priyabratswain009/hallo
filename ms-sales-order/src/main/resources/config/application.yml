@@ -20,6 +20,8 @@ spring:
   config:
     activate:
       on-profile: '!api-docs'
+  main:
+    web-application-type: reactive
 #server:
 #  port: 9999
 springdoc:
@@ -250,3 +252,8 @@ resilience4j:
 # ===================================================================
 
 # application:
+application:
+  async:
+    core-pool-size: 10
+    max-pool-size: 50
+    queue-capacity: 10000

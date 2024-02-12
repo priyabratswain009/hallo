@@ -213,7 +213,7 @@ class DocumentTypeMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewDocumentTypeMasterAuditLog() throws Exception {
+    void putExistingDocumentTypeMasterAuditLog() throws Exception {
         // Initialize the database
         documentTypeMasterAuditLogRepository.saveAndFlush(documentTypeMasterAuditLog);
 

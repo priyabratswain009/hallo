@@ -10,6 +10,7 @@
     {
       "fieldName": "checklistDocumentReferenceId",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"],
       "options": {
         "id": true
       }
@@ -61,6 +62,14 @@
     {
       "fieldName": "checklistDocumentReferenceMapUuid",
       "fieldType": "UUID"
+    },
+    {
+      "fieldName": "itemGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupName",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

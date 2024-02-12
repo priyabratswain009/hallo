@@ -1,525 +1,550 @@
-entity SalesOrderClinicalDetails(t_sales_order_clinical_details){
-	@Id salesOrderClinicalDetailsId Long
-    salesOrderId Long
-    patientId Long
-    patientWeightInKg Double
-    patientWeightInLbs Double
-    heightInInches Double
-    heightInCm Double
-    salesRepId Long
-    salesRepName String
-    renderingProviderFacilityId Long
-    renderingProviderFacilityName String
-    renderingProviderId Long
-    renderingProviderType String
-    renderingProviderFirstName String
-    renderingProviderMiddleName String
-    renderingProviderLastName String
-    renderingProviderNpi String
-    renderingProviderDea String
-    renderingProviderAddressLine1 String
-    renderingProviderAddressLine2 String
-    renderingProviderEmail String
-    renderingProviderFax String
-    referringProviderFacilityId Long
-    referringProviderFacilityName String
-    referringProviderId Long
-    referringProviderType String
-    referringProviderFirstName String
-    referringProviderMiddleName String
-    referringProviderLastName String
-    referringProviderNpi String
-    referringProviderDea String
-    referringProviderAddressLine1 String
-    referringProviderAddressLine2 String
-    referringProviderEmail String
-    referringProviderFax String
-    orderingProviderFacilityId Long
-    orderingProviderFacilityName String
-    orderingProviderId Long
-    orderingProviderType String
-    orderingProviderFirstName String
-    orderingProviderMiddleName String
-    orderingProviderLastName String
-    orderingProviderNpi String
-    orderingProviderDea String
-    orderingProviderAddressLine1 String
-    orderingProviderAddressLine2 String
-    orderingProviderEmail String
-    orderingProviderFax String
-    marketingReferralTypeId Long
-    marketingReferralTypeDescription String
-    icd10DiagnosisCode1 String
-    icd10DiagnosisCode2 String
-    icd10DiagnosisCode3 String
-    icd10DiagnosisCode4 String
-    icd10DiagnosisCode5 String
-    icd10DiagnosisCode6 String
-    icd10DiagnosisCode7 String
-    icd10DiagnosisCode8 String
-    icd10DiagnosisCode9 String
-    icd10DiagnosisCode10 String
-    icd10DiagnosisCode11 String
-    icd10DiagnosisCode12 String
-    epsdtCertificationConditionIndicator String
-    epsdtCertificationCode String
-    status String
-    createdByName String
-    createdDate LocalDate
-    updatedByName String
-    updatedDate LocalDate
-    renderingProviderZip String
-    referringProviderZip String
-    orderingProviderZip String
-    marketingReferralId Long
-    marketingReferralName String
-    updatedById Long
-    createdById Long
-    salesOrderClinicalDetailsUuid UUID
-    primaryDiagnosis String
-    orderingProviderCity String
-    orderingProviderState String
-    orderingProviderCountry String
-    orderingProviderContactNo1 String
-    orderingProviderContactNo2 String
-    orderingProviderEfax String
-    relationship String
-    modeOfContact String
-    referringProviderCity String
-    referringProviderState String
-    referringProviderCountry String
-    referringProviderContactNo1 String
-    referringProviderContactNo2 String
-    referringProviderEfax String
-    renderingProviderCity String
-    renderingProviderState String
-    renderingProviderCountry String
-    renderingProviderContactNo1 String
-    renderingProviderContactNo2 String
-    renderingProviderEfax String
-    diagnosisCodeType String
+entity SalesOrderClinicalDetails
+    (
+    t_sales_order_clinical_details
+    ) {
+        @Id salesOrderClinicalDetailsId Long
+salesOrderId Long
+patientId Long
+patientWeightInKg Double
+patientWeightInLbs Double
+heightInInches Double
+heightInCm Double
+salesRepId Long
+salesRepName String
+renderingProviderFacilityId Long
+renderingProviderFacilityName String
+renderingProviderId Long
+renderingProviderType String
+renderingProviderFirstName String
+renderingProviderMiddleName String
+renderingProviderLastName String
+renderingProviderNpi String
+renderingProviderDea String
+renderingProviderAddressLine1 String
+renderingProviderAddressLine2 String
+renderingProviderEmail String
+renderingProviderFax String
+referringProviderFacilityId Long
+referringProviderFacilityName String
+referringProviderId Long
+referringProviderType String
+referringProviderFirstName String
+referringProviderMiddleName String
+referringProviderLastName String
+referringProviderNpi String
+referringProviderDea String
+referringProviderAddressLine1 String
+referringProviderAddressLine2 String
+referringProviderEmail String
+referringProviderFax String
+orderingProviderFacilityId Long
+orderingProviderFacilityName String
+orderingProviderId Long
+orderingProviderType String
+orderingProviderFirstName String
+orderingProviderMiddleName String
+orderingProviderLastName String
+orderingProviderNpi String
+orderingProviderDea String
+orderingProviderAddressLine1 String
+orderingProviderAddressLine2 String
+orderingProviderEmail String
+orderingProviderFax String
+marketingReferralTypeId Long
+marketingReferralTypeDescription String
+icd10DiagnosisCode1 String
+icd10DiagnosisCode2 String
+icd10DiagnosisCode3 String
+icd10DiagnosisCode4 String
+icd10DiagnosisCode5 String
+icd10DiagnosisCode6 String
+icd10DiagnosisCode7 String
+icd10DiagnosisCode8 String
+icd10DiagnosisCode9 String
+icd10DiagnosisCode10 String
+icd10DiagnosisCode11 String
+icd10DiagnosisCode12 String
+epsdtCertificationConditionIndicator String
+epsdtCertificationCode String
+status String
+createdByName String
+createdDate LocalDate
+updatedByName String
+updatedDate LocalDate
+renderingProviderZip String
+referringProviderZip String
+orderingProviderZip String
+marketingReferralId Long
+marketingReferralName String
+updatedById Long
+createdById Long
+salesOrderClinicalDetailsUuid UUID
+primaryDiagnosis String
+orderingProviderCity String
+orderingProviderState String
+orderingProviderCountry String
+orderingProviderContactNo1 String
+orderingProviderContactNo2 String
+orderingProviderEfax String
+relationship String
+modeOfContact String
+referringProviderCity String
+referringProviderState String
+referringProviderCountry String
+referringProviderContactNo1 String
+referringProviderContactNo2 String
+referringProviderEfax String
+renderingProviderCity String
+renderingProviderState String
+renderingProviderCountry String
+renderingProviderContactNo1 String
+renderingProviderContactNo2 String
+renderingProviderEfax String
+diagnosisCodeType String
 }
 
 entity SalesOrderClinicalDetailsAuditLog(t_sales_order_clinical_details_audit_log){
-	salsOdrClincalDetilsId Long
-    oldRowData String
-    newRowData String
-    dmlType String
-    dmlTimestamp LocalDate
-    dmlCreatedBy String
-    @Id id Long
+salsOdrClincalDetilsId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
 }
 
 entity SalesOrderDocuments(t_sales_order_documents){
-	patientId Long
-    patientFirstName String
-    patientDob LocalDate
-    patientDod LocalDate
-    patientSsn String
-    qmbStatus String
-    patientGender String
-    patientHeight Double
-    patientWeight Double
-    patientContact1 String
-    patientContact2 String
-    email String
-    hipaaOnFileStatus String
-    branchId Long
-    branchName String
-    documentTypeId Long
-    documentTypeName String
-    documentDate LocalDate
-    documentNote String
-    createdDate LocalDate
-    createdById Long
-    status String
-    @Id salesOrderDocumentId Long
-    updatedById Long
-    updatedDate LocalDate
-    fax String
-    documentTitle String
-    documentName String
-    scanBy Long
-    fileUploadPath String
-    uploadDate LocalDate
-    uploadBy Long
-    scanDate LocalDate
-    reviewStatus String
-    reviewReason String
-    reviewDate LocalDate
-    reviewBy Long
-    createdByName String
-    updatedByName String
-    salesOrderId Long
-    salesOrderNo String
-    salesOrderCreationDate LocalDate
-    salesOrderDocumentsUuid UUID
-    patientMiddleName String
-    patientLastName String
+patientId Long
+patientFirstName String
+patientDob LocalDate
+patientDod LocalDate
+patientSsn String
+qmbStatus String
+patientGender String
+patientHeight Double
+patientWeight Double
+patientContact1 String
+patientContact2 String
+email String
+hipaaOnFileStatus String
+branchId Long
+branchName String
+documentTypeId Long
+documentTypeName String
+documentDate LocalDate
+documentNote String
+createdDate LocalDate
+createdById Long
+status String
+@Id salesOrderDocumentId Long
+updatedById Long
+updatedDate LocalDate
+fax String
+documentTitle String
+documentName String
+scanBy Long
+fileUploadPath String
+uploadDate LocalDate
+uploadBy Long
+scanDate LocalDate
+reviewStatus String
+reviewReason String
+reviewDate LocalDate
+reviewBy Long
+createdByName String
+updatedByName String
+salesOrderId Long
+salesOrderNo String
+salesOrderCreationDate LocalDate
+salesOrderDocumentsUuid UUID
+patientMiddleName String
+patientLastName String
 }
 
 entity SalesOrderDocumentsAuditLog(t_sales_order_documents_audit_log) {
-	salesOrderDocId Long
-    oldRowData String
-    newRowData String
-    dmlType String
-    dmlTimestamp LocalDate
-    dmlCreatedBy String
-    @Id id Long
+salesOrderDocId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
 }
 
 entity SalesOrderFinancialDetails(t_sales_order_financial_details) {
-	@Id salesOrderFinancialId Long
-    salesOrderId Long
-    patientId Long
-    itemId Long
-    itemName String
-    itemProcCode String
-    chargedAmount Double
-    allowedAmount Double
-    primaryInsurerId Long
-    primaryInsurerName String
-    primaryInsurerStatus String
-    primaryInsurerCoveragePercentage Long
-    primaryInsurerCoverageAmount Double
-    primaryInsurerDeductibleAmount Double
-    primaryInsurerPayment Double
-    primaryInsurerBalanceAmount Double
-    secondaryInsurerId Long
-    secondaryInsurerName String
-    secondaryInsurerStatus String
-    secondaryInsurerCoveragerPercentage Long
-    secondaryInsurerCoverageAmount Double
-    secondaryInsurerPayment Double
-    secondaryInsurerBalanceAmount Double
-    tertiaryInsurerId Long
-    tertiaryInsurerName String
-    tertiaryInsurerStatus String
-    tertiaryInsurerCoveragePercentage Long
-    tertiaryInsurerCoverageAmount Double
-    tertiaryInsurerPayment Double
-    tertiaryInsurerBalanceAmount Double
-    patientCoinsurancePercentage Long
-    patientCoinsuranceAmount Double
-    totalPatientResponsibilityAmount Double
-    patientPayAmount Double
-    narration String
-    createdById Long
-    createdByName String
-    createdDate LocalDate
-    updatedById Long
-    updatedByName String
-    updatedDate LocalDate
-    primaryInvoiceNo String
-    primaryInvoiceDate LocalDate
-    primaryInvoiceStatus String
-    dos String
-    secondaryInvoiceNo String
-    tertiaryInvoiceNo String
-    secondaryInvoiceDate LocalDate
-    tertiaryInvoiceDate LocalDate
-    secondaryInvoiceStatus String
-    tertiaryInvoiceStatus String
-    salesOrderFinancialDetailsUuid UUID
+@Id salesOrderFinancialId Long
+salesOrderId Long
+patientId Long
+itemId Long
+itemName String
+itemProcCode String
+chargedAmount Double
+allowedAmount Double
+primaryInsurerId Long
+primaryInsurerName String
+primaryInsurerStatus String
+primaryInsurerCoveragePercentage Long
+primaryInsurerCoverageAmount Double
+primaryInsurerDeductibleAmount Double
+primaryInsurerPayment Double
+primaryInsurerBalanceAmount Double
+secondaryInsurerId Long
+secondaryInsurerName String
+secondaryInsurerStatus String
+secondaryInsurerCoveragerPercentage Long
+secondaryInsurerCoverageAmount Double
+secondaryInsurerPayment Double
+secondaryInsurerBalanceAmount Double
+tertiaryInsurerId Long
+tertiaryInsurerName String
+tertiaryInsurerStatus String
+tertiaryInsurerCoveragePercentage Long
+tertiaryInsurerCoverageAmount Double
+tertiaryInsurerPayment Double
+tertiaryInsurerBalanceAmount Double
+patientCoinsurancePercentage Long
+patientCoinsuranceAmount Double
+totalPatientResponsibilityAmount Double
+patientPayAmount Double
+narration String
+createdById Long
+createdByName String
+createdDate LocalDate
+updatedById Long
+updatedByName String
+updatedDate LocalDate
+primaryInvoiceNo String
+primaryInvoiceDate LocalDate
+primaryInvoiceStatus String
+dos String
+secondaryInvoiceNo String
+tertiaryInvoiceNo String
+secondaryInvoiceDate LocalDate
+tertiaryInvoiceDate LocalDate
+secondaryInvoiceStatus String
+tertiaryInvoiceStatus String
+salesOrderFinancialDetailsUuid UUID
 }
 
 entity SalesOrderFinancialDetailsAuditLog(t_sales_order_financial_details_audit_log) {
-	salsOrdrFincialId Long
-    oldRowData String
-    newRowData String
-    dmlType String
-    dmlTimestamp LocalDate
-    dmlCreatedBy String
-    @Id id Long
+salsOrdrFincialId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
 }
 
 entity SalesOrderInsuranceDetails(t_sales_order_insurance_details) {
-	@Id salesOrderInsuranceDetailsId Long
-    salesOrderId Long
-    patientId Long
-    primaryInsurerId Long
-    primaryInsurerName String
-    primaryInsurerPolicyNo String
-    primaryInsurerPatientIdNumber String
-    primaryInsurerEffectiveDate LocalDate
-    primaryInsurerVerificationStatus String
-    primaryInsurerVerificationDate LocalDate
-    primaryInsurerPayPercentage Long
-    primaryBox10D String
-    primaryBox19 String
-    primaryBox24Ia String
-    primaryBox24Ja String
-    primaryBox24Jb String
-    primaryIncludeBox24Jbstatus String
-    primaryIncludePayerSalesOrderStatus String
-    primaryWaitForPreviousPayerBeforeBillingStatus String
-    primaryPayPercentageStatus String
-    secondaryInsurerId Long
-    secondaryInsurerName String
-    secondaryInsurerPolicyNo String
-    secondaryInsurerPatientIdNumber String
-    secondaryInsurerEffectiveDate LocalDate
-    secondaryInsurerVerificationStatus String
-    secondaryInsurerVerificationDate LocalDate
-    secondaryInsurerPayPercentage Long
-    secondaryBox10D String
-    secondaryBox19 String
-    secondaryBox24Ia String
-    secondaryBox24Ja String
-    secondaryBox24Jb String
-    secondaryIncludeBox24JbStatus String
-    secondaryIncludePayerSalesOrderStatus String
-    secondaryWaitPreviousPayerBefrBillingStatus String
-    secondaryPayPercentageStatus String
-    tertiaryInsurerId Long
-    tertiaryInsurerName String
-    tertiaryInsurerPolicyno String
-    tertiaryInsurerPatientIdNumber String
-    tertiaryInsurerEffectiveDate LocalDate
-    tertiaryInsurerVerificationStatus String
-    tertiaryInsurerVerificationDate LocalDate
-    tertiaryInsurerPayPercentage Long
-    tertiaryBox10D String
-    tertiaryBox19 String
-    tertiaryBox24Ia String
-    tertiaryBox24Ja String
-    tertiaryBox24Jb String
-    tertiaryIncludeBox24JbStatus String
-    tertiaryIncludePayerInSalesOrderStatus String
-    tertiaryWaitPreviousPayerBeforeBillingStatus String
-    tertiaryPayPercentageStatus String
-    insuranceVerificationStatus String
-    coverageVerificationStatus String
-    excludeFromEligibilityCheckStatus String
-    patientPayPercentage Long
-    patientIncludeThisPayorInSalesOrderStatus String
-    patientWaitForPreviousPayerBeforeBillingStatus String
-    workersCompDateOfOnset LocalDate
-    workersCompInjuryRelatedEmploymentStatus String
-    workersCompInjuryRelatedAutoAccidentStatus String
-    workersCompAutoAccidentStateId Long
-    workersCompInjuryRelatedToOtherAccidentStatus String
-    eclaimsAttachmentStatus String
-    attachmentNumber Long
-    typeCode String
-    transactionCode String
-    claimsNoteType String
-    claimsNote String
-    createdById Long
-    createdDate LocalDate
-    status String
-    updatedById Long
-    updatedDate LocalDate
-    salesOrderNo String
-    createdByName String
-    updatedByName String
-    primaryInsuranceGroupId Long
-    primaryInsuranceGroupName String
-    secondaryInsuranceGroupId Long
-    secondaryInsuranceGroupName String
-    tertiaryInsuranceGroupId Long
-    tertiaryInsuranceGroupName String
-    primaryInsurancePlanId Long
-    primaryInsurancePlanType String
-    secondaryInsurancePlanId Long
-    secondaryInsurancePlanType String
-    tertiaryInsurancePlanId Long
-    tertiaryInsurancePlanType String
-    salesOrderInsuranceDetailsUuid UUID
-    primaryInsurancePayerId String
-    secondaryInsurancePayerId String
-    tertiaryInsurancePayerId String
-    primaryInsuranceIndicatorCode String
-    secondaryInsuranceIndicatorCode String
-    tertiaryInsuranceIndicatorCode String
-    priceTableId Long
-    priceTableName String
-    primaryInsurerAddressLine1 String
-    primaryInsurerAddressLine2 String
-    primaryInsurerCity String
-    primaryInsurerState String
-    primaryInsurerZip String
-    primaryInsurerContact1 String
-    primaryInsurerFax String
-    secondaryInsurerAddressLine1 String
-    secondaryInsurerAddressLine2 String
-    secondaryInsurerCity String
-    secondaryInsurerState String
-    secondaryInsurerZip String
-    secondaryInsurerContact1 String
-    secondaryInsurerFax String
-    tertiaryInsurerAddressLine1 String
-    tertiaryInsurerAddressLine2 String
-    tertiaryInsurerCity String
-    tertiaryInsurerState String
-    tertiaryInsurerZip String
-    tertiaryInsurerContact1 String
-    tertiaryInsurerFax String
-    primaryInsurerPolicyEndDate LocalDate
-    primaryInsurerContactName String
-    primaryClaimProgram String
-    secondaryClaimProgram String
-    tertiaryClaimProgram String
+@Id salesOrderInsuranceDetailsId Long
+salesOrderId Long
+patientId Long
+primaryInsurerId Long
+primaryInsurerName String
+primaryInsurerPolicyNo String
+primaryInsurerPatientIdNumber String
+primaryInsurerEffectiveDate LocalDate
+primaryInsurerVerificationStatus String
+primaryInsurerVerificationDate LocalDate
+primaryInsurerPayPercentage Long
+primaryBox10D String
+primaryBox19 String
+primaryBox24Ia String
+primaryBox24Ja String
+primaryBox24Jb String
+primaryIncludeBox24Jbstatus String
+primaryIncludePayerSalesOrderStatus String
+primaryWaitForPreviousPayerBeforeBillingStatus String
+primaryPayPercentageStatus String
+secondaryInsurerId Long
+secondaryInsurerName String
+secondaryInsurerPolicyNo String
+secondaryInsurerPatientIdNumber String
+secondaryInsurerEffectiveDate LocalDate
+secondaryInsurerVerificationStatus String
+secondaryInsurerVerificationDate LocalDate
+secondaryInsurerPayPercentage Long
+secondaryBox10D String
+secondaryBox19 String
+secondaryBox24Ia String
+secondaryBox24Ja String
+secondaryBox24Jb String
+secondaryIncludeBox24JbStatus String
+secondaryIncludePayerSalesOrderStatus String
+secondaryWaitPreviousPayerBefrBillingStatus String
+secondaryPayPercentageStatus String
+tertiaryInsurerId Long
+tertiaryInsurerName String
+tertiaryInsurerPolicyno String
+tertiaryInsurerPatientIdNumber String
+tertiaryInsurerEffectiveDate LocalDate
+tertiaryInsurerVerificationStatus String
+tertiaryInsurerVerificationDate LocalDate
+tertiaryInsurerPayPercentage Long
+tertiaryBox10D String
+tertiaryBox19 String
+tertiaryBox24Ia String
+tertiaryBox24Ja String
+tertiaryBox24Jb String
+tertiaryIncludeBox24JbStatus String
+tertiaryIncludePayerInSalesOrderStatus String
+tertiaryWaitPreviousPayerBeforeBillingStatus String
+tertiaryPayPercentageStatus String
+insuranceVerificationStatus String
+coverageVerificationStatus String
+excludeFromEligibilityCheckStatus String
+patientPayPercentage Long
+patientIncludeThisPayorInSalesOrderStatus String
+patientWaitForPreviousPayerBeforeBillingStatus String
+workersCompDateOfOnset LocalDate
+workersCompInjuryRelatedEmploymentStatus String
+workersCompInjuryRelatedAutoAccidentStatus String
+workersCompAutoAccidentStateCode String
+workersCompInjuryRelatedToOtherAccidentStatus String
+eclaimsAttachmentStatus String
+attachmentNumber Long
+typeCode String
+transactionCode String
+claimsNoteType String
+claimsNote String
+createdById Long
+createdDate LocalDate
+status String
+updatedById Long
+updatedDate LocalDate
+salesOrderNo String
+createdByName String
+updatedByName String
+primaryInsuranceGroupId Long
+primaryInsuranceGroupName String
+secondaryInsuranceGroupId Long
+secondaryInsuranceGroupName String
+tertiaryInsuranceGroupId Long
+tertiaryInsuranceGroupName String
+primaryInsurancePlanId Long
+primaryInsurancePlanType String
+secondaryInsurancePlanId Long
+secondaryInsurancePlanType String
+tertiaryInsurancePlanId Long
+tertiaryInsurancePlanType String
+salesOrderInsuranceDetailsUuid UUID
+primaryInsurancePayerId String
+secondaryInsurancePayerId String
+tertiaryInsurancePayerId String
+primaryInsuranceIndicatorCode String
+secondaryInsuranceIndicatorCode String
+tertiaryInsuranceIndicatorCode String
+priceTableId Long
+priceTableName String
+primaryInsurerAddressLine1 String
+primaryInsurerAddressLine2 String
+primaryInsurerCity String
+primaryInsurerState String
+primaryInsurerZip String
+primaryInsurerContact1 String
+primaryInsurerFax String
+secondaryInsurerAddressLine1 String
+secondaryInsurerAddressLine2 String
+secondaryInsurerCity String
+secondaryInsurerState String
+secondaryInsurerZip String
+secondaryInsurerContact1 String
+secondaryInsurerFax String
+tertiaryInsurerAddressLine1 String
+tertiaryInsurerAddressLine2 String
+tertiaryInsurerCity String
+tertiaryInsurerState String
+tertiaryInsurerZip String
+tertiaryInsurerContact1 String
+tertiaryInsurerFax String
+primaryInsurerPolicyEndDate LocalDate
+primaryInsurerContactName String
+primaryClaimProgram String
+secondaryClaimProgram String
+tertiaryClaimProgram String
+workersCompInsuredEmployer String
+workersCompPayerIdNumber String
+workersCompPlanName String
+workersCompAdditionalDtls String
+workersCompClaimFillingCode String
+workersCompTplCode String
+workersCompTplName String
+workersCompPropertyCasualtyAgencyClaimNo String
+workersCompCarrierId String
+workersCompEmployerAddressLine1 String
+workersCompEmployerAddressLine2 String
+workersCompEmployerCity String
+workersCompEmployerState String
+workersCompEmployerCountry String
+workersCompEmployerZip String
+workersCompEmployerContactNo1 String
+workersCompEmployerContactNo2 String
+workersCompEmployerFax String
+workersCompEmployerEfax String
+workersCompEmployerEmail String
+workersCompRelationship String
+workersCompModeOfContact String
 }
 
 entity SalesOrderInsuranceDetailsAuditLog(t_sales_order_insurance_details_audit_log) {
-	salsOrdInsranceDetailsId Long
-    oldRowData String
-    newRowData String
-    dmlType String
-    dmlTimestamp LocalDate
-    dmlCreatedBy String
-    @Id id Long
+salsOrdInsranceDetailsId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
 }
 
 entity SalesOrderItemDetails(t_sales_order_item_details) {
-	@Id salesOrderItemDetailsId Long
-    salesOrderId Long
-    patientId Long
-    itemLocationId Long
-    salesOrderDetailsItemId Long
-    salesOrderDetailsItemName String
-    salesOrderDetailsStockingUom String
-    itemAssetNo String
-    salesOrderDetailsItemDescription String
-    salesOrderDetailsDefaultVendor String
-    salesOrderDetailsOriginalDos LocalDate
-    salesOrderDetailsPreviousBillingDate LocalDate
-    salesOrderDetailsNextBillingDate LocalDate
-    salesOrderDetailsDosTo LocalDate
-    salesOrderDetailsNextPeriod String
-    salesOrderDetailsSpecialPricing String
-    salesOrderDetailsPriceOverride String
-    salesOrderDetailsSpecialTaxRate Long
-    salesOrderDetailsQty Long
-    salesOrderDetailsBqty Long
-    salesOrderDetailsLineQty Long
-    salesOrderDetailsProcCode String
-    salesOrderDetailsPriceOption String
-    salesOrderDetailsModifier1 String
-    salesOrderDetailsModifier2 String
-    salesOrderDetailsModifier3 String
-    salesOrderDetailsModifier4 String
-    salesOrderDetailsChargeAmt Double
-    salesOrderDetailsAllowedAmt Double
-    salesOrderDetailsTaxable String
-    salesOrderDetailsAbn String
-    salesOrderDetailsAbnUpgrade String
-    salesOrderDetailsAbnPrintDate LocalDate
-    salesOrderDetailsAbnItem String
-    salesOrderDetailsAbnProcCode String
-    salesOrderDetailsAbnAllow String
-    salesOrderDetailsAbnCharge Double
-    salesOrderDetailsAbnModifier1 String
-    salesOrderDetailsAbnModifier2 String
-    salesOrderDetailsTaxRate Long
-    salesOrderDetailsTaxZone String
-    salesOrderDetailsNonTaxReason String
-    salesOrderDetailsNote String
-    salesOrderDetailsSaleType String
-    salesOrderDetailsItemGroup String
-    salesOrderDetailsItemUser1 String
-    salesOrderDetailsItemUser2 String
-    salesOrderDetailsItemUser3 String
-    salesOrderDetailsItemUser4 String
-    salesOrderDetailsConvertedToPurchase String
-    salesOrderDetailsManualConvertToPurchaseMctp String
-    salesOrderDetailsMctpChargeAmt Double
-    salesOrderDetailsMctpAllowedAmt Double
-    salesOrderDetailsMctpModifier1 String
-    salesOrderDetailsMctpModifier2 String
-    salesOrderDetailsMctpModifier3 String
-    salesOrderDetailsMctpModifier4 String
-    salesOrderDetailsMctpPeriod Long
-    salesOrderDetailsAddtlModifier1 String
-    salesOrderDetailsAddtlModifier2 String
-    salesOrderDetailsAddtlModifier3 String
-    salesOrderDetailsAddtlModifier4 String
-    salesOrderDetailsNextDateOfService LocalDate
-    salesOrderDetailsPriceTable String
-    salesOrderDetailsPriceOptionName String
-    salesOrderDetailsExtendedChargeAmount Double
-    salesOrderDetailsExtendedAllowanceAmount Double
-    salesOrderDetailsItemNdcCode String
-    salesOrderDetailsManufacturer String
-    salesOrderDetailsCbPricing String
-    salesOrderDetailsCbPriceTableOverride String
-    salesOrderDetailsCbOverride String
-    salesOrderDetailsMessages String
-    salesOrderDetailsLocation Long
-    salesOrderDetailsCaloriesPerDay Long
-    salesOrderDetailsSecondaryBillingProcudureCode String
-    salesOrderDetailsSecondaryBillingPriceOption String
-    salesOrderDetailsSecondaryBillingPriceOptionName String
-    salesOrderDetailsSecondaryBillingModifier1 String
-    salesOrderDetailsSecondaryBillingModifier2 String
-    salesOrderDetailsSecondaryBillingModifier3 String
-    salesOrderDetailsSecondaryBillingModifier4 String
-    salesOrderDetailsSecondaryBillingAdditionalModifier1 String
-    salesOrderDetailsSecondaryBillingAdditionalModifier2 String
-    salesOrderDetailsSecondaryBillingAdditionalModifier3 String
-    salesOrderDetailsSecondaryBillingAdditionalModifier4 String
-    salesOrderDetailsSecondaryBillingIgnore String
-    salesOrderDetailsSecondarySpecialBilling String
-    salesOrderDetailsSpanDateSplitBilling String
-    salesOrderDetailsCmnparCmnFormId Long
-    salesOrderDetailsCmnparCmnKey String
-    salesOrderDetailsCmnparCmnCreateDate LocalDate
-    salesOrderDetailsCmnparCmnExpirationDate LocalDate
-    salesOrderDetailsCmnparCmnInitialDate LocalDate
-    salesOrderDetailsCmnparCmnRenewalDate LocalDate
-    salesOrderDetailsCmnparCmnRecertificationDate LocalDate
-    salesOrderDetailsCmnparCmnPhysicianDate LocalDate
-    salesOrderDetailsCmnparCmnStatus String
-    salesOrderDetailsCmnparParId String
-    salesOrderDetailsCmnparParDescr String
-    salesOrderDetailsCmnparParInitialDate LocalDate
-    salesOrderDetailsCmnparParExpirationDate LocalDate
-    salesOrderDetailsCmnparCmnLogDate LocalDate
-    salesOrderDetailsCmnparCmnLengthOfNeed Long
-    salesOrderDetailsCmnparCmnPrintedDate LocalDate
-    salesOrderDetailsCmnparCmnPrintedBy String
-    salesOrderDetailsCmnparFaxedDate LocalDate
-    salesOrderDetailsCmnparCmnPlaceholder String
-    salesOrderDetailsCmnparCmnFaxedBy String
-    salesOrderDetailsCmnparCmnLoggedBy String
-    salesOrderDetailsCmnparNumberOfRefills Long
-    createdById Long
-    createdDate LocalDate
-    status String
-    updatedById Long
-    updatedDate LocalDate
-    salesOrderDetailsManufacturerItemIdNumber String
-    cmnId Long
-    createdByName String
-    updatedByName String
-    salesOrderItemDetailsUuid UUID
-    salesOrderItemNumber String
-    isAssetTagged String
-    itemSerialNo Long
-    salesOrderDetailsIcdPointer String
-    procedureIdentifier String
-    parNo String
-    whetherSerialised String
-    pickupExchangeNo String
-    salesOrderAbnUserResponse String
-    isDropshipAllowed String
-    poNumber String
-    purchaseOrderUuid UUID
-    isResupplyType String
-    frequencyCount Long
-    frequencyInterval Long
-    itemGroupId Long
+@Id salesOrderItemDetailsId Long
+salesOrderId Long
+patientId Long
+itemLocationId Long
+salesOrderDetailsItemId Long
+salesOrderDetailsItemName String
+salesOrderDetailsStockingUom String
+itemAssetNo String
+salesOrderDetailsItemDescription String
+salesOrderDetailsDefaultVendor String
+salesOrderDetailsOriginalDos LocalDate
+salesOrderDetailsPreviousBillingDate LocalDate
+salesOrderDetailsNextBillingDate LocalDate
+salesOrderDetailsDosTo LocalDate
+salesOrderDetailsNextPeriod String
+salesOrderDetailsSpecialPricing String
+salesOrderDetailsPriceOverride String
+salesOrderDetailsSpecialTaxRate Long
+salesOrderDetailsQty Long
+salesOrderDetailsBqty Long
+salesOrderDetailsLineQty Long
+salesOrderDetailsProcCode String
+salesOrderDetailsPriceOption String
+salesOrderDetailsModifier1 String
+salesOrderDetailsModifier2 String
+salesOrderDetailsModifier3 String
+salesOrderDetailsModifier4 String
+salesOrderDetailsChargeAmt Double
+salesOrderDetailsAllowedAmt Double
+salesOrderDetailsTaxable String
+salesOrderDetailsAbn String
+salesOrderDetailsAbnUpgrade String
+salesOrderDetailsAbnPrintDate LocalDate
+salesOrderDetailsAbnItem String
+salesOrderDetailsAbnProcCode String
+salesOrderDetailsAbnAllow String
+salesOrderDetailsAbnCharge Double
+salesOrderDetailsAbnModifier1 String
+salesOrderDetailsAbnModifier2 String
+salesOrderDetailsTaxRate Long
+salesOrderDetailsTaxZone String
+salesOrderDetailsNonTaxReason String
+salesOrderDetailsNote String
+salesOrderDetailsSaleType String
+salesOrderDetailsItemGroup String
+salesOrderDetailsItemUser1 String
+salesOrderDetailsItemUser2 String
+salesOrderDetailsItemUser3 String
+salesOrderDetailsItemUser4 String
+salesOrderDetailsConvertedToPurchase String
+salesOrderDetailsManualConvertToPurchaseMctp String
+salesOrderDetailsMctpChargeAmt Double
+salesOrderDetailsMctpAllowedAmt Double
+salesOrderDetailsMctpModifier1 String
+salesOrderDetailsMctpModifier2 String
+salesOrderDetailsMctpModifier3 String
+salesOrderDetailsMctpModifier4 String
+salesOrderDetailsMctpPeriod Long
+salesOrderDetailsAddtlModifier1 String
+salesOrderDetailsAddtlModifier2 String
+salesOrderDetailsAddtlModifier3 String
+salesOrderDetailsAddtlModifier4 String
+salesOrderDetailsNextDateOfService LocalDate
+salesOrderDetailsPriceTable String
+salesOrderDetailsPriceOptionName String
+salesOrderDetailsExtendedChargeAmount Double
+salesOrderDetailsExtendedAllowanceAmount Double
+salesOrderDetailsItemNdcCode String
+salesOrderDetailsManufacturer String
+salesOrderDetailsCbPricing String
+salesOrderDetailsCbPriceTableOverride String
+salesOrderDetailsCbOverride String
+salesOrderDetailsMessages String
+salesOrderDetailsLocation Long
+salesOrderDetailsCaloriesPerDay Long
+salesOrderDetailsSecondaryBillingProcudureCode String
+salesOrderDetailsSecondaryBillingPriceOption String
+salesOrderDetailsSecondaryBillingPriceOptionName String
+salesOrderDetailsSecondaryBillingModifier1 String
+salesOrderDetailsSecondaryBillingModifier2 String
+salesOrderDetailsSecondaryBillingModifier3 String
+salesOrderDetailsSecondaryBillingModifier4 String
+salesOrderDetailsSecondaryBillingAdditionalModifier1 String
+salesOrderDetailsSecondaryBillingAdditionalModifier2 String
+salesOrderDetailsSecondaryBillingAdditionalModifier3 String
+salesOrderDetailsSecondaryBillingAdditionalModifier4 String
+salesOrderDetailsSecondaryBillingIgnore String
+salesOrderDetailsSecondarySpecialBilling String
+salesOrderDetailsSpanDateSplitBilling String
+salesOrderDetailsCmnparCmnFormId Long
+salesOrderDetailsCmnparCmnKey String
+salesOrderDetailsCmnparCmnCreateDate LocalDate
+salesOrderDetailsCmnparCmnExpirationDate LocalDate
+salesOrderDetailsCmnparCmnInitialDate LocalDate
+salesOrderDetailsCmnparCmnRenewalDate LocalDate
+salesOrderDetailsCmnparCmnRecertificationDate LocalDate
+salesOrderDetailsCmnparCmnPhysicianDate LocalDate
+salesOrderDetailsCmnparCmnStatus String
+salesOrderDetailsCmnparParId String
+salesOrderDetailsCmnparParDescr String
+salesOrderDetailsCmnparParInitialDate LocalDate
+salesOrderDetailsCmnparParExpirationDate LocalDate
+salesOrderDetailsCmnparCmnLogDate LocalDate
+salesOrderDetailsCmnparCmnLengthOfNeed Long
+salesOrderDetailsCmnparCmnPrintedDate LocalDate
+salesOrderDetailsCmnparCmnPrintedBy String
+salesOrderDetailsCmnparFaxedDate LocalDate
+salesOrderDetailsCmnparCmnPlaceholder String
+salesOrderDetailsCmnparCmnFaxedBy String
+salesOrderDetailsCmnparCmnLoggedBy String
+salesOrderDetailsCmnparNumberOfRefills Long
+createdById Long
+createdDate LocalDate
+status String
+updatedById Long
+updatedDate LocalDate
+salesOrderDetailsManufacturerItemIdNumber String
+cmnId Long
+createdByName String
+updatedByName String
+salesOrderItemDetailsUuid UUID
+salesOrderItemNumber String
+isAssetTagged String
+itemSerialNo Long
+salesOrderDetailsIcdPointer String
+procedureIdentifier String
+parNo String
+whetherSerialised String
+pickupExchangeNo String
+salesOrderAbnUserResponse String
+isDropshipAllowed String
+poNumber String
+purchaseOrderUuid UUID
+isResupplyType String
+frequencyCount Long
+frequencyInterval Long
+itemGroupId Long
 }
 
 entity SalesOrderItemDetailsAuditLog(t_sales_order_item_details_audit_log) {
-	salsOrdrItemDetailId Long
-    oldRowData String
-    newRowData String
-    dmlType String
-    dmlTimestamp LocalDate
-    dmlCreatedBy String
-    @Id id Long
+salsOrdrItemDetailId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
 }
 
 entity SalesOrderMaster(t_sales_order_master) {
@@ -671,13 +696,13 @@ soControlNumber String
 }
 
 entity SalesOrderMasterAuditLog(t_sales_order_master_audit_log) {
-	salsOdrId Long
-    oldRowData String
-    newRowData String
-    dmlType String
-    dmlTimestamp LocalDate
-    dmlCreatedBy String
-    @Id id Long
+salsOdrId Long
+oldRowData String
+newRowData String
+dmlType String
+dmlTimestamp LocalDate
+dmlCreatedBy String
+@Id id Long
 }
 
 entity PatientDto(t_patient_dto) {
@@ -851,18 +876,18 @@ tertiaryInsurerFax String
 }
 
 entity PatientDocumentSoMap(t_patient_document_so_map){
-	@Id patientDocumentSoMapId Long
-    patientId Long
-    patientIdNo String
-    patientDocumentId Long
-    patientDocumentNo String
-    soId Long
-    soNo String
-    uploadedById Long
-    uploadedByName String
-    uploadedDate LocalDate
-    status String
-    patientDocumentSoMapUuid UUID
+@Id patientDocumentSoMapId Long
+patientId Long
+patientIdNo String
+patientDocumentId Long
+patientDocumentNo String
+soId Long
+soNo String
+uploadedById Long
+uploadedByName String
+uploadedDate LocalDate
+status String
+patientDocumentSoMapUuid UUID
 }
 
 entity InsurancePricetableMap(t_insurance_pricetable_map) {
@@ -882,5 +907,37 @@ updatedDate LocalDate
 insurancePricetableMapUuid UUID
 insuranceId Long
 }
+
+entity BenefitCoverageResponse(t_benefit_coverage_response) {
+	@Id benefitCoverageResponseId Long 
+	benefitCoverageRequestId Long
+	requestControlNumberExt String 
+	asOnDate LocalDate
+	serviceType String 
+	memberFirstName String 
+	memberLastName String 
+	subscriberMemberId String 
+	memberGender String 
+	patientFirstName String 
+	patientLastName String 
+	patientGender String 
+	payerName String 
+	patientRelationshipCode String 
+	patientState String 
+	coverageStatus String 
+	payerGroupNumber String 
+	serviceDate LocalDate
+	planStartDate LocalDate
+	responseJsonText String 
+	status String 
+	createdDate LocalDate
+	createdById Long
+	createdByName String 
+	updatedDate LocalDate
+	updatedById Long
+	updatedByName String 
+	benefitCoverageResponseUuid UUID
+}
+
 
 use mapstruct, serviceImpl, pagination for all

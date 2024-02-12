@@ -44,7 +44,7 @@ public class StopReasonMasterAuditLogServiceImpl implements StopReasonMasterAudi
 
     @Override
     public StopReasonMasterAuditLogDTO update(StopReasonMasterAuditLogDTO stopReasonMasterAuditLogDTO) {
-        log.debug("Request to save StopReasonMasterAuditLog : {}", stopReasonMasterAuditLogDTO);
+        log.debug("Request to update StopReasonMasterAuditLog : {}", stopReasonMasterAuditLogDTO);
         StopReasonMasterAuditLog stopReasonMasterAuditLog = stopReasonMasterAuditLogMapper.toEntity(stopReasonMasterAuditLogDTO);
         stopReasonMasterAuditLog = stopReasonMasterAuditLogRepository.save(stopReasonMasterAuditLog);
         return stopReasonMasterAuditLogMapper.toDto(stopReasonMasterAuditLog);

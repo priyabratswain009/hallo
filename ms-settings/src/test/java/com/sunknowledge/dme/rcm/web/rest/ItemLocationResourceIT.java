@@ -396,7 +396,7 @@ class ItemLocationResourceIT {
 
     @Test
     @Transactional
-    void putNewItemLocation() throws Exception {
+    void putExistingItemLocation() throws Exception {
         // Initialize the database
         itemLocationRepository.saveAndFlush(itemLocation);
 

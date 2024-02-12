@@ -10,6 +10,7 @@
     {
       "fieldName": "hcpcsDmeId",
       "fieldType": "Long",
+      "fieldValidateRules": ["required"],
       "options": {
         "id": true
       }

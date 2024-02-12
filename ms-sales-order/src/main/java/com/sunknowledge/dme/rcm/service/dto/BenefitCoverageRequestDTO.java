@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.BenefitCoverageRequest} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BenefitCoverageRequestDTO implements Serializable {
 
     private Long benefitCoverageRequestId;

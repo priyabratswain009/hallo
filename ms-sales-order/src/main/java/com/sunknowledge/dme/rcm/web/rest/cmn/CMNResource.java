@@ -3,11 +3,13 @@ package com.sunknowledge.dme.rcm.web.rest.cmn;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.application.properties.FileDownloadUtilityService;
 import com.sunknowledge.dme.rcm.domain.Cmn;
+import com.sunknowledge.dme.rcm.domain.CmnDocumentMaster;
 import com.sunknowledge.dme.rcm.dto.cmn.*;
 import com.sunknowledge.dme.rcm.repository.cmn.CmnDocumentMasterRepo;
 import com.sunknowledge.dme.rcm.repository.cmn.CmnRepo;
 import com.sunknowledge.dme.rcm.service.cmn.CMNService;
 import com.sunknowledge.dme.rcm.service.dto.CmnDTO;
+import com.sunknowledge.dme.rcm.service.dto.CmnDocumentMasterDTO;
 import com.sunknowledge.dme.rcm.service.mapper.CmnDocumentMasterMapper;
 import com.sunknowledge.dme.rcm.service.mapper.CmnMapper;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -104,7 +107,7 @@ public class CMNResource {
     @ApiOperation(value = "Updating CMN Details")
     @PostMapping(value = "/updateCMNDetails")
     public Mono<ServiceOutcome<CmnDTO>> updateCMNDetails(@RequestBody CmnRequestInput cmnRequestInput){
-//        ServiceOutcome<CmnDTO> outcome = cmnService.updateCMNDetails(cmnRequestInput);
+//      ServiceOutcome<CmnDTO> outcome = cmnService.updateCMNDetails(cmnRequestInput);
         return Mono.justOrEmpty(null);
     }
 
@@ -194,6 +197,26 @@ public class CMNResource {
         try {
             System.out.println("=======================Input JSON Data ========================="+cmnWrittenOrderOutputDTO);
             outcome = cmnService.prepareCMNDataIn(cmnWrittenOrderOutputDTO);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outcome;
+    }
+
+    @ApiOperation(value = "Prepare and Print CMN Report S3")
+    @PostMapping(value="/prepareAndPrintCMNReportOnCmnForAwsS3", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ServiceOutcome<CmnResponseDetails>> prepareAndPrintCMNReportOnCmnForAwsS3(@RequestParam("cmnId") Long cmnId) {
+        Mono<ServiceOutcome<CmnResponseDetails>> outcome = null;
+        try {
+            CmnDTO cmnDTO = cmnService.getCMNMasterDataByCmnId(cmnId).toFuture().get();
+            SWODataDTO swoDataDTO = cmnService.getSWODataOnSalesOrderReactive(cmnDTO.getSalesOrderId()).toFuture().get();
+            List<EquipmentDetailsDTO> EquipmentDetailsList = cmnService.getEquipmentDetailsOnSalesOrderReactive(cmnDTO.getSalesOrderId()).collectList().toFuture().get();
+            CmnDocumentMaster cmnDocumentMaster = cmnService.getCmnDocumentByCmnId(cmnDTO.getCmnId()).toFuture().get();
+            log.info("====cmnDTO===="+cmnDTO+"====swoDataDTO===="+swoDataDTO+"====EquipmentDetailsList===="+EquipmentDetailsList+"====cmnDocumentMaster===="+cmnDocumentMaster);
+            CmnDocumentMasterDTO cmnDocumentMasterDTO = cmnService.saveCmnDocumentInReactive(cmnDTO,  cmnDTO.getCmnNumber() + ".pdf", "First", cmnDocumentMaster).toFuture().get();
+            //cmnService.updateCMNDetailsInReactive(cmnDTO, "PRINT", cmnDTO.getCmnNumber() + ".pdf", cmnDocumentMaster, CmnDocumentMasterDTO);
+            outcome = cmnService.prepareAndPrintCMNReportOnCmnForAwsS3(cmnDTO, swoDataDTO, EquipmentDetailsList, cmnDocumentMaster, cmnDocumentMasterDTO, "PRINT");
         }
         catch (Exception e) {
             e.printStackTrace();

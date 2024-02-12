@@ -41,7 +41,7 @@ public class ItemLocationServiceImpl implements ItemLocationService {
 
     @Override
     public ItemLocationDTO update(ItemLocationDTO itemLocationDTO) {
-        log.debug("Request to save ItemLocation : {}", itemLocationDTO);
+        log.debug("Request to update ItemLocation : {}", itemLocationDTO);
         ItemLocation itemLocation = itemLocationMapper.toEntity(itemLocationDTO);
         itemLocation = itemLocationRepository.save(itemLocation);
         return itemLocationMapper.toDto(itemLocation);

@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.NoteTypeMasterAuditLog} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class NoteTypeMasterAuditLogDTO implements Serializable {
 
     private Long notTpeId;

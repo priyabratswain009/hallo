@@ -41,7 +41,7 @@ public class UserMasterServiceImpl implements UserMasterService {
 
     @Override
     public UserMasterDTO update(UserMasterDTO userMasterDTO) {
-        log.debug("Request to save UserMaster : {}", userMasterDTO);
+        log.debug("Request to update UserMaster : {}", userMasterDTO);
         UserMaster userMaster = userMasterMapper.toEntity(userMasterDTO);
         userMaster = userMasterRepository.save(userMaster);
         return userMasterMapper.toDto(userMaster);

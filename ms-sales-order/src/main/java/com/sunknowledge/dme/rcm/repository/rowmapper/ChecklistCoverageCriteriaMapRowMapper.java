@@ -40,6 +40,8 @@ public class ChecklistCoverageCriteriaMapRowMapper implements BiFunction<Row, St
         entity.setUpdatedByName(converter.fromRow(row, prefix + "_updated_by_name", String.class));
         entity.setChecklistCoverageCriteriaMapUuid(converter.fromRow(row, prefix + "_checklist_coverage_criteria_map_uuid", UUID.class));
         entity.setCoverageCriteriaName(converter.fromRow(row, prefix + "_coverage_criteria_name", String.class));
+        entity.setItemGroupId(converter.fromRow(row, prefix + "_item_group_id", Long.class));
+        entity.setItemGroupName(converter.fromRow(row, prefix + "_item_group_name", String.class));
         return entity;
     }
 }

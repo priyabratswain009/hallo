@@ -213,7 +213,7 @@ class ClaimProgramMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewClaimProgramMasterAuditLog() throws Exception {
+    void putExistingClaimProgramMasterAuditLog() throws Exception {
         // Initialize the database
         claimProgramMasterAuditLogRepository.saveAndFlush(claimProgramMasterAuditLog);
 

@@ -12,4 +12,5 @@ public class TaxZoneExtendedResponseDto {
     // Status_Name
     private String title;
     private String stateCode;
+    private Double taxRate;
 }

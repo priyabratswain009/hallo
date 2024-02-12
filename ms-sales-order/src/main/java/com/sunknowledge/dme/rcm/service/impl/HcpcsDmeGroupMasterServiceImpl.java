@@ -44,7 +44,7 @@ public class HcpcsDmeGroupMasterServiceImpl implements HcpcsDmeGroupMasterServic
 
     @Override
     public Mono<HcpcsDmeGroupMasterDTO> update(HcpcsDmeGroupMasterDTO hcpcsDmeGroupMasterDTO) {
-        log.debug("Request to save HcpcsDmeGroupMaster : {}", hcpcsDmeGroupMasterDTO);
+        log.debug("Request to update HcpcsDmeGroupMaster : {}", hcpcsDmeGroupMasterDTO);
         return hcpcsDmeGroupMasterRepository
             .save(hcpcsDmeGroupMasterMapper.toEntity(hcpcsDmeGroupMasterDTO))
             .map(hcpcsDmeGroupMasterMapper::toDto);

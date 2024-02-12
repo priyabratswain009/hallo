@@ -13,5 +13,7 @@ public interface StopReasonMasterServiceExtended extends StopReasonMasterService
 
     List<StopReasonMasterDTO> getAllStopReasonDetails();
 
-    List<StopReasonMasterDTO> getStopReasonDetailsByUUID(UUID stopReasonMasterUuid);
+    StopReasonMasterDTO getStopReasonDetailsByUUID(UUID stopReasonMasterUuid);
+
+    ResponseDTO setStopReasonDetailsStatusByUuid(UUID uuid, String status);
 }

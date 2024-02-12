@@ -46,7 +46,7 @@ public class FunctionalityEndpointMappingServiceImpl implements FunctionalityEnd
 
     @Override
     public FunctionalityEndpointMappingDTO update(FunctionalityEndpointMappingDTO functionalityEndpointMappingDTO) {
-        log.debug("Request to save FunctionalityEndpointMapping : {}", functionalityEndpointMappingDTO);
+        log.debug("Request to update FunctionalityEndpointMapping : {}", functionalityEndpointMappingDTO);
         FunctionalityEndpointMapping functionalityEndpointMapping = functionalityEndpointMappingMapper.toEntity(
             functionalityEndpointMappingDTO
         );

@@ -44,7 +44,7 @@ public class ItemProcedureCodeMapServiceImpl implements ItemProcedureCodeMapServ
 
     @Override
     public ItemProcedureCodeMapDTO update(ItemProcedureCodeMapDTO itemProcedureCodeMapDTO) {
-        log.debug("Request to update ItemProcedureCodeMap : {}", itemProcedureCodeMapDTO);
+        log.debug("Request to save ItemProcedureCodeMap : {}", itemProcedureCodeMapDTO);
         ItemProcedureCodeMap itemProcedureCodeMap = itemProcedureCodeMapMapper.toEntity(itemProcedureCodeMapDTO);
         itemProcedureCodeMap = itemProcedureCodeMapRepository.save(itemProcedureCodeMap);
         return itemProcedureCodeMapMapper.toDto(itemProcedureCodeMap);

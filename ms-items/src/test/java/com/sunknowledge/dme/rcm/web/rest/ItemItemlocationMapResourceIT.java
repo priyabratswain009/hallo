@@ -276,7 +276,7 @@ class ItemItemlocationMapResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemItemlocationMap() throws Exception {
+    void putNewItemItemlocationMap() throws Exception {
         // Initialize the database
         itemItemlocationMapRepository.saveAndFlush(itemItemlocationMap);
 

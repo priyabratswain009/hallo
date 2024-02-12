@@ -44,7 +44,7 @@ public class PurchaseOrderItemsReceivedServiceImpl implements PurchaseOrderItems
 
     @Override
     public PurchaseOrderItemsReceivedDTO update(PurchaseOrderItemsReceivedDTO purchaseOrderItemsReceivedDTO) {
-        log.debug("Request to update PurchaseOrderItemsReceived : {}", purchaseOrderItemsReceivedDTO);
+        log.debug("Request to save PurchaseOrderItemsReceived : {}", purchaseOrderItemsReceivedDTO);
         PurchaseOrderItemsReceived purchaseOrderItemsReceived = purchaseOrderItemsReceivedMapper.toEntity(purchaseOrderItemsReceivedDTO);
         purchaseOrderItemsReceived = purchaseOrderItemsReceivedRepository.save(purchaseOrderItemsReceived);
         return purchaseOrderItemsReceivedMapper.toDto(purchaseOrderItemsReceived);

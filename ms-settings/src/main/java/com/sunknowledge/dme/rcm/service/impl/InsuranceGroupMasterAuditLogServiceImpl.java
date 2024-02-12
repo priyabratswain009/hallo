@@ -46,7 +46,7 @@ public class InsuranceGroupMasterAuditLogServiceImpl implements InsuranceGroupMa
 
     @Override
     public InsuranceGroupMasterAuditLogDTO update(InsuranceGroupMasterAuditLogDTO insuranceGroupMasterAuditLogDTO) {
-        log.debug("Request to save InsuranceGroupMasterAuditLog : {}", insuranceGroupMasterAuditLogDTO);
+        log.debug("Request to update InsuranceGroupMasterAuditLog : {}", insuranceGroupMasterAuditLogDTO);
         InsuranceGroupMasterAuditLog insuranceGroupMasterAuditLog = insuranceGroupMasterAuditLogMapper.toEntity(
             insuranceGroupMasterAuditLogDTO
         );

@@ -364,7 +364,7 @@ class VendorMasterResourceIT {
 
     @Test
     @Transactional
-    void putExistingVendorMaster() throws Exception {
+    void putNewVendorMaster() throws Exception {
         // Initialize the database
         vendorMasterRepository.saveAndFlush(vendorMaster);
 

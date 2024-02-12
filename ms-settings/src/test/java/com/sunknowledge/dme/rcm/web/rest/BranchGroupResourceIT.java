@@ -244,7 +244,7 @@ class BranchGroupResourceIT {
 
     @Test
     @Transactional
-    void putNewBranchGroup() throws Exception {
+    void putExistingBranchGroup() throws Exception {
         // Initialize the database
         branchGroupRepository.saveAndFlush(branchGroup);
 

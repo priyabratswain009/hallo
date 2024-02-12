@@ -3,6 +3,7 @@ package com.sunknowledge.dme.rcm.web.rest.soentryandsearch;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.domain.SalesOrderClinicalDetails;
 import com.sunknowledge.dme.rcm.service.dto.SalesOrderClinicalDetailsDTO;
+import com.sunknowledge.dme.rcm.service.dto.SalesOrderMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderClinicalEntryParameterDTO;
 import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderClinicalDetailsServiceExtended;
@@ -19,8 +20,7 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Validated
@@ -38,7 +38,7 @@ public class SalesOrderClinicalDetailsResourceExtended {
     SalesOrderMasterServiceExtented salesOrderMasterServiceExtented;
 
     @GetMapping("/getSOClinicalBySOClinicalUUID")
-    public Mono<SalesOrderClinicalDetails> getSOClinicalBySOClinicalUUID(
+    public Mono<ServiceOutcome<SalesOrderClinicalDetails>> getSOClinicalBySOClinicalUUID(
         @NotNull(message = "SalesOrder_Clinical_UUID must be provided")
         @RequestParam("sOClinicalUUID") UUID sOClinicalUUID){
         //----- Implementing UUID_To_ID Bridge Method ----------
@@ -47,11 +47,15 @@ public class SalesOrderClinicalDetailsResourceExtended {
             id = salesOrderClinicalDetailsServiceExtended.getIDByUUID(sOClinicalUUID);
             id = id != null ? id : 0L;
         }
-        return salesOrderClinicalDetailsServiceExtended.findByClinicalId(id);
+        return salesOrderClinicalDetailsServiceExtended.findByClinicalId(id)
+            .map(data -> {
+                return new ServiceOutcome<SalesOrderClinicalDetails>(data,true,"","200");
+            }).switchIfEmpty(Mono.just(new ServiceOutcome<SalesOrderClinicalDetails>(new SalesOrderClinicalDetails(),
+                false,"Data Not found.","200")));
     }
 
     @GetMapping("/getSOClinicalBySOUUID")
-    public Flux<SalesOrderClinicalDetails> getSOClinicalBySOUUID(
+    public Mono<ServiceOutcome<SalesOrderClinicalDetails>> getSOClinicalBySOUUID(
         @NotNull(message = "SalesOrder_UUID must be provided")
         @RequestParam("salesOrderUUID") UUID salesOrderUUID){
         //----- Implementing UUID_To_ID Bridge Method ----------
@@ -66,7 +70,12 @@ public class SalesOrderClinicalDetailsResourceExtended {
             }
             id = id != null ? id : 0L;
         }
-        return salesOrderClinicalDetailsServiceExtended.findBySalesOrderId(id);
+        return salesOrderClinicalDetailsServiceExtended.findBySalesOrderId(id)
+            .collectList()
+            .map(data -> {
+                return new ServiceOutcome<SalesOrderClinicalDetails>(data.get(0),true,"","200");
+            }).switchIfEmpty(Mono.just(new ServiceOutcome<SalesOrderClinicalDetails>(new SalesOrderClinicalDetails(),
+                false,"Data Not found.","200")));
     }
 
     @PostMapping("/saveSOClinicalDetails")
@@ -75,11 +84,24 @@ public class SalesOrderClinicalDetailsResourceExtended {
         Mono<ServiceOutcome> serviceOutcomeMono = null;
         Map<String, Object> stringTMap = salesOrderClinicalDetailsServiceExtended.validateSOClinicalParameterDTO(salesOrderClinicalEntryParameterDTO);
         if((Boolean) stringTMap.get("status")) {
-            serviceOutcomeMono = salesOrderClinicalDetailsServiceExtended.saveSOClinicalDetails(salesOrderClinicalEntryParameterDTO);
+            Long soId = 0L;
+            SalesOrderMasterDTO salesOrderMasterDTO = new SalesOrderMasterDTO();
+            if (salesOrderClinicalEntryParameterDTO.getSalesOrderUUID() != null) {
+                try {
+                    salesOrderMasterDTO = salesOrderMasterServiceExtented.getSOBySoUUID(salesOrderClinicalEntryParameterDTO.getSalesOrderUUID()).toFuture().get();
+                    soId = salesOrderMasterDTO!=null? salesOrderMasterDTO.getSalesOrderId():null;
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                }
+                soId = soId != null ? soId : 0L;
+            }
+            serviceOutcomeMono = salesOrderClinicalDetailsServiceExtended.saveSOClinicalDetails(salesOrderClinicalEntryParameterDTO,soId,salesOrderMasterDTO);
         }else{
             ServiceOutcome serviceOutcome= new ServiceOutcome<>();
             String message = (String) stringTMap.get("message");
-            serviceOutcome.setData(null);
+            serviceOutcome.setData(new SalesOrderClinicalDetailsDTO());
             serviceOutcome.setOutcome(false);
             serviceOutcome.setMessage(message);
             serviceOutcomeMono = Mono.just(serviceOutcome);
@@ -92,5 +114,18 @@ public class SalesOrderClinicalDetailsResourceExtended {
 
 
         return serviceOutcomeMono;
+    }
+
+    @GetMapping("/getSOClinicalBySOID")
+    public Mono<ServiceOutcome> getSOClinicalBySOID(
+        @NotNull(message = "SalesOrder_ID must be provided")
+        @RequestParam("salesOrderID") Long salesOrderID){
+        if (!salesOrderID.equals(0) && Objects.nonNull(salesOrderID))
+            return salesOrderClinicalDetailsServiceExtended.getSOClinicalBySOID(salesOrderID);
+
+
+        else
+            return Mono.just(new ServiceOutcome(null, false, "Data Not Found" ));
+
     }
 }

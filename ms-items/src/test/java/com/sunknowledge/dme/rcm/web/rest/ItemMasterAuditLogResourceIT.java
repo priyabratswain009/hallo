@@ -211,7 +211,7 @@ class ItemMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemMasterAuditLog() throws Exception {
+    void putNewItemMasterAuditLog() throws Exception {
         // Initialize the database
         itemMasterAuditLogRepository.saveAndFlush(itemMasterAuditLog);
 

@@ -44,7 +44,7 @@ public class InsurancePricetableMapServiceImpl implements InsurancePricetableMap
 
     @Override
     public Mono<InsurancePricetableMapDTO> update(InsurancePricetableMapDTO insurancePricetableMapDTO) {
-        log.debug("Request to save InsurancePricetableMap : {}", insurancePricetableMapDTO);
+        log.debug("Request to update InsurancePricetableMap : {}", insurancePricetableMapDTO);
         return insurancePricetableMapRepository
             .save(insurancePricetableMapMapper.toEntity(insurancePricetableMapDTO))
             .map(insurancePricetableMapMapper::toDto);

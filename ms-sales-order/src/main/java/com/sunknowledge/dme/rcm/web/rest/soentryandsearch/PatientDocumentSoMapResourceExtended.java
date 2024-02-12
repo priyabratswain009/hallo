@@ -4,6 +4,7 @@ import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.application.properties.FileDownloadUtilityService;
 import com.sunknowledge.dme.rcm.application.properties.FileUploadConfigProperties;
 import com.sunknowledge.dme.rcm.domain.PatientDocumentSoMap;
+import com.sunknowledge.dme.rcm.service.dto.PatientDocumentSoMapDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.DocumentsBySoIdOutputDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.PatientDocumentDetailsInputExtendedDTO;
@@ -20,14 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -84,7 +78,7 @@ public class PatientDocumentSoMapResourceExtended {
         }else if (salesOrderPatientDocumentSearchInputDTO.getParameterValue() != null && salesOrderPatientDocumentSearchInputDTO.getOperationType().equals("patientDocumentNo")) {
             return Flux.just(patientDocumentSoMapService.getPatientDocumentsDataByPatientIdNo(salesOrderPatientDocumentSearchInputDTO.getParameterValue(), "patientDocumentNo"));
         } else{
-            responseBody.setStatus(false);
+            responseBody.setOutcome(false);
             responseBody.setMessage("Data Not Found.");
             responseBody.setData(responseBody.getData());
 
@@ -211,7 +205,7 @@ public class PatientDocumentSoMapResourceExtended {
             return Mono.just(outcome.get(0));
         }
         else{
-            responseBody.setStatus(false);
+            responseBody.setOutcome(false);
             responseBody.setMessage("Failed to Attach/Tag.");
             responseBody.setData(responseBody.getData());
 
@@ -253,5 +247,16 @@ public class PatientDocumentSoMapResourceExtended {
         }else{
             return Mono.just(new ServiceOutcome(new ArrayList(), false, "Data Not Found."));
         }
+    }
+
+    @PostMapping("/savePatientSoDocumentMap")
+    public Mono<ServiceOutcome> savePatientSoDocumentMap(@RequestBody PatientDocumentSoMapDTO patientDocumentSoMapDTO){
+        //Todo - need to test
+        return patientDocumentSoMapService.savePatientSoDocumentMap(patientDocumentSoMapDTO)
+            .map(data -> {
+                System.out.println("PatientSoDocumentMap "+ data);
+                return new ServiceOutcome(data,true,"","200");
+            });
+
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A InsurancePricetableMap.
  */
 @Table("t_insurance_pricetable_map")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class InsurancePricetableMap implements Serializable {
 
     private static final long serialVersionUID = 1L;

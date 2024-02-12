@@ -236,7 +236,7 @@ class NoteTypeMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewNoteTypeMaster() throws Exception {
+    void putExistingNoteTypeMaster() throws Exception {
         // Initialize the database
         noteTypeMasterRepository.saveAndFlush(noteTypeMaster);
 

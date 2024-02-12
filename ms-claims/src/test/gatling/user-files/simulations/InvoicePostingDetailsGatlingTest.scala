@@ -123,6 +123,7 @@ class InvoicePostingDetailsGatlingTest extends Simulation {
                 , "invoiceLineItemDetailsId":"0"
                 , "hcpcsCode":"SAMPLE_TEXT"
                 , "postingNo":"SAMPLE_TEXT"
+                , "isManualPosting":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_invoicePostingDetails_url"))).exitHereIfFailed

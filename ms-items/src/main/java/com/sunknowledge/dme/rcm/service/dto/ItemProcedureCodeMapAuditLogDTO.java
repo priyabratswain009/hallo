@@ -7,7 +7,6 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ItemProcedureCodeMapAuditLog} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemProcedureCodeMapAuditLogDTO implements Serializable {
 
     private Long itemProcdreCdeMapId;

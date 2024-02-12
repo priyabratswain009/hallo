@@ -211,7 +211,7 @@ class HoldReasonMasterAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewHoldReasonMasterAuditLog() throws Exception {
+    void putExistingHoldReasonMasterAuditLog() throws Exception {
         // Initialize the database
         holdReasonMasterAuditLogRepository.saveAndFlush(holdReasonMasterAuditLog);
 

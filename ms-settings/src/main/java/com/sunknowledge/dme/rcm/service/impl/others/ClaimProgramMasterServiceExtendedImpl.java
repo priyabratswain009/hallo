@@ -2,6 +2,7 @@ package com.sunknowledge.dme.rcm.service.impl.others;
 
 import com.sunknowledge.dme.rcm.domain.ClaimProgramMaster;
 import com.sunknowledge.dme.rcm.domain.HoldReasonMaster;
+import com.sunknowledge.dme.rcm.domain.StopReasonMaster;
 import com.sunknowledge.dme.rcm.repository.others.ClaimProgramMasterRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.dto.ClaimProgramMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.HoldReasonMasterDTO;
@@ -67,53 +68,50 @@ public class ClaimProgramMasterServiceExtendedImpl implements ClaimProgramMaster
     @Override
     public ResponseDTO saveClaimProgramMaster(ClaimProgramMasterExtendedDTO claimProgramMasterExtendedDTO) throws InvalidAttributeValueException {
         Set uniqueClaimProgramValueSet = claimProgramMasterRepositoryExtended.findAll().stream().map(x -> x.getClaimProgramMasterValue()).collect(Collectors.toSet());
-
+        String message = "";
         if (claimProgramMasterExtendedDTO.getClaimProgramMasterValue() == null) {
-            throw new InvalidAttributeValueException("Invalid Attribute (claimProgramMasterValue)");
+            message = ("Invalid Attribute (claimProgramMasterValue)");
         } else if (claimProgramMasterExtendedDTO.getClaimProgramMasterValue().trim().equals("")) {
-            throw new InputMismatchException("claimProgramMasterValue must be provided");
+            message = ("claimProgramMasterValue must be provided");
         }else if(claimProgramMasterExtendedDTO.getClaimProgramMasterUuid()==null && uniqueClaimProgramValueSet.contains(claimProgramMasterExtendedDTO.getClaimProgramMasterValue())){
             //Duplicate check during save operation
-            throw new InputMismatchException("("+ claimProgramMasterExtendedDTO.getClaimProgramMasterValue() +") "+"claimProgramMasterValue already exist");
+            message = ("("+ claimProgramMasterExtendedDTO.getClaimProgramMasterValue() +") "+"claimProgramMasterValue already exist");
         }else if(claimProgramMasterExtendedDTO.getClaimProgramMasterUuid() != null && !claimProgramMasterExtendedDTO.getClaimProgramMasterUuid().equals("")){
             //Duplicate check during update operation
             Set uniqueClaimProgramValueSetForUpdate = claimProgramMasterRepositoryExtended.findByClaimProgramMasterUuidNot(claimProgramMasterExtendedDTO.getClaimProgramMasterUuid()).stream().map(x -> x.getClaimProgramMasterValue()).collect(Collectors.toSet());
             if(uniqueClaimProgramValueSetForUpdate.contains(claimProgramMasterExtendedDTO.getClaimProgramMasterValue())){
-                throw new InputMismatchException("("+ claimProgramMasterExtendedDTO.getClaimProgramMasterValue() +") "+"claimProgramMasterValue already exist");
+                message = ("("+ claimProgramMasterExtendedDTO.getClaimProgramMasterValue() +") "+"claimProgramMasterValue already exist");
             }
         }
-
+        if(!message.equalsIgnoreCase("")){
+            return new ResponseDTO(false, message, null,200);
+        }
         ResponseDTO outcome = new ResponseDTO();
-        if(claimProgramMasterExtendedDTO.getStatus().equalsIgnoreCase("active") || claimProgramMasterExtendedDTO.getStatus().equalsIgnoreCase("inActive")){
+        ClaimProgramMasterDTO claimProgramMasterDTO = (claimProgramMasterExtendedDTO.getClaimProgramMasterUuid() == null) ? new ClaimProgramMasterDTO() :
+            (claimProgramMasterRepositoryExtended.findByClaimProgramMasterUuid(claimProgramMasterExtendedDTO.getClaimProgramMasterUuid()) != null ?
+                claimProgramMasterMapper.toDto(claimProgramMasterRepositoryExtended.findByClaimProgramMasterUuid(claimProgramMasterExtendedDTO.getClaimProgramMasterUuid())) :
+                new ClaimProgramMasterDTO());
 
-            ClaimProgramMasterDTO claimProgramMasterDTO = (claimProgramMasterExtendedDTO.getClaimProgramMasterUuid() == null) ? new ClaimProgramMasterDTO() :
-                (claimProgramMasterRepositoryExtended.findByClaimProgramMasterUuid(claimProgramMasterExtendedDTO.getClaimProgramMasterUuid()) != null ?
-                    claimProgramMasterMapper.toDto(claimProgramMasterRepositoryExtended.findByClaimProgramMasterUuid(claimProgramMasterExtendedDTO.getClaimProgramMasterUuid())) :
-                    new ClaimProgramMasterDTO());
-
-            BeanUtils.copyProperties(claimProgramMasterExtendedDTO, claimProgramMasterDTO);
-
-            if (claimProgramMasterDTO.getClaimProgramMasterUuid() == null) {
-                claimProgramMasterDTO.setClaimProgramMasterId(null);
-                //holdReasonMasterDTO.setHoldReasonName();
-                claimProgramMasterDTO.setCreatedById(31L);
-                claimProgramMasterDTO.setCreatedDate(LocalDate.now());
-                claimProgramMasterDTO.setCreatedByName("Falguni");
-                claimProgramMasterDTO.setClaimProgramMasterUuid(UUID.randomUUID());
-            } else {
-                claimProgramMasterDTO.setUpdatedDate(LocalDate.now());
-                claimProgramMasterDTO.setUpdatedById(31L);
-                claimProgramMasterDTO.setUpdatedByName("Falguni");
-            }
-            ClaimProgramMasterDTO savedClaimProgramMasterDTO = claimProgramMasterMapper.toDto(
-                claimProgramMasterRepositoryExtended.save(claimProgramMasterMapper.toEntity(claimProgramMasterDTO))
-            );
-            log.info("=======savedClaimProgramMasterDTO======="+savedClaimProgramMasterDTO);
-
-            return new ResponseDTO(true, "Successfully Saved.", List.of(savedClaimProgramMasterDTO));
-        }else{
-            throw new InputMismatchException("Status Should be active/inactive");
+        BeanUtils.copyProperties(claimProgramMasterExtendedDTO, claimProgramMasterDTO);
+        claimProgramMasterDTO.setStatus("active");
+        if (claimProgramMasterDTO.getClaimProgramMasterUuid() == null) {
+            claimProgramMasterDTO.setClaimProgramMasterId(null);
+            //holdReasonMasterDTO.setHoldReasonName();
+            claimProgramMasterDTO.setCreatedById(31L);
+            claimProgramMasterDTO.setCreatedDate(LocalDate.now());
+            claimProgramMasterDTO.setCreatedByName("Falguni");
+            claimProgramMasterDTO.setClaimProgramMasterUuid(UUID.randomUUID());
+        } else {
+            claimProgramMasterDTO.setUpdatedDate(LocalDate.now());
+            claimProgramMasterDTO.setUpdatedById(31L);
+            claimProgramMasterDTO.setUpdatedByName("Falguni");
         }
+        ClaimProgramMasterDTO savedClaimProgramMasterDTO = claimProgramMasterMapper.toDto(
+            claimProgramMasterRepositoryExtended.save(claimProgramMasterMapper.toEntity(claimProgramMasterDTO))
+        );
+        log.info("=======savedClaimProgramMasterDTO======="+savedClaimProgramMasterDTO);
+
+        return new ResponseDTO(true, "Successfully Saved.", (savedClaimProgramMasterDTO),200);
     }
 
     @Override
@@ -123,12 +121,51 @@ public class ClaimProgramMasterServiceExtendedImpl implements ClaimProgramMaster
     }
 
     @Override
-    public List<ClaimProgramMasterDTO> getClaimProgramMasterInfoByUUID(UUID holdReasonMasterUuid) {
-        List<ClaimProgramMasterDTO> dtoDataList = new ArrayList<ClaimProgramMasterDTO>();
+    public ClaimProgramMasterDTO getClaimProgramMasterInfoByUUID(UUID holdReasonMasterUuid) {
         ClaimProgramMaster data = claimProgramMasterRepositoryExtended.findByClaimProgramMasterUuid(holdReasonMasterUuid);
         if(data != null){
-            dtoDataList.add(claimProgramMasterMapper.toDto(data));
+            return (claimProgramMasterMapper.toDto(data));
         }
-        return dtoDataList;
+        return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getClaimProgramMasterForDropdown() {
+        List<ClaimProgramMasterDTO> posMasterList = getAllClaimProgramMasterInfo();
+        if (posMasterList.size() > 0) {
+            return posMasterList.stream().map(p -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", p.getClaimProgramMasterId());
+                map.put("title", p.getClaimProgramMasterValue());
+                return map;
+            }).collect(Collectors.toList());
+        } else {
+            return new ArrayList<>();
+        }
+
+    }
+
+    @Override
+    public ResponseDTO setClaimProgramMasterByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<ClaimProgramMaster> obj = Optional.ofNullable(claimProgramMasterRepositoryExtended.findByClaimProgramMasterUuid(uuid));
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    claimProgramMasterRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
     }
 }

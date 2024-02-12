@@ -12,6 +12,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "t_wip_status_master_audit_log")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class WipStatusMasterAuditLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -21,9 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -40,15 +37,6 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
 
     private static final Long DEFAULT_SO_ID = 1L;
     private static final Long UPDATED_SO_ID = 2L;
-
-    private static final Long DEFAULT_ITEM_ID = 1L;
-    private static final Long UPDATED_ITEM_ID = 2L;
-
-    private static final String DEFAULT_ITEM_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_ITEM_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_HCPCS_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_HCPCS_CODE = "BBBBBBBBBB";
 
     private static final Long DEFAULT_CHECKLIST_ID = 1L;
     private static final Long UPDATED_CHECKLIST_ID = 2L;
@@ -86,8 +74,17 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
     private static final UUID DEFAULT_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID = UUID.randomUUID();
     private static final UUID UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID = UUID.randomUUID();
 
+    private static final Long DEFAULT_ITEM_GROUP_ID = 1L;
+    private static final Long UPDATED_ITEM_GROUP_ID = 2L;
+
+    private static final String DEFAULT_ITEM_GROUP_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_ITEM_GROUP_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_COVERAGE_CRITERIA_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_COVERAGE_CRITERIA_NAME = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/so-lcd-coverage-criteria-transactions";
-    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{soLcdDocRefId}";
+    private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{soLcdCoverageCriteriaTransactionId}";
 
     private static Random random = new Random();
     private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
@@ -115,9 +112,6 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
     public static SoLcdCoverageCriteriaTransaction createEntity(EntityManager em) {
         SoLcdCoverageCriteriaTransaction soLcdCoverageCriteriaTransaction = new SoLcdCoverageCriteriaTransaction()
             .soId(DEFAULT_SO_ID)
-            .itemId(DEFAULT_ITEM_ID)
-            .itemName(DEFAULT_ITEM_NAME)
-            .hcpcsCode(DEFAULT_HCPCS_CODE)
             .checklistId(DEFAULT_CHECKLIST_ID)
             .checklistName(DEFAULT_CHECKLIST_NAME)
             .coverageCriteriaId(DEFAULT_COVERAGE_CRITERIA_ID)
@@ -129,7 +123,10 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             .updatedDate(DEFAULT_UPDATED_DATE)
             .updatedById(DEFAULT_UPDATED_BY_ID)
             .updatedByName(DEFAULT_UPDATED_BY_NAME)
-            .soLcdCoverageCriteriaTransactionUuid(DEFAULT_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+            .soLcdCoverageCriteriaTransactionUuid(DEFAULT_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID)
+            .itemGroupId(DEFAULT_ITEM_GROUP_ID)
+            .itemGroupName(DEFAULT_ITEM_GROUP_NAME)
+            .coverageCriteriaName(DEFAULT_COVERAGE_CRITERIA_NAME);
         return soLcdCoverageCriteriaTransaction;
     }
 
@@ -142,9 +139,6 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
     public static SoLcdCoverageCriteriaTransaction createUpdatedEntity(EntityManager em) {
         SoLcdCoverageCriteriaTransaction soLcdCoverageCriteriaTransaction = new SoLcdCoverageCriteriaTransaction()
             .soId(UPDATED_SO_ID)
-            .itemId(UPDATED_ITEM_ID)
-            .itemName(UPDATED_ITEM_NAME)
-            .hcpcsCode(UPDATED_HCPCS_CODE)
             .checklistId(UPDATED_CHECKLIST_ID)
             .checklistName(UPDATED_CHECKLIST_NAME)
             .coverageCriteriaId(UPDATED_COVERAGE_CRITERIA_ID)
@@ -156,7 +150,10 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .soLcdCoverageCriteriaTransactionUuid(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+            .soLcdCoverageCriteriaTransactionUuid(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME)
+            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME);
         return soLcdCoverageCriteriaTransaction;
     }
 
@@ -210,9 +207,6 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             soLcdCoverageCriteriaTransactionList.size() - 1
         );
         assertThat(testSoLcdCoverageCriteriaTransaction.getSoId()).isEqualTo(DEFAULT_SO_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getItemId()).isEqualTo(DEFAULT_ITEM_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getItemName()).isEqualTo(DEFAULT_ITEM_NAME);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getHcpcsCode()).isEqualTo(DEFAULT_HCPCS_CODE);
         assertThat(testSoLcdCoverageCriteriaTransaction.getChecklistId()).isEqualTo(DEFAULT_CHECKLIST_ID);
         assertThat(testSoLcdCoverageCriteriaTransaction.getChecklistName()).isEqualTo(DEFAULT_CHECKLIST_NAME);
         assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaId()).isEqualTo(DEFAULT_COVERAGE_CRITERIA_ID);
@@ -226,12 +220,15 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
         assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testSoLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionUuid())
             .isEqualTo(DEFAULT_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getItemGroupId()).isEqualTo(DEFAULT_ITEM_GROUP_ID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getItemGroupName()).isEqualTo(DEFAULT_ITEM_GROUP_NAME);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaName()).isEqualTo(DEFAULT_COVERAGE_CRITERIA_NAME);
     }
 
     @Test
     void createSoLcdCoverageCriteriaTransactionWithExistingId() throws Exception {
         // Create the SoLcdCoverageCriteriaTransaction with an existing ID
-        soLcdCoverageCriteriaTransaction.setSoLcdDocRefId(1L);
+        soLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(1L);
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = soLcdCoverageCriteriaTransactionMapper.toDto(
             soLcdCoverageCriteriaTransaction
         );
@@ -264,7 +261,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
         // Get all the soLcdCoverageCriteriaTransactionList
         webTestClient
             .get()
-            .uri(ENTITY_API_URL + "?sort=soLcdDocRefId,desc")
+            .uri(ENTITY_API_URL + "?sort=soLcdCoverageCriteriaTransactionId,desc")
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectStatus()
@@ -272,16 +269,10 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             .expectHeader()
             .contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-            .jsonPath("$.[*].soLcdDocRefId")
-            .value(hasItem(soLcdCoverageCriteriaTransaction.getSoLcdDocRefId().intValue()))
+            .jsonPath("$.[*].soLcdCoverageCriteriaTransactionId")
+            .value(hasItem(soLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId().intValue()))
             .jsonPath("$.[*].soId")
             .value(hasItem(DEFAULT_SO_ID.intValue()))
-            .jsonPath("$.[*].itemId")
-            .value(hasItem(DEFAULT_ITEM_ID.intValue()))
-            .jsonPath("$.[*].itemName")
-            .value(hasItem(DEFAULT_ITEM_NAME))
-            .jsonPath("$.[*].hcpcsCode")
-            .value(hasItem(DEFAULT_HCPCS_CODE))
             .jsonPath("$.[*].checklistId")
             .value(hasItem(DEFAULT_CHECKLIST_ID.intValue()))
             .jsonPath("$.[*].checklistName")
@@ -305,7 +296,13 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             .jsonPath("$.[*].updatedByName")
             .value(hasItem(DEFAULT_UPDATED_BY_NAME))
             .jsonPath("$.[*].soLcdCoverageCriteriaTransactionUuid")
-            .value(hasItem(DEFAULT_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID.toString()));
+            .value(hasItem(DEFAULT_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID.toString()))
+            .jsonPath("$.[*].itemGroupId")
+            .value(hasItem(DEFAULT_ITEM_GROUP_ID.intValue()))
+            .jsonPath("$.[*].itemGroupName")
+            .value(hasItem(DEFAULT_ITEM_GROUP_NAME))
+            .jsonPath("$.[*].coverageCriteriaName")
+            .value(hasItem(DEFAULT_COVERAGE_CRITERIA_NAME));
     }
 
     @Test
@@ -316,7 +313,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
         // Get the soLcdCoverageCriteriaTransaction
         webTestClient
             .get()
-            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransaction.getSoLcdDocRefId())
+            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId())
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectStatus()
@@ -324,16 +321,10 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             .expectHeader()
             .contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-            .jsonPath("$.soLcdDocRefId")
-            .value(is(soLcdCoverageCriteriaTransaction.getSoLcdDocRefId().intValue()))
+            .jsonPath("$.soLcdCoverageCriteriaTransactionId")
+            .value(is(soLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId().intValue()))
             .jsonPath("$.soId")
             .value(is(DEFAULT_SO_ID.intValue()))
-            .jsonPath("$.itemId")
-            .value(is(DEFAULT_ITEM_ID.intValue()))
-            .jsonPath("$.itemName")
-            .value(is(DEFAULT_ITEM_NAME))
-            .jsonPath("$.hcpcsCode")
-            .value(is(DEFAULT_HCPCS_CODE))
             .jsonPath("$.checklistId")
             .value(is(DEFAULT_CHECKLIST_ID.intValue()))
             .jsonPath("$.checklistName")
@@ -357,7 +348,13 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             .jsonPath("$.updatedByName")
             .value(is(DEFAULT_UPDATED_BY_NAME))
             .jsonPath("$.soLcdCoverageCriteriaTransactionUuid")
-            .value(is(DEFAULT_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID.toString()));
+            .value(is(DEFAULT_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID.toString()))
+            .jsonPath("$.itemGroupId")
+            .value(is(DEFAULT_ITEM_GROUP_ID.intValue()))
+            .jsonPath("$.itemGroupName")
+            .value(is(DEFAULT_ITEM_GROUP_NAME))
+            .jsonPath("$.coverageCriteriaName")
+            .value(is(DEFAULT_COVERAGE_CRITERIA_NAME));
     }
 
     @Test
@@ -373,7 +370,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
     }
 
     @Test
-    void putNewSoLcdCoverageCriteriaTransaction() throws Exception {
+    void putExistingSoLcdCoverageCriteriaTransaction() throws Exception {
         // Initialize the database
         soLcdCoverageCriteriaTransactionRepository.save(soLcdCoverageCriteriaTransaction).block();
 
@@ -381,13 +378,10 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
 
         // Update the soLcdCoverageCriteriaTransaction
         SoLcdCoverageCriteriaTransaction updatedSoLcdCoverageCriteriaTransaction = soLcdCoverageCriteriaTransactionRepository
-            .findById(soLcdCoverageCriteriaTransaction.getSoLcdDocRefId())
+            .findById(soLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId())
             .block();
         updatedSoLcdCoverageCriteriaTransaction
             .soId(UPDATED_SO_ID)
-            .itemId(UPDATED_ITEM_ID)
-            .itemName(UPDATED_ITEM_NAME)
-            .hcpcsCode(UPDATED_HCPCS_CODE)
             .checklistId(UPDATED_CHECKLIST_ID)
             .checklistName(UPDATED_CHECKLIST_NAME)
             .coverageCriteriaId(UPDATED_COVERAGE_CRITERIA_ID)
@@ -399,14 +393,17 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .soLcdCoverageCriteriaTransactionUuid(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+            .soLcdCoverageCriteriaTransactionUuid(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME)
+            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME);
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = soLcdCoverageCriteriaTransactionMapper.toDto(
             updatedSoLcdCoverageCriteriaTransaction
         );
 
         webTestClient
             .put()
-            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId())
+            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId())
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(soLcdCoverageCriteriaTransactionDTO))
             .exchange()
@@ -423,9 +420,6 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             soLcdCoverageCriteriaTransactionList.size() - 1
         );
         assertThat(testSoLcdCoverageCriteriaTransaction.getSoId()).isEqualTo(UPDATED_SO_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getItemId()).isEqualTo(UPDATED_ITEM_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getItemName()).isEqualTo(UPDATED_ITEM_NAME);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getHcpcsCode()).isEqualTo(UPDATED_HCPCS_CODE);
         assertThat(testSoLcdCoverageCriteriaTransaction.getChecklistId()).isEqualTo(UPDATED_CHECKLIST_ID);
         assertThat(testSoLcdCoverageCriteriaTransaction.getChecklistName()).isEqualTo(UPDATED_CHECKLIST_NAME);
         assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaId()).isEqualTo(UPDATED_COVERAGE_CRITERIA_ID);
@@ -439,12 +433,15 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
         assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testSoLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionUuid())
             .isEqualTo(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaName()).isEqualTo(UPDATED_COVERAGE_CRITERIA_NAME);
     }
 
     @Test
     void putNonExistingSoLcdCoverageCriteriaTransaction() throws Exception {
         int databaseSizeBeforeUpdate = soLcdCoverageCriteriaTransactionRepository.findAll().collectList().block().size();
-        soLcdCoverageCriteriaTransaction.setSoLcdDocRefId(count.incrementAndGet());
+        soLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(count.incrementAndGet());
 
         // Create the SoLcdCoverageCriteriaTransaction
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = soLcdCoverageCriteriaTransactionMapper.toDto(
@@ -454,7 +451,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         webTestClient
             .put()
-            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId())
+            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId())
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(TestUtil.convertObjectToJsonBytes(soLcdCoverageCriteriaTransactionDTO))
             .exchange()
@@ -472,7 +469,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
     @Test
     void putWithIdMismatchSoLcdCoverageCriteriaTransaction() throws Exception {
         int databaseSizeBeforeUpdate = soLcdCoverageCriteriaTransactionRepository.findAll().collectList().block().size();
-        soLcdCoverageCriteriaTransaction.setSoLcdDocRefId(count.incrementAndGet());
+        soLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(count.incrementAndGet());
 
         // Create the SoLcdCoverageCriteriaTransaction
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = soLcdCoverageCriteriaTransactionMapper.toDto(
@@ -500,7 +497,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
     @Test
     void putWithMissingIdPathParamSoLcdCoverageCriteriaTransaction() throws Exception {
         int databaseSizeBeforeUpdate = soLcdCoverageCriteriaTransactionRepository.findAll().collectList().block().size();
-        soLcdCoverageCriteriaTransaction.setSoLcdDocRefId(count.incrementAndGet());
+        soLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(count.incrementAndGet());
 
         // Create the SoLcdCoverageCriteriaTransaction
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = soLcdCoverageCriteriaTransactionMapper.toDto(
@@ -534,24 +531,26 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
 
         // Update the soLcdCoverageCriteriaTransaction using partial update
         SoLcdCoverageCriteriaTransaction partialUpdatedSoLcdCoverageCriteriaTransaction = new SoLcdCoverageCriteriaTransaction();
-        partialUpdatedSoLcdCoverageCriteriaTransaction.setSoLcdDocRefId(soLcdCoverageCriteriaTransaction.getSoLcdDocRefId());
+        partialUpdatedSoLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(
+            soLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId()
+        );
 
         partialUpdatedSoLcdCoverageCriteriaTransaction
-            .itemId(UPDATED_ITEM_ID)
-            .itemName(UPDATED_ITEM_NAME)
             .checklistId(UPDATED_CHECKLIST_ID)
             .checklistName(UPDATED_CHECKLIST_NAME)
-            .coverageCriteriaId(UPDATED_COVERAGE_CRITERIA_ID)
             .value(UPDATED_VALUE)
             .status(UPDATED_STATUS)
+            .createdDate(UPDATED_CREATED_DATE)
             .createdById(UPDATED_CREATED_BY_ID)
             .createdByName(UPDATED_CREATED_BY_NAME)
-            .updatedDate(UPDATED_UPDATED_DATE)
-            .soLcdCoverageCriteriaTransactionUuid(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+            .updatedById(UPDATED_UPDATED_BY_ID)
+            .updatedByName(UPDATED_UPDATED_BY_NAME)
+            .soLcdCoverageCriteriaTransactionUuid(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID)
+            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME);
 
         webTestClient
             .patch()
-            .uri(ENTITY_API_URL_ID, partialUpdatedSoLcdCoverageCriteriaTransaction.getSoLcdDocRefId())
+            .uri(ENTITY_API_URL_ID, partialUpdatedSoLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId())
             .contentType(MediaType.valueOf("application/merge-patch+json"))
             .bodyValue(TestUtil.convertObjectToJsonBytes(partialUpdatedSoLcdCoverageCriteriaTransaction))
             .exchange()
@@ -568,22 +567,22 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             soLcdCoverageCriteriaTransactionList.size() - 1
         );
         assertThat(testSoLcdCoverageCriteriaTransaction.getSoId()).isEqualTo(DEFAULT_SO_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getItemId()).isEqualTo(UPDATED_ITEM_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getItemName()).isEqualTo(UPDATED_ITEM_NAME);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getHcpcsCode()).isEqualTo(DEFAULT_HCPCS_CODE);
         assertThat(testSoLcdCoverageCriteriaTransaction.getChecklistId()).isEqualTo(UPDATED_CHECKLIST_ID);
         assertThat(testSoLcdCoverageCriteriaTransaction.getChecklistName()).isEqualTo(UPDATED_CHECKLIST_NAME);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaId()).isEqualTo(UPDATED_COVERAGE_CRITERIA_ID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaId()).isEqualTo(DEFAULT_COVERAGE_CRITERIA_ID);
         assertThat(testSoLcdCoverageCriteriaTransaction.getValue()).isEqualTo(UPDATED_VALUE);
         assertThat(testSoLcdCoverageCriteriaTransaction.getStatus()).isEqualTo(UPDATED_STATUS);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testSoLcdCoverageCriteriaTransaction.getCreatedById()).isEqualTo(UPDATED_CREATED_BY_ID);
         assertThat(testSoLcdCoverageCriteriaTransaction.getCreatedByName()).isEqualTo(UPDATED_CREATED_BY_NAME);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedById()).isEqualTo(DEFAULT_UPDATED_BY_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedById()).isEqualTo(UPDATED_UPDATED_BY_ID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testSoLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionUuid())
             .isEqualTo(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getItemGroupId()).isEqualTo(DEFAULT_ITEM_GROUP_ID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getItemGroupName()).isEqualTo(DEFAULT_ITEM_GROUP_NAME);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaName()).isEqualTo(UPDATED_COVERAGE_CRITERIA_NAME);
     }
 
     @Test
@@ -595,13 +594,12 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
 
         // Update the soLcdCoverageCriteriaTransaction using partial update
         SoLcdCoverageCriteriaTransaction partialUpdatedSoLcdCoverageCriteriaTransaction = new SoLcdCoverageCriteriaTransaction();
-        partialUpdatedSoLcdCoverageCriteriaTransaction.setSoLcdDocRefId(soLcdCoverageCriteriaTransaction.getSoLcdDocRefId());
+        partialUpdatedSoLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(
+            soLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId()
+        );
 
         partialUpdatedSoLcdCoverageCriteriaTransaction
             .soId(UPDATED_SO_ID)
-            .itemId(UPDATED_ITEM_ID)
-            .itemName(UPDATED_ITEM_NAME)
-            .hcpcsCode(UPDATED_HCPCS_CODE)
             .checklistId(UPDATED_CHECKLIST_ID)
             .checklistName(UPDATED_CHECKLIST_NAME)
             .coverageCriteriaId(UPDATED_COVERAGE_CRITERIA_ID)
@@ -613,11 +611,14 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             .updatedDate(UPDATED_UPDATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
-            .soLcdCoverageCriteriaTransactionUuid(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+            .soLcdCoverageCriteriaTransactionUuid(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME)
+            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME);
 
         webTestClient
             .patch()
-            .uri(ENTITY_API_URL_ID, partialUpdatedSoLcdCoverageCriteriaTransaction.getSoLcdDocRefId())
+            .uri(ENTITY_API_URL_ID, partialUpdatedSoLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId())
             .contentType(MediaType.valueOf("application/merge-patch+json"))
             .bodyValue(TestUtil.convertObjectToJsonBytes(partialUpdatedSoLcdCoverageCriteriaTransaction))
             .exchange()
@@ -634,9 +635,6 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
             soLcdCoverageCriteriaTransactionList.size() - 1
         );
         assertThat(testSoLcdCoverageCriteriaTransaction.getSoId()).isEqualTo(UPDATED_SO_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getItemId()).isEqualTo(UPDATED_ITEM_ID);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getItemName()).isEqualTo(UPDATED_ITEM_NAME);
-        assertThat(testSoLcdCoverageCriteriaTransaction.getHcpcsCode()).isEqualTo(UPDATED_HCPCS_CODE);
         assertThat(testSoLcdCoverageCriteriaTransaction.getChecklistId()).isEqualTo(UPDATED_CHECKLIST_ID);
         assertThat(testSoLcdCoverageCriteriaTransaction.getChecklistName()).isEqualTo(UPDATED_CHECKLIST_NAME);
         assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaId()).isEqualTo(UPDATED_COVERAGE_CRITERIA_ID);
@@ -650,12 +648,15 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
         assertThat(testSoLcdCoverageCriteriaTransaction.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testSoLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionUuid())
             .isEqualTo(UPDATED_SO_LCD_COVERAGE_CRITERIA_TRANSACTION_UUID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
+        assertThat(testSoLcdCoverageCriteriaTransaction.getCoverageCriteriaName()).isEqualTo(UPDATED_COVERAGE_CRITERIA_NAME);
     }
 
     @Test
     void patchNonExistingSoLcdCoverageCriteriaTransaction() throws Exception {
         int databaseSizeBeforeUpdate = soLcdCoverageCriteriaTransactionRepository.findAll().collectList().block().size();
-        soLcdCoverageCriteriaTransaction.setSoLcdDocRefId(count.incrementAndGet());
+        soLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(count.incrementAndGet());
 
         // Create the SoLcdCoverageCriteriaTransaction
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = soLcdCoverageCriteriaTransactionMapper.toDto(
@@ -665,7 +666,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         webTestClient
             .patch()
-            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransactionDTO.getSoLcdDocRefId())
+            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransactionDTO.getSoLcdCoverageCriteriaTransactionId())
             .contentType(MediaType.valueOf("application/merge-patch+json"))
             .bodyValue(TestUtil.convertObjectToJsonBytes(soLcdCoverageCriteriaTransactionDTO))
             .exchange()
@@ -683,7 +684,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
     @Test
     void patchWithIdMismatchSoLcdCoverageCriteriaTransaction() throws Exception {
         int databaseSizeBeforeUpdate = soLcdCoverageCriteriaTransactionRepository.findAll().collectList().block().size();
-        soLcdCoverageCriteriaTransaction.setSoLcdDocRefId(count.incrementAndGet());
+        soLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(count.incrementAndGet());
 
         // Create the SoLcdCoverageCriteriaTransaction
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = soLcdCoverageCriteriaTransactionMapper.toDto(
@@ -711,7 +712,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
     @Test
     void patchWithMissingIdPathParamSoLcdCoverageCriteriaTransaction() throws Exception {
         int databaseSizeBeforeUpdate = soLcdCoverageCriteriaTransactionRepository.findAll().collectList().block().size();
-        soLcdCoverageCriteriaTransaction.setSoLcdDocRefId(count.incrementAndGet());
+        soLcdCoverageCriteriaTransaction.setSoLcdCoverageCriteriaTransactionId(count.incrementAndGet());
 
         // Create the SoLcdCoverageCriteriaTransaction
         SoLcdCoverageCriteriaTransactionDTO soLcdCoverageCriteriaTransactionDTO = soLcdCoverageCriteriaTransactionMapper.toDto(
@@ -746,7 +747,7 @@ class SoLcdCoverageCriteriaTransactionResourceIT {
         // Delete the soLcdCoverageCriteriaTransaction
         webTestClient
             .delete()
-            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransaction.getSoLcdDocRefId())
+            .uri(ENTITY_API_URL_ID, soLcdCoverageCriteriaTransaction.getSoLcdCoverageCriteriaTransactionId())
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectStatus()

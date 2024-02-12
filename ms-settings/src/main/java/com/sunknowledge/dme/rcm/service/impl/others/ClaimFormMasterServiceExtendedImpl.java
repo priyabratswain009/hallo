@@ -66,51 +66,44 @@ public class ClaimFormMasterServiceExtendedImpl implements ClaimFormMasterServic
         Set uniqueClaimFormNameSet = claimFormMasterRepositoryExtended.findAll().stream().map(x -> x.getClaimFormName()).collect(Collectors.toSet());
 
         if (claimFormMasterExtendedDTO.getClaimFormName() == null) {
-            throw new InvalidAttributeValueException("Invalid Attribute (ClaimFormName)");
+            return new ResponseDTO(false, "Invalid Attribute (ClaimFormName)", null,200);
         } else if (claimFormMasterExtendedDTO.getClaimFormName().trim().equals("")) {
-            throw new InputMismatchException("ClaimFormName must be provided");
+            return new ResponseDTO(false, "ClaimFormName must be provided", null,200);
         }else if(claimFormMasterExtendedDTO.getClaimFormMasterUuid()==null && uniqueClaimFormNameSet.contains(claimFormMasterExtendedDTO.getClaimFormName())){
             //Duplicate check during save operation
-            throw new InputMismatchException("("+ claimFormMasterExtendedDTO.getClaimFormName() +") "+"claimFormName already exist");
+            return new ResponseDTO(false, "("+ claimFormMasterExtendedDTO.getClaimFormName() +") "+"claimFormName already exist", null,200);
         }else if(claimFormMasterExtendedDTO.getClaimFormMasterUuid() != null && !claimFormMasterExtendedDTO.getClaimFormMasterUuid().equals("")){
             //Duplicate check during update operation
             Set uniqueClaimProgramValueSetForUpdate = claimFormMasterRepositoryExtended.findByClaimFormMasterUuidNot(claimFormMasterExtendedDTO.getClaimFormMasterUuid()).stream().map(x -> x.getClaimFormName()).collect(Collectors.toSet());
             if(uniqueClaimProgramValueSetForUpdate.contains(claimFormMasterExtendedDTO.getClaimFormName())){
-                throw new InputMismatchException("("+ claimFormMasterExtendedDTO.getClaimFormName() +") "+"claimFormName already exist");
+                return new ResponseDTO(false, "("+ claimFormMasterExtendedDTO.getClaimFormName() +") "+"claimFormName already exist", null,200);
             }
         }
+        ClaimFormMasterDTO claimFormMasterDTO = (claimFormMasterExtendedDTO.getClaimFormMasterUuid() == null) ? new ClaimFormMasterDTO() :
+            (claimFormMasterRepositoryExtended.findByClaimFormMasterUuid(claimFormMasterExtendedDTO.getClaimFormMasterUuid()) != null ?
+                claimFormMasterMapper.toDto(claimFormMasterRepositoryExtended.findByClaimFormMasterUuid(claimFormMasterExtendedDTO.getClaimFormMasterUuid())) :
+                new ClaimFormMasterDTO());
 
-        ResponseDTO outcome = new ResponseDTO();
-        if(claimFormMasterExtendedDTO.getStatus().equalsIgnoreCase("active") || claimFormMasterExtendedDTO.getStatus().equalsIgnoreCase("inActive")){
-
-            ClaimFormMasterDTO claimFormMasterDTO = (claimFormMasterExtendedDTO.getClaimFormMasterUuid() == null) ? new ClaimFormMasterDTO() :
-                (claimFormMasterRepositoryExtended.findByClaimFormMasterUuid(claimFormMasterExtendedDTO.getClaimFormMasterUuid()) != null ?
-                    claimFormMasterMapper.toDto(claimFormMasterRepositoryExtended.findByClaimFormMasterUuid(claimFormMasterExtendedDTO.getClaimFormMasterUuid())) :
-                    new ClaimFormMasterDTO());
-
-            BeanUtils.copyProperties(claimFormMasterExtendedDTO, claimFormMasterDTO);
-
-            if (claimFormMasterDTO.getClaimFormMasterUuid() == null) {
-                claimFormMasterDTO.setClaimFormId(null);
-                //holdReasonMasterDTO.setHoldReasonName();
-                claimFormMasterDTO.setCreatedById(31L);
-                claimFormMasterDTO.setCreatedDate(LocalDate.now());
-                claimFormMasterDTO.setCreatedByName("Falguni");
-                claimFormMasterDTO.setClaimFormMasterUuid(UUID.randomUUID());
-            } else {
-                claimFormMasterDTO.setUpdatedDate(LocalDate.now());
-                claimFormMasterDTO.setUpdatedById(31L);
-                claimFormMasterDTO.setUpdatedByName("Falguni");
-            }
-            ClaimFormMasterDTO savedClaimFormMasterDTO = claimFormMasterMapper.toDto(
-                claimFormMasterRepositoryExtended.save(claimFormMasterMapper.toEntity(claimFormMasterDTO))
-            );
-            log.info("=======savedClaimFormMasterDTO======="+savedClaimFormMasterDTO);
-
-            return new ResponseDTO(true, "Successfully Saved.", List.of(savedClaimFormMasterDTO));
-        }else{
-            throw new InputMismatchException("Status Should be active/inactive");
+        BeanUtils.copyProperties(claimFormMasterExtendedDTO, claimFormMasterDTO);
+        claimFormMasterDTO.setStatus("active");
+        if (claimFormMasterDTO.getClaimFormMasterUuid() == null) {
+            claimFormMasterDTO.setClaimFormId(null);
+            //holdReasonMasterDTO.setHoldReasonName();
+            claimFormMasterDTO.setCreatedById(31L);
+            claimFormMasterDTO.setCreatedDate(LocalDate.now());
+            claimFormMasterDTO.setCreatedByName("Falguni");
+            claimFormMasterDTO.setClaimFormMasterUuid(UUID.randomUUID());
+        } else {
+            claimFormMasterDTO.setUpdatedDate(LocalDate.now());
+            claimFormMasterDTO.setUpdatedById(31L);
+            claimFormMasterDTO.setUpdatedByName("Falguni");
         }
+        ClaimFormMasterDTO savedClaimFormMasterDTO = claimFormMasterMapper.toDto(
+            claimFormMasterRepositoryExtended.save(claimFormMasterMapper.toEntity(claimFormMasterDTO))
+        );
+        log.info("=======savedClaimFormMasterDTO======="+savedClaimFormMasterDTO);
+
+        return new ResponseDTO(true, "Successfully Saved.", (savedClaimFormMasterDTO),200);
     }
 
     @Override
@@ -120,12 +113,35 @@ public class ClaimFormMasterServiceExtendedImpl implements ClaimFormMasterServic
     }
 
     @Override
-    public List<ClaimFormMasterDTO> getClaimFormMasterInfoByUUID(UUID claimFormMasterUuid) {
-        List<ClaimFormMasterDTO> dtoDataList = new ArrayList<ClaimFormMasterDTO>();
+    public ClaimFormMasterDTO getClaimFormMasterInfoByUUID(UUID claimFormMasterUuid) {
         ClaimFormMaster data = claimFormMasterRepositoryExtended.findByClaimFormMasterUuid(claimFormMasterUuid);
         if(data != null){
-            dtoDataList.add(claimFormMasterMapper.toDto(data));
+            return (claimFormMasterMapper.toDto(data));
         }
-        return dtoDataList;
+        return null;
+    }
+
+    @Override
+    public ResponseDTO setClaimFormMasterStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<ClaimFormMaster> obj = Optional.ofNullable(claimFormMasterRepositoryExtended.findByClaimFormMasterUuid(uuid));
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    claimFormMasterRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
     }
 }

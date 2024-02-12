@@ -41,7 +41,7 @@ public class BranchUserMapServiceImpl implements BranchUserMapService {
 
     @Override
     public BranchUserMapDTO update(BranchUserMapDTO branchUserMapDTO) {
-        log.debug("Request to save BranchUserMap : {}", branchUserMapDTO);
+        log.debug("Request to update BranchUserMap : {}", branchUserMapDTO);
         BranchUserMap branchUserMap = branchUserMapMapper.toEntity(branchUserMapDTO);
         branchUserMap = branchUserMapRepository.save(branchUserMap);
         return branchUserMapMapper.toDto(branchUserMap);

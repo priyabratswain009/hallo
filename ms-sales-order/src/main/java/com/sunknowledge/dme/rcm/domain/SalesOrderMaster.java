@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A SalesOrderMaster.
  */
 @Table("t_sales_order_master")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SalesOrderMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;

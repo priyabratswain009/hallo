@@ -44,7 +44,7 @@ public class FunctionalityMasterServiceImpl implements FunctionalityMasterServic
 
     @Override
     public FunctionalityMasterDTO update(FunctionalityMasterDTO functionalityMasterDTO) {
-        log.debug("Request to save FunctionalityMaster : {}", functionalityMasterDTO);
+        log.debug("Request to update FunctionalityMaster : {}", functionalityMasterDTO);
         FunctionalityMaster functionalityMaster = functionalityMasterMapper.toEntity(functionalityMasterDTO);
         functionalityMaster = functionalityMasterRepository.save(functionalityMaster);
         return functionalityMasterMapper.toDto(functionalityMaster);

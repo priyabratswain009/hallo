@@ -24,6 +24,10 @@ public class FileUploadConfigProperties {
     public FileUploadProperties getTempDocumentProperties(){ return new FileUploadProperties(); }
 
     @Bean
+    @ConfigurationProperties(prefix = "file.delivery.carrier-documents")
+    public FileUploadProperties getDeliveryCarrierProperties(){return new FileUploadProperties();}
+
+    @Bean
     @ConfigurationProperties(prefix = "file.signature.upload")
     public FileUploadProperties getSignatureImageProperties(){return new FileUploadProperties();}
 
@@ -50,6 +54,14 @@ public class FileUploadConfigProperties {
     @Bean
     @ConfigurationProperties(prefix = "file.cmn.temp-qrcode")
     public FileUploadProperties getCmnTempQrcodeProperties(){return new FileUploadProperties();}
+
+    @Bean
+    @ConfigurationProperties(prefix = "file.prior.authorization.document")
+    public FileUploadProperties getPriorAuthorizationDocumentProperties(){return new FileUploadProperties();}
+
+    @Bean
+    @ConfigurationProperties(prefix = "file.prior.authorization.temp-qrcode")
+    public FileUploadProperties getPriorAuthorizationQrcodeProperties(){return new FileUploadProperties();}
     /*#######################################End - SALESORDER-SERVICE#########################################################*/
 
     /*#######################################Start - PICK UP EXCHANGE-SERVICE#################################################*/
@@ -100,4 +112,13 @@ public class FileUploadConfigProperties {
     @ConfigurationProperties(prefix = "file.temp-claim.form-cms1500.documents")
     public FileUploadProperties getTempClaimFormCMS1500Documents(){return new FileUploadProperties();}
     /*#######################################End - CLAIM-SERVICE#################################################################*/
+
+    /*#######################################Start - ITEMS-SERVICE#################################################*/
+    @Bean
+    @ConfigurationProperties(prefix = "file.purchase-order.documents")
+    public FileUploadProperties getPurchaseOrderDocuments(){return new FileUploadProperties();}
+    @Bean
+    @ConfigurationProperties(prefix = "file.purchase-order.temp-qrcode")
+    public FileUploadProperties getPurchaseOrderTempQrCode(){return new FileUploadProperties();}
+    /*#######################################End - ITEMS-SERVICE####################################################*/
 }

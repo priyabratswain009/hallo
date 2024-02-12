@@ -44,7 +44,7 @@ public class BenefitCoverageRequestServiceImpl implements BenefitCoverageRequest
 
     @Override
     public Mono<BenefitCoverageRequestDTO> update(BenefitCoverageRequestDTO benefitCoverageRequestDTO) {
-        log.debug("Request to save BenefitCoverageRequest : {}", benefitCoverageRequestDTO);
+        log.debug("Request to update BenefitCoverageRequest : {}", benefitCoverageRequestDTO);
         return benefitCoverageRequestRepository
             .save(benefitCoverageRequestMapper.toEntity(benefitCoverageRequestDTO))
             .map(benefitCoverageRequestMapper::toDto);

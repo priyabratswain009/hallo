@@ -14,6 +14,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A MemberElligibility.
  */
 @Table("t_member_elligibility_master")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class MemberElligibility implements Serializable {
 
     private static final long serialVersionUID = 1L;

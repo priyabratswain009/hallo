@@ -44,7 +44,7 @@ public class NoteTypeMasterAuditLogServiceImpl implements NoteTypeMasterAuditLog
 
     @Override
     public NoteTypeMasterAuditLogDTO update(NoteTypeMasterAuditLogDTO noteTypeMasterAuditLogDTO) {
-        log.debug("Request to save NoteTypeMasterAuditLog : {}", noteTypeMasterAuditLogDTO);
+        log.debug("Request to update NoteTypeMasterAuditLog : {}", noteTypeMasterAuditLogDTO);
         NoteTypeMasterAuditLog noteTypeMasterAuditLog = noteTypeMasterAuditLogMapper.toEntity(noteTypeMasterAuditLogDTO);
         noteTypeMasterAuditLog = noteTypeMasterAuditLogRepository.save(noteTypeMasterAuditLog);
         return noteTypeMasterAuditLogMapper.toDto(noteTypeMasterAuditLog);

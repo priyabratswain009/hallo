@@ -41,7 +41,7 @@ public class ItemGroupServiceImpl implements ItemGroupService {
 
     @Override
     public ItemGroupDTO update(ItemGroupDTO itemGroupDTO) {
-        log.debug("Request to update ItemGroup : {}", itemGroupDTO);
+        log.debug("Request to save ItemGroup : {}", itemGroupDTO);
         ItemGroup itemGroup = itemGroupMapper.toEntity(itemGroupDTO);
         itemGroup = itemGroupRepository.save(itemGroup);
         return itemGroupMapper.toDto(itemGroup);

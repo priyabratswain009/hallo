@@ -7,6 +7,7 @@ import com.sunknowledge.dme.rcm.service.dto.others.InsuranceGroupMasterExtendedD
 
 import javax.management.InvalidAttributeValueException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface InsuranceGroupMasterServiceExtended extends InsuranceGroupMasterService {
@@ -14,5 +15,9 @@ public interface InsuranceGroupMasterServiceExtended extends InsuranceGroupMaste
 
     List<InsuranceGroupMasterDTO> getAllInsuranceGroupMasterInfo();
 
-    List<InsuranceGroupMasterDTO> getInsuranceGroupMasterByUUID(UUID insuranceGroupMasterUuid);
+    InsuranceGroupMasterDTO getInsuranceGroupMasterByUUID(UUID insuranceGroupMasterUuid);
+
+    ResponseDTO setInsuranceGroupMasterStatusByUuid(UUID uuid, String status);
+
+    List<Map<String, Object>> getInsuranceGroupMasterForDropdown();
 }

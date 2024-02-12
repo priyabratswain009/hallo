@@ -2,35 +2,39 @@ package com.sunknowledge.dme.rcm.service.impl.po;
 
 import com.sunknowledge.dme.rcm.domain.PurchaseOrder;
 import com.sunknowledge.dme.rcm.repository.po.PurchaseOrderRepositoryExtended;
-import com.sunknowledge.dme.rcm.service.dto.*;
+import com.sunknowledge.dme.rcm.service.dto.ItemItemlocationMapDTO;
+import com.sunknowledge.dme.rcm.service.dto.ItemMasterDTO;
+import com.sunknowledge.dme.rcm.service.dto.ItemVendorMappingDTO;
+import com.sunknowledge.dme.rcm.service.dto.PurchaseOrderDTO;
+import com.sunknowledge.dme.rcm.service.dto.PurchaseOrderItemsDTO;
+import com.sunknowledge.dme.rcm.service.dto.PurchaseOrderItemsReceivedDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
-import com.sunknowledge.dme.rcm.service.dto.po.*;
+import com.sunknowledge.dme.rcm.service.dto.po.CancelPartialPurchaseOrderParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.po.DropshipPurchaseOrderParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.po.PurchaseOrderParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.po.ReceiptDropshipPurchaseOrderParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.po.ReceivePurchaseOrderParameterDTO;
 import com.sunknowledge.dme.rcm.service.items.ItemItemlocationMapServiceExtended;
 import com.sunknowledge.dme.rcm.service.items.ItemMasterServiceExtended;
 import com.sunknowledge.dme.rcm.service.items.ItemVendorMappingServiceExtended;
+import com.sunknowledge.dme.rcm.service.mapper.PurchaseOrderMapper;
 import com.sunknowledge.dme.rcm.service.po.PurchaseOrderItemsReceivedServiceExtended;
 import com.sunknowledge.dme.rcm.service.po.PurchaseOrderItemsServiceExtended;
 import com.sunknowledge.dme.rcm.service.po.PurchaseOrderServiceExtended;
-import com.sunknowledge.dme.rcm.service.mapper.PurchaseOrderMapper;
-import org.hibernate.mapping.Collection;
-import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Primary
@@ -145,25 +149,25 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                             billingContactName, billingContactEmail, deliveryAddressLine1, deliveryAddressLine2, deliveryAddressCity,
                             deliveryAddressState, deliveryAddressZip, deliveryContactNo, deliveryContactName, deliveryContactEmail,
                             itemIds, itemQtys, itemprices, whetherSerialised, userId, userName, notes);
-                        return new ResponseDTO(true, "Successfully Saved", new ArrayList());
+                        return new ResponseDTO(true, "Successfully Saved", new ArrayList(), 200);
                     } else {
                         return new ResponseDTO(false,
                             "This location/branch does not have the given item(s)! Kindly add given item(s) to this location/branch.",
-                            new ArrayList());
+                            new ArrayList(), 200);
                     }
                 } else {
                     return new ResponseDTO(false,
                         "This vendor does not have the given item(s)! Kindly add given item(s) to this vendor.",
-                        new ArrayList());
+                        new ArrayList(), 200);
                 }
             }else{
                 return new ResponseDTO(false,
                     "This item(s) does not exist!",
-                    new ArrayList());
+                    new ArrayList(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Save :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Save :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -172,10 +176,10 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
             Long userId = 1L;  // Get Login User ID
             String userName = "Abhijit Chowdhury"; // Get Login User Name
             purchaseOrderRepositoryExtended.cancelFullPurchaseOrder(poId, userId, userName);
-            return new ResponseDTO(true, "Successfully Cancelled", new ArrayList());
+            return new ResponseDTO(true, "Successfully Cancelled", new ArrayList(), 200);
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Cancel :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Cancel :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -211,13 +215,13 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
             if (count == itemList.size()) {
                 purchaseOrderRepositoryExtended.cancelPartialPurchaseOrder(poId, itemIds, itemOrderQtys,
                     itemCancelQtys, userId, userName);
-                return new ResponseDTO(true, "Successfully Cancelled", new ArrayList());
+                return new ResponseDTO(true, "Successfully Cancelled", new ArrayList(), 200);
             } else {
-                return new ResponseDTO(false, "Cancel_Quantity must be lesser than and equals to (Ordered_Qty - Received_Qty).", new ArrayList());
+                return new ResponseDTO(false, "Cancel_Quantity must be lesser than and equals to (Ordered_Qty - Received_Qty).", new ArrayList(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Cancel :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Cancel :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -268,16 +272,16 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                     purchaseOrderRepositoryExtended.receivePurchaseOrder(poId, locationId, itemIds,
                         receivedQtys, whetherSerialised, serialNos, lotNos, mfgDates,
                         receivedDate, userId, userName);
-                    return new ResponseDTO(true, "Successfully Received", new ArrayList());
+                    return new ResponseDTO(true, "Successfully Received", new ArrayList(), 200);
                 } else {
-                    return new ResponseDTO(false, "Received_Quantity must be lesser than and equals to (Ordered_Qty - Canceled_Qty).", new ArrayList());
+                    return new ResponseDTO(false, "Received_Quantity must be lesser than and equals to (Ordered_Qty - Canceled_Qty).", new ArrayList(), 200);
                 }
             } else {
-                return new ResponseDTO(false, "Count_Of_Items, Count_Of_Whether_Serialised, Count_Of_Serial_Nos, Count_Of_Lot_Nos and Count_Of_Mfg_Dates must be same.", new ArrayList());
+                return new ResponseDTO(false, "Count_Of_Items, Count_Of_Whether_Serialised, Count_Of_Serial_Nos, Count_Of_Lot_Nos and Count_Of_Mfg_Dates must be same.", new ArrayList(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Receive :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Receive :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -292,14 +296,14 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                 List<T> list = (List<T>) listPO;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("POByPoNumber")) {
                 List<PurchaseOrderDTO> dataObj = purchaseOrderMapper.toDto(
                     purchaseOrderRepositoryExtended.findByPoNumberAndStatusIgnoreCase(param, "active"));
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("POByFromDateAndToDateOrPOStatus")) {
                 String params[] = param.split(",");
 
@@ -312,10 +316,10 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                     List<T> list = (List<T>) dataObj;
                     return new ResponseDTO((list.size() > 0) ? true : false,
                         (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                        list);
+                        list, 200);
                 } else {
                     return new ResponseDTO(false, "Proper From_Date(yyyy-mm-dd), To_Date(yyyy-mm-dd) and PO_Status must be provided.",
-                        new ArrayList());
+                        new ArrayList(), 200);
                 }
             } else if (opType.equals("POByVendorId")) {
                 List<PurchaseOrderDTO> dataObj = purchaseOrderMapper.toDto(
@@ -324,42 +328,42 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("POItemsByPOId")) {
                 List<PurchaseOrderItemsDTO> dataObj = purchaseOrderItemsServiceExtended
                     .getItemsByPOIdAndStatus(Long.valueOf(param), "active");
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("POItemsByPONumber")) {
                 List<PurchaseOrderItemsDTO> dataObj = purchaseOrderItemsServiceExtended
                     .getItemsByPoNumberAndStatus(param, "active");
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("POItemsByPOItemID")) {
                 List<PurchaseOrderItemsDTO> dataObj = purchaseOrderItemsServiceExtended
                     .getItemsByPOItemsIDAndStatus(Long.valueOf(param), "active");
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("ReceivedPOItemsByPOId")) {
                 List<PurchaseOrderItemsReceivedDTO> dataObj = purchaseOrderItemsReceivedServiceExtended
                     .getReceivedPOItemsByPOIdAndStatus(Long.valueOf(param), "active");
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("ReceivedPOItemsByPONumber")) {
                 List<PurchaseOrderItemsReceivedDTO> dataObj = purchaseOrderItemsReceivedServiceExtended
                     .getReceivedPOItemsByPONumberAndStatus(param, "active");
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else if (opType.equals("ReceivedPOItemsByItemReceivedID")) {
                 List<PurchaseOrderItemsReceivedDTO> dataObj = purchaseOrderItemsReceivedServiceExtended
                     .getReceivedPOItemsByItemReceivedIDAndStatus(Long.valueOf(param), "active");
@@ -367,17 +371,17 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                 List<T> list = (List<T>) dataObj;
                 return new ResponseDTO((list.size() > 0) ? true : false,
                     (list.size() > 0) ? "Data Successfully Fetched" : "No Data Available",
-                    list);
+                    list, 200);
             } else {
                 return new ResponseDTO(false,
                     "No Data Available",
-                    new ArrayList<>());
+                    new ArrayList<>(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
             return new ResponseDTO(false,
                 "Data Not Found Data :: Data Error",
-                new ArrayList<>());
+                new ArrayList<>(), 200);
         }
     }
 
@@ -426,20 +430,20 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                         billingContactName, billingContactEmail, deliveryAddressLine1, deliveryAddressLine2, deliveryAddressCity,
                         deliveryAddressState, deliveryAddressZip, deliveryContactNo, deliveryContactName, deliveryContactEmail,
                         itemId.toString(), itemQty.toString(), itemprices, whetherSerialised,userId, userName, notes,locationId);
-                    return new ResponseDTO(true, "Successfully Saved", List.of(obj));
+                    return new ResponseDTO(true, "Successfully Saved", List.of(obj), 200);
                 } else {
                     return new ResponseDTO(false,
                         "This SO_Id already have a Purchase_Order!.",
-                        new ArrayList());
+                        new ArrayList(), 200);
                 }
             } else {
                 return new ResponseDTO(false,
                     "This vendor does not have the given item(s)! Kindly add given item(s) to this vendor.",
-                    new ArrayList());
+                    new ArrayList(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Save :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Save :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -451,13 +455,13 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                 Long userId = 1L;  // Get Login User ID
                 String userName = "Abhijit Chowdhury"; // Get Login User Name
                 purchaseOrderRepositoryExtended.cancelDropshipPurchaseOrder(poNumber, userId, userName);
-                return new ResponseDTO(true, "Successfully Cancelled", new ArrayList());
+                return new ResponseDTO(true, "Successfully Cancelled", new ArrayList(), 200);
             }else {
-                return new ResponseDTO(false, "Purchase_Order_Id is not exist.", new ArrayList());
+                return new ResponseDTO(false, "Purchase_Order_Id is not exist.", new ArrayList(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Cancel :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Cancel :: Data Error", new ArrayList(), 200);
         }
     }
 
@@ -473,7 +477,7 @@ public class PurchaseOrderServiceExtendedImpl<T> implements PurchaseOrderService
                 return purchaseOrderItemsReceivedServiceExtended.saveReceiptDropshipPurchaseOrder(receiptDropshipPurchaseOrderParameterDTO);
             }else{
                 log.info("PO Already Completed.");
-                return new ResponseDTO<>(false,"Data not saved.",new ArrayList<>());
+                return new ResponseDTO<>(false,"Data not saved.",new ArrayList<>(), 200);
             }
         }
 

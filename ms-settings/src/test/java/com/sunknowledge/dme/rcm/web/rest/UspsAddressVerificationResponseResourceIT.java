@@ -379,7 +379,7 @@ class UspsAddressVerificationResponseResourceIT {
 
     @Test
     @Transactional
-    void putNewUspsAddressVerificationResponse() throws Exception {
+    void putExistingUspsAddressVerificationResponse() throws Exception {
         // Initialize the database
         uspsAddressVerificationResponseRepository.saveAndFlush(uspsAddressVerificationResponse);
 

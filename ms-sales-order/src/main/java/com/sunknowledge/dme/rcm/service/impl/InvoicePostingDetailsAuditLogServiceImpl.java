@@ -44,7 +44,7 @@ public class InvoicePostingDetailsAuditLogServiceImpl implements InvoicePostingD
 
     @Override
     public Mono<InvoicePostingDetailsAuditLogDTO> update(InvoicePostingDetailsAuditLogDTO invoicePostingDetailsAuditLogDTO) {
-        log.debug("Request to save InvoicePostingDetailsAuditLog : {}", invoicePostingDetailsAuditLogDTO);
+        log.debug("Request to update InvoicePostingDetailsAuditLog : {}", invoicePostingDetailsAuditLogDTO);
         return invoicePostingDetailsAuditLogRepository
             .save(invoicePostingDetailsAuditLogMapper.toEntity(invoicePostingDetailsAuditLogDTO))
             .map(invoicePostingDetailsAuditLogMapper::toDto);

@@ -211,7 +211,7 @@ class StockAdjustmentAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingStockAdjustmentAuditLog() throws Exception {
+    void putNewStockAdjustmentAuditLog() throws Exception {
         // Initialize the database
         stockAdjustmentAuditLogRepository.saveAndFlush(stockAdjustmentAuditLog);
 

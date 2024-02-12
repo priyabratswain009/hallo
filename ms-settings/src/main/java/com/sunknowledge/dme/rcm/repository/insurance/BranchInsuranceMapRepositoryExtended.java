@@ -6,6 +6,8 @@ import com.sunknowledge.dme.rcm.service.dto.BranchInsuranceMapDTO;
 import com.sunknowledge.dme.rcm.service.dto.insurance.BranchInsuranceMapExtendedForUpdateDTO;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface BranchInsuranceMapRepositoryExtended extends BranchInsuranceMapRepository {
     List<BranchInsuranceMap> findByInsuranceIdAndStatusIgnoreCase(String insuranceId, String active);
@@ -19,4 +21,6 @@ public interface BranchInsuranceMapRepositoryExtended extends BranchInsuranceMap
     BranchInsuranceMap findByInsuranceIdAndBranchIdAndStatusIgnoreCase(Long insuranceId, Long branchId, String active);
 
     BranchInsuranceMap findByBranchInsuranceMapId(Long branchInsuranceMapId);
+
+    Optional<BranchInsuranceMap> findByBranchInsuranceMapUuid(UUID uuid);
 }

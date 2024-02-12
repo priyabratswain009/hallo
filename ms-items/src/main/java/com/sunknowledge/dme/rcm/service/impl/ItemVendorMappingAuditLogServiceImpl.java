@@ -44,7 +44,7 @@ public class ItemVendorMappingAuditLogServiceImpl implements ItemVendorMappingAu
 
     @Override
     public ItemVendorMappingAuditLogDTO update(ItemVendorMappingAuditLogDTO itemVendorMappingAuditLogDTO) {
-        log.debug("Request to update ItemVendorMappingAuditLog : {}", itemVendorMappingAuditLogDTO);
+        log.debug("Request to save ItemVendorMappingAuditLog : {}", itemVendorMappingAuditLogDTO);
         ItemVendorMappingAuditLog itemVendorMappingAuditLog = itemVendorMappingAuditLogMapper.toEntity(itemVendorMappingAuditLogDTO);
         itemVendorMappingAuditLog = itemVendorMappingAuditLogRepository.save(itemVendorMappingAuditLog);
         return itemVendorMappingAuditLogMapper.toDto(itemVendorMappingAuditLog);

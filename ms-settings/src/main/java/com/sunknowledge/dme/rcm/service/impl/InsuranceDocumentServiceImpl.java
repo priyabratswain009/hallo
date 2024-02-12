@@ -44,7 +44,7 @@ public class InsuranceDocumentServiceImpl implements InsuranceDocumentService {
 
     @Override
     public InsuranceDocumentDTO update(InsuranceDocumentDTO insuranceDocumentDTO) {
-        log.debug("Request to save InsuranceDocument : {}", insuranceDocumentDTO);
+        log.debug("Request to update InsuranceDocument : {}", insuranceDocumentDTO);
         InsuranceDocument insuranceDocument = insuranceDocumentMapper.toEntity(insuranceDocumentDTO);
         insuranceDocument = insuranceDocumentRepository.save(insuranceDocument);
         return insuranceDocumentMapper.toDto(insuranceDocument);

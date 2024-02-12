@@ -44,7 +44,7 @@ public class ChecklistDocumentReferenceMapServiceImpl implements ChecklistDocume
 
     @Override
     public Mono<ChecklistDocumentReferenceMapDTO> update(ChecklistDocumentReferenceMapDTO checklistDocumentReferenceMapDTO) {
-        log.debug("Request to save ChecklistDocumentReferenceMap : {}", checklistDocumentReferenceMapDTO);
+        log.debug("Request to update ChecklistDocumentReferenceMap : {}", checklistDocumentReferenceMapDTO);
         return checklistDocumentReferenceMapRepository
             .save(checklistDocumentReferenceMapMapper.toEntity(checklistDocumentReferenceMapDTO))
             .map(checklistDocumentReferenceMapMapper::toDto);

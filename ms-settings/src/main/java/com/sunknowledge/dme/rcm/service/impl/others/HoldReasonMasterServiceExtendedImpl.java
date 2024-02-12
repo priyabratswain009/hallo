@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
+import com.sunknowledge.dme.rcm.domain.FunctionalityMaster;
 import com.sunknowledge.dme.rcm.domain.HoldReasonMaster;
 import com.sunknowledge.dme.rcm.repository.others.HoldReasonMasterRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.dto.HoldReasonMasterDTO;
@@ -67,9 +68,9 @@ public class HoldReasonMasterServiceExtendedImpl implements HoldReasonMasterServ
         Set uniqueHoldReasonNameSet = holdReasonMasterRepositoryExtended.findAll().stream().map(x -> x.getHoldReasonName()).collect(Collectors.toSet());
 
         if (holdReasonMasterExtendedDTO.getHoldReasonName() == null) {
-            throw new InvalidAttributeValueException("Invalid Attribute (holdReasonName)");
+            throw new InvalidAttributeValueException("Invalid Attribute (HoldReasonName)");
         } else if (holdReasonMasterExtendedDTO.getHoldReasonName().trim().equals("")) {
-            throw new InputMismatchException("holdReasonName must be provided");
+            throw new InputMismatchException("HoldReasonName must be provided");
         }else if(holdReasonMasterExtendedDTO.getHoldReasonMasterUuid() == null && uniqueHoldReasonNameSet.contains(holdReasonMasterExtendedDTO.getHoldReasonName())){
             //Duplicate check during save operation
             throw new InputMismatchException("("+ holdReasonMasterExtendedDTO.getHoldReasonName() +") "+"holdReasonName already exist");
@@ -82,7 +83,7 @@ public class HoldReasonMasterServiceExtendedImpl implements HoldReasonMasterServ
         }
 
         ResponseDTO outcome = new ResponseDTO();
-        if(holdReasonMasterExtendedDTO.getStatus().equalsIgnoreCase("active") || holdReasonMasterExtendedDTO.getStatus().equalsIgnoreCase("inActive")){
+        //if(holdReasonMasterExtendedDTO.getStatus().equalsIgnoreCase("active") || holdReasonMasterExtendedDTO.getStatus().equalsIgnoreCase("inActive")){
             if(holdReasonMasterExtendedDTO.getHoldReasonName() != null && !holdReasonMasterExtendedDTO.getHoldReasonName().equals("")) {
 
                 HoldReasonMasterDTO holdReasonMasterDTO = (holdReasonMasterExtendedDTO.getHoldReasonMasterUuid() == null) ? new HoldReasonMasterDTO() :
@@ -91,7 +92,7 @@ public class HoldReasonMasterServiceExtendedImpl implements HoldReasonMasterServ
                         new HoldReasonMasterDTO());
 
                 BeanUtils.copyProperties(holdReasonMasterExtendedDTO, holdReasonMasterDTO);
-
+                holdReasonMasterDTO.setStatus("Active");
                 if (holdReasonMasterDTO.getHoldReasonMasterUuid() == null) {
                     holdReasonMasterDTO.setHoldReasonId(null);
                     //holdReasonMasterDTO.setHoldReasonName();
@@ -109,15 +110,15 @@ public class HoldReasonMasterServiceExtendedImpl implements HoldReasonMasterServ
                 );
                 log.info("=======savedHoldReasonMasterDTO======="+savedHoldReasonMasterDTO);
 
-                return new ResponseDTO(true, "Successfully Saved.", List.of(savedHoldReasonMasterDTO));
+                return new ResponseDTO(true, "Successfully Saved.", (savedHoldReasonMasterDTO),200);
             }else{
-                outcome.setStatus(false);
+                outcome.setOutcome(false);
                 outcome.setMessage("Data Not Saved.");
                 return outcome;
             }
-        }else{
-            throw new InputMismatchException("Status Should be active/inactive");
-        }
+//        }else{
+//            throw new InputMismatchException("Status Should be active/inactive");
+//        }
     }
 
     @Override
@@ -127,12 +128,36 @@ public class HoldReasonMasterServiceExtendedImpl implements HoldReasonMasterServ
     }
 
     @Override
-    public List<HoldReasonMasterDTO> getHoldReasonDetailsByUUID(UUID holdReasonMasterUuid) {
-        List<HoldReasonMasterDTO> dtoDataList = new ArrayList<HoldReasonMasterDTO>();
+    public HoldReasonMasterDTO getHoldReasonDetailsByUUID(UUID holdReasonMasterUuid) {
+        //List<HoldReasonMasterDTO> dtoDataList = new ArrayList<HoldReasonMasterDTO>();
         HoldReasonMaster data = holdReasonMasterRepositoryExtended.findByHoldReasonMasterUuid(holdReasonMasterUuid);
         if(data != null){
-            dtoDataList.add(holdReasonMasterMapper.toDto(data));
+            return holdReasonMasterMapper.toDto(data);
         }
-        return dtoDataList;
+        return null;
+    }
+
+    @Override
+    public ResponseDTO setHoldReasonDetailsStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<HoldReasonMaster> obj = Optional.ofNullable(holdReasonMasterRepositoryExtended.findByHoldReasonMasterUuid(uuid));
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    holdReasonMasterRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
     }
 }

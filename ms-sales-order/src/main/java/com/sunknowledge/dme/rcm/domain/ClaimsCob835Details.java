@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ClaimsCob835Details.
  */
 @Table("t_claims_cob_835_details")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ClaimsCob835Details implements Serializable {
 
     private static final long serialVersionUID = 1L;

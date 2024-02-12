@@ -13,4 +13,6 @@ public interface PosMasterRepositoryExtended extends PosMasterRepository {
     PosMaster findByPosMasterUuid(UUID posMasterUuid);
 
     List<PosMaster> findByPosMasterUuidNot(UUID posMasterUuid);
+
+    PosMaster findByPosIdAndStatusIgnoreCase(Long posId, String active);
 }

@@ -340,7 +340,7 @@ class ItemInventoryStatusResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemInventoryStatus() throws Exception {
+    void putNewItemInventoryStatus() throws Exception {
         // Initialize the database
         itemInventoryStatusRepository.saveAndFlush(itemInventoryStatus);
 

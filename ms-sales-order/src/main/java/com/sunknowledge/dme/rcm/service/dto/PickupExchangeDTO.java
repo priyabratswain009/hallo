@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.PickupExchange} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PickupExchangeDTO implements Serializable {
 
     @NotNull(message = "must not be null")

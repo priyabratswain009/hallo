@@ -29,31 +29,34 @@ entity BenefitCoverageRequest(t_benefit_coverage_request) {
 }
 
 entity BenefitCoverageResponse(t_benefit_coverage_response) {
-	@Id benefitCoverageResponseId Long
-	benefitCoverageRequestId String
+	@Id benefitCoverageResponseId Long 
+	benefitCoverageRequestId Long
+	requestControlNumberExt String 
+	asOnDate LocalDate
+	serviceType String 
+	memberFirstName String 
+	memberLastName String 
+	subscriberMemberId String 
+	memberGender String 
+	patientFirstName String 
+	patientLastName String 
+	patientGender String 
+	payerName String 
+	patientRelationshipCode String 
+	patientState String 
+	coverageStatus String 
+	payerGroupNumber String 
+	serviceDate LocalDate
+	planStartDate LocalDate
+	responseJsonText String 
+	status String 
 	createdDate LocalDate
-	updatedDate LocalDate
-	expirationDate LocalDate
-	requestedDate LocalDate
-	responseDate LocalDate
-	serviceType String
-	subscriberMemberId String
-	patientRelationshipCode String
-	payerId String
-	providerNpi String
-	plansStatusCode String
-	plansStatus String
-	primaryResponse String
-	secondaryResponse String
-	status String
 	createdById Long
-	createdByName String
+	createdByName String 
+	updatedDate LocalDate
 	updatedById Long
-	updatedByName String
+	updatedByName String 
 	benefitCoverageResponseUuid UUID
-	patientState String
-	subscriberRelationship String
-	memberId String
 }
 
 entity ChecklistCoverageCriteriaMap(t_checklist_coverage_criteria_map) {

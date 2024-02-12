@@ -51,7 +51,7 @@ public class UspsAddressVerificationResponseAuditLogServiceImpl implements UspsA
     public UspsAddressVerificationResponseAuditLogDTO update(
         UspsAddressVerificationResponseAuditLogDTO uspsAddressVerificationResponseAuditLogDTO
     ) {
-        log.debug("Request to save UspsAddressVerificationResponseAuditLog : {}", uspsAddressVerificationResponseAuditLogDTO);
+        log.debug("Request to update UspsAddressVerificationResponseAuditLog : {}", uspsAddressVerificationResponseAuditLogDTO);
         UspsAddressVerificationResponseAuditLog uspsAddressVerificationResponseAuditLog = uspsAddressVerificationResponseAuditLogMapper.toEntity(
             uspsAddressVerificationResponseAuditLogDTO
         );

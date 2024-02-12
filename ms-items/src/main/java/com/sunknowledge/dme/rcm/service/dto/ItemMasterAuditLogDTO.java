@@ -7,7 +7,6 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ItemMasterAuditLog} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemMasterAuditLogDTO implements Serializable {
 
     private Long itmId;

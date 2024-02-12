@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
+import com.sunknowledge.dme.rcm.domain.FunctionalityMaster;
 import com.sunknowledge.dme.rcm.domain.HoldReasonMaster;
 import com.sunknowledge.dme.rcm.domain.InsuranceGroupMaster;
 import com.sunknowledge.dme.rcm.repository.others.HoldReasonMasterRepositoryExtended;
@@ -87,7 +88,7 @@ public class InsuranceGroupMasterServiceExtendedImpl implements InsuranceGroupMa
         }
 
         ResponseDTO outcome = new ResponseDTO();
-        if(insuranceGroupMasterExtendedDTO.getStatus().equalsIgnoreCase("active") || insuranceGroupMasterExtendedDTO.getStatus().equalsIgnoreCase("inActive")){
+        //if(insuranceGroupMasterExtendedDTO.getStatus().equalsIgnoreCase("active") || insuranceGroupMasterExtendedDTO.getStatus().equalsIgnoreCase("inActive")){
             if(insuranceGroupMasterExtendedDTO.getInsuranceGroupMasterName() != null && !insuranceGroupMasterExtendedDTO.getInsuranceGroupMasterName().equals("")) {
 
                 InsuranceGroupMasterDTO insuranceGroupMasterDTO = (insuranceGroupMasterExtendedDTO.getInsuranceGroupMasterUuid() == null) ? new InsuranceGroupMasterDTO() :
@@ -96,7 +97,7 @@ public class InsuranceGroupMasterServiceExtendedImpl implements InsuranceGroupMa
                         new InsuranceGroupMasterDTO());
 
                 BeanUtils.copyProperties(insuranceGroupMasterExtendedDTO, insuranceGroupMasterDTO);
-
+                insuranceGroupMasterDTO.setStatus("Active");
                 if (insuranceGroupMasterDTO.getInsuranceGroupMasterUuid() == null) {
                     insuranceGroupMasterDTO.setInsuranceGroupMasterId(null);
                     insuranceGroupMasterDTO.setCreatedById(31L);
@@ -112,15 +113,15 @@ public class InsuranceGroupMasterServiceExtendedImpl implements InsuranceGroupMa
                     insuranceGroupMasterRepositoryExtended.save(insuranceGroupMasterMapper.toEntity(insuranceGroupMasterDTO))
                 );
 
-                return new ResponseDTO(true, "Successfully Saved.", List.of(savedInsuranceGroupMasterDTO));
+                return new ResponseDTO(true, "Successfully Saved.", (savedInsuranceGroupMasterDTO),200);
             }else{
-                outcome.setStatus(false);
+                outcome.setOutcome(false);
                 outcome.setMessage("Data Not Saved.");
                 return outcome;
             }
-        }else{
+        /*}else{
             throw new InputMismatchException("Status must be provided and should be active/inactive");
-        }
+        }*/
     }
 
     @Override
@@ -130,12 +131,50 @@ public class InsuranceGroupMasterServiceExtendedImpl implements InsuranceGroupMa
     }
 
     @Override
-    public List<InsuranceGroupMasterDTO> getInsuranceGroupMasterByUUID(UUID insuranceGroupMasterUuid) {
-        List<InsuranceGroupMasterDTO> dtoDataList = new ArrayList<InsuranceGroupMasterDTO>();
+    public InsuranceGroupMasterDTO getInsuranceGroupMasterByUUID(UUID insuranceGroupMasterUuid) {
         InsuranceGroupMaster data = insuranceGroupMasterRepositoryExtended.findByInsuranceGroupMasterUuid(insuranceGroupMasterUuid);
         if(data != null){
-            dtoDataList.add(insuranceGroupMasterMapper.toDto(data));
+            return (insuranceGroupMasterMapper.toDto(data));
         }
-        return dtoDataList;
+        return null;
+    }
+
+    @Override
+    public ResponseDTO setInsuranceGroupMasterStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<InsuranceGroupMaster> obj = Optional.ofNullable(insuranceGroupMasterRepositoryExtended.findByInsuranceGroupMasterUuid(uuid));
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    insuranceGroupMasterRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
+    }
+
+    public List<Map<String, Object>> getInsuranceGroupMasterForDropdown() {
+        List<InsuranceGroupMasterDTO> posMasterList = getAllInsuranceGroupMasterInfo();
+        if (posMasterList.size() > 0) {
+            return posMasterList.stream().map(p -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", p.getInsuranceGroupMasterId());
+                map.put("title", p.getInsuranceGroupMasterName());
+                return map;
+            }).collect(Collectors.toList());
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 }

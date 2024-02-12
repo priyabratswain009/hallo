@@ -211,7 +211,7 @@ class ItemGroupAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemGroupAuditLog() throws Exception {
+    void putNewItemGroupAuditLog() throws Exception {
         // Initialize the database
         itemGroupAuditLogRepository.saveAndFlush(itemGroupAuditLog);
 

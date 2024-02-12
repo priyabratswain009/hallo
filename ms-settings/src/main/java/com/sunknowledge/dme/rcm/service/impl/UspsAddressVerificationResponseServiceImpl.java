@@ -46,7 +46,7 @@ public class UspsAddressVerificationResponseServiceImpl implements UspsAddressVe
 
     @Override
     public UspsAddressVerificationResponseDTO update(UspsAddressVerificationResponseDTO uspsAddressVerificationResponseDTO) {
-        log.debug("Request to save UspsAddressVerificationResponse : {}", uspsAddressVerificationResponseDTO);
+        log.debug("Request to update UspsAddressVerificationResponse : {}", uspsAddressVerificationResponseDTO);
         UspsAddressVerificationResponse uspsAddressVerificationResponse = uspsAddressVerificationResponseMapper.toEntity(
             uspsAddressVerificationResponseDTO
         );

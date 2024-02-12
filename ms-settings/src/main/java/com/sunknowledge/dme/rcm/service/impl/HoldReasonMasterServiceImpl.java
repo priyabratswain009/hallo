@@ -44,7 +44,7 @@ public class HoldReasonMasterServiceImpl implements HoldReasonMasterService {
 
     @Override
     public HoldReasonMasterDTO update(HoldReasonMasterDTO holdReasonMasterDTO) {
-        log.debug("Request to save HoldReasonMaster : {}", holdReasonMasterDTO);
+        log.debug("Request to update HoldReasonMaster : {}", holdReasonMasterDTO);
         HoldReasonMaster holdReasonMaster = holdReasonMasterMapper.toEntity(holdReasonMasterDTO);
         holdReasonMaster = holdReasonMasterRepository.save(holdReasonMaster);
         return holdReasonMasterMapper.toDto(holdReasonMaster);

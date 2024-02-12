@@ -44,7 +44,7 @@ public class ItemMasterAuditLogServiceImpl implements ItemMasterAuditLogService 
 
     @Override
     public ItemMasterAuditLogDTO update(ItemMasterAuditLogDTO itemMasterAuditLogDTO) {
-        log.debug("Request to update ItemMasterAuditLog : {}", itemMasterAuditLogDTO);
+        log.debug("Request to save ItemMasterAuditLog : {}", itemMasterAuditLogDTO);
         ItemMasterAuditLog itemMasterAuditLog = itemMasterAuditLogMapper.toEntity(itemMasterAuditLogDTO);
         itemMasterAuditLog = itemMasterAuditLogRepository.save(itemMasterAuditLog);
         return itemMasterAuditLogMapper.toDto(itemMasterAuditLog);

@@ -44,7 +44,7 @@ public class BranchItemLocationMapServiceImpl implements BranchItemLocationMapSe
 
     @Override
     public BranchItemLocationMapDTO update(BranchItemLocationMapDTO branchItemLocationMapDTO) {
-        log.debug("Request to save BranchItemLocationMap : {}", branchItemLocationMapDTO);
+        log.debug("Request to update BranchItemLocationMap : {}", branchItemLocationMapDTO);
         BranchItemLocationMap branchItemLocationMap = branchItemLocationMapMapper.toEntity(branchItemLocationMapDTO);
         branchItemLocationMap = branchItemLocationMapRepository.save(branchItemLocationMap);
         return branchItemLocationMapMapper.toDto(branchItemLocationMap);

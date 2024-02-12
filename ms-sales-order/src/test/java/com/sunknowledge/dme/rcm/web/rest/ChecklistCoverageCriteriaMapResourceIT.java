@@ -21,9 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -77,6 +74,12 @@ class ChecklistCoverageCriteriaMapResourceIT {
     private static final String DEFAULT_COVERAGE_CRITERIA_NAME = "AAAAAAAAAA";
     private static final String UPDATED_COVERAGE_CRITERIA_NAME = "BBBBBBBBBB";
 
+    private static final Long DEFAULT_ITEM_GROUP_ID = 1L;
+    private static final Long UPDATED_ITEM_GROUP_ID = 2L;
+
+    private static final String DEFAULT_ITEM_GROUP_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_ITEM_GROUP_NAME = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/checklist-coverage-criteria-maps";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{checklistCoverageCriteriaId}";
 
@@ -117,7 +120,9 @@ class ChecklistCoverageCriteriaMapResourceIT {
             .updatedById(DEFAULT_UPDATED_BY_ID)
             .updatedByName(DEFAULT_UPDATED_BY_NAME)
             .checklistCoverageCriteriaMapUuid(DEFAULT_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID)
-            .coverageCriteriaName(DEFAULT_COVERAGE_CRITERIA_NAME);
+            .coverageCriteriaName(DEFAULT_COVERAGE_CRITERIA_NAME)
+            .itemGroupId(DEFAULT_ITEM_GROUP_ID)
+            .itemGroupName(DEFAULT_ITEM_GROUP_NAME);
         return checklistCoverageCriteriaMap;
     }
 
@@ -141,7 +146,9 @@ class ChecklistCoverageCriteriaMapResourceIT {
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .checklistCoverageCriteriaMapUuid(UPDATED_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID)
-            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME);
+            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME);
         return checklistCoverageCriteriaMap;
     }
 
@@ -208,6 +215,8 @@ class ChecklistCoverageCriteriaMapResourceIT {
         assertThat(testChecklistCoverageCriteriaMap.getChecklistCoverageCriteriaMapUuid())
             .isEqualTo(DEFAULT_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID);
         assertThat(testChecklistCoverageCriteriaMap.getCoverageCriteriaName()).isEqualTo(DEFAULT_COVERAGE_CRITERIA_NAME);
+        assertThat(testChecklistCoverageCriteriaMap.getItemGroupId()).isEqualTo(DEFAULT_ITEM_GROUP_ID);
+        assertThat(testChecklistCoverageCriteriaMap.getItemGroupName()).isEqualTo(DEFAULT_ITEM_GROUP_NAME);
     }
 
     @Test
@@ -281,7 +290,11 @@ class ChecklistCoverageCriteriaMapResourceIT {
             .jsonPath("$.[*].checklistCoverageCriteriaMapUuid")
             .value(hasItem(DEFAULT_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID.toString()))
             .jsonPath("$.[*].coverageCriteriaName")
-            .value(hasItem(DEFAULT_COVERAGE_CRITERIA_NAME));
+            .value(hasItem(DEFAULT_COVERAGE_CRITERIA_NAME))
+            .jsonPath("$.[*].itemGroupId")
+            .value(hasItem(DEFAULT_ITEM_GROUP_ID.intValue()))
+            .jsonPath("$.[*].itemGroupName")
+            .value(hasItem(DEFAULT_ITEM_GROUP_NAME));
     }
 
     @Test
@@ -327,7 +340,11 @@ class ChecklistCoverageCriteriaMapResourceIT {
             .jsonPath("$.checklistCoverageCriteriaMapUuid")
             .value(is(DEFAULT_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID.toString()))
             .jsonPath("$.coverageCriteriaName")
-            .value(is(DEFAULT_COVERAGE_CRITERIA_NAME));
+            .value(is(DEFAULT_COVERAGE_CRITERIA_NAME))
+            .jsonPath("$.itemGroupId")
+            .value(is(DEFAULT_ITEM_GROUP_ID.intValue()))
+            .jsonPath("$.itemGroupName")
+            .value(is(DEFAULT_ITEM_GROUP_NAME));
     }
 
     @Test
@@ -343,7 +360,7 @@ class ChecklistCoverageCriteriaMapResourceIT {
     }
 
     @Test
-    void putNewChecklistCoverageCriteriaMap() throws Exception {
+    void putExistingChecklistCoverageCriteriaMap() throws Exception {
         // Initialize the database
         checklistCoverageCriteriaMapRepository.save(checklistCoverageCriteriaMap).block();
 
@@ -366,7 +383,9 @@ class ChecklistCoverageCriteriaMapResourceIT {
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .checklistCoverageCriteriaMapUuid(UPDATED_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID)
-            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME);
+            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME);
         ChecklistCoverageCriteriaMapDTO checklistCoverageCriteriaMapDTO = checklistCoverageCriteriaMapMapper.toDto(
             updatedChecklistCoverageCriteriaMap
         );
@@ -403,6 +422,8 @@ class ChecklistCoverageCriteriaMapResourceIT {
         assertThat(testChecklistCoverageCriteriaMap.getChecklistCoverageCriteriaMapUuid())
             .isEqualTo(UPDATED_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID);
         assertThat(testChecklistCoverageCriteriaMap.getCoverageCriteriaName()).isEqualTo(UPDATED_COVERAGE_CRITERIA_NAME);
+        assertThat(testChecklistCoverageCriteriaMap.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testChecklistCoverageCriteriaMap.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
     }
 
     @Test
@@ -511,7 +532,8 @@ class ChecklistCoverageCriteriaMapResourceIT {
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .checklistCoverageCriteriaMapUuid(UPDATED_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID)
-            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME);
+            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID);
 
         webTestClient
             .patch()
@@ -545,6 +567,8 @@ class ChecklistCoverageCriteriaMapResourceIT {
         assertThat(testChecklistCoverageCriteriaMap.getChecklistCoverageCriteriaMapUuid())
             .isEqualTo(UPDATED_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID);
         assertThat(testChecklistCoverageCriteriaMap.getCoverageCriteriaName()).isEqualTo(UPDATED_COVERAGE_CRITERIA_NAME);
+        assertThat(testChecklistCoverageCriteriaMap.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testChecklistCoverageCriteriaMap.getItemGroupName()).isEqualTo(DEFAULT_ITEM_GROUP_NAME);
     }
 
     @Test
@@ -573,7 +597,9 @@ class ChecklistCoverageCriteriaMapResourceIT {
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .checklistCoverageCriteriaMapUuid(UPDATED_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID)
-            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME);
+            .coverageCriteriaName(UPDATED_COVERAGE_CRITERIA_NAME)
+            .itemGroupId(UPDATED_ITEM_GROUP_ID)
+            .itemGroupName(UPDATED_ITEM_GROUP_NAME);
 
         webTestClient
             .patch()
@@ -607,6 +633,8 @@ class ChecklistCoverageCriteriaMapResourceIT {
         assertThat(testChecklistCoverageCriteriaMap.getChecklistCoverageCriteriaMapUuid())
             .isEqualTo(UPDATED_CHECKLIST_COVERAGE_CRITERIA_MAP_UUID);
         assertThat(testChecklistCoverageCriteriaMap.getCoverageCriteriaName()).isEqualTo(UPDATED_COVERAGE_CRITERIA_NAME);
+        assertThat(testChecklistCoverageCriteriaMap.getItemGroupId()).isEqualTo(UPDATED_ITEM_GROUP_ID);
+        assertThat(testChecklistCoverageCriteriaMap.getItemGroupName()).isEqualTo(UPDATED_ITEM_GROUP_NAME);
     }
 
     @Test

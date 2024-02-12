@@ -840,4 +840,37 @@ updatedByName String
 stopReasonMasterUuid UUID
 }
 
+entity UserMaster(t_user_master){
+	@Id userId Long
+    firstName String
+    middleName String
+    lastName String
+    dob LocalDate
+    age Long
+    gender String
+    status String
+    createdById Long
+    createdDate LocalDate
+    createdByName String
+    updatedByName String
+    updatedById Long
+    updatedDate LocalDate
+    userMasterUuid UUID
+    addressLine1 String
+    addressLine2 String
+    city String
+    state String
+    country String
+    zip String
+    contactNo1 String
+    contactNo2 String
+    fax String
+    efax String
+    email String
+    jobTitle String
+    modeOfContact String
+	isDeactivate Boolean
+	username String
+	password String
+}
 use mapstruct, serviceImpl, pagination for all

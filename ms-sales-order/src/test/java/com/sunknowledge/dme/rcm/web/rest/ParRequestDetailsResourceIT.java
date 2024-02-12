@@ -25,9 +25,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -111,6 +108,9 @@ class ParRequestDetailsResourceIT {
     private static final UUID DEFAULT_PAR_REQUEST_DETAILS_UUID = UUID.randomUUID();
     private static final UUID UPDATED_PAR_REQUEST_DETAILS_UUID = UUID.randomUUID();
 
+    private static final LocalDate DEFAULT_FAX_RESPONSE_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FAX_RESPONSE_DATE = LocalDate.now(ZoneId.systemDefault());
+
     private static final String ENTITY_API_URL = "/api/par-request-details";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{parRequestDetailsId}";
 
@@ -161,7 +161,8 @@ class ParRequestDetailsResourceIT {
             .updatedById(DEFAULT_UPDATED_BY_ID)
             .updatedByName(DEFAULT_UPDATED_BY_NAME)
             .updatedDate(DEFAULT_UPDATED_DATE)
-            .parRequestDetailsUuid(DEFAULT_PAR_REQUEST_DETAILS_UUID);
+            .parRequestDetailsUuid(DEFAULT_PAR_REQUEST_DETAILS_UUID)
+            .faxResponseDate(DEFAULT_FAX_RESPONSE_DATE);
         return parRequestDetails;
     }
 
@@ -195,7 +196,8 @@ class ParRequestDetailsResourceIT {
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .updatedDate(UPDATED_UPDATED_DATE)
-            .parRequestDetailsUuid(UPDATED_PAR_REQUEST_DETAILS_UUID);
+            .parRequestDetailsUuid(UPDATED_PAR_REQUEST_DETAILS_UUID)
+            .faxResponseDate(UPDATED_FAX_RESPONSE_DATE);
         return parRequestDetails;
     }
 
@@ -264,6 +266,7 @@ class ParRequestDetailsResourceIT {
         assertThat(testParRequestDetails.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testParRequestDetails.getUpdatedDate()).isEqualTo(DEFAULT_UPDATED_DATE);
         assertThat(testParRequestDetails.getParRequestDetailsUuid()).isEqualTo(DEFAULT_PAR_REQUEST_DETAILS_UUID);
+        assertThat(testParRequestDetails.getFaxResponseDate()).isEqualTo(DEFAULT_FAX_RESPONSE_DATE);
     }
 
     @Test
@@ -352,7 +355,9 @@ class ParRequestDetailsResourceIT {
             .jsonPath("$.[*].updatedDate")
             .value(hasItem(DEFAULT_UPDATED_DATE.toString()))
             .jsonPath("$.[*].parRequestDetailsUuid")
-            .value(hasItem(DEFAULT_PAR_REQUEST_DETAILS_UUID.toString()));
+            .value(hasItem(DEFAULT_PAR_REQUEST_DETAILS_UUID.toString()))
+            .jsonPath("$.[*].faxResponseDate")
+            .value(hasItem(DEFAULT_FAX_RESPONSE_DATE.toString()));
     }
 
     @Test
@@ -418,7 +423,9 @@ class ParRequestDetailsResourceIT {
             .jsonPath("$.updatedDate")
             .value(is(DEFAULT_UPDATED_DATE.toString()))
             .jsonPath("$.parRequestDetailsUuid")
-            .value(is(DEFAULT_PAR_REQUEST_DETAILS_UUID.toString()));
+            .value(is(DEFAULT_PAR_REQUEST_DETAILS_UUID.toString()))
+            .jsonPath("$.faxResponseDate")
+            .value(is(DEFAULT_FAX_RESPONSE_DATE.toString()));
     }
 
     @Test
@@ -434,7 +441,7 @@ class ParRequestDetailsResourceIT {
     }
 
     @Test
-    void putNewParRequestDetails() throws Exception {
+    void putExistingParRequestDetails() throws Exception {
         // Initialize the database
         parRequestDetailsRepository.save(parRequestDetails).block();
 
@@ -467,7 +474,8 @@ class ParRequestDetailsResourceIT {
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .updatedDate(UPDATED_UPDATED_DATE)
-            .parRequestDetailsUuid(UPDATED_PAR_REQUEST_DETAILS_UUID);
+            .parRequestDetailsUuid(UPDATED_PAR_REQUEST_DETAILS_UUID)
+            .faxResponseDate(UPDATED_FAX_RESPONSE_DATE);
         ParRequestDetailsDTO parRequestDetailsDTO = parRequestDetailsMapper.toDto(updatedParRequestDetails);
 
         webTestClient
@@ -506,6 +514,7 @@ class ParRequestDetailsResourceIT {
         assertThat(testParRequestDetails.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testParRequestDetails.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
         assertThat(testParRequestDetails.getParRequestDetailsUuid()).isEqualTo(UPDATED_PAR_REQUEST_DETAILS_UUID);
+        assertThat(testParRequestDetails.getFaxResponseDate()).isEqualTo(UPDATED_FAX_RESPONSE_DATE);
     }
 
     @Test
@@ -601,7 +610,8 @@ class ParRequestDetailsResourceIT {
             .createdDate(UPDATED_CREATED_DATE)
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedDate(UPDATED_UPDATED_DATE)
-            .parRequestDetailsUuid(UPDATED_PAR_REQUEST_DETAILS_UUID);
+            .parRequestDetailsUuid(UPDATED_PAR_REQUEST_DETAILS_UUID)
+            .faxResponseDate(UPDATED_FAX_RESPONSE_DATE);
 
         webTestClient
             .patch()
@@ -639,6 +649,7 @@ class ParRequestDetailsResourceIT {
         assertThat(testParRequestDetails.getUpdatedByName()).isEqualTo(DEFAULT_UPDATED_BY_NAME);
         assertThat(testParRequestDetails.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
         assertThat(testParRequestDetails.getParRequestDetailsUuid()).isEqualTo(UPDATED_PAR_REQUEST_DETAILS_UUID);
+        assertThat(testParRequestDetails.getFaxResponseDate()).isEqualTo(UPDATED_FAX_RESPONSE_DATE);
     }
 
     @Test
@@ -675,7 +686,8 @@ class ParRequestDetailsResourceIT {
             .updatedById(UPDATED_UPDATED_BY_ID)
             .updatedByName(UPDATED_UPDATED_BY_NAME)
             .updatedDate(UPDATED_UPDATED_DATE)
-            .parRequestDetailsUuid(UPDATED_PAR_REQUEST_DETAILS_UUID);
+            .parRequestDetailsUuid(UPDATED_PAR_REQUEST_DETAILS_UUID)
+            .faxResponseDate(UPDATED_FAX_RESPONSE_DATE);
 
         webTestClient
             .patch()
@@ -713,6 +725,7 @@ class ParRequestDetailsResourceIT {
         assertThat(testParRequestDetails.getUpdatedByName()).isEqualTo(UPDATED_UPDATED_BY_NAME);
         assertThat(testParRequestDetails.getUpdatedDate()).isEqualTo(UPDATED_UPDATED_DATE);
         assertThat(testParRequestDetails.getParRequestDetailsUuid()).isEqualTo(UPDATED_PAR_REQUEST_DETAILS_UUID);
+        assertThat(testParRequestDetails.getFaxResponseDate()).isEqualTo(UPDATED_FAX_RESPONSE_DATE);
     }
 
     @Test

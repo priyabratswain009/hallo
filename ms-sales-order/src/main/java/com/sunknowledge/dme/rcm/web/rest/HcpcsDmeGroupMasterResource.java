@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +67,7 @@ public class HcpcsDmeGroupMasterResource {
      */
     @PostMapping("/hcpcs-dme-group-masters")
     public Mono<ResponseEntity<HcpcsDmeGroupMasterDTO>> createHcpcsDmeGroupMaster(
-        @RequestBody HcpcsDmeGroupMasterDTO hcpcsDmeGroupMasterDTO
+        @Valid @RequestBody HcpcsDmeGroupMasterDTO hcpcsDmeGroupMasterDTO
     ) throws URISyntaxException {
         log.debug("REST request to save HcpcsDmeGroupMaster : {}", hcpcsDmeGroupMasterDTO);
         if (hcpcsDmeGroupMasterDTO.getHcpcsDmeId() != null) {
@@ -100,7 +102,7 @@ public class HcpcsDmeGroupMasterResource {
     @PutMapping("/hcpcs-dme-group-masters/{hcpcsDmeId}")
     public Mono<ResponseEntity<HcpcsDmeGroupMasterDTO>> updateHcpcsDmeGroupMaster(
         @PathVariable(value = "hcpcsDmeId", required = false) final Long hcpcsDmeId,
-        @RequestBody HcpcsDmeGroupMasterDTO hcpcsDmeGroupMasterDTO
+        @Valid @RequestBody HcpcsDmeGroupMasterDTO hcpcsDmeGroupMasterDTO
     ) throws URISyntaxException {
         log.debug("REST request to update HcpcsDmeGroupMaster : {}, {}", hcpcsDmeId, hcpcsDmeGroupMasterDTO);
         if (hcpcsDmeGroupMasterDTO.getHcpcsDmeId() == null) {
@@ -145,7 +147,7 @@ public class HcpcsDmeGroupMasterResource {
     @PatchMapping(value = "/hcpcs-dme-group-masters/{hcpcsDmeId}", consumes = { "application/json", "application/merge-patch+json" })
     public Mono<ResponseEntity<HcpcsDmeGroupMasterDTO>> partialUpdateHcpcsDmeGroupMaster(
         @PathVariable(value = "hcpcsDmeId", required = false) final Long hcpcsDmeId,
-        @RequestBody HcpcsDmeGroupMasterDTO hcpcsDmeGroupMasterDTO
+        @NotNull @RequestBody HcpcsDmeGroupMasterDTO hcpcsDmeGroupMasterDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update HcpcsDmeGroupMaster partially : {}, {}", hcpcsDmeId, hcpcsDmeGroupMasterDTO);
         if (hcpcsDmeGroupMasterDTO.getHcpcsDmeId() == null) {
@@ -226,16 +228,17 @@ public class HcpcsDmeGroupMasterResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/hcpcs-dme-group-masters/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteHcpcsDmeGroupMaster(@PathVariable Long id) {
         log.debug("REST request to delete HcpcsDmeGroupMaster : {}", id);
         return hcpcsDmeGroupMasterService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

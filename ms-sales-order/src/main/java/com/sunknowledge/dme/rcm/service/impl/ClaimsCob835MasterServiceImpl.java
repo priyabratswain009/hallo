@@ -44,7 +44,7 @@ public class ClaimsCob835MasterServiceImpl implements ClaimsCob835MasterService 
 
     @Override
     public Mono<ClaimsCob835MasterDTO> update(ClaimsCob835MasterDTO claimsCob835MasterDTO) {
-        log.debug("Request to save ClaimsCob835Master : {}", claimsCob835MasterDTO);
+        log.debug("Request to update ClaimsCob835Master : {}", claimsCob835MasterDTO);
         return claimsCob835MasterRepository
             .save(claimsCob835MasterMapper.toEntity(claimsCob835MasterDTO))
             .map(claimsCob835MasterMapper::toDto);

@@ -15,5 +15,5 @@ public class ClaimProgramMasterExtendedDTO {
 
     private String claimProgramMasterValue;
 
-    private String status;
+    //private String status;
 }

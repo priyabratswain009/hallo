@@ -4,6 +4,7 @@ import com.sunknowledge.dme.rcm.domain.BranchOffice;
 import com.sunknowledge.dme.rcm.repository.branch.BranchOfficeRepositoryExtended;
 import com.sunknowledge.dme.rcm.service.branch.BranchOfficeServiceExtended;
 import com.sunknowledge.dme.rcm.service.dto.BranchOfficeDTO;
+import com.sunknowledge.dme.rcm.service.dto.branch.BranchOfficeExtendedDTO;
 import com.sunknowledge.dme.rcm.service.dto.branch.BranchOfficeParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.branch.BranchOfficeRejectedDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
@@ -84,7 +85,7 @@ public class BranchOfficeServiceExtendedImpl implements BranchOfficeServiceExten
             if(skipped > 0){
                 message += " and Skipped " + skipped + " Rows";
             }
-            return (new ResponseDTO(Boolean.TRUE,message,List.of(branchOfficeBothData.get("SkippedBranchOfficeDTO"))));
+            return (new ResponseDTO(Boolean.TRUE,message,List.of(branchOfficeBothData.get("SkippedBranchOfficeDTO")),200));
         } catch (IOException e) {
             log.error("=====>> Error : "+e);
             throw new RuntimeException("Fail to store csv data: " + e.getMessage());
@@ -97,23 +98,23 @@ public class BranchOfficeServiceExtendedImpl implements BranchOfficeServiceExten
         Set uniqueBranchIdSet = branchOfficeRepositoryExtended.findAll().stream().map(x -> x.getBranchId()).collect(Collectors.toSet());
 
         if (branchOfficeParameterDTO.getNpi() == null) {
-            return (new ResponseDTO(Boolean.FALSE,"Invalid Attribute (Npi)",null));
+            return (new ResponseDTO(Boolean.FALSE,"Invalid Attribute (Npi)",null,200));
             //throw new InvalidAttributeValueException("Invalid Attribute (Npi)");
         } else if (branchOfficeParameterDTO.getBranchName() == null) {
-            return (new ResponseDTO(Boolean.FALSE,"Invalid Attribute (branch_name)",null));
+            return (new ResponseDTO(Boolean.FALSE,"Invalid Attribute (branch_name)",null,200));
             //throw new InvalidAttributeValueException("Invalid Attribute (branch_name)");
         } else if (branchOfficeParameterDTO.getNpi().trim() == "") {
-            return (new ResponseDTO(Boolean.FALSE,"Npi must be provided",null));
+            return (new ResponseDTO(Boolean.FALSE,"Npi must be provided",null,200));
             //throw new InputMismatchException("Npi must be provided");
         } else if (branchOfficeParameterDTO.getBranchName().trim() == "") {
-            return (new ResponseDTO(Boolean.FALSE,"Branch_name must be provided",null));
+            return (new ResponseDTO(Boolean.FALSE,"Branch_name must be provided",null,200));
             //throw new InputMismatchException("Branch_name must be provided");
         } else if((branchOfficeParameterDTO.getBranchId() == null || branchOfficeParameterDTO.getBranchId() == 0) && uniqueNpiSet.contains(branchOfficeParameterDTO.getNpi())){
-            return (new ResponseDTO(Boolean.FALSE,"("+ branchOfficeParameterDTO.getNpi() +") "+"Npi already exist",null));
+            return (new ResponseDTO(Boolean.FALSE,"("+ branchOfficeParameterDTO.getNpi() +") "+"Npi already exist",null,200));
             //throw new InputMismatchException("("+ branchOfficeParameterDTO.getNpi() +") "+"Npi already exist");
         } else if(!uniqueBranchIdSet.contains(branchOfficeParameterDTO.getBranchId()) &&
             uniqueNpiSet.contains(branchOfficeParameterDTO.getNpi())){
-            return (new ResponseDTO(Boolean.FALSE,"("+ branchOfficeParameterDTO.getNpi() +") "+"Npi already exist",null));
+            return (new ResponseDTO(Boolean.FALSE,"("+ branchOfficeParameterDTO.getNpi() +") "+"Npi already exist",null,200));
             //throw new InputMismatchException("("+ branchOfficeParameterDTO.getNpi() +") "+"Npi already exist");
         }
         BranchOfficeDTO branchOfficeDTO = (branchOfficeParameterDTO.getBranchId() == null ||
@@ -139,7 +140,7 @@ public class BranchOfficeServiceExtendedImpl implements BranchOfficeServiceExten
         BranchOfficeDTO savedBranchOfficeDTO = branchOfficeMapper.toDto(
             branchOfficeRepositoryExtended.save(branchOfficeMapper.toEntity(branchOfficeDTO))
         );
-        return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",savedBranchOfficeDTO));
+        return (new ResponseDTO(Boolean.TRUE,"Successfully Saved",savedBranchOfficeDTO,200));
     }
 
     @Override
@@ -163,22 +164,26 @@ public class BranchOfficeServiceExtendedImpl implements BranchOfficeServiceExten
     }
 
     @Override
-    public ResponseDTO setBranchOfficeStatusById(Long id, String status) {
+    public ResponseDTO setBranchOfficeStatusByUuid(UUID uuid, String status) {
         if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
             try{
-                BranchOffice branchOffice = branchOfficeRepositoryExtended.findByBranchId(id);
-                branchOffice.setStatus(status);
-                branchOffice.setUpdatedById(1l);
-                branchOffice.setUpdatedByName("Updated Test");
-                branchOffice.setUpdatedDate(LocalDate.now());
-                branchOfficeRepositoryExtended.save(branchOffice);
-                return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", branchOffice));
+                Optional<BranchOffice> obj = branchOfficeRepositoryExtended.findByBranchOfficeUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    branchOfficeRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
             }catch (Exception e){
                 log.error("=====>> Error : "+e);
-                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>()));
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",new ArrayList<>(),200));
             }
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>()));
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", new ArrayList<>(),200));
         }
     }
 
@@ -199,9 +204,17 @@ public class BranchOfficeServiceExtendedImpl implements BranchOfficeServiceExten
     }
 
     @Override
-    public List<BranchOfficeDTO> getAllBranchOfficeData() {
+    public List<BranchOfficeExtendedDTO> getAllBranchOfficeData() {
         List<BranchOffice> data = branchOfficeRepositoryExtended.findByStatusIgnoreCase("active");
-        return branchOfficeMapper.toDto(data);
+        List<BranchOfficeExtendedDTO> branchOfficeExtendedDTOS = new ArrayList<>();
+        for(BranchOffice branchOffice:data){
+            BranchOfficeExtendedDTO branchOfficeExtendedDTO = new BranchOfficeExtendedDTO();
+            BeanUtils.copyProperties(branchOffice,branchOfficeExtendedDTO);
+            branchOfficeExtendedDTO.setId(branchOffice.getBranchId());
+            branchOfficeExtendedDTO.setTitle(branchOffice.getBranchName());
+            branchOfficeExtendedDTOS.add(branchOfficeExtendedDTO);
+        }
+        return branchOfficeExtendedDTOS;
     }
 
     @Override

@@ -211,7 +211,7 @@ class BranchOfficeAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewBranchOfficeAuditLog() throws Exception {
+    void putExistingBranchOfficeAuditLog() throws Exception {
         // Initialize the database
         branchOfficeAuditLogRepository.saveAndFlush(branchOfficeAuditLog);
 

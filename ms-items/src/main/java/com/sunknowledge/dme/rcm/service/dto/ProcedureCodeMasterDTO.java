@@ -8,7 +8,6 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ProcedureCodeMaster} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ProcedureCodeMasterDTO implements Serializable {
 
     private Long procedureCodeId;

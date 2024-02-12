@@ -44,7 +44,7 @@ public class ItemItemlocationMapServiceImpl implements ItemItemlocationMapServic
 
     @Override
     public ItemItemlocationMapDTO update(ItemItemlocationMapDTO itemItemlocationMapDTO) {
-        log.debug("Request to update ItemItemlocationMap : {}", itemItemlocationMapDTO);
+        log.debug("Request to save ItemItemlocationMap : {}", itemItemlocationMapDTO);
         ItemItemlocationMap itemItemlocationMap = itemItemlocationMapMapper.toEntity(itemItemlocationMapDTO);
         itemItemlocationMap = itemItemlocationMapRepository.save(itemItemlocationMap);
         return itemItemlocationMapMapper.toDto(itemItemlocationMap);

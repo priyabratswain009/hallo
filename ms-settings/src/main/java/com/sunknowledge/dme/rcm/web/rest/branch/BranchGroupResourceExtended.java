@@ -3,8 +3,10 @@ package com.sunknowledge.dme.rcm.web.rest.branch;
 import com.sunknowledge.dme.rcm.exception.BranchNotFoundException;
 import com.sunknowledge.dme.rcm.service.branch.BranchGroupServiceExtended;
 import com.sunknowledge.dme.rcm.service.dto.BranchGroupDTO;
+import com.sunknowledge.dme.rcm.service.dto.branch.BranchGroupExtendedDTO;
 import com.sunknowledge.dme.rcm.service.dto.branch.BranchGroupParameterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
+import com.sunknowledge.dme.rcm.service.dto.common.ServiceOutcome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 @Validated
@@ -62,7 +66,7 @@ public class BranchGroupResourceExtended {
         @Min(value=1, message="Branch_Group_Id must be greater than or equal to 1")
         @RequestParam("branchGroupId") Long branchGroupId){
         BranchGroupDTO obj = branchGroupServiceExtended.getBranchGroupById(branchGroupId);
-        return (new ResponseDTO(obj!=null?true:false, obj!=null? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj!=null?true:false, obj!=null? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getActiveBranchGroupById")
@@ -70,7 +74,7 @@ public class BranchGroupResourceExtended {
         @Min(value=1, message="Branch_Group_Id must be greater than or equal to 1")
         @RequestParam("branchGroupId") Long branchGroupId){
         List<BranchGroupDTO> obj = branchGroupServiceExtended.getActiveBranchGroupById(branchGroupId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchGroupByBranchGroupName")
@@ -79,7 +83,7 @@ public class BranchGroupResourceExtended {
         @RequestParam("branchGroupName") String branchGroupName){
         List<BranchGroupDTO> obj = branchGroupName.trim()!=""?
             branchGroupServiceExtended.getBranchGroupByBranchGroupName(branchGroupName):new ArrayList<>();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchGroupByCompanyId")
@@ -87,13 +91,13 @@ public class BranchGroupResourceExtended {
         @NotBlank(message = "Company_Id must be provided")
         @RequestParam("companyId") Long companyId){
         List<BranchGroupDTO> obj = branchGroupServiceExtended.getBranchGroupByCompanyId(companyId);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getAllBranchGroupData")
     public ResponseDTO getAllBranchGroupData(){
-        List<BranchGroupDTO> obj = branchGroupServiceExtended.getAllBranchGroupData();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        List<BranchGroupExtendedDTO> obj = branchGroupServiceExtended.getAllBranchGroupData();
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
     @GetMapping("/getBranchGroupByStatus")
@@ -101,16 +105,22 @@ public class BranchGroupResourceExtended {
         @NotBlank(message = "Status must be provided")
         @RequestParam("status") String status){
 
-        List<BranchGroupDTO> obj = branchGroupServiceExtended.getBranchGroupByStatus(status);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        List<BranchGroupExtendedDTO> obj = branchGroupServiceExtended.getBranchGroupByStatus(status);
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
     }
 
-    @PutMapping("/setBranchGroupStatusById/{id}/{status}")
-    public ResponseDTO setBranchGroupStatusById(
-        @PathVariable("id") Long id,
+    @PutMapping("/setBranchGroupStatusByUUID")
+    public ResponseDTO setBranchGroupStatusByUUID(
+        @RequestParam("uuid") UUID uuid,
         @NotBlank(message = "Status must be provided")
-        @PathVariable("status") String status){
+        @RequestParam("status") String status){
 
-        return branchGroupServiceExtended.setBranchGroupStatusById(id,status);
+        return branchGroupServiceExtended.setBranchGroupStatusByUUID(uuid,status);
+    }
+
+    @GetMapping("/getBranchGroupForDropdown")
+    public ServiceOutcome getBranchGroupForDropdown(){
+        List<Map<String, Object>> list =  branchGroupServiceExtended.getBranchGroupForDropdown();
+        return (new ServiceOutcome(list, list.size() > 0 ? true : false, list.size() > 0 ? "" : "Data Not Found.",200));
     }
 }

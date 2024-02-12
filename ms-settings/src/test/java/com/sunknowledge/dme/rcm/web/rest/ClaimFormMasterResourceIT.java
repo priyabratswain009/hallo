@@ -236,7 +236,7 @@ class ClaimFormMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewClaimFormMaster() throws Exception {
+    void putExistingClaimFormMaster() throws Exception {
         // Initialize the database
         claimFormMasterRepository.saveAndFlush(claimFormMaster);
 

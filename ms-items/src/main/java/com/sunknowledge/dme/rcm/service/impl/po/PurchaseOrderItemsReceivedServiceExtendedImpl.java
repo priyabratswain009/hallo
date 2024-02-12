@@ -1,15 +1,13 @@
 package com.sunknowledge.dme.rcm.service.impl.po;
 
 import com.sunknowledge.dme.rcm.repository.po.PurchaseOrderItemsReceivedRepositoryExtended;
-import com.sunknowledge.dme.rcm.service.dto.ItemItemlocationMapDTO;
 import com.sunknowledge.dme.rcm.service.dto.ItemMasterDTO;
-import com.sunknowledge.dme.rcm.service.dto.ItemVendorMappingDTO;
 import com.sunknowledge.dme.rcm.service.dto.PurchaseOrderItemsReceivedDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.po.ReceiptDropshipPurchaseOrderParameterDTO;
 import com.sunknowledge.dme.rcm.service.items.ItemMasterServiceExtended;
-import com.sunknowledge.dme.rcm.service.po.PurchaseOrderItemsReceivedServiceExtended;
 import com.sunknowledge.dme.rcm.service.mapper.PurchaseOrderItemsReceivedMapper;
+import com.sunknowledge.dme.rcm.service.po.PurchaseOrderItemsReceivedServiceExtended;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -150,31 +148,31 @@ public class PurchaseOrderItemsReceivedServiceExtendedImpl implements PurchaseOr
                             System.out.println("Correct Data set.");
                             return new ResponseDTO(true,
                                 "Data Saved Successfully.",
-                                List.of(obj));
+                                List.of(obj), 200);
                         }else{
                             return new ResponseDTO(false,
                                 "Data Not Saved.",
-                                 new ArrayList<>());
+                                 new ArrayList<>(), 200);
                         }
                     }else{
                         log.info("Wrong Data set.");
                         return new ResponseDTO(false,
                             "Data Not Saved.",
-                            new ArrayList<>());
+                            new ArrayList<>(), 200);
                     }
                 } else {
                     return new ResponseDTO(false,
                         "Item_Ids and Received_Item_Quantity should be same no of count.",
-                        new ArrayList());
+                        new ArrayList(), 200);
                 }
             }else{
                 return new ResponseDTO(false,
                     "This item(s) does not exist!",
-                    new ArrayList());
+                    new ArrayList(), 200);
             }
         } catch (Exception e) {
             log.error("==========> Exception=" + e);
-            return new ResponseDTO(false, "Failed to Save :: Data Error", new ArrayList());
+            return new ResponseDTO(false, "Failed to Save :: Data Error", new ArrayList(), 200);
         }
         //return null;
     }

@@ -44,7 +44,7 @@ public class SalesOrderDocumentsServiceImpl implements SalesOrderDocumentsServic
 
     @Override
     public Mono<SalesOrderDocumentsDTO> update(SalesOrderDocumentsDTO salesOrderDocumentsDTO) {
-        log.debug("Request to save SalesOrderDocuments : {}", salesOrderDocumentsDTO);
+        log.debug("Request to update SalesOrderDocuments : {}", salesOrderDocumentsDTO);
         return salesOrderDocumentsRepository
             .save(salesOrderDocumentsMapper.toEntity(salesOrderDocumentsDTO))
             .map(salesOrderDocumentsMapper::toDto);

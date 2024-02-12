@@ -453,6 +453,16 @@ entity PurchaseOrder(t_purchase_order){
 	updatedByName String
 	branchId Long
 	branchName String
+    vendorFaxNo String
+    vendorEmail String
+    vendorFaxRequestStatus String
+    vendorEmailRequestStatus String
+    poRequestDocumentName String
+    poRequestAckReceivedStatus String
+    po850EdiString String
+    po855EdiString String
+    poRequestSendDatetime LocalDate
+    poAckReceivedDatetime LocalDate
 }
 
 entity PurchaseOrderAuditLog(t_purchase_order_audit_log){

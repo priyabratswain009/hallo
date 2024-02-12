@@ -283,7 +283,7 @@ class ItemVendorMappingResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemVendorMapping() throws Exception {
+    void putNewItemVendorMapping() throws Exception {
         // Initialize the database
         itemVendorMappingRepository.saveAndFlush(itemVendorMapping);
 

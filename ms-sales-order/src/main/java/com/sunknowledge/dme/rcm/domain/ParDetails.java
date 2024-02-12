@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ParDetails.
  */
 @Table("t_par_details")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ParDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;

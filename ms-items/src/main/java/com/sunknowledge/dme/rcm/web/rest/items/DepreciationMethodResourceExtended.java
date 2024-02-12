@@ -32,7 +32,7 @@ public class DepreciationMethodResourceExtended {
     @GetMapping("/getAllDepreciationMethodInfo")
     public ResponseDTO getAllDepreciationMethodInfo(){
         List<DepreciationMethodDTO> obj = depreciationMethodServiceExtended.getAllDepreciationMethodInfo();
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 
     @GetMapping("/getDepreciationMethodByUUID")
@@ -41,6 +41,6 @@ public class DepreciationMethodResourceExtended {
         @RequestParam("uuid") UUID uuid){
 
         List<DepreciationMethodDTO> obj = depreciationMethodServiceExtended.getDepreciationMethodByUUID(uuid);
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj, 200));
     }
 }

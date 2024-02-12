@@ -11,7 +11,6 @@ import javax.validation.constraints.*;
  */
 @Entity
 @Table(name = "t_so_item_transaction_details")
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SoItemTransactionDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;

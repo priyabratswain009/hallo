@@ -21,9 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
@@ -430,7 +427,7 @@ class InvoiceLineItemDetailsResourceIT {
     }
 
     @Test
-    void putNewInvoiceLineItemDetails() throws Exception {
+    void putExistingInvoiceLineItemDetails() throws Exception {
         // Initialize the database
         invoiceLineItemDetailsRepository.save(invoiceLineItemDetails).block();
 

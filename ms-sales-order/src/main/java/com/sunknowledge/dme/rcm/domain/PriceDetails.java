@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A PriceDetails.
  */
 @Table("t_price_details")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PriceDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;

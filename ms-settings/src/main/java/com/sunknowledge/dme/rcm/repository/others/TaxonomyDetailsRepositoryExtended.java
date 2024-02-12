@@ -21,4 +21,8 @@ public interface TaxonomyDetailsRepositoryExtended extends TaxonomyDetailsReposi
     List<TaxonomyDetails> findByTaxonomyNameIgnoreCaseAndStatusIgnoreCase(String data, String active);
 
     List<TaxonomyDetails> findByTaxonomyNameLikeIgnoreCaseAndStatusIgnoreCase(String s, String active);
+
+    List<TaxonomyDetails> findByStatusIgnoreCase(String active);
+
+    Optional<TaxonomyDetails> findByTaxonomyDetailsUuid(UUID uuid);
 }

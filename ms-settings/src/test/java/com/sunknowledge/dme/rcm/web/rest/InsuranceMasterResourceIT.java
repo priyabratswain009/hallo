@@ -564,7 +564,7 @@ class InsuranceMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewInsuranceMaster() throws Exception {
+    void putExistingInsuranceMaster() throws Exception {
         // Initialize the database
         insuranceMasterRepository.saveAndFlush(insuranceMaster);
 

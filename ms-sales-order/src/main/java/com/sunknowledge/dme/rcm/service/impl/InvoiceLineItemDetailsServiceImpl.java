@@ -44,7 +44,7 @@ public class InvoiceLineItemDetailsServiceImpl implements InvoiceLineItemDetails
 
     @Override
     public Mono<InvoiceLineItemDetailsDTO> update(InvoiceLineItemDetailsDTO invoiceLineItemDetailsDTO) {
-        log.debug("Request to save InvoiceLineItemDetails : {}", invoiceLineItemDetailsDTO);
+        log.debug("Request to update InvoiceLineItemDetails : {}", invoiceLineItemDetailsDTO);
         return invoiceLineItemDetailsRepository
             .save(invoiceLineItemDetailsMapper.toEntity(invoiceLineItemDetailsDTO))
             .map(invoiceLineItemDetailsMapper::toDto);

@@ -12,9 +12,6 @@ public class SoLcdDocRefTransactionSqlHelper {
         List<Expression> columns = new ArrayList<>();
         columns.add(Column.aliased("so_lcd_doc_ref_id", table, columnPrefix + "_so_lcd_doc_ref_id"));
         columns.add(Column.aliased("so_id", table, columnPrefix + "_so_id"));
-        columns.add(Column.aliased("item_id", table, columnPrefix + "_item_id"));
-        columns.add(Column.aliased("item_name", table, columnPrefix + "_item_name"));
-        columns.add(Column.aliased("hcpcs_code", table, columnPrefix + "_hcpcs_code"));
         columns.add(Column.aliased("checklist_id", table, columnPrefix + "_checklist_id"));
         columns.add(Column.aliased("checklist_name", table, columnPrefix + "_checklist_name"));
         columns.add(Column.aliased("doc_ref_id", table, columnPrefix + "_doc_ref_id"));
@@ -28,6 +25,9 @@ public class SoLcdDocRefTransactionSqlHelper {
         columns.add(Column.aliased("updated_by_id", table, columnPrefix + "_updated_by_id"));
         columns.add(Column.aliased("updated_by_name", table, columnPrefix + "_updated_by_name"));
         columns.add(Column.aliased("so_lcd_doc_ref_transaction_uuid", table, columnPrefix + "_so_lcd_doc_ref_transaction_uuid"));
+        columns.add(Column.aliased("item_group_id", table, columnPrefix + "_item_group_id"));
+        columns.add(Column.aliased("item_group_name", table, columnPrefix + "_item_group_name"));
+        columns.add(Column.aliased("coverage_criteria_id", table, columnPrefix + "_coverage_criteria_id"));
 
         return columns;
     }

@@ -44,7 +44,7 @@ public class DocumentTypeMasterServiceImpl implements DocumentTypeMasterService 
 
     @Override
     public DocumentTypeMasterDTO update(DocumentTypeMasterDTO documentTypeMasterDTO) {
-        log.debug("Request to save DocumentTypeMaster : {}", documentTypeMasterDTO);
+        log.debug("Request to update DocumentTypeMaster : {}", documentTypeMasterDTO);
         DocumentTypeMaster documentTypeMaster = documentTypeMasterMapper.toEntity(documentTypeMasterDTO);
         documentTypeMaster = documentTypeMasterRepository.save(documentTypeMaster);
         return documentTypeMasterMapper.toDto(documentTypeMaster);

@@ -364,7 +364,7 @@ class StockAdjustmentResourceIT {
 
     @Test
     @Transactional
-    void putExistingStockAdjustment() throws Exception {
+    void putNewStockAdjustment() throws Exception {
         // Initialize the database
         stockAdjustmentRepository.saveAndFlush(stockAdjustment);
 

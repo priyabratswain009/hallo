@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.PriceDetailsMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PriceDetailsMasterDTO implements Serializable {
 
     @NotNull(message = "must not be null")

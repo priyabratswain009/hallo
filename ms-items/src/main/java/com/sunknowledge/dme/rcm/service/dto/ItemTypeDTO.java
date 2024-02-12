@@ -8,7 +8,6 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ItemType} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemTypeDTO implements Serializable {
 
     private Long itemTypeId;

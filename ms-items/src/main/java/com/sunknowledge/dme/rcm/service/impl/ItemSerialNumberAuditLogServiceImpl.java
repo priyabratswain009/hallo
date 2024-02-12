@@ -44,7 +44,7 @@ public class ItemSerialNumberAuditLogServiceImpl implements ItemSerialNumberAudi
 
     @Override
     public ItemSerialNumberAuditLogDTO update(ItemSerialNumberAuditLogDTO itemSerialNumberAuditLogDTO) {
-        log.debug("Request to update ItemSerialNumberAuditLog : {}", itemSerialNumberAuditLogDTO);
+        log.debug("Request to save ItemSerialNumberAuditLog : {}", itemSerialNumberAuditLogDTO);
         ItemSerialNumberAuditLog itemSerialNumberAuditLog = itemSerialNumberAuditLogMapper.toEntity(itemSerialNumberAuditLogDTO);
         itemSerialNumberAuditLog = itemSerialNumberAuditLogRepository.save(itemSerialNumberAuditLog);
         return itemSerialNumberAuditLogMapper.toDto(itemSerialNumberAuditLog);

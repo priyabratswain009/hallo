@@ -48,7 +48,7 @@ public class PrimaryClaimResubmisionServicelinesServiceImpl implements PrimaryCl
     public Mono<PrimaryClaimResubmisionServicelinesDTO> update(
         PrimaryClaimResubmisionServicelinesDTO primaryClaimResubmisionServicelinesDTO
     ) {
-        log.debug("Request to save PrimaryClaimResubmisionServicelines : {}", primaryClaimResubmisionServicelinesDTO);
+        log.debug("Request to update PrimaryClaimResubmisionServicelines : {}", primaryClaimResubmisionServicelinesDTO);
         return primaryClaimResubmisionServicelinesRepository
             .save(primaryClaimResubmisionServicelinesMapper.toEntity(primaryClaimResubmisionServicelinesDTO))
             .map(primaryClaimResubmisionServicelinesMapper::toDto);

@@ -44,7 +44,7 @@ public class StockAdjustmentAuditLogServiceImpl implements StockAdjustmentAuditL
 
     @Override
     public StockAdjustmentAuditLogDTO update(StockAdjustmentAuditLogDTO stockAdjustmentAuditLogDTO) {
-        log.debug("Request to update StockAdjustmentAuditLog : {}", stockAdjustmentAuditLogDTO);
+        log.debug("Request to save StockAdjustmentAuditLog : {}", stockAdjustmentAuditLogDTO);
         StockAdjustmentAuditLog stockAdjustmentAuditLog = stockAdjustmentAuditLogMapper.toEntity(stockAdjustmentAuditLogDTO);
         stockAdjustmentAuditLog = stockAdjustmentAuditLogRepository.save(stockAdjustmentAuditLog);
         return stockAdjustmentAuditLogMapper.toDto(stockAdjustmentAuditLog);

@@ -46,7 +46,7 @@ public class ItemInventoryStatusAuditLogServiceImpl implements ItemInventoryStat
 
     @Override
     public ItemInventoryStatusAuditLogDTO update(ItemInventoryStatusAuditLogDTO itemInventoryStatusAuditLogDTO) {
-        log.debug("Request to update ItemInventoryStatusAuditLog : {}", itemInventoryStatusAuditLogDTO);
+        log.debug("Request to save ItemInventoryStatusAuditLog : {}", itemInventoryStatusAuditLogDTO);
         ItemInventoryStatusAuditLog itemInventoryStatusAuditLog = itemInventoryStatusAuditLogMapper.toEntity(
             itemInventoryStatusAuditLogDTO
         );

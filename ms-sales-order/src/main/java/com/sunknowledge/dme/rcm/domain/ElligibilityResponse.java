@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A ElligibilityResponse.
  */
 @Table("t_elligibility_response_status")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ElligibilityResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;

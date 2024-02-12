@@ -2,6 +2,7 @@ package com.sunknowledge.dme.rcm.service.cmn;
 
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.domain.Cmn;
+import com.sunknowledge.dme.rcm.domain.CmnDocumentMaster;
 import com.sunknowledge.dme.rcm.dto.cmn.*;
 import com.sunknowledge.dme.rcm.service.dto.CmnDTO;
 import com.sunknowledge.dme.rcm.service.dto.CmnDocumentMasterDTO;
@@ -41,4 +42,18 @@ public interface CMNService {
 
     Mono<Cmn> createCMNForSalesOrder(Cmn cmn);
     //============================= CMN Sub-routines For Sales Order Item Details Integration ==========
+    Mono<CmnDTO> getCMNMasterData(Long soId);
+
+    Mono<SWODataDTO> getSWODataOnSalesOrderReactive(Long salesOrderId) throws Exception;
+
+    Mono<ServiceOutcome<CmnResponseDetails>> prepareAndPrintCMNReportOnCmnForAwsS3(CmnDTO cmnDTO, SWODataDTO swoDataDTO, List<EquipmentDetailsDTO> EquipmentDetailsList,
+                                                                                   CmnDocumentMaster cmnDocumentMaster, CmnDocumentMasterDTO cmnDocumentMasterDTO, String updateType);
+    Mono<CmnDTO> getCMNMasterDataByCmnId(Long cmnId);
+
+    Flux<EquipmentDetailsDTO> getEquipmentDetailsOnSalesOrderReactive(Long salesOrderId) throws Exception;
+
+    Mono<CmnDocumentMaster> getCmnDocumentByCmnId(Long cmnId) throws Exception;
+
+    Mono<CmnDocumentMasterDTO> saveCmnDocumentInReactive(CmnDTO cmnDTO, String fileName, String updateType, CmnDocumentMaster cmnDocumentMaster) throws Exception;
+    //Mono<CmnResponseDetails> updateCMNDetailsInReactive(CmnDTO cmnDTO, String updateType, String fileName, CmnDocumentMaster cmnDocumentMaster, CmnDocumentMasterDTO cmnDocumentMasterDTO);
 }

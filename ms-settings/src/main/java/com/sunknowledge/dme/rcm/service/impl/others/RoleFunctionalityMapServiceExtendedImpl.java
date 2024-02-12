@@ -1,5 +1,6 @@
 package com.sunknowledge.dme.rcm.service.impl.others;
 
+import com.sunknowledge.dme.rcm.domain.Company;
 import com.sunknowledge.dme.rcm.domain.RoleFunctionalityMap;
 import com.sunknowledge.dme.rcm.domain.RoleUserMap;
 import com.sunknowledge.dme.rcm.repository.others.RoleFunctionalityMapRepositoryExtended;
@@ -14,6 +15,7 @@ import com.sunknowledge.dme.rcm.service.mapper.RoleFunctionalityMapMapper;
 import com.sunknowledge.dme.rcm.service.others.FunctionalityMasterServiceExtended;
 import com.sunknowledge.dme.rcm.service.others.RoleFunctionalityMapServiceExtended;
 import com.sunknowledge.dme.rcm.service.others.RoleMasterServiceExtended;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 
 @Primary
 @Service
+@Slf4j
 public class RoleFunctionalityMapServiceExtendedImpl implements RoleFunctionalityMapServiceExtended {
 
     @Autowired
@@ -93,12 +96,12 @@ public class RoleFunctionalityMapServiceExtendedImpl implements RoleFunctionalit
             }
             if(roleFunctionalityMapDTOS.size()>0){
                 List<RoleFunctionalityMap> savedRoleFunctionalityMap = roleFunctionalityMapRepositoryExtended.saveAll(roleFunctionalityMapMapper.toEntity(roleFunctionalityMapDTOS));
-                return new ResponseDTO(true,"Data Saved Successfully.",roleFunctionalityMapMapper.toDto(savedRoleFunctionalityMap));
+                return new ResponseDTO(true,"Data Saved Successfully.",roleFunctionalityMapMapper.toDto(savedRoleFunctionalityMap),200);
             }else{
-                return new ResponseDTO(false,"Data Not Found/Mapping Already Exist.",null);
+                return new ResponseDTO(false,"Data Not Found/Mapping Already Exist.",null,200);
             }
         }else{
-            return new ResponseDTO(false,"Data Not Found.",null);
+            return new ResponseDTO(false,"Data Not Found.",null,200);
         }
     }
 
@@ -114,9 +117,9 @@ public class RoleFunctionalityMapServiceExtendedImpl implements RoleFunctionalit
             updateDTO.setUpdatedByName("Abhijit Update");
             updateDTO.setUpdatedDate(LocalDate.now());
             RoleFunctionalityMapDTO roleFunctionalityMapDTO = roleFunctionalityMapMapper.toDto(roleFunctionalityMapRepositoryExtended.save(updateDTO));
-            return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", List.of(roleFunctionalityMapDTO)));
+            return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", (roleFunctionalityMapDTO),200));
         }else{
-            return (new ResponseDTO(Boolean.FALSE, "Data Not Found.", null));
+            return (new ResponseDTO(Boolean.FALSE, "Data Not Found.", null,200));
         }
     }
 
@@ -149,9 +152,33 @@ public class RoleFunctionalityMapServiceExtendedImpl implements RoleFunctionalit
                 break;
             }
             default:{
-                return new ResponseDTO(false,"Please Give Correct OperationType",null);
+                return new ResponseDTO(false,"Please Give Correct OperationType",null,200);
             }
         }
-        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "Successfully Data Fetched.": "Data Not Found.", obj));
+        return (new ResponseDTO(obj.size()>0?true:false, obj.size()>0? "": "Data Not Found.", obj,200));
+    }
+
+    @Override
+    public ResponseDTO setRoleFunctionalityMapStatusByUuid(UUID uuid, String status) {
+        if(status.toLowerCase().equals("active") || status.toLowerCase().equals("inactive")) {
+            try{
+                Optional<RoleFunctionalityMap> obj = roleFunctionalityMapRepositoryExtended.findByRoleFunctionalityMapUuid(uuid);
+                if(obj.isPresent()){
+                    obj.get().setStatus(status);
+                    obj.get().setUpdatedById(1l);
+                    obj.get().setUpdatedByName("Updated Test");
+                    obj.get().setUpdatedDate(LocalDate.now());
+                    roleFunctionalityMapRepositoryExtended.save(obj.get());
+                    return (new ResponseDTO(Boolean.TRUE, "Successfully Saved", obj.get(),200));
+                }else{
+                    return (new ResponseDTO(Boolean.FALSE, "Data Not Found",null,200));
+                }
+            }catch (Exception e){
+                log.error("=====>> Error : "+e);
+                return (new ResponseDTO(Boolean.FALSE, "Failed to Save :: Data Error",null,200));
+            }
+        }else{
+            return (new ResponseDTO(Boolean.FALSE, "Status must be active or inactive ", null,200));
+        }
     }
 }

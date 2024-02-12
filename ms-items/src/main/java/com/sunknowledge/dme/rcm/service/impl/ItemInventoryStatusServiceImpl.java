@@ -44,7 +44,7 @@ public class ItemInventoryStatusServiceImpl implements ItemInventoryStatusServic
 
     @Override
     public ItemInventoryStatusDTO update(ItemInventoryStatusDTO itemInventoryStatusDTO) {
-        log.debug("Request to update ItemInventoryStatus : {}", itemInventoryStatusDTO);
+        log.debug("Request to save ItemInventoryStatus : {}", itemInventoryStatusDTO);
         ItemInventoryStatus itemInventoryStatus = itemInventoryStatusMapper.toEntity(itemInventoryStatusDTO);
         itemInventoryStatus = itemInventoryStatusRepository.save(itemInventoryStatus);
         return itemInventoryStatusMapper.toDto(itemInventoryStatus);

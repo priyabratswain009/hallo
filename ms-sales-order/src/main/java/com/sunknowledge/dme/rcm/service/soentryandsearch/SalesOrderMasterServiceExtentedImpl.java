@@ -4,6 +4,7 @@ import com.dropbox.core.InvalidAccessTokenException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.commonutil.AccessTokenUtilities;
 import com.sunknowledge.dme.rcm.commonutil.CommonUtilities;
 import com.sunknowledge.dme.rcm.domain.InsurancePricetableMap;
 import com.sunknowledge.dme.rcm.domain.SalesOrderItemDetails;
@@ -11,6 +12,7 @@ import com.sunknowledge.dme.rcm.domain.SalesOrderMaster;
 import com.sunknowledge.dme.rcm.repository.InsurancePricetableMapRepositoryExtended;
 import com.sunknowledge.dme.rcm.repository.salesorder.SalesOrderMasterRepositoryExtended;
 import com.sunknowledge.dme.rcm.securityutil.InternalAccessTokenUtilities;
+import com.sunknowledge.dme.rcm.service.dto.SOConfigPropertyConst;
 import com.sunknowledge.dme.rcm.service.dto.SalesOrderMasterDTO;
 import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.delivery.InventoryInputDTO;
@@ -18,26 +20,36 @@ import com.sunknowledge.dme.rcm.service.dto.delivery.InventoryStatusByItemIdAndI
 import com.sunknowledge.dme.rcm.service.dto.delivery.ItemInventoryStatusExtendedDTO;
 import com.sunknowledge.dme.rcm.service.dto.delivery.validateDeliveryInitiationSOItemDetailsResponseDTO;
 import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderEntryParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SoClinicalInsuranceOutputDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.TaskDetailsOutputDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.WipQueueDetailsOutputDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.WipStatusUpdateInfoDTO;
 import com.sunknowledge.dme.rcm.service.mapper.SalesOrderMasterMapper;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.BeanUtils;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -58,8 +70,9 @@ import java.util.concurrent.ExecutionException;
 
 //@Primary
 @Service("salesOrderMasterServiceExtentedImpl")
-@Slf4j
 public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServiceExtented {
+
+    private final Logger log = LoggerFactory.getLogger(SalesOrderMasterServiceExtented.class);
 
     @Autowired
     SalesOrderMasterMapper salesOrderMasterMapper;
@@ -67,6 +80,11 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
     SalesOrderMasterRepositoryExtended salesOrderMasterRepositoryExtended;
     @Autowired
     InsurancePricetableMapRepositoryExtended insurancePricetableMapRepositoryExtended;
+    private final WebClient webClient;
+
+    public SalesOrderMasterServiceExtentedImpl(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/services").build();
+    }
 
     @Override
     public Mono<SalesOrderMasterDTO> save(SalesOrderMasterDTO salesOrderMasterDTO) {
@@ -104,6 +122,11 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
     }
 
     @Override
+    public Mono<SalesOrderMasterDTO> getSOBySoUUID(UUID salesOrderUUID) {
+        return salesOrderMasterRepositoryExtended.getSOBySOUuid(salesOrderUUID)
+            .map(salesOrderMasterMapper::toDto);
+    }
+    @Override
     public Flux<SalesOrderMaster> getSOByUUID(UUID salesOrderUUID) {
         return salesOrderMasterRepositoryExtended.getSOBysalesOrderMasterUuid(salesOrderUUID);
     }
@@ -113,14 +136,12 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
         return salesOrderMasterRepositoryExtended.getIDBysalesOrderMasterUuid(salesOrderUUID);
     }
 
-    public Mono<ResponseDTO> saveSOMasterDetails(SalesOrderMasterDTO obj, SalesOrderEntryParameterDTO salesOrderEntryParameterDTO) {
+    public Mono<ResponseDTO> saveSOMasterDetails(SalesOrderMasterDTO obj, SalesOrderEntryParameterDTO salesOrderEntryParameterDTO,InsurancePricetableMap insurancePricetableMap) {
         String message = "";
         Boolean status = false;
         List<Object> responseList = new ArrayList<>();
-
-
-
-
+        System.out.println("Inside 1");
+        System.out.println("salesOrderEntryParameterDTO 1 "+ salesOrderEntryParameterDTO);
         try {
             //----- Get details for check doctor is exist or not -----
             String accessToken = InternalAccessTokenUtilities.getAccessToken();
@@ -128,23 +149,27 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
             JSONObject accessTokenJson = (JSONObject) parser.parse(accessToken);
             String token = accessTokenJson.get("access_token").toString();
 
-
-
+            System.out.println("Inside 2");
             String responseBody = "[]";
             if (!token.equalsIgnoreCase("NOT_AVAILABLE")) {
+                CommonUtilities commonUtilitiesObj = new CommonUtilities();
+                Properties propData = commonUtilitiesObj.readPropertiesFile("/project-properties-files/url_config.properties");
+                String url = propData.getProperty("branchOffice_url");
+                System.out.println("branchOffice_url "+ url);
                 Long branchId = obj.getBranchId() == null ? 0 : obj.getBranchId();
                 RestTemplate restTemplateData = new RestTemplate();
                 HttpHeaders headersData = new HttpHeaders();
                 headersData.add("Authorization", "Bearer " + token);
                 HttpEntity entityData = new HttpEntity<>(headersData);
                 ResponseEntity responseData = restTemplateData.exchange(
-                    "http://localhost:8080/services/settings/api/getBranchOfficeById" +
+                    url +
                         "?branchId={branchId}",
                     HttpMethod.GET,
                     entityData,
                     String.class,
                     branchId);
                 if (responseData.getStatusCode() == HttpStatus.OK) {
+                    System.out.println("Inside 3");
                     responseBody = (String) responseData.getBody();
                 } else {
                     message = "API Error: No Response Data Available";
@@ -155,16 +180,12 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
                 return Mono.just(new ResponseDTO(status, message, responseList));
             }
             JSONObject branchJson = (JSONObject) parser.parse(responseBody == null ? "{}" : responseBody);
-//            System.out.println("branchJson=" + branchJson);
+            System.out.println("branchJson=" + branchJson);
 
-
-
+            System.out.println("branchJson " + branchJson);
             //----------- Get branch details ------------
-            if (!branchJson.isEmpty() && branchJson.get("data") != null
-                && ((JSONArray) branchJson.get("data")).size() > 0) {
-                JSONObject branchInfoRow = (JSONObject) ((JSONArray) branchJson.get("data")).get(0);
-
-
+            if (!branchJson.isEmpty() && branchJson.get("data") != null) {
+                JSONObject branchInfoRow = (JSONObject) branchJson.get("data");
 
                 Long patientBranchId = obj.getBranchId();
                 obj.setPatientBranchId(patientBranchId);
@@ -262,14 +283,8 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
                 String formattedString2 = ZonedDateTime.now().format(formatter2);
                 String salesOrderNote = formattedString2 + ": " + obj.getSalesOrderNote();
                 obj.setSalesOrderNote(salesOrderNote);
-
+                obj.setOrderStatus("Initiated");
                 //------------------- Insurance Pricetable Map -------------------------
-                Mono<InsurancePricetableMap> insurancePricetableMapMono = insurancePricetableMapRepositoryExtended.
-                    findByInsuranceIdNo(salesOrderEntryParameterDTO.getInsuranceIdNo())
-                    .reduce((max, current) -> current.getInsurancePricetableMapId() >
-                        max.getInsurancePricetableMapId() ? current : max);
-                InsurancePricetableMap insurancePricetableMap = insurancePricetableMapMono.toFuture().get();
-
                 if (insurancePricetableMap != null) {
                     obj.setPrimaryInsurerPriceTableId(insurancePricetableMap.getPriceTableId());
                     obj.setPrimaryInsurerPriceTableName(insurancePricetableMap.getPriceTableName());
@@ -281,7 +296,7 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
                     return Mono.just(new ResponseDTO(status, message, responseList));
                 }
                 //------------------- Insurance Pricetable Map -------------------------
-
+                System.out.println("salesOrderEntryParameterDTO 2 "+ salesOrderEntryParameterDTO);
 
             } else {
                 message = "Branch does not exist.";
@@ -292,40 +307,53 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
             //------------Saving Data-----------------------------------------------------
             if (obj.getSalesOrderId() == null || obj.getSalesOrderId() == 0) {
                 //=============== Get Sales Order No ===================================
-                String soIDNumber = salesOrderMasterRepositoryExtended.generatePatientIDNumber().toFuture().get();
-                obj.setSalesOrderNo(soIDNumber);
-                obj.setSoControlNumber(soIDNumber);
-                //=============== Get Sales Order No ===================================
-                obj.setCreatedDate(LocalDate.now());
-                obj.setCreatedById(1L);   //----- Data taken from login user service
-                obj.setCreatedByName("Abhijit Chowdhury"); //----- Data taken from login user service
-                obj.setSalesOrderId(null);
-                obj.setSalesOrderMasterUuid(UUID.randomUUID());
-                return salesOrderMasterRepositoryExtended
-                    .save(salesOrderMasterMapper.toEntity(obj))
-                    .map(salesOrderMasterMapper::toDto).map(
-                        i -> new ResponseDTO(true, "Successfully Saved", List.of(i)));
+                return salesOrderMasterRepositoryExtended.generatePatientIDNumber()
+                        .flatMap(soIDNumber -> {
+                            obj.setSalesOrderNo(soIDNumber);
+                            obj.setSoControlNumber(soIDNumber);
+                            //=============== Get Sales Order No ===================================
+                            obj.setCreatedDate(LocalDate.now());
+                            obj.setCreatedById(1L);   //----- Data taken from login user service
+                            obj.setCreatedByName("Abhijit Chowdhury"); //----- Data taken from login user service
+                            obj.setSalesOrderId(null);
+                            obj.setStatus("active");
+                            obj.setSalesOrderMasterUuid(UUID.randomUUID());
+                            return salesOrderMasterRepositoryExtended
+                                .save(salesOrderMasterMapper.toEntity(obj))
+                                .map(salesOrderMasterMapper::toDto).map(
+                                    i -> new ResponseDTO(true, "Successfully Saved", (i)));
+                        });
             } else {
-                List<SalesOrderMaster> salesOrderMasterForUpdate = salesOrderMasterRepositoryExtended.
-                    getSOBysalesOrderMasterUuid(obj.getSalesOrderMasterUuid()).collectList().toFuture().get();
-                if (salesOrderMasterForUpdate.size() > 0) {
-                    SalesOrderMaster updateObj = salesOrderMasterForUpdate.get(0);
-                    BeanUtils.copyProperties(salesOrderEntryParameterDTO, updateObj);
-                    updateObj.setUpdatedDate(LocalDate.now());
-                    updateObj.setUpdatedById(1L);      //----- Data taken from login user service
-                    updateObj.setUpdatedByName("Abhijit Chowdhury");   //----- Data taken from login user service
-                    return salesOrderMasterRepositoryExtended
-                        .save(salesOrderMasterMapper.toEntity(obj))
-                        .map(salesOrderMasterMapper::toDto).map(
-                            i -> new ResponseDTO(true, "Successfully Saved", List.of(i)));
-                } else {
-                    message = "Update failed! Sales_Order does not exist.";
-                    return Mono.just(new ResponseDTO(status, message, responseList));
-                }
+                System.out.println("salesOrderEntryParameterDTO 3 "+ salesOrderEntryParameterDTO);
+                 return salesOrderMasterRepositoryExtended.
+                    getSOBySOUuid(obj.getSalesOrderMasterUuid())
+                        .flatMap(updateObj -> {
+                            if (updateObj!=null) {
+                                if(updateObj.getOrderStatus().equalsIgnoreCase("delivered")){
+                                    updateObj.setUserField1(salesOrderEntryParameterDTO.getUserField1());
+                                    updateObj.setUserField2(salesOrderEntryParameterDTO.getUserField2());
+                                    updateObj.setUserField3(salesOrderEntryParameterDTO.getUserField3());
+                                    updateObj.setUserField4(salesOrderEntryParameterDTO.getUserField4());
+                                }else{
+                                    BeanUtils.copyProperties(salesOrderEntryParameterDTO, updateObj);
+                                }
+
+                                System.out.println("salesOrderMasterForUpdate "+ updateObj);
+                                System.out.println("salesOrderEntryParameterDTO "+ salesOrderEntryParameterDTO);
+                                updateObj.setUpdatedDate(LocalDate.now());
+                                updateObj.setUpdatedById(1L);      //----- Data taken from login user service
+                                updateObj.setStatus("active");
+                                updateObj.setUpdatedByName("Abhijit Chowdhury");   //----- Data taken from login user service
+                                return salesOrderMasterRepositoryExtended
+                                    .save(updateObj)
+                                    .map(salesOrderMasterMapper::toDto).map(
+                                        i -> new ResponseDTO(true, "Successfully Saved", (i)));
+                            } else {
+                                return Mono.just(new ResponseDTO(status, "Update failed! Sales_Order does not exist.", responseList));
+                            }
+                        });
             }
-
             //-----------------------------Saving Data----------------------------------------------
-
         }
 //        catch (InterruptedException e) {
 //            throw new RuntimeException(e);
@@ -458,16 +486,16 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
     public Mono<ServiceOutcome> makeSOCommited(Long soId, List<validateDeliveryInitiationSOItemDetailsResponseDTO> soItemDetailsList,
                                                List<String> cmnStatus, List<String> parStatus, List<ItemInventoryStatusExtendedDTO> itemInventoryStatusList,
                                                ServiceOutcome deliverableAddr) throws ExecutionException, InterruptedException, IOException, ParseException {
-        //cmnStatus.remove("initiated");
-        //cmnStatus.add("logged");
+        cmnStatus.remove("initiated");
+        cmnStatus.add("logged");
         for (String eachCmnStatus : cmnStatus) {
             if (!eachCmnStatus.trim().equalsIgnoreCase("logged")) {
                 return Mono.just(new ServiceOutcome(null, false, "Sales Order Can Not be Committed Due to CMN is not Logged/Active (Approved)."));
             }
         }
 
-        //parStatus.remove("initiated");
-        //parStatus.add("active");
+        parStatus.remove("initiated");
+        parStatus.add("active");
         if (parStatus.size() > 0) {
             for (String eachParStatus : parStatus) {
                 if (!eachParStatus.trim().equalsIgnoreCase("active")) {
@@ -479,11 +507,11 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
         HashMap<Long, String> mapItemIdDropshipStatus = new HashMap<>();
         for (validateDeliveryInitiationSOItemDetailsResponseDTO eachItemDetailsObj : soItemDetailsList) {
             String dropShipStatus = (eachItemDetailsObj.getDropshipStatus() != null && !eachItemDetailsObj.getDropshipStatus().trim().equals("")) ? eachItemDetailsObj.getDropshipStatus() : "N";
-            if(eachItemDetailsObj.getSalesOrderDetailsItemId()!= null){
+            if (eachItemDetailsObj.getSalesOrderDetailsItemId() != null) {
                 mapItemIdDropshipStatus.put(eachItemDetailsObj.getSalesOrderDetailsItemId(), dropShipStatus);
             }
         }
-        log.info("========mapItemIdDropshipStatus========"+mapItemIdDropshipStatus);
+        log.info("========mapItemIdDropshipStatus========" + mapItemIdDropshipStatus);
         //Microservice will be called(update in item.t_item_inventory_status table) if every Item Inventory is Valid
         List<Boolean> commitSOFlag = new ArrayList<>();
         for (ItemInventoryStatusExtendedDTO eachObj : itemInventoryStatusList) {
@@ -506,18 +534,25 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
             Long itemId = eachObj.getSalesOrderDetailsItemId() != null && eachObj.getSalesOrderDetailsItemId() != 0 ? eachObj.getSalesOrderDetailsItemId() : 0;
             Long itemLocationId = eachObj.getItemLocationId() != null && eachObj.getItemLocationId() != 0 ? eachObj.getItemLocationId() : 0;
             Long itemQty = eachObj.getSalesOrderDetailsQty() != null && eachObj.getSalesOrderDetailsQty() != 0 ? eachObj.getSalesOrderDetailsQty() : 0;
-            log.info("itemId::" + itemId + " ,itemLocationId::" + itemLocationId + " ,itemQty::" + itemQty);
+            System.out.println("===========================> itemId=" + itemId);
+            System.out.println("===========================> itemLocationId=" + itemLocationId);
+            System.out.println("===========================> itemQty=" + itemQty);
+            System.out.println("======================================================================================================");
+//            log.info("itemId::" + itemId + " ,itemLocationId::" + itemLocationId + " ,itemQty::" + itemQty);
             if (itemId != 0 && itemLocationId != 0) {
                 //Check ALl Item Inventory Before transaction into
-                InventoryStatusByItemIdAndItemLocationIdInputDTO inventoryStatusByItemIdAndItemLocationIdInputDTO = new InventoryStatusByItemIdAndItemLocationIdInputDTO();
-                inventoryStatusByItemIdAndItemLocationIdInputDTO.setItemId(itemId);
-                inventoryStatusByItemIdAndItemLocationIdInputDTO.setItemLocationId(itemLocationId);
-                inventoryStatusByItemIdAndItemLocationIdInputDTO.setItemQty(itemQty);
-                inventoryStatusByItemIdAndItemLocationIdInputDTO.setOperationType("Committed");
-                inventoryStatusInput.add(inventoryStatusByItemIdAndItemLocationIdInputDTO);
+                String dropShipStatusForItemId = mapItemIdDropshipStatus.get(itemId);
+                if (!dropShipStatusForItemId.equals("Y")) {
+                    InventoryStatusByItemIdAndItemLocationIdInputDTO inventoryStatusByItemIdAndItemLocationIdInputDTO = new InventoryStatusByItemIdAndItemLocationIdInputDTO();
+                    inventoryStatusByItemIdAndItemLocationIdInputDTO.setItemId(itemId);
+                    inventoryStatusByItemIdAndItemLocationIdInputDTO.setItemLocationId(itemLocationId);
+                    inventoryStatusByItemIdAndItemLocationIdInputDTO.setItemQty(itemQty);
+                    inventoryStatusByItemIdAndItemLocationIdInputDTO.setOperationType("Committed");
+                    inventoryStatusInput.add(inventoryStatusByItemIdAndItemLocationIdInputDTO);
+                }
             } else {
                 log.info("In Else Part== itemId::" + itemId + " ,itemLocationId::" + itemLocationId + " ,itemQty::" + itemQty);
-                return Mono.just(new ServiceOutcome(null, false, "Sales Order Can Not be Commited Due to Inappropriate Item Id and Item Location Id."));
+                return Mono.just(new ServiceOutcome(null, false, "Sales Order Can Not be Committed Due to Inappropriate Item Id and Item Location Id."));
             }
         }
         ObjectMapper objectMapper = new ObjectMapper();
@@ -549,7 +584,7 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
                 .map(updatedObj -> new ServiceOutcome(updatedObj, true, "Sales Order Successfully Committed " + finalDeliverableAddress))
                 .switchIfEmpty(Mono.just(new ServiceOutcome<SalesOrderMasterDTO>(null, false, "Sales Order Does Not Exist.")));
         } else {
-            return Mono.just(new ServiceOutcome(null, false, "Error Occurred."));
+            return Mono.just(new ServiceOutcome(null, false, "Error: Item Inventory Service not Working."));
         }
     }
 
@@ -644,18 +679,19 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
 
         return responseBody;
     }
+
     @Override
-    public Mono<ServiceOutcome> updateSalesOrderedStatusAsDelivered(Long salesOrderId,String soNo, Flux<SalesOrderItemDetails> salesOrderItemDetailsFlux) {
+    public Mono<ServiceOutcome> updateSalesOrderedStatusAsDelivered(Long salesOrderId, String soNo, Flux<SalesOrderItemDetails> salesOrderItemDetailsFlux) {
         return salesOrderItemDetailsFlux.collectList()
             .flatMap(salesOrderItemDetailsList -> {
                 List<InventoryStatusByItemIdAndItemLocationIdInputDTO> inventoryStatusInputs = new ArrayList<>();
-                for(SalesOrderItemDetails salesOrderItemDetails:salesOrderItemDetailsList){
+                for (SalesOrderItemDetails salesOrderItemDetails : salesOrderItemDetailsList) {
                     Long itemId = salesOrderItemDetails.getSalesOrderDetailsItemId() != null && salesOrderItemDetails.getSalesOrderDetailsItemId() != 0 ? salesOrderItemDetails.getSalesOrderDetailsItemId() : 0;
                     Long itemLocationId = salesOrderItemDetails.getItemLocationId() != null && salesOrderItemDetails.getItemLocationId() != 0 ? salesOrderItemDetails.getItemLocationId() : 0;
                     Long itemQty = salesOrderItemDetails.getSalesOrderDetailsQty() != null && salesOrderItemDetails.getSalesOrderDetailsQty() != 0 ? salesOrderItemDetails.getSalesOrderDetailsQty() : 0;
                     String saleType = salesOrderItemDetails.getSalesOrderDetailsSaleType();
                     String isDropShip = salesOrderItemDetails.getIsDropshipAllowed();
-                    log.info("itemId::"+itemId+" ,itemLocationId::"+itemLocationId+" ,itemQty::"+itemQty);
+                    log.info("itemId::" + itemId + " ,itemLocationId::" + itemLocationId + " ,itemQty::" + itemQty);
                     if (itemId != 0 && itemLocationId != 0) {
                         //Check ALl Item Inventory Before transaction into
                         InventoryStatusByItemIdAndItemLocationIdInputDTO inventoryStatusByItemIdAndItemLocationIdInputDTO = new InventoryStatusByItemIdAndItemLocationIdInputDTO();
@@ -678,16 +714,16 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
                     json = objectMapper.writeValueAsString(inventoryStatusInputs);
                     encodedJson = URLEncoder.encode(json, "UTF-8");
                     ServiceOutcome serviceOutcome = saveInventoryStatusByItemIdAndItemLocationId(encodedJson);
-                    System.out.println("=====serviceOutcome==== "+serviceOutcome);
-                    if(serviceOutcome.getOutcome()){
-                        System.out.println("=====Inside If ==== "+salesOrderId);
+                    System.out.println("=====serviceOutcome==== " + serviceOutcome);
+                    if (serviceOutcome.getOutcome()) {
+                        System.out.println("=====Inside If ==== " + salesOrderId);
                         return salesOrderMasterRepositoryExtended.findById(salesOrderId)
                             .map(data -> {
                                 data.setOrderStatus("Delivered");
                                 return data;
                             }).flatMap(salesOrderMasterRepositoryExtended::save)
-                            .map(d -> new ServiceOutcome(d,true,"Data Successfully Saved."));
-                    }else{
+                            .map(d -> new ServiceOutcome(d, true, "Data Successfully Saved."));
+                    } else {
                         return Mono.just(serviceOutcome);
                     }
                 } catch (JsonProcessingException e) {
@@ -740,5 +776,153 @@ public class SalesOrderMasterServiceExtentedImpl implements SalesOrderMasterServ
             }
         }).switchIfEmpty(Mono.just(new ServiceOutcome<JSONArray>(null, false, "Sales Order Does Not Exist.")));
 
+    }
+
+    @Override
+    public Mono<SoClinicalInsuranceOutputDTO> getSalesOrderMasterClinicalInsuranceData(Long soId) {
+        return salesOrderMasterRepositoryExtended.getSalesOrderMasterClinicalInsuranceData(soId);
+    }
+
+    @Override
+    public Mono<ServiceOutcome> getSOWIPDetails(String taskId, String wipStatusId, Long soId,String objectId) {
+        CommonUtilities commonUtilitiesObj = new CommonUtilities();
+        Properties propData = null;
+        try {
+            propData = commonUtilitiesObj.readPropertiesFile("/project-properties-files/url_config.properties");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
+        log.info("============><=============" + token);
+        String url = propData.getProperty("utilitis_wip_url");
+
+        String finalUrl = url;
+        log.info("====final URL===GET=============>" + finalUrl);
+
+        return webClient.get()
+            .uri(uriBuilder -> uriBuilder.path(finalUrl)
+                .queryParam("taskId", taskId!=null?Long.valueOf(taskId):taskId)
+                .queryParam("objectinstanceid", soId!=null?Long.valueOf(soId):soId)
+                .queryParam("wipstatusid", wipStatusId)
+                .queryParam("objectid", objectId!=null?Long.valueOf(objectId):objectId)
+                .build())
+            .header("Authorization", "Bearer " + token)
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<>() {
+            });
+    }
+
+    @Override
+    public Mono<String> getTaskIdByTaskName(String taskName) {
+        return salesOrderMasterRepositoryExtended.getTaskIdByTaskName(taskName);
+    }
+
+    @Override
+    public Mono<String> getWipStatusIdByWipStatusName(String wipStatusName) {
+        return salesOrderMasterRepositoryExtended.getWipStatusIdByWipStatusName(wipStatusName);
+    }
+
+    @Override
+    public Mono<String> getObjectIdByObjectName(String objectName) {
+        return salesOrderMasterRepositoryExtended.getObjectIdByObjectName(objectName);
+    }
+
+    @Override
+    public Mono<String> getUserNameByUserId(Long userId) {
+        return salesOrderMasterRepositoryExtended.getUserNameByUserId(userId);
+    }
+
+    @Override
+    public Mono<ServiceOutcome<WipQueueDetailsOutputDTO>> updateWIPStatus(WipStatusUpdateInfoDTO obj) {
+        obj.setAssignedById(1L);
+        obj.setAssignedByName("Abhijit Chowdhury");
+        obj.setAssignedDate(LocalDate.now());
+        obj.setWipSetById(1L);
+        obj.setWipSetByName("Abhijit Chowdhury");
+
+        //========================================================================================
+        CommonUtilities commonUtilitiesObj = new CommonUtilities();
+        Properties propData = null;
+        try {
+            propData = commonUtilitiesObj.readPropertiesFile("/project-properties-files/url_config.properties");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String save_wip_queue_details_url = propData.getProperty("save_wip_queue_details_url");
+//        String update_wip_date_needed_url = propData.getProperty("update_wip_date_needed_url");
+
+        String token = AccessTokenUtilities.getOtherwaytoFindAccessToken();
+        log.info("==== Token =====>" + token);
+
+        WipQueueDetailsOutputDTO wipQueueDetailsOutputDTO = null;
+        Mono<ServiceOutcome<WipQueueDetailsOutputDTO>> wipOutcome = null;
+
+        log.info("====URL_POST====save_wip_queue_details_url====>" + save_wip_queue_details_url);
+//        log.info("====URL_POST====update_wip_date_needed_url====>" + update_wip_date_needed_url);
+
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("wipStatusId", String.valueOf(obj.getWipStatusId()));
+        formData.add("taskId", String.valueOf(obj.getTaskId()));
+        formData.add("objectId", String.valueOf(obj.getObjectId()));
+        formData.add("objectInstanceId", String.valueOf(obj.getObjectInstanceId()));
+        formData.add("objectInstanceIdUuid", String.valueOf(obj.getObjectInstanceIdUuid()));
+        formData.add("wipSetById", String.valueOf(obj.getWipSetById()));
+        formData.add("wipSetByName", String.valueOf(obj.getWipSetByName()));
+        formData.add("assignedById", String.valueOf(obj.getAssignedById()));
+        formData.add("assignedByName", String.valueOf(obj.getAssignedByName()));
+        formData.add("assignedToId", String.valueOf(obj.getAssignedToId()));
+        formData.add("assignedToName", String.valueOf(obj.getAssignedToName()));
+        formData.add("assignedDate", String.valueOf(obj.getAssignedDate()));
+        formData.add("assignedStatus", String.valueOf(obj.getAssignedStatus()));
+        formData.add("wipNotes", String.valueOf(obj.getWipNotes()));
+        formData.add("assignmentNotes", String.valueOf(obj.getAssignmentNotes()));
+        formData.add("assignmentStatusNotes", String.valueOf(obj.getAssignmentStatusNotes()));
+        formData.add("objectInstanceIdNo", String.valueOf(obj.getObjectInstanceIdNo()));
+        formData.add("state", String.valueOf(obj.getState()));
+
+        wipOutcome = webClient.post()
+            .uri(uriBuilder -> uriBuilder.path(save_wip_queue_details_url).queryParams(formData).build())
+            .header("Authorization", "Bearer " + token)
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<>() {
+            });
+
+        return wipOutcome.map(outcome -> {
+//            MultiValueMap<String, String> formData1 = new LinkedMultiValueMap<>();
+//            formData.add("taskId", String.valueOf(obj.getTaskId()));
+//            formData.add("assignedToId", String.valueOf(obj.getAssignedToId()));
+//            formData.add("objectid", String.valueOf(obj.getObjectId()));
+//            formData.add("objectinstanceidno", String.valueOf(obj.getObjectInstanceIdNo()));
+//            formData.add("wipstatusid", String.valueOf(obj.getWipStatusId()));
+//            formData.add("dateNeeded", String.valueOf(obj.getDateNeeded()));
+
+            if (outcome != null && outcome.getOutcome() == true) {
+//                Mono<ServiceOutcome<TaskDetailsOutputDTO>> taskDetailsOutput = webClient.post()
+//                    .uri(uriBuilder -> uriBuilder.path(update_wip_date_needed_url).queryParams(formData).build())
+//                    .header("Authorization", "Bearer " + token)
+//                    .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+//                    .retrieve()
+//                    .bodyToMono(new ParameterizedTypeReference<ServiceOutcome<TaskDetailsOutputDTO>>() {
+//                    });
+//                if (outcome.getMessage().equals("WIP Queue Details already exist. Please complete it")
+//                    || outcome.getMessage().equals("State of the Task is updated to Completed")
+//                    || outcome.getMessage().equals("Task is already Completed, Kindly add an updated task")) {
+
+                return Mono.just(new ServiceOutcome<WipQueueDetailsOutputDTO>(outcome.getData(), true, outcome.getMessage()));
+//                } else {
+//                    return taskDetailsOutput.flatMap(outcomeTask -> {
+//                        if (outcomeTask != null && outcomeTask.getOutcome() == true) {
+//                            return Mono.just(new ServiceOutcome<WipQueueDetailsOutputDTO>(outcome.getData(), true, "WIP_Status_Details Successfully Updated."));
+//                        } else {
+//                            return Mono.just(new ServiceOutcome<WipQueueDetailsOutputDTO>(null, true, "WIP_Status_Details Successfully Updated without Date_Needed."));
+//                        }
+//                    });
+//                }
+            } else {
+                return Mono.just(new ServiceOutcome<WipQueueDetailsOutputDTO>(null, false, "Failed to Update WIP_Status_Details: Data or Service_Communication Error."));
+            }
+        }).flatMap(obj1 -> obj1);
     }
 }

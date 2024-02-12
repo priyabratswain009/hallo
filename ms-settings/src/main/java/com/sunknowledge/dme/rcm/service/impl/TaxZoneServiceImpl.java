@@ -41,7 +41,7 @@ public class TaxZoneServiceImpl implements TaxZoneService {
 
     @Override
     public TaxZoneDTO update(TaxZoneDTO taxZoneDTO) {
-        log.debug("Request to save TaxZone : {}", taxZoneDTO);
+        log.debug("Request to update TaxZone : {}", taxZoneDTO);
         TaxZone taxZone = taxZoneMapper.toEntity(taxZoneDTO);
         taxZone = taxZoneRepository.save(taxZone);
         return taxZoneMapper.toDto(taxZone);

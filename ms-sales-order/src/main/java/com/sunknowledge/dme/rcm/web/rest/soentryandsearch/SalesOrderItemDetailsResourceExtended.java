@@ -1,17 +1,15 @@
 package com.sunknowledge.dme.rcm.web.rest.soentryandsearch;
 
-import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
-import com.sunknowledge.dme.rcm.domain.DeliveryAbnData;
-import com.sunknowledge.dme.rcm.domain.SalesOrderItemDetails;
-import com.sunknowledge.dme.rcm.dto.soItemDetails.ItemDefaultVendorResponseDTO;
-import com.sunknowledge.dme.rcm.dto.soItemDetailsAndClicnicalAndInsurance.SoItemDetailsAndClinicalAndInsuranceResponseData;
-import com.sunknowledge.dme.rcm.service.dto.SalesOrderItemDetailsDTO;
-import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
-import com.sunknowledge.dme.rcm.service.dto.po.RemoveDropshipParameterDTO;
-import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderItemDetailsEntryParameterDTO;
-import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderItemDetailsServiceExtended;
-import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderMasterServiceExtented;
-import io.swagger.annotations.ApiOperation;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -25,16 +23,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.concurrent.ExecutionException;
+import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.domain.DeliveryAbnData;
+import com.sunknowledge.dme.rcm.domain.SalesOrderItemDetails;
+import com.sunknowledge.dme.rcm.dto.soItemDetails.ItemDefaultVendorResponseDTO;
+import com.sunknowledge.dme.rcm.dto.soItemDetailsAndClicnicalAndInsurance.SoItemDetailsAndClinicalAndInsuranceResponseData;
+import com.sunknowledge.dme.rcm.service.dto.SalesOrderItemDetailsDTO;
+import com.sunknowledge.dme.rcm.service.dto.common.ResponseDTO;
+import com.sunknowledge.dme.rcm.service.dto.po.RemoveDropshipParameterDTO;
+import com.sunknowledge.dme.rcm.service.dto.soentryandsearch.SalesOrderItemDetailsEntryParameterDTO;
+import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderItemDetailsServiceExtended;
+import com.sunknowledge.dme.rcm.service.soentryandsearch.SalesOrderMasterServiceExtented;
+
+import io.swagger.annotations.ApiOperation;
+import reactor.core.publisher.Mono;
 
 @Validated
 @RestController
@@ -49,9 +52,11 @@ public class SalesOrderItemDetailsResourceExtended {
     private String applicationName;
 
     @GetMapping("/getSOItemDetailsBySOItemDetailsUUID")
-    public Mono<SalesOrderItemDetails> getSOItemDetailsBySOItemDetailsUUID(
+    public Mono<ResponseDTO> getSOItemDetailsBySOItemDetailsUUID(
         @NotNull(message = "SalesOrder_ItemDetails_UUID must be provided")
         @RequestParam("sOItemDetailsUUID") UUID sOItemDetailsUUID) {
+
+        System.out.println("getSOItemDetailsBySOItemDetailsUUID called ......" + sOItemDetailsUUID);
         //----- Implementing UUID_To_ID Bridge Method ----------
         Long id = 0L;
         if (sOItemDetailsUUID != null) {
@@ -64,11 +69,23 @@ public class SalesOrderItemDetailsResourceExtended {
             }
             id = id != null ? id : 0L;
         }
-        return salesOrderItemDetailsServiceExtended.findById(id);
+        System.out.println("getSOItemDetailsBySOItemDetailsUUID called ......" + id);
+
+        if (id == 0) {
+            return Mono.just(new ResponseDTO<SalesOrderItemDetails>(false, "Sales Order Item Details Not Found", new SalesOrderItemDetails(), 204L));
+        } else {
+            try {
+                return Mono.just(new ResponseDTO<SalesOrderItemDetails>(true, "", salesOrderItemDetailsServiceExtended.findById(id).toFuture().get(), 200L));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @GetMapping("/getSOItemDetailsBySOUUID")
-    public Flux<SalesOrderItemDetails> getSOItemDetailsBySOUUID(
+    public Mono<ResponseDTO> getSOItemDetailsBySOUUID(
         @NotNull(message = "SalesOrder_UUID must be provided")
         @RequestParam("salesOrderUUID") UUID salesOrderUUID) {
         //----- Implementing UUID_To_ID Bridge Method ----------
@@ -83,7 +100,18 @@ public class SalesOrderItemDetailsResourceExtended {
             }
             id = id != null ? id : 0L;
         }
-        return salesOrderItemDetailsServiceExtended.findBySalesOrderId(id);
+
+        if (id == 0) {
+            return Mono.just(new ResponseDTO(false, "Sales Order Item Details Not Found", new ArrayList<>(), 204L));
+        } else {
+            try {
+                return Mono.just(new ResponseDTO(true, "", salesOrderItemDetailsServiceExtended.findBySalesOrderId(id).collectList().toFuture().get(), 200L));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @ApiOperation(value = "Create ABN Data For Sales Order Item Details")
@@ -186,10 +214,10 @@ public class SalesOrderItemDetailsResourceExtended {
             if (data != null && data.getOutcome()) {
                 return salesOrderItemDetailsServiceExtended.saveSOItemDetails(obj, salesOrderItemDetailsEntryParameterDTO, fetchMasterClinicalIns);
             } else {
-                return Mono.just(new ResponseDTO(data.getOutcome(), data.getMessage(), List.of(data.getData())));
+                return Mono.just(new ResponseDTO<SalesOrderItemDetails>(data.getOutcome(), data.getMessage(), new SalesOrderItemDetails(), 203L));
             }
         } else {
-            return Mono.just(new ResponseDTO(false, "Sales Order Not Found", new ArrayList()));
+            return Mono.just(new ResponseDTO<SalesOrderItemDetails>(false, "Sales Order Not Found", new SalesOrderItemDetails(), 204L));
         }
     }
 
@@ -273,20 +301,24 @@ public class SalesOrderItemDetailsResourceExtended {
                     && salesOrderItemDetailsEntryParameterDTO.getIsResupplyType().equalsIgnoreCase("Y")
                     && (salesOrderItemDetailsEntryParameterDTO.getFrequencyCount() == null || salesOrderItemDetailsEntryParameterDTO.getFrequencyCount() == 0
                     || salesOrderItemDetailsEntryParameterDTO.getFrequencyInterval() == null || salesOrderItemDetailsEntryParameterDTO.getFrequencyInterval() == 0)) {
-                    return Mono.just(new ResponseDTO(false, "Frequency Count and Frequency Interval must be provided.", new ArrayList()));
+                    return Mono.just(new ResponseDTO(false, "Frequency Count and Frequency Interval must be provided.", new SalesOrderItemDetailsDTO(), 203L));
                 } else {
                     if (salesOrderItemDetailsEntryParameterDTO.getSalesOrderDetailsSaleType().equalsIgnoreCase("Rental")
                         && salesOrderItemDetailsEntryParameterDTO.getIsResupplyType().equalsIgnoreCase("Y")) {
-                        return Mono.just(new ResponseDTO(false, "Item of type resupply is not allow for sale type 'Rental'.", new ArrayList()));
+                        return Mono.just(new ResponseDTO(false, "Resupply Item is not allow for sale type 'Rental'.", new SalesOrderItemDetailsDTO(), 203L));
                     } else {
-                        return salesOrderItemDetailsServiceExtended.saveSOItemDetailsWithDropship(obj, salesOrderItemDetailsEntryParameterDTO, fetchMasterClinicalIns);
+                        if (salesOrderItemDetailsEntryParameterDTO.getSalesOrderDetailsSaleType().equalsIgnoreCase("Rental")) {
+                            return Mono.just(new ResponseDTO(false, "Rental Item is not allow for Dropship.", new SalesOrderItemDetailsDTO(), 203L));
+                        } else {
+                            return salesOrderItemDetailsServiceExtended.saveSOItemDetailsWithDropship(obj, salesOrderItemDetailsEntryParameterDTO, fetchMasterClinicalIns);
+                        }
                     }
                 }
             } else {
-                return Mono.just(new ResponseDTO(data.getOutcome(), data.getMessage(), List.of(data.getData())));
+                return Mono.just(new ResponseDTO(data.getOutcome(), data.getMessage(), new SalesOrderItemDetailsDTO(), 203L));
             }
         } else {
-            return Mono.just(new ResponseDTO(false, "Sales Order Not Found", new ArrayList()));
+            return Mono.just(new ResponseDTO(false, "Sales Order Not Found", new SalesOrderItemDetailsDTO(), 204L));
         }
 
     }
@@ -359,5 +391,33 @@ public class SalesOrderItemDetailsResourceExtended {
             return salesOrderItemDetailsServiceExtended.linkForCmnItems(cmnId, salesOrderId, salesOrderDetailsItemId);
         else
             return Mono.just(new ServiceOutcome(null, false, " Please Check Cmn_Id OR Sales_Order_UUID : " + cmnId + " or " + salesOrderUuid));
+    }
+
+    @GetMapping("/getSOItemDetailsBySOID")
+    public Mono<ServiceOutcome> getSOItemDetailsBySOID(
+        @NotNull(message = "SalesOrder_ID must be provided")
+        @RequestParam("salesOrderID") Long salesOrderID) {
+
+        if (!salesOrderID.equals(0) && Objects.nonNull(salesOrderID))
+            return salesOrderItemDetailsServiceExtended.findBySalesOrderId(salesOrderID)
+                .collectList()
+                .map(data -> new ServiceOutcome(data.size() > 0 ? data : null, data.size() > 0 ? true : false, data.size() > 0 ? "Data Found Successfully" : "Data Not Found"));
+        else
+            return Mono.just(new ServiceOutcome(null, false, "Data Not Found"));
+
+    }
+
+    @GetMapping("/getSORentalItemDetailsBySOID")
+    public Mono<ServiceOutcome<List<Map<String, Object>>>> getSORentalItemDetailsBySOID(@RequestParam("salesOrderID") Long salesOrderID) throws InterruptedException, ExecutionException {
+
+       return salesOrderItemDetailsServiceExtended.getSORentalItemDetailsBySOID(salesOrderID);
+
+    }
+
+    @GetMapping("/getselectedItemsForSOID")
+    public Mono<ServiceOutcome> getselectedItemsForSOID(@RequestParam("salesOrderID") Long salesOrderID, @RequestParam("items") String items) throws InterruptedException, ExecutionException{
+
+       return salesOrderItemDetailsServiceExtended.getselectedItemsForSOID(salesOrderID, items);
+
     }
 }

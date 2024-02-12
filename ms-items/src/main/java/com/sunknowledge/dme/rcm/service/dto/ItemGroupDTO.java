@@ -8,7 +8,6 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ItemGroup} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ItemGroupDTO implements Serializable {
 
     private Long itemGroupId;

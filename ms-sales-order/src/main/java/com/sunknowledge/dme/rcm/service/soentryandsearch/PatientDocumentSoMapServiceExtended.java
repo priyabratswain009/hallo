@@ -42,7 +42,8 @@ public interface PatientDocumentSoMapServiceExtended extends PatientDocumentSoMa
 
     ResponseDTO getPatientDocumentsDataByPatientIdNo(String patientIdNo, String operationType) throws IOException, ParseException;
 
-    Flux<PatientDocumentSoMap> uploadPatientDocument(Flux<FilePart> patientFilePartFlux, Long soId, String soNo, UUID patientUUID, String patientDocumentStatus, String description, String documentType);
+    Flux<PatientDocumentSoMap> uploadPatientDocument(Flux<FilePart> patientFilePartFlux, Long soId, String soNo, UUID patientUUID,
+                                                     String patientDocumentStatus, String description, String documentType);
     Flux<String> getFileWithPathByPatientDocumentUuid(List<UUID> patientDocumentUuid);
     Mono<ResponseEntity<ByteArrayResource>> downloadPatientDocument(List<Path> filePaths) throws IOException;
 
@@ -55,4 +56,10 @@ public interface PatientDocumentSoMapServiceExtended extends PatientDocumentSoMa
     Mono<Long> getPatientIdBySoNo(String soNo);
     Mono<String> getPatientIdNoByPatientId(Long patientId);
     Flux<PatientDocumentSoMap> findPatientDocumentsSoDataByPatientIdNo(String patientIdNo);
+
+    Mono<PatientDocumentSoMapDTO> savePatientSoDocumentMap(PatientDocumentSoMapDTO patientDocumentSoMapDTO);
+
+    Flux<PatientDocumentSoMap> uploadPatientDocumentFromSOAndSaveInMap(String documentNameList, UUID patientUUID, String patientDocumentStatus,
+                                                                       String description, String documentType, boolean isCloudStorage, String upload,
+                                                                       Long soId, String soNo, String folderName);
 }

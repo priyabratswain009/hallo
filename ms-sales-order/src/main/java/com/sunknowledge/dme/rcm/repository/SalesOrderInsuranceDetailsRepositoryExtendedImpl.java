@@ -29,7 +29,7 @@ public class SalesOrderInsuranceDetailsRepositoryExtendedImpl extends SalesOrder
     }
 
     @Override
-    public Flux<SalesOrderInsuranceDetails> getSOInsuranceDetailsByInsuranceUUID(UUID sOInsuranceDetailsUUID) {
+    public Flux<SalesOrderInsuranceDetails> getSOInsuranceDetailsOnInsuranceUUID(UUID sOInsuranceDetailsUUID) {
         Comparison whereClause = Conditions.isEqual(entityTable.column("sales_order_insurance_details_uuid"), Conditions.just(sOInsuranceDetailsUUID.toString()));
         return createQuery(null, whereClause).all();
     }
@@ -40,13 +40,18 @@ public class SalesOrderInsuranceDetailsRepositoryExtendedImpl extends SalesOrder
     }
 
     @Override
-    public Mono<SalesOrderInsuranceDetails> findBySOId(Long SOID) {
+    public Mono<SalesOrderInsuranceDetails> findSOInsuranceOnSOId(Long SOID) {
         Comparison whereClause = Conditions.isEqual(entityTable.column("sales_order_id"), Conditions.just(SOID.toString()));
         return createQuery(null, whereClause).one();
     }
 
     @Override
-    public Mono<SalesOrderInsuranceDetails> getSoInsuranceDetailsBySoInsId(Long soInsId) {
+    public Mono<SalesOrderInsuranceDetails> getSoInsuranceDetailsOnSoInsId(Long soInsId) {
+        return null;
+    }
+
+    @Override
+    public Flux<SalesOrderInsuranceDetails> findSOInsuranceBySalesOrderId(Long soid) {
         return null;
     }
 

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface BranchOfficeRepositoryExtended extends BranchOfficeRepository {
@@ -143,4 +144,5 @@ public interface BranchOfficeRepositoryExtended extends BranchOfficeRepository {
     @Query(value = "select settings.f_get_branch_no()" ,nativeQuery = true)
     String getBranchNumber();
 
+    Optional<BranchOffice> findByBranchOfficeUuid(UUID uuid);
 }

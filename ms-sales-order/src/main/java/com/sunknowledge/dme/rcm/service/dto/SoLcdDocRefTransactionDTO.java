@@ -4,21 +4,18 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.SoLcdDocRefTransaction} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class SoLcdDocRefTransactionDTO implements Serializable {
 
+    @NotNull(message = "must not be null")
     private Long soLcdDocRefId;
 
     private Long soId;
-
-    private Long itemId;
-
-    private String itemName;
-
-    private String hcpcsCode;
 
     private Long checklistId;
 
@@ -46,6 +43,12 @@ public class SoLcdDocRefTransactionDTO implements Serializable {
 
     private UUID soLcdDocRefTransactionUuid;
 
+    private Long itemGroupId;
+
+    private String itemGroupName;
+
+    private Long coverageCriteriaId;
+
     public Long getSoLcdDocRefId() {
         return soLcdDocRefId;
     }
@@ -60,30 +63,6 @@ public class SoLcdDocRefTransactionDTO implements Serializable {
 
     public void setSoId(Long soId) {
         this.soId = soId;
-    }
-
-    public Long getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public String getHcpcsCode() {
-        return hcpcsCode;
-    }
-
-    public void setHcpcsCode(String hcpcsCode) {
-        this.hcpcsCode = hcpcsCode;
     }
 
     public Long getChecklistId() {
@@ -190,6 +169,30 @@ public class SoLcdDocRefTransactionDTO implements Serializable {
         this.soLcdDocRefTransactionUuid = soLcdDocRefTransactionUuid;
     }
 
+    public Long getItemGroupId() {
+        return itemGroupId;
+    }
+
+    public void setItemGroupId(Long itemGroupId) {
+        this.itemGroupId = itemGroupId;
+    }
+
+    public String getItemGroupName() {
+        return itemGroupName;
+    }
+
+    public void setItemGroupName(String itemGroupName) {
+        this.itemGroupName = itemGroupName;
+    }
+
+    public Long getCoverageCriteriaId() {
+        return coverageCriteriaId;
+    }
+
+    public void setCoverageCriteriaId(Long coverageCriteriaId) {
+        this.coverageCriteriaId = coverageCriteriaId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -217,9 +220,6 @@ public class SoLcdDocRefTransactionDTO implements Serializable {
         return "SoLcdDocRefTransactionDTO{" +
             "soLcdDocRefId=" + getSoLcdDocRefId() +
             ", soId=" + getSoId() +
-            ", itemId=" + getItemId() +
-            ", itemName='" + getItemName() + "'" +
-            ", hcpcsCode='" + getHcpcsCode() + "'" +
             ", checklistId=" + getChecklistId() +
             ", checklistName='" + getChecklistName() + "'" +
             ", docRefId=" + getDocRefId() +
@@ -233,6 +233,9 @@ public class SoLcdDocRefTransactionDTO implements Serializable {
             ", updatedById=" + getUpdatedById() +
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", soLcdDocRefTransactionUuid='" + getSoLcdDocRefTransactionUuid() + "'" +
+            ", itemGroupId=" + getItemGroupId() +
+            ", itemGroupName='" + getItemGroupName() + "'" +
+            ", coverageCriteriaId=" + getCoverageCriteriaId() +
             "}";
     }
 }

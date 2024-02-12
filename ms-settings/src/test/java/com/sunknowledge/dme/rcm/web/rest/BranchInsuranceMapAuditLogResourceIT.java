@@ -213,7 +213,7 @@ class BranchInsuranceMapAuditLogResourceIT {
 
     @Test
     @Transactional
-    void putNewBranchInsuranceMapAuditLog() throws Exception {
+    void putExistingBranchInsuranceMapAuditLog() throws Exception {
         // Initialize the database
         branchInsuranceMapAuditLogRepository.saveAndFlush(branchInsuranceMapAuditLog);
 

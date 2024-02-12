@@ -244,7 +244,7 @@ class PosMasterResourceIT {
 
     @Test
     @Transactional
-    void putNewPosMaster() throws Exception {
+    void putExistingPosMaster() throws Exception {
         // Initialize the database
         posMasterRepository.saveAndFlush(posMaster);
 

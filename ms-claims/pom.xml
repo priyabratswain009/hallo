@@ -418,6 +418,28 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sunknowledge.dme.rcm</groupId>
+            <artifactId>common-application</artifactId>
+            <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.sunknowledge.dme.rcm</groupId>
+            <artifactId>common-domain</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sunknowledge.dme.rcm</groupId>
+            <artifactId>common-util</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -625,7 +647,7 @@
                         </includeOnlyProperties>
                     </configuration>
                 </plugin>
-                <plugin>
+<!--                 <plugin>
                     <groupId>org.gaul</groupId>
                     <artifactId>modernizer-maven-plugin</artifactId>
                     <version>${modernizer-maven-plugin.version}</version>
@@ -641,7 +663,7 @@
                     <configuration>
                         <javaVersion>${java.version}</javaVersion>
                     </configuration>
-                </plugin>
+                </plugin> -->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>

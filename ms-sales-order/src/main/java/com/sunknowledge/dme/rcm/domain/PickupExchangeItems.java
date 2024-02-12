@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A PickupExchangeItems.
  */
 @Table("t_pickup_exchange_items")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PickupExchangeItems implements Serializable {
 
     private static final long serialVersionUID = 1L;

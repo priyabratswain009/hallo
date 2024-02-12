@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A PrimaryClaimResubmisionMaster.
  */
 @Table("t_primary_claim_resubmision_master")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class PrimaryClaimResubmisionMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;

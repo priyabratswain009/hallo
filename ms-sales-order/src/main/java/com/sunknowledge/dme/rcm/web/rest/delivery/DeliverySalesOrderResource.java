@@ -1,6 +1,8 @@
 package com.sunknowledge.dme.rcm.web.rest.delivery;
 
+import com.sunknowledge.dme.rcm.application.applicationstatus.MicroserviceNames;
 import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
+import com.sunknowledge.dme.rcm.mshealthcheck.service.MicroserviceHealthCheck;
 import com.sunknowledge.dme.rcm.service.delivery.DeliverySalesOrderService;
 import com.sunknowledge.dme.rcm.service.dto.delivery.CreateDeliveryTicketParams;
 import com.sunknowledge.dme.rcm.service.dto.delivery.ItemInventoryStatusResponse;
@@ -24,6 +26,11 @@ import reactor.core.publisher.Mono;
 public class DeliverySalesOrderResource {
     @Autowired
     private DeliverySalesOrderService deliverySalesOrderService;
+    @Autowired
+    private MicroserviceHealthCheck microserviceHealthCheck;
+//    public static final String SALESORDER_DELIVERY_SERVICE = "salesOrderDeliveryService";
+//    private static final String BASEURL = "http://localhost:8080/services/items";
+    //http://localhost:8080/services/items/api/inventory/updateItemInventoryStatusByItemAndLocation
 
     @ApiOperation(value = "Create Delivery Ticket")
     @PostMapping(value="/createDeliveryTicket")
@@ -32,14 +39,23 @@ public class DeliverySalesOrderResource {
         ServiceOutcome<ItemInventoryStatusResponse> validateOutcome = null;
         try {
             System.out.println("======================Result============================" + createDeliveryTicketParams.getSalesOrderId());
-//            Mono<ServiceOutcome<Boolean>> status = deliverySalesOrderService.itemServiceHealthCheck();
-//            status.subscribe(System.out::println);
-            validateOutcome = ValidationUtility.validateCreateDeliveryTicketRequestParams(createDeliveryTicketParams);
-            if (validateOutcome.getOutcome()){
-                return deliverySalesOrderService.createDeliveryTicketNew(createDeliveryTicketParams);
-            }
-            else
-                return Mono.just(new ServiceOutcome<>(new ItemInventoryStatusResponse(), false, "Failed to create the delivery ticket!!!"));
+            return microserviceHealthCheck.microserviceHealthCheck(MicroserviceNames.items.name())
+                .mapNotNull(a -> {
+                    log.info("===============a===============>>>>"+a);
+                    if(a && ValidationUtility.validateCreateDeliveryTicketRequestParams(createDeliveryTicketParams).getOutcome()){
+                        log.info("===============IF===============>>>>");
+                        try {
+                            return deliverySalesOrderService.createDeliveryTicketNew(createDeliveryTicketParams);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    else{
+                        log.info("===============ELSE===============>>>>");
+                        return Mono.just(new ServiceOutcome<>(new ItemInventoryStatusResponse(), false, "Failed to create the delivery ticket!!!"));
+                    }
+                })
+                .flatMap(x -> x);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -47,6 +63,7 @@ public class DeliverySalesOrderResource {
         return Mono.just(new ServiceOutcome<>(new ItemInventoryStatusResponse(), false, "Failed to create the delivery ticket!!!"));
     }
 
+    //return Mono.just(new ServiceOutcome<>(null, false, "Item service is DOWN, please try after some time!"));
     public Mono<String> salesOrderDeliveryServiceFallBack(Exception e){
         return Mono.just("This is a fallback method of SALESORDER_DELIVERY_SERVICE");
     }

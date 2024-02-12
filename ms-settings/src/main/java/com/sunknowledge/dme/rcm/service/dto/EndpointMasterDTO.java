@@ -8,6 +8,7 @@ import java.util.UUID;
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.EndpointMaster} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class EndpointMasterDTO implements Serializable {
 
     private Long endpointId;

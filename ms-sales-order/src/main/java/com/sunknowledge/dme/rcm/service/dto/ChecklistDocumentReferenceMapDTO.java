@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.sunknowledge.dme.rcm.domain.ChecklistDocumentReferenceMap} entity.
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class ChecklistDocumentReferenceMapDTO implements Serializable {
 
+    @NotNull(message = "must not be null")
     private Long checklistDocumentReferenceId;
 
     private Long checklistId;
@@ -35,6 +38,10 @@ public class ChecklistDocumentReferenceMapDTO implements Serializable {
     private String updatedByName;
 
     private UUID checklistDocumentReferenceMapUuid;
+
+    private Long itemGroupId;
+
+    private String itemGroupName;
 
     public Long getChecklistDocumentReferenceId() {
         return checklistDocumentReferenceId;
@@ -140,6 +147,22 @@ public class ChecklistDocumentReferenceMapDTO implements Serializable {
         this.checklistDocumentReferenceMapUuid = checklistDocumentReferenceMapUuid;
     }
 
+    public Long getItemGroupId() {
+        return itemGroupId;
+    }
+
+    public void setItemGroupId(Long itemGroupId) {
+        this.itemGroupId = itemGroupId;
+    }
+
+    public String getItemGroupName() {
+        return itemGroupName;
+    }
+
+    public void setItemGroupName(String itemGroupName) {
+        this.itemGroupName = itemGroupName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -178,6 +201,8 @@ public class ChecklistDocumentReferenceMapDTO implements Serializable {
             ", updatedById=" + getUpdatedById() +
             ", updatedByName='" + getUpdatedByName() + "'" +
             ", checklistDocumentReferenceMapUuid='" + getChecklistDocumentReferenceMapUuid() + "'" +
+            ", itemGroupId=" + getItemGroupId() +
+            ", itemGroupName='" + getItemGroupName() + "'" +
             "}";
     }
 }

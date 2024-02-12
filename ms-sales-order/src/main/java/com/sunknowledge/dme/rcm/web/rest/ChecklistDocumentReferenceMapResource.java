@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +67,7 @@ public class ChecklistDocumentReferenceMapResource {
      */
     @PostMapping("/checklist-document-reference-maps")
     public Mono<ResponseEntity<ChecklistDocumentReferenceMapDTO>> createChecklistDocumentReferenceMap(
-        @RequestBody ChecklistDocumentReferenceMapDTO checklistDocumentReferenceMapDTO
+        @Valid @RequestBody ChecklistDocumentReferenceMapDTO checklistDocumentReferenceMapDTO
     ) throws URISyntaxException {
         log.debug("REST request to save ChecklistDocumentReferenceMap : {}", checklistDocumentReferenceMapDTO);
         if (checklistDocumentReferenceMapDTO.getChecklistDocumentReferenceId() != null) {
@@ -105,7 +107,7 @@ public class ChecklistDocumentReferenceMapResource {
     @PutMapping("/checklist-document-reference-maps/{checklistDocumentReferenceId}")
     public Mono<ResponseEntity<ChecklistDocumentReferenceMapDTO>> updateChecklistDocumentReferenceMap(
         @PathVariable(value = "checklistDocumentReferenceId", required = false) final Long checklistDocumentReferenceId,
-        @RequestBody ChecklistDocumentReferenceMapDTO checklistDocumentReferenceMapDTO
+        @Valid @RequestBody ChecklistDocumentReferenceMapDTO checklistDocumentReferenceMapDTO
     ) throws URISyntaxException {
         log.debug(
             "REST request to update ChecklistDocumentReferenceMap : {}, {}",
@@ -162,7 +164,7 @@ public class ChecklistDocumentReferenceMapResource {
     )
     public Mono<ResponseEntity<ChecklistDocumentReferenceMapDTO>> partialUpdateChecklistDocumentReferenceMap(
         @PathVariable(value = "checklistDocumentReferenceId", required = false) final Long checklistDocumentReferenceId,
-        @RequestBody ChecklistDocumentReferenceMapDTO checklistDocumentReferenceMapDTO
+        @NotNull @RequestBody ChecklistDocumentReferenceMapDTO checklistDocumentReferenceMapDTO
     ) throws URISyntaxException {
         log.debug(
             "REST request to partial update ChecklistDocumentReferenceMap partially : {}, {}",
@@ -254,16 +256,17 @@ public class ChecklistDocumentReferenceMapResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/checklist-document-reference-maps/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public Mono<ResponseEntity<Void>> deleteChecklistDocumentReferenceMap(@PathVariable Long id) {
         log.debug("REST request to delete ChecklistDocumentReferenceMap : {}", id);
         return checklistDocumentReferenceMapService
             .delete(id)
-            .map(result ->
-                ResponseEntity
-                    .noContent()
-                    .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-                    .build()
+            .then(
+                Mono.just(
+                    ResponseEntity
+                        .noContent()
+                        .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+                        .build()
+                )
             );
     }
 }

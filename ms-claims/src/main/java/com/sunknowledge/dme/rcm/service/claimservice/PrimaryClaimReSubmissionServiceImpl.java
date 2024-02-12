@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sunknowledge.dme.rcm.application.core.ServiceOutcome;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.sunknowledge.dme.rcm.application.utils.ApplicationConstants;
-import com.sunknowledge.dme.rcm.core.ServiceOutcome;
 import com.sunknowledge.dme.rcm.core.TokenOutCome;
 import com.sunknowledge.dme.rcm.domain.ClaimSubmissionStatus;
 import com.sunknowledge.dme.rcm.domain.PrimaryClaimsReSubmissionMaster;
@@ -137,7 +137,7 @@ public class PrimaryClaimReSubmissionServiceImpl implements PrimaryClaimReSubmis
 			headers.set("Authorization", "Bearer " + token);
 			ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 			inputEntity = ow.writeValueAsString(claimSubmissionInput);
-			
+
 			System.out.println("INPUT========= "+inputEntity);
 
 			HttpEntity<String> inputCriteriaEntity = new HttpEntity<String>(inputEntity, headers);
@@ -277,7 +277,7 @@ public class PrimaryClaimReSubmissionServiceImpl implements PrimaryClaimReSubmis
 		// Subscriber
 		Subscriber objSubscriber = new Subscriber();
 		if (DmeUtilities.isStringNullOrBlank(String.valueOf(claims.getSubscriberMemberIdNo()))) {
-			//HARDCODING FOR CHC 
+			//HARDCODING FOR CHC
 			objSubscriber.setMemberId("0000000001");
 		}
 		if (DmeUtilities.isStringNullOrBlank(String.valueOf(claims.getSubscriberPaymentResponsibilityLevelCode()))) {
@@ -358,7 +358,7 @@ public class PrimaryClaimReSubmissionServiceImpl implements PrimaryClaimReSubmis
 		}
 		// need to change/update this
 		if (DmeUtilities.isStringNullOrBlank(String.valueOf(claims.getClaimControlNo()))) {
-			//HARDCODING FOR CHC 
+			//HARDCODING FOR CHC
 			objClaimInformation.setPatientControlNumber("12345");
 		}
 		if (DmeUtilities.isStringNullOrBlank(String.valueOf(claims.getClaimChargeAmount()))) {
@@ -510,7 +510,7 @@ public class PrimaryClaimReSubmissionServiceImpl implements PrimaryClaimReSubmis
 				professionalService.setProcedureCode(String.valueOf(serviceLines.get(i).getProcCode()));
 			}
 			if (DmeUtilities.isStringNullOrBlank(String.valueOf(serviceLines.get(i).getItemUom()))) {
-				//HARDCODING FOR CHC 
+				//HARDCODING FOR CHC
 				professionalService.setMeasurementUnit("UN");
 			}
 			if (DmeUtilities.isStringNullOrBlank(String.valueOf(serviceLines.get(i).getQty()))) {

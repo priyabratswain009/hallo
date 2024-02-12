@@ -300,7 +300,7 @@ class ItemProcedureCodeMapResourceIT {
 
     @Test
     @Transactional
-    void putExistingItemProcedureCodeMap() throws Exception {
+    void putNewItemProcedureCodeMap() throws Exception {
         // Initialize the database
         itemProcedureCodeMapRepository.saveAndFlush(itemProcedureCodeMap);
 

@@ -1,0 +1,104 @@
+{
+  "applications": "*",
+  "changelogDate": "20231101114049",
+  "clientRootFolder": "salesorder",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "t_coverage_criteria_file_map",
+  "fields": [
+    {
+      "fieldName": "coverageCriteriaFileMapId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"],
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "checklistId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "checklistName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "documentReferenceId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "documentReferenceName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fileName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "updatedById",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "updatedByName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageCriteriaFileMapUuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "fileReference",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageCriteriaNotes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "soId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "itemGroupName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverageCriteriaId",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "salesorder",
+  "name": "CoverageCriteriaFileMap",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl",
+  "skipCheckLengthOfIdentifier": true
+}

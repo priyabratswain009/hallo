@@ -4,6 +4,7 @@ import com.sunknowledge.dme.rcm.domain.ClaimFormMaster;
 import com.sunknowledge.dme.rcm.repository.ClaimFormMasterRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ClaimFormMasterRepositoryExtended extends ClaimFormMasterRepository {
@@ -12,4 +13,6 @@ public interface ClaimFormMasterRepositoryExtended extends ClaimFormMasterReposi
     ClaimFormMaster findByClaimFormMasterUuid(UUID claimFormMasterUuid);
 
     List<ClaimFormMaster> findByClaimFormMasterUuidNot(UUID claimFormMasterUuid);
+
+    Optional<ClaimFormMaster> findByClaimFormIdAndStatusIgnoreCase(long id, String active);
 }

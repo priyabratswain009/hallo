@@ -44,7 +44,7 @@ public class SalesOrderMasterAuditLogServiceImpl implements SalesOrderMasterAudi
 
     @Override
     public Mono<SalesOrderMasterAuditLogDTO> update(SalesOrderMasterAuditLogDTO salesOrderMasterAuditLogDTO) {
-        log.debug("Request to save SalesOrderMasterAuditLog : {}", salesOrderMasterAuditLogDTO);
+        log.debug("Request to update SalesOrderMasterAuditLog : {}", salesOrderMasterAuditLogDTO);
         return salesOrderMasterAuditLogRepository
             .save(salesOrderMasterAuditLogMapper.toEntity(salesOrderMasterAuditLogDTO))
             .map(salesOrderMasterAuditLogMapper::toDto);

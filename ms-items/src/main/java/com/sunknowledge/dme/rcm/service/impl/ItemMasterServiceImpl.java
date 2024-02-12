@@ -41,7 +41,7 @@ public class ItemMasterServiceImpl implements ItemMasterService {
 
     @Override
     public ItemMasterDTO update(ItemMasterDTO itemMasterDTO) {
-        log.debug("Request to update ItemMaster : {}", itemMasterDTO);
+        log.debug("Request to save ItemMaster : {}", itemMasterDTO);
         ItemMaster itemMaster = itemMasterMapper.toEntity(itemMasterDTO);
         itemMaster = itemMasterRepository.save(itemMaster);
         return itemMasterMapper.toDto(itemMaster);

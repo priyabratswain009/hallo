@@ -48,7 +48,7 @@ public class SecondaryClaimSubmisionServicelinesServiceImpl implements Secondary
     public Mono<SecondaryClaimSubmisionServicelinesDTO> update(
         SecondaryClaimSubmisionServicelinesDTO secondaryClaimSubmisionServicelinesDTO
     ) {
-        log.debug("Request to save SecondaryClaimSubmisionServicelines : {}", secondaryClaimSubmisionServicelinesDTO);
+        log.debug("Request to update SecondaryClaimSubmisionServicelines : {}", secondaryClaimSubmisionServicelinesDTO);
         return secondaryClaimSubmisionServicelinesRepository
             .save(secondaryClaimSubmisionServicelinesMapper.toEntity(secondaryClaimSubmisionServicelinesDTO))
             .map(secondaryClaimSubmisionServicelinesMapper::toDto);

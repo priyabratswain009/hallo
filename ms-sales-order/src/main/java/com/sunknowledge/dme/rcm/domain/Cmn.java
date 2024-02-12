@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A Cmn.
  */
 @Table("t_cmn")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Cmn implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * A DeliveryAbnData.
  */
 @Table("t_delivery_abn_data")
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class DeliveryAbnData implements Serializable {
 
     private static final long serialVersionUID = 1L;

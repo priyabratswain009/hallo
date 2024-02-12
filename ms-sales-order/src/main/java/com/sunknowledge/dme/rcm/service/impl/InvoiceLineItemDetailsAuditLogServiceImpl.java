@@ -44,7 +44,7 @@ public class InvoiceLineItemDetailsAuditLogServiceImpl implements InvoiceLineIte
 
     @Override
     public Mono<InvoiceLineItemDetailsAuditLogDTO> update(InvoiceLineItemDetailsAuditLogDTO invoiceLineItemDetailsAuditLogDTO) {
-        log.debug("Request to save InvoiceLineItemDetailsAuditLog : {}", invoiceLineItemDetailsAuditLogDTO);
+        log.debug("Request to update InvoiceLineItemDetailsAuditLog : {}", invoiceLineItemDetailsAuditLogDTO);
         return invoiceLineItemDetailsAuditLogRepository
             .save(invoiceLineItemDetailsAuditLogMapper.toEntity(invoiceLineItemDetailsAuditLogDTO))
             .map(invoiceLineItemDetailsAuditLogMapper::toDto);

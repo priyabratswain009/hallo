@@ -260,7 +260,7 @@ class PriceMasterResourceIT {
 
     @Test
     @Transactional
-    void putExistingPriceMaster() throws Exception {
+    void putNewPriceMaster() throws Exception {
         // Initialize the database
         priceMasterRepository.saveAndFlush(priceMaster);
 

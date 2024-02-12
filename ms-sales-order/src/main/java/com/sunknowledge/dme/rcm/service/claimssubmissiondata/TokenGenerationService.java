@@ -1,5 +1,12 @@
 package com.sunknowledge.dme.rcm.service.claimssubmissiondata;
 
+import com.sunknowledge.dme.rcm.domain.elligibility.TokenOutCome;
+import reactor.core.publisher.Mono;
+
 public interface TokenGenerationService {
-	String getToken();
+	TokenOutCome getToken();
+
+    String getCoverageToken();
+
+    Mono<TokenOutCome> getTokenMono();
 }
