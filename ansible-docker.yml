@@ -1,0 +1,6 @@
+- name: Run Shell Script with command module
+  hosts: dev
+  become: yes
+  tasks:
+    - name: Run the shell script
+      command: /home/ubuntu/a.sh
